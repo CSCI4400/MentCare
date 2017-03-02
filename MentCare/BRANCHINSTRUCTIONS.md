@@ -3,7 +3,7 @@
 <h3>How to pull changes from another group's development branch:</h3>
 
 <p>1. On GitHub, navigate to the branch that you want to <strong>pull</strong> code from.
-		Exmaple: Team5 is wanting to pull code from Butterscotch. Team5 will navigate to
+		Example: Team5 is wanting to pull code from Butterscotch. Team5 will navigate to
 		Butterscotch's branch on GitHub.</p>
 
 <p>2. After navigating to the branch with the code that is needing to be pulled, click on
