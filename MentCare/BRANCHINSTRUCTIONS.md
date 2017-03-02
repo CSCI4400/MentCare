@@ -27,7 +27,7 @@
 	your files are out sync, which is a requirement. To fix the issue, you first need to pull down from
 	the branch you're wanting to push to and then push your updates up to the branch.
 	Example: Team5 wants to push the changes that they've made on their branch to the master branch,
-	however, they are unable. First team branch needs to pull down from the master branch. After pulling down
+	however, they are unable. First, Team5 needs to pull down from the master branch. After pulling down
 	from the master branch, Team5 can now push their branch up to the master.</p>
 	
 <h3>Resources</h3>
