@@ -52,5 +52,6 @@
 	https://git-scm.com/docs/git-merge
 	https://git-scm.com/docs/git-revert (use with caution)</p>
 	
-	<h3>Git Branching Model</h3>
-	<p>http://nvie.com/posts/a-successful-git-branching-model/</p>
+<h3>Git Branching Model</h3>
+	
+<p>http://nvie.com/posts/a-successful-git-branching-model</p>
