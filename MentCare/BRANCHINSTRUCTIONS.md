@@ -1,4 +1,4 @@
-<h5>"Instructions for Branch Usage"</h5>
+<h3>"Instructions for Branch Usage"</h3>
 
 <h3>How to pull changes from another group's development branch:</h3>
 
