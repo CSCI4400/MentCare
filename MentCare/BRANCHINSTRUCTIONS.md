@@ -18,4 +18,4 @@
 
 <p>4. After clicking "Create new pull request," you can add a comment in the "comment box." After completing
 		this field, you will need to click on <strong>"Merge pull request."</strong> Additionally, if you need
-		to cancel the pull, click on <strong>"Close pull reques.t"</strong></p>
+		to cancel the pull, click on <strong>"Close pull request."</strong></p>
