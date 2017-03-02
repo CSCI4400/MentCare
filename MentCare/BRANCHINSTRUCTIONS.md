@@ -19,3 +19,35 @@
 <p>4. After clicking "Create new pull request," you can add a comment in the "comment box." After completing
 		this field, you will need to click on <strong>"Merge pull request."</strong> Additionally, if you need
 		to cancel the pull, click on <strong>"Close pull request."</strong></p>
+		
+		
+<h3>Additional Information</h3>
+
+<p>If you find that you are unable to push your branch to master, the reason why is most likely because
+	your files are out sync, which is a requirement. To fix the issue, you first need to pull down from
+	the branch you're wanting to push to and then push your updates up to the branch.
+	Example: Team5 wants to push the changes that they've made on their branch to the master branch,
+	however, they are unable. First team branch needs to pull down from the master branch. After pulling down
+	from the master branch, Team5 can now push their branch up to the master.</p>
+	
+<h3>Resources</h3>
+
+<p>	Udacity Tutorial
+	https://www.udacity.com/course/how-to-use-git-and-github--ud775
+
+	GitHub
+	https://guides.github.com/activities/hello-world/ (GitHub guide)
+	https://guides.github.com/introduction/flow/
+	https://guides.github.com/features/mastering-markdown/
+	https://guides.github.com/features/wikis/
+	
+	Git
+	https://git-scm.com/docs/gittutorial (Git guide)
+	https://git-scm.com/docs/gitworkflows
+	https://git-scm.com/docs
+	https://git-scm.com/docs/git-remote
+	https://git-scm.com/docs/git-fetch
+	https://git-scm.com/docs/git-pull
+	https://git-scm.com/docs/git-push
+	https://git-scm.com/docs/git-merge
+	https://git-scm.com/docs/git-revert (use with caution)</p>
