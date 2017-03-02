@@ -32,25 +32,28 @@
 	
 <h3>Resources</h3>
 
-<p>	Udacity Tutorial
-	https://www.udacity.com/course/how-to-use-git-and-github--ud775
+<h1>Udacity Tutorial</h1>
 
-	GitHub
-	https://guides.github.com/activities/hello-world/ (GitHub guide)
-	https://guides.github.com/introduction/flow/
-	https://guides.github.com/features/mastering-markdown/
-	https://guides.github.com/features/wikis/
+<p>https://www.udacity.com/course/how-to-use-git-and-github--ud775</p>
+
+<h1>GitHub</h1>
 	
-	Git
-	https://git-scm.com/docs/gittutorial (Git guide)
-	https://git-scm.com/docs/gitworkflows
-	https://git-scm.com/docs
-	https://git-scm.com/docs/git-remote
-	https://git-scm.com/docs/git-fetch
-	https://git-scm.com/docs/git-pull
-	https://git-scm.com/docs/git-push
-	https://git-scm.com/docs/git-merge
-	https://git-scm.com/docs/git-revert (use with caution)</p>
+<p>https://guides.github.com/activities/hello-world/ (GitHub guide)
+https://guides.github.com/introduction/flow/
+https://guides.github.com/features/mastering-markdown/
+https://guides.github.com/features/wikis/</p>
+	
+<h1>Git</h1>
+	
+<p>https://git-scm.com/docs/gittutorial (Git guide)
+https://git-scm.com/docs/gitworkflows
+https://git-scm.com/docs
+https://git-scm.com/docs/git-remote
+https://git-scm.com/docs/git-fetch
+https://git-scm.com/docs/git-pull
+https://git-scm.com/docs/git-push
+https://git-scm.com/docs/git-merge
+https://git-scm.com/docs/git-revert (use with caution)</p>
 	
 <h3>Git Branching Model</h3>
 	
