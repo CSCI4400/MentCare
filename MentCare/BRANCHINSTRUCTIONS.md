@@ -50,7 +50,7 @@
 	https://git-scm.com/docs/git-pull
 	https://git-scm.com/docs/git-push
 	https://git-scm.com/docs/git-merge
-	https://git-scm.com/docs/git-revert (use with caution)
+	https://git-scm.com/docs/git-revert (use with caution)</p>
 	
-	Git Branching Model
-	http://nvie.com/posts/a-successful-git-branching-model/</p>
+	<h3>Git Branching Model</h3>
+	<p>http://nvie.com/posts/a-successful-git-branching-model/</p>
