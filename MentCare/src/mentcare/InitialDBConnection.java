@@ -2,6 +2,10 @@ package mentcare;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InitialDBConnection implements Runnable {
 	
@@ -19,6 +23,23 @@ public class InitialDBConnection implements Runnable {
 			System.out.println("Connection success");
 			
 			viewMenu.con = Con1;
+			
+			//Test statement
+			
+			String selstmt = "SELECT * FROM mentcare.Personal_Info, mentcare.Medical_Info WHERE mentcare.Personal_Info.PNumber = mentcare.Medical_Info.PNum";
+			
+			Statement stmt = Con1.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(selstmt);
+			
+			while(rs.next()){
+				System.out.println(rs.getInt("PNumber"));
+				System.out.println(rs.getString("FName"));
+			}
+			
+			//Closing resultSet after reading results into array list
+			stmt.close();
+			rs.close();
 			
 	    } catch(Exception e){
 	    	e.printStackTrace();
