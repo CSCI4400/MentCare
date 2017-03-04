@@ -2,6 +2,7 @@ package mentcare;
 
 import javafx.scene.layout.VBox;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -128,20 +129,33 @@ public class doctorview extends Application{
 			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
 			String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number FROM mentcare.Personal_Info WHERE ? = mentcare.Personal_Info.PNumber";
 			String selectMinfostmt = "SELECT * FROM mentcare.Medical_Info WHERE ? = mentcare.Medical_Info.PNum";
-			int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank valus
-			String fname = "", lname = "", address = "", sex = "", phonenum = "";
+			int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank values
+			String fname = "", lname = "", address = "", sex = "", phonenum = "", diagnosis="", ssn="";
+			Date bdate = null, lastvisit = null;
 			try {
 				PreparedStatement pstmt = viewMenu.con.prepareStatement(selectPinfoStmt);
 				pstmt.setInt(1, Integer.parseInt(patientidinput.getText()));
 				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
-				while(rs.next()){
+				while(rs.next()){ //Gets the information from the "Personal Info" table
 					pnum = rs.getInt("PNumber");
 					fname = rs.getString("Fname");
 					lname = rs.getString("Lname");
 					address = rs.getString("Address");
 					sex = rs.getString("Sex");
 					phonenum = rs.getString("Phone_Number");
+					bdate = rs.getDate("BDate");
 				}
+				
+				pstmt = viewMenu.con.prepareStatement(selectMinfostmt);
+				pstmt.setInt(1, Integer.parseInt(patientidinput.getText()));
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()){ //Gets the information from the "Medical Info" table
+					diagnosis = rs.getString("Diagnosis");
+					lastvisit = rs.getDate("Last_Visit");
+					ssn = rs.getString("Ssn");
+				}
+				
 				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -149,7 +163,7 @@ public class doctorview extends Application{
 			}
 			System.out.println(patientidinput.getText());
 			//Feeds the results obtained from the database to the 'patientrecords' menu
-			patientrecords(Integer.toString((pnum)), lname, fname, "January 19, 1993", address, sex, phonenum, "Depression");
+			patientrecords(Integer.toString((pnum)), lname, fname, bdate.toString(), address, sex, phonenum, diagnosis);
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearch= new Scene(layout2, 640, 640);
