@@ -13,7 +13,7 @@ public class InitialDBConnection implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		
 		try{
 			
 			System.out.println("Establishing connection to database");
@@ -26,7 +26,7 @@ public class InitialDBConnection implements Runnable {
 			
 			//Test statement
 			
-			String selstmt = "SELECT * FROM mentcare.Personal_Info, mentcare.Medical_Info WHERE mentcare.Personal_Info.PNumber = mentcare.Medical_Info.PNum";
+			/*String selstmt = "SELECT * FROM mentcare.Personal_Info, mentcare.Medical_Info WHERE mentcare.Personal_Info.PNumber = mentcare.Medical_Info.PNum";
 			
 			Statement stmt = Con1.createStatement();
 			
@@ -40,7 +40,7 @@ public class InitialDBConnection implements Runnable {
 			//Closing resultSet after reading results into array list
 			stmt.close();
 			rs.close();
-			
+			*/
 	    } catch(Exception e){
 	    	e.printStackTrace();
 			}

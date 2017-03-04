@@ -2,11 +2,20 @@ package mentcare;
 
 import javafx.scene.layout.VBox;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Locale;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -22,6 +31,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.*;
+import javafx.scene.text.*;
 
 /**
  * Stage is the entire application window
@@ -31,6 +42,8 @@ import javafx.stage.Stage;
 public class doctorview extends Application{
 
 	String placeholder = "Placeholder for: ";
+	
+	static String pid; //used to store the ID# of the patient whose record is being looked at
 	
 	String welcomestring = "Welcome Doctor, " + "xyz";
 	static String exitconfirmation = "Are you sure you wanted to exit?";
@@ -51,6 +64,8 @@ public class doctorview extends Application{
 	static Label genderl = new Label("Gender:");
 	static Label phonenumberl = new Label("Phone Number:");
 	static Label diagnosisl = new Label("Diagnosis:");
+	static Label ssnl = new Label("SSN: ");
+	static Label lastvisitl = new Label("Last Visit Was: ");
 	static Label exitconfirmationlabel;
 	static Button createappointmentbutton = new Button("Create appointment");
 	static Button patientrecordsbutton = new Button ("View/Edit patient records");
@@ -66,12 +81,13 @@ public class doctorview extends Application{
 	static Button backbutton = new Button("Back");
 	static Button okbutton = new Button("ok");
 	static Button cancelbutton = new Button("cancel");
+	static Button updatebutton = new Button("Update");
 	
 	public void start(Stage primaryStage) throws Exception {
 		//Adds buttons and labels
 		window = primaryStage;
 		welcome = new Label(welcomestring);
-		window.setTitle("Program title");
+		window.setTitle("Doctor View");
 		window.setOnCloseRequest(e -> {
 			e.consume();
 			confirmExit();
@@ -124,7 +140,7 @@ public class doctorview extends Application{
 		backbutton.setOnAction(e-> window.setScene(mainmenu));
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
-			patientidinput.getText();
+			pid = patientidinput.getText();
 			
 			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
 			String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number FROM mentcare.Personal_Info WHERE ? = mentcare.Personal_Info.PNumber";
@@ -134,7 +150,7 @@ public class doctorview extends Application{
 			Date bdate = null, lastvisit = null;
 			try {
 				PreparedStatement pstmt = viewMenu.con.prepareStatement(selectPinfoStmt);
-				pstmt.setInt(1, Integer.parseInt(patientidinput.getText()));
+				pstmt.setInt(1, Integer.parseInt(pid));
 				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
 				while(rs.next()){ //Gets the information from the "Personal Info" table
 					pnum = rs.getInt("PNumber");
@@ -155,7 +171,8 @@ public class doctorview extends Application{
 					lastvisit = rs.getDate("Last_Visit");
 					ssn = rs.getString("Ssn");
 				}
-				
+				pstmt.close();
+				rs.close();
 				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -163,7 +180,7 @@ public class doctorview extends Application{
 			}
 			System.out.println(patientidinput.getText());
 			//Feeds the results obtained from the database to the 'patientrecords' menu
-			patientrecords(Integer.toString((pnum)), lname, fname, bdate.toString(), address, sex, phonenum, diagnosis);
+			patientrecords(Integer.toString((pnum)), fname, lname, bdate.toString(), address, sex, phonenum, diagnosis, ssn, lastvisit.toString());
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearch= new Scene(layout2, 640, 640);
@@ -174,26 +191,163 @@ public class doctorview extends Application{
 	 * Displays a patient's records.
 	 * @param patient info. (Should be replaced by patient object
 	 */
-	private static void patientrecords(String patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr) {
+	private static void patientrecords(String patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
 		VBox layout2 = new VBox(10);
 		Label firstname = new Label(firstnamestr); Label lastname = new Label(lastnamestr); Label birthdate = new Label(birthdatestr);
 		Label homeaddress = new Label(homeaddressstr); Label gender = new Label(genderstr); Label phonenumber = new Label(phonenumberstr);
-		Label diagnosis = new Label(diagnosisstr);
-		diagnosishistorybutton.setOnAction(e->diagnosishistory(patientid));
+		Label diagnosis = new Label(diagnosisstr); Label Ssn = new Label(ssn); Label lastapt = new Label(lastaptdatestring);
+		diagnosishistorybutton.setOnAction(e->diagnosishistory(patientid, firstnamestr, lastnamestr, birthdatestr, homeaddressstr, genderstr, phonenumberstr, diagnosisstr, ssn, lastaptdatestring));
 		backbutton.setOnAction(e->patientsearch());
-		editrecordbutton.setOnAction(e-> recordeditor(patientid, firstnamestr, lastnamestr, birthdatestr, homeaddressstr, genderstr, phonenumberstr, diagnosisstr));
-		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, diagnosishistorybutton, editrecordbutton, backbutton);
+		editrecordbutton.setOnAction(e-> recordeditor(patientid, firstnamestr, lastnamestr, birthdatestr, homeaddressstr, genderstr, phonenumberstr, diagnosisstr, ssn, lastaptdatestring));
+		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, editrecordbutton, backbutton);
 		Scene patientrecords = new Scene(layout2, 640, 640);
 		window.setScene(patientrecords);
 	}
-	private static void recordeditor(String patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr) {
-		VBox layout2 = new VBox(10);
-		backbutton.setOnAction(e-> patientrecords(patientid, firstnamestr, lastnamestr, birthdatestr, homeaddressstr, genderstr, phonenumberstr, diagnosisstr));
-		layout2.getChildren().addAll(backbutton);
-		Scene recordeditor = new Scene(layout2, 640, 480);
+	private static void recordeditor(String patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
+		VBox layout3 = new VBox(10);
+		Date BirthDate;
+		
+		String updatePersonalInfo = "UPDATE mentcare.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ? WHERE PNumber = ? ";
+		String updateMedicalInfo = "UPDATE mentcare.Medical_Info SET Ssn = ?, Last_Visit = ? WHERE PNum = ?";
+		String updateDiagnosis = "UPDATE mentcare.Medical_Info SET Diagnosis = ? WHERE PNum = ?";
+		String insertIntoDiagHistory = "INSERT INTO mentcare.Diagnosis_History VALUES ( ? , ?, ?, ? )";
+		String selectCurrentDiag = "SELECT mentcare.Medical_Info.Diagnosis FROM mentcare.Medical_Info WHERE ? = PNum";
+		
+		TextField fname = new TextField(firstnamestr); TextField lname = new TextField(lastnamestr); TextField birthdate = new TextField(birthdatestr);
+		TextField addr = new TextField(homeaddressstr); TextField sex = new TextField(genderstr); TextField phonenum = new TextField(phonenumberstr);
+		TextField social = new TextField(ssn); TextField lastapt = new TextField(lastaptdatestring); TextField diago = new TextField(diagnosisstr);
+		
+		updatebutton.setOnAction( e -> {
+			try {
+			Connection Con;
+			PreparedStatement pstmt;
+			
+			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", "mentcare1");
+			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the personal info and medical info tables, excluding diagnosis
+			pstmt.setString(1, fname.getText());
+			pstmt.setString(2,  lname.getText());
+			pstmt.setObject(3, LocalDate.parse(birthdate.getText()));
+			pstmt.setString(4, addr.getText());
+			pstmt.setString(5,  sex.getText());
+			pstmt.setString(6, phonenum.getText());
+			pstmt.setInt(7, Integer.parseInt(patientid));
+			pstmt.executeUpdate();
+			pstmt = Con.prepareStatement(updateMedicalInfo);
+			pstmt.setString(1, social.getText());
+			pstmt.setObject(2, LocalDate.parse(lastapt.getText()));
+			pstmt.setInt(3, Integer.parseInt(patientid));
+			pstmt.executeUpdate();
+			
+			pstmt = Con.prepareStatement(selectCurrentDiag);
+			pstmt.setInt(1, Integer.parseInt(patientid));
+			ResultSet rs = pstmt.executeQuery();
+			ArrayList<String> Diagnoses = new ArrayList<String>();
+			while(rs.next()){
+				Diagnoses.add(rs.getString("Diagnosis"));
+			}
+			if(!Diagnoses.get(0).equals(diago.getText())){
+				pstmt = Con.prepareStatement(insertIntoDiagHistory);
+				pstmt.setInt(1, Integer.parseInt(patientid));
+				pstmt.setString(2, diago.getText());
+				pstmt.setObject(3, LocalDate.now());
+				pstmt.setObject(4, "Current Doctor");
+				pstmt.executeUpdate();
+				pstmt= Con.prepareStatement(updateDiagnosis);
+				pstmt.setString(1, diago.getText());
+				pstmt.setInt(2, Integer.parseInt(patientid));
+				pstmt.executeUpdate();
+			}
+			
+			pstmt.close();
+			patientrecords(patientid, fname.getText(), lname.getText(), birthdate.getText(), addr.getText(), sex.getText(), phonenum.getText(), diago.getText(), social.getText(), lastapt.getText());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+			
+	});
+		
+		
+		backbutton.setOnAction(e-> patientrecords(patientid, fname.getText(), lname.getText(), birthdate.getText(), addr.getText(), sex.getText(), phonenum.getText(), diago.getText(), social.getText(), lastapt.getText()));
+		
+		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, diagnosisl, diago , ssnl, social, lastvisitl, lastapt, updatebutton, backbutton);
+		
+		
+		Scene recordeditor = new Scene(layout3, 680, 680);
 		window.setScene(recordeditor);
 	}
-	private static void diagnosishistory(String patientid) {
+	private static void diagnosishistory(String patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
+		
+		BorderPane diaghistlayout = new BorderPane();
+		VBox Dleft = new VBox();
+		VBox Dmid = new VBox();
+		VBox Dright = new VBox();
+		
+		Dleft.setPadding(new Insets(15, 12, 15, 12));
+		Dleft.setSpacing(10);
+		Text t1 = new Text("Diagnosis: ");
+		Dleft.getChildren().add(t1);
+		
+		Dmid.setPadding(new Insets(15, 12, 15, 12));
+		Dmid.setSpacing(10);
+		Text t2 = new Text("Doctor Who Diagnosed: ");
+		Dmid.getChildren().add(t2);
+		
+		
+		Dright.setPadding(new Insets(15, 12, 15, 12));
+		Dright.setSpacing(10);
+		Text t3 = new Text("Date of Diagnosis: ");
+		Dright.getChildren().add(t3);
+		
+		diaghistlayout.setLeft(Dleft);
+		diaghistlayout.setCenter(Dmid);
+		diaghistlayout.setRight(Dright);
+		
+		String selhistory = "SELECT * FROM mentcare.Diagnosis_History WHERE ? = mentcare.Diagnosis_History.PNum";
+		
+		PreparedStatement pstmt;
+		Collection<String> Diagnoses = new ArrayList<>();
+		Collection<String> DoctorNames = new ArrayList<>();
+		Collection<String> DatesofD = new ArrayList<>();
+		try {
+			pstmt = viewMenu.con.prepareStatement(selhistory);
+			pstmt.setInt(1, Integer.parseInt(patientid));
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				Diagnoses.add(rs.getString("Diagnosis"));
+				DoctorNames.add(rs.getString("Name_of_doctor"));
+				DatesofD.add(rs.getDate("Date_of_diag").toString());
+			}
+			pstmt.close();
+			rs.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(String s : Diagnoses){
+			Label l = new Label(s);
+			Dleft.getChildren().add(l);
+		}
+		
+		for(String s: DoctorNames){
+			Label l = new Label(s);
+			Dmid.getChildren().add(l);
+		}
+		
+		for(String s: DatesofD){
+			Label l = new Label(s);
+			Dright.getChildren().add(l);
+		}
+		
+	    backbutton.setOnAction(e-> patientrecords(patientid, firstnamestr, lastnamestr, birthdatestr, homeaddressstr, genderstr, phonenumberstr, diagnosisstr, ssn, lastaptdatestring));
+	    Dleft.getChildren().add(backbutton);
+		
+		Scene diaghistview = new Scene(diaghistlayout, 480, 480);
+		
+		window.setScene(diaghistview);
+		
 		
 	}
 	/**
