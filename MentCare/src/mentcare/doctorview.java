@@ -124,19 +124,23 @@ public class doctorview extends Application{
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			patientidinput.getText();
-			//This string represents the prepared statement that will be executed to retrieve the patient info from the database
-			String selectStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number FROM mentcare.Personal_Info WHERE ? = mentcare.Personal_Info.PNumber";
 			
-			int pnum = -1;
-			String fname = "", lname = "";
+			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
+			String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number FROM mentcare.Personal_Info WHERE ? = mentcare.Personal_Info.PNumber";
+			String selectMinfostmt = "SELECT * FROM mentcare.Medical_Info WHERE ? = mentcare.Medical_Info.PNum";
+			int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank valus
+			String fname = "", lname = "", address = "", sex = "", phonenum = "";
 			try {
-				PreparedStatement pstmt = viewMenu.con.prepareStatement(selectStmt);
+				PreparedStatement pstmt = viewMenu.con.prepareStatement(selectPinfoStmt);
 				pstmt.setInt(1, Integer.parseInt(patientidinput.getText()));
-				ResultSet rs = pstmt.executeQuery();
+				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
 				while(rs.next()){
 					pnum = rs.getInt("PNumber");
 					fname = rs.getString("Fname");
 					lname = rs.getString("Lname");
+					address = rs.getString("Address");
+					sex = rs.getString("Sex");
+					phonenum = rs.getString("Phone_Number");
 				}
 				
 			} catch (SQLException e1) {
@@ -144,7 +148,8 @@ public class doctorview extends Application{
 				e1.printStackTrace();
 			}
 			System.out.println(patientidinput.getText());
-			patientrecords(Integer.toString((pnum)), lname, fname, "January 19, 1993", "2343 Mulberry Lane", "Male", "867-5309", "Depression");
+			//Feeds the results obtained from the database to the 'patientrecords' menu
+			patientrecords(Integer.toString((pnum)), lname, fname, "January 19, 1993", address, sex, phonenum, "Depression");
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearch= new Scene(layout2, 640, 640);
