@@ -35,6 +35,8 @@ public class viewMenu extends Application {
 		recepView = new Button("Receptionist View");
 		bizView = new Button("Business Manager View");
 		doctorview dView = new doctorview(); //declare an instance of the Doctor View
+		ReceptionistView rView = new ReceptionistView();
+		BusinessManagerView bView = new BusinessManagerView();
 		docView.setOnAction(e -> {
 			try {
 				dView.start(window);
@@ -42,6 +44,25 @@ public class viewMenu extends Application {
 				e1.printStackTrace();
 			}
 		}); //switches to the Doctor View
+		
+		recepView.setOnAction(e -> {
+				try {
+					rView.start(window);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+		});
+		
+		bizView.setOnAction(e -> {
+			try {
+				bView.start(window);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		
 		
 		StackPane layout = new StackPane();
