@@ -105,11 +105,11 @@ public class displayAppController {
 
 
     }
-
+    
     @FXML
     void ClickCancelButton(ActionEvent event) throws Exception {
 
-    	CancelAppointment( event);
+    	CancelAppointment(event);
 
     }
 

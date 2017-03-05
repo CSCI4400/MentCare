@@ -55,7 +55,7 @@ public class mainViewController {
 			con3.setMain(main);
 			break;*/
 		default:
-			root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/updateApp.fxml"));
 			mainViewController con4=new mainViewController();
 			con4.setMain(main);
 			break;
