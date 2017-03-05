@@ -18,7 +18,7 @@ public class InitialDBConnection implements Runnable {
 			
 			System.out.println("Establishing connection to database");
 			
-			Con1 = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", "mentcare1");
+			Con1 = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", ""); //make sure to add password
 			
 			System.out.println("Connection success");
 			

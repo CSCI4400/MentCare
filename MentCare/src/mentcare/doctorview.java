@@ -222,7 +222,7 @@ public class doctorview extends Application{
 			Connection Con;
 			PreparedStatement pstmt;
 			
-			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", "mentcare1");
+			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", ""); //make sure to add password
 			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the personal info and medical info tables, excluding diagnosis
 			pstmt.setString(1, fname.getText());
 			pstmt.setString(2,  lname.getText());
