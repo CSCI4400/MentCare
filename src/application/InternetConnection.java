@@ -32,5 +32,14 @@ public class InternetConnection {
     }
         public static void main(String[] args) {
             checkInternet();            
+            while(true){
+			    if(checkInternet()){
+                    //Pull most current records here
+                    System.out.println("Internet is connected, current data has been pulled.")
+                }
+			    try {
+		            Thread.sleep(3000);
+		        } catch(InterruptedException ie) {}
+			}
     }
 }
