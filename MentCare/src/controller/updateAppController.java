@@ -31,8 +31,9 @@ public class updateAppController {
     @FXML private Button goButton;
     @FXML private Button cancelButton;
     @FXML private Button submitButton;
-    @FXML private Label FnameLabel;
-    @FXML private Label LnameLabel;
+    @FXML private Label PnameLabel;
+    //@FXML private Label FnameLabel;
+    //@FXML private Label LnameLabel;
     @FXML private Label DocIDLabel;
     @FXML private Label apTimeLabel;
     @FXML private Label apDateLabel;
@@ -41,8 +42,9 @@ public class updateAppController {
     @FXML private TextField DocIDField;
     @FXML private TextField PnumField;
     @FXML private TextField providerTF;
-    @FXML private TextField FnameField;
-    @FXML private TextField LnameField;
+    //@FXML private TextField FnameField;
+    //@FXML private TextField LnameField;
+    @FXML private TextField PnameField;
     @FXML private Label AppIDLabel;
     
     public void initialize() {
@@ -53,12 +55,12 @@ public class updateAppController {
     	submitButton.setDisable(true);
     	
     	// Only enable submit once all fields have a value *STILL KINDA BUGGY*
-    	FnameField.setOnAction((event) -> {
+    	PnameField.setOnAction((event) -> {
     		if(checkFields() && submitButton.isDisabled()) submitButton.setDisable(false);
     	});
-    	LnameField.setOnAction((event) -> {
+    	/*LnameField.setOnAction((event) -> {
     		if(checkFields() && submitButton.isDisabled()) submitButton.setDisable(false);
-    	});
+    	});*/
     	DocIDField.setOnAction((event) -> {
     		if(checkFields() && submitButton.isDisabled()) submitButton.setDisable(false);
     	});
@@ -84,18 +86,19 @@ public class updateAppController {
 		try (
 				Connection conn = DBConfig.getConnection();
 				Statement statement = conn.createStatement();
-				ResultSet RS = statement.executeQuery("select * from mentcare.Current_Appointment where PNumber=" + PnumField.getText() + ";");
+				ResultSet RS = statement.executeQuery("select * from mentcare.Current_Appointment where PNum=" + PnumField.getText() + ";");
 				) // End try-with-res
 		{
 	    	
 	    	if(RS != null){
 	    		while (RS.next()) {
-	  		      FnameLabel.setText(RS.getString("Fname"));
-	  		      LnameLabel.setText(RS.getString("Lname"));
-	  		      DocIDLabel.setText(RS.getString("DocID"));
-	  		      apDateLabel.setText(RS.getString("apDate"));
-	  		      apTimeLabel.setText(RS.getString("apTime"));
-	  		      AppIDLabel.setText(Integer.toString((RS.getInt("AppID"))));
+	  		      //FnameLabel.setText(RS.getString("Fname"));
+	  		      //LnameLabel.setText(RS.getString("Lname"));
+	    		 PnameLabel.setText(RS.getString("Pname"));
+	  		     DocIDLabel.setText(RS.getString("DocID"));
+	  		     apDateLabel.setText(RS.getString("apDate"));
+	  		     apTimeLabel.setText(RS.getString("apTime"));
+	  		     AppIDLabel.setText(Integer.toString((RS.getInt("AppID"))));
 	    		}
 	    		statusLabel.setText("Status: Appointment Found");
 	    	} // End if
@@ -108,27 +111,28 @@ public class updateAppController {
     @FXML
     void ClickSubmitUpdateButton(ActionEvent event) {
     	int AppID;
-		String Pnum, Fname, Lname, apDate, apTime, DocID;
+		String Pnum, Pname, apDate, apTime, DocID;
     	Pnum = PnumField.getText();
-		Fname = FnameField.getText();
-		Lname = LnameField.getText();
+		//Fname = FnameField.getText();
+		//Lname = LnameField.getText();
+    	Pname = PnameField.getText();
 		apDate = apDateField.getValue().toString();
 		apTime = apTimeField.getValue();
 		DocID = DocIDField.getText();
 		AppID = Integer.parseInt(AppIDLabel.getText());
 
-		String query = ("UPDATE mentcare.Current_Appointment SET Fname = ?, Lname = ?, DocID = ?, apDate = ?, apTime = ? WHERE AppID = ?");
+		String query = ("UPDATE mentcare.Current_Appointment SET Pname = ?, DocID = ?, apDate = ?, apTime = ? WHERE AppID = ?");
 		
 		
     	try (Connection conn = DBConfig.getConnection();
     			PreparedStatement statement = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);)
     	{
-    		statement.setString(1, Fname);
-    		statement.setString(2, Lname);
-    		statement.setString(3, DocID);
-    		statement.setString(4, apDate);
-    		statement.setString(5, apTime);
-    		statement.setInt(6, AppID);
+    		statement.setString(1, Pname);
+    		//statement.setString(2, Lname);
+    		statement.setString(2, DocID);
+    		statement.setString(3, apDate);
+    		statement.setString(4, apTime);
+    		statement.setInt(5, AppID);
     		statement.executeUpdate();
         } catch (SQLException e) {
     		DBConfig.displayException(e);
@@ -141,10 +145,12 @@ public class updateAppController {
     void resetLabels() {
     	// Helper method, clears fields and labels
     	statusLabel.setText("Status: Update complete.");
-		FnameLabel.setText("");
+		/*FnameLabel.setText("");
 		LnameLabel.setText("");
 		FnameField.setText("");
-		LnameField.setText("");
+		LnameField.setText("");*/
+    	PnameLabel.setText("");
+    	PnameField.setText("");
 		PnumField.setText("");
 		DocIDLabel.setText("");
 		apDateLabel.setText("");
@@ -159,8 +165,8 @@ public class updateAppController {
     	// Helper method, returns true if all fields have some value (DOES NOT YET CHECK THE VALUE, DAMN USERS!)
     	if (
     			!PnumField.getText().isEmpty() &&
-    			!FnameField.getText().isEmpty() &&
-    			!LnameField.getText().isEmpty() &&
+    			!PnameField.getText().isEmpty() &&
+    			//!LnameField.getText().isEmpty() &&
     			!DocIDField.getText().isEmpty() &&
     			!(apDateField == null) &&
     			!(apTimeField.getValue() == null)
