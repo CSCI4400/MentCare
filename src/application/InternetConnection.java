@@ -19,6 +19,7 @@ public class InternetConnection {
         } catch (UnknownHostException e) {
             System.out.println("Internet connection was not successful");
             e.printStackTrace();
+            return false;
         } catch (MalformedURLException e) {
             System.out.println("Internet connection was not successful");
             e.printStackTrace();
