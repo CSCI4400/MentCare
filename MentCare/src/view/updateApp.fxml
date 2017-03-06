@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -13,36 +14,54 @@
 
 <AnchorPane prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.updateAppController">
    <children>
-      <Label layoutX="19.0" layoutY="34.0" prefHeight="42.0" prefWidth="249.0" text="Update a student's information: " />
-      <GridPane layoutX="14.0" layoutY="117.0" prefHeight="111.0" prefWidth="613.0">
+      <Label layoutX="19.0" layoutY="34.0" prefHeight="42.0" prefWidth="249.0" text="Update Appointment by Patient ID" />
+      <GridPane layoutX="14.0" layoutY="117.0" prefHeight="184.0" prefWidth="613.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="87.0" minWidth="1.0" prefWidth="1.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="159.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="204.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="8.0" prefWidth="11.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.0" minWidth="10.0" prefWidth="239.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="0.0" prefWidth="0.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="87.0" minWidth="1.0" prefWidth="21.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="138.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="184.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="8.0" prefWidth="16.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.0" minWidth="10.0" prefWidth="233.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="0.0" prefWidth="21.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="157.0" text="Patient Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="pNameL" alignment="CENTER" prefHeight="27.0" prefWidth="232.0" text="---" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="pNameTF" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="228.0" text="Original Info" GridPane.columnIndex="2" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="204.0" text="New Info" GridPane.columnIndex="4" />
-            <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="157.0" text="Doctor ID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="pNameL1" alignment="CENTER" prefHeight="27.0" prefWidth="232.0" text="---" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField fx:id="pNameTF1" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label prefHeight="27.0" prefWidth="157.0" text="Patient First Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="FnameLabel" alignment="CENTER" prefHeight="27.0" prefWidth="232.0" text="---" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="FnameField" prefHeight="27.0" prefWidth="217.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="176.0" text="Original Info" GridPane.columnIndex="2" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="204.0" text="New Info" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
+            <Label prefHeight="27.0" prefWidth="157.0" text="Doctor ID" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="DocIDLabel" alignment="CENTER" prefHeight="27.0" prefWidth="232.0" text="---" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TextField fx:id="DocIDField" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Label text="Appointment Day" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="apDateLabel" text="---" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <DatePicker fx:id="apDateField" prefHeight="26.0" prefWidth="232.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Label text="Appointment Time" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="apTimeLabel" text="---" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <ComboBox fx:id="apTimeField" prefHeight="26.0" prefWidth="235.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <Label prefHeight="27.0" prefWidth="157.0" text="Patient Last Name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="LnameLabel" alignment="CENTER" prefHeight="27.0" prefWidth="232.0" text="---" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="LnameField" prefHeight="27.0" prefWidth="217.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label text="APPID" GridPane.columnIndex="1" />
+            <Label fx:id="AppIDLabel" text="0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="45.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
-      <Label fx:id="statusL" layoutX="19.0" layoutY="388.0" prefHeight="42.0" prefWidth="602.0" text="Status:" />
-      <Button fx:id="cancelButton" layoutX="186.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back" />
-      <Button fx:id="submitButton" layoutX="413.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickSubmitUpdateButton" text="Submit" />
-      <TextField fx:id="pNumTF" layoutX="268.0" layoutY="43.0" prefHeight="25.0" prefWidth="238.0" promptText="Enter in patient id here" />
+      <Label fx:id="statusLabel" layoutX="19.0" layoutY="388.0" prefHeight="42.0" prefWidth="602.0" text="Status:" />
+      <Button fx:id="cancelButton" layoutX="19.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back" />
+      <Button fx:id="submitButton" layoutX="79.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickSubmitUpdateButton" text="Submit" />
+      <TextField fx:id="PnumField" layoutX="268.0" layoutY="43.0" prefHeight="25.0" prefWidth="238.0" promptText="Enter in patient id here" />
       <Button fx:id="goButton" layoutX="524.0" layoutY="43.0" mnemonicParsing="false" onAction="#ClickGoButton" text="Go!" />
    </children>
 </AnchorPane>
