@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import application.DBConfig;
+import application.MainFXApp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,13 @@ public class updateAppController {
 	Stage stage;
 	Scene scene;
 	Parent root;
+	
+	private MainFXApp main;
+    public void setMain(MainFXApp mainIn)
+    {
+    main=mainIn;
+    }
+    
 	@FXML private Label statusLabel;
     @FXML private TabPane tabPane;
     @FXML private Button goButton;

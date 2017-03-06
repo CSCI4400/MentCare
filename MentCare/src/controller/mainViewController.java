@@ -49,13 +49,13 @@ public class mainViewController {
 			addAppController con2=new addAppController();
 			con2.setMain(main);
 			break;
-		/*case "updateButton":
+		case "updateButton":
 			root = FXMLLoader.load(getClass().getResource("/view/updateApp.fxml"));
 			updateAppController con3=new updateAppController();
 			con3.setMain(main);
-			break;*/
+			break;
 		default:
-			root = FXMLLoader.load(getClass().getResource("/view/updateApp.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
 			mainViewController con4=new mainViewController();
 			con4.setMain(main);
 			break;
