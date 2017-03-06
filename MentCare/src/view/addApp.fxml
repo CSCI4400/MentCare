@@ -10,56 +10,56 @@
 
 <AnchorPane id="mentStyle" prefHeight="570.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addAppController">
    <children>
-      <RadioButton fx:id="rb9" layoutX="66.0" layoutY="310.0" mnemonicParsing="false" text="9:00am">
+      <RadioButton fx:id="rb9" layoutX="66.0" layoutY="360.0" mnemonicParsing="false" onAction="#timeSelect" text="9:00am">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb10" layoutX="66.0" layoutY="343.0" mnemonicParsing="false" text="10:00am">
+      <RadioButton fx:id="rb10" layoutX="66.0" layoutY="390.0" mnemonicParsing="false" onAction="#timeSelect" text="10:00am">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <TextField fx:id="patientName" layoutX="186.0" layoutY="142.0" prefHeight="31.0" prefWidth="218.0" promptText="Last Name, First Name">
+      <TextField fx:id="patientName" layoutX="190.0" layoutY="142.0" prefHeight="31.0" prefWidth="218.0" promptText="Last Name, First Name">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></TextField>
-      <DatePicker fx:id="datePick" editable="false" layoutX="186.0" layoutY="190.0" onAction="#checkDate" />
-      <Button fx:id="submit" layoutX="199.0" layoutY="464.0" mnemonicParsing="false" onAction="#submitAppt" text="Submit">
+      <DatePicker fx:id="datePick" editable="false" layoutX="190.0" layoutY="244.0" onAction="#checkDate" prefHeight="31.0" prefWidth="218.0" />
+      <Button fx:id="submit" layoutX="199.0" layoutY="505.0" mnemonicParsing="false" onAction="#submitAppt" text="Submit">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="cancel" layoutX="71.0" layoutY="464.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel">
+      <Button fx:id="cancel" layoutX="71.0" layoutY="505.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <RadioButton fx:id="rb12" layoutX="66.0" layoutY="404.0" mnemonicParsing="false" text="12:00pm">
+      <RadioButton fx:id="rb12" layoutX="66.0" layoutY="450.0" mnemonicParsing="false" onAction="#timeSelect" text="12:00pm">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb11" layoutX="66.0" layoutY="373.0" mnemonicParsing="false" text="11:00am">
+      <RadioButton fx:id="rb11" layoutX="66.0" layoutY="420.0" mnemonicParsing="false" onAction="#timeSelect" text="11:00am">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb1" layoutX="194.0" layoutY="280.0" mnemonicParsing="false" text="1:00pm">
+      <RadioButton fx:id="rb1" layoutX="194.0" layoutY="330.0" mnemonicParsing="false" onAction="#timeSelect" text="1:00pm">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb8" layoutX="66.0" layoutY="280.0" mnemonicParsing="false" text="8:00am">
+      <RadioButton fx:id="rb8" layoutX="66.0" layoutY="330.0" mnemonicParsing="false" onAction="#timeSelect" text="8:00am">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb2" layoutX="194.0" layoutY="310.0" mnemonicParsing="false" text="2:00pm">
+      <RadioButton fx:id="rb2" layoutX="194.0" layoutY="360.0" mnemonicParsing="false" onAction="#timeSelect" text="2:00pm">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb3" layoutX="194.0" layoutY="343.0" mnemonicParsing="false" text="3:00pm">
+      <RadioButton fx:id="rb3" layoutX="194.0" layoutY="390.0" mnemonicParsing="false" onAction="#timeSelect" text="3:00pm">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb4" layoutX="194.0" layoutY="373.0" mnemonicParsing="false" text="4:00pm">
+      <RadioButton fx:id="rb4" layoutX="194.0" layoutY="420.0" mnemonicParsing="false" onAction="#timeSelect" text="4:00pm">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb5" layoutX="194.0" layoutY="404.0" mnemonicParsing="false" text="5:00pm">
+      <RadioButton fx:id="rb5" layoutX="194.0" layoutY="450.0" mnemonicParsing="false" onAction="#timeSelect" text="5:00pm">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
@@ -68,12 +68,12 @@
             <Font name="Georgia Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="50.0" layoutY="196.0" text="Select a Date:">
+      <Label layoutX="48.0" layoutY="250.0" text="Select a Date:">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="50.0" layoutY="244.0" text="Select the Time:">
+      <Label layoutX="50.0" layoutY="295.0" text="Select the Time:">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
@@ -83,16 +83,26 @@
             <Font name="Georgia" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="50.0" layoutY="101.0" text="Patient Number:">
+      <Label layoutX="50.0" layoutY="101.0" text="Patient ID Number:">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="PnumTF" layoutX="186.0" layoutY="95.0" prefHeight="31.0" prefWidth="218.0" promptText="ID Number">
+      <TextField fx:id="PnumTF" layoutX="190.0" layoutY="95.0" prefHeight="31.0" prefWidth="218.0" promptText="ID Number">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </TextField>
+      <TextField fx:id="patientPhone" layoutX="190.0" layoutY="190.0" prefHeight="31.0" prefWidth="218.0" promptText="(###) ### - ####">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="50.0" layoutY="196.0" text="Patient Phone:">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
    </children>
 
 </AnchorPane>
