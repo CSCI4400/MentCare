@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InitialDBConnection implements Runnable {
-	
+	public static final String DBPASSWORD = ""; //make sure to add password
 	Connection Con1;
 
 	@Override
@@ -18,7 +18,7 @@ public class InitialDBConnection implements Runnable {
 			
 			System.out.println("Establishing connection to database");
 			
-			Con1 = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", ""); //make sure to add password
+			Con1 = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBPASSWORD); 
 			
 			System.out.println("Connection success");
 			

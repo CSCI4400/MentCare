@@ -43,6 +43,8 @@ public class doctorview extends Application{
 
 	String placeholder = "Placeholder for: ";
 	
+	static Patient a = new Patient(0);
+	static boolean patientupdate= false;
 	static String pid; //used to store the ID# of the patient whose record is being looked at
 	
 	String welcomestring = "Welcome Doctor, " + "xyz";
@@ -141,46 +143,11 @@ public class doctorview extends Application{
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			pid = patientidinput.getText();
-			
+			a = new Patient(Integer.parseInt(pid));
 			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
-			String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number FROM mentcare.Personal_Info WHERE ? = mentcare.Personal_Info.PNumber";
-			String selectMinfostmt = "SELECT * FROM mentcare.Medical_Info WHERE ? = mentcare.Medical_Info.PNum";
-			int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank values
-			String fname = "", lname = "", address = "", sex = "", phonenum = "", diagnosis="", ssn="";
-			Date bdate = null, lastvisit = null;
-			try {
-				PreparedStatement pstmt = viewMenu.con.prepareStatement(selectPinfoStmt);
-				pstmt.setInt(1, Integer.parseInt(pid));
-				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
-				while(rs.next()){ //Gets the information from the "Personal Info" table
-					pnum = rs.getInt("PNumber");
-					fname = rs.getString("Fname");
-					lname = rs.getString("Lname");
-					address = rs.getString("Address");
-					sex = rs.getString("Sex");
-					phonenum = rs.getString("Phone_Number");
-					bdate = rs.getDate("BDate");
-				}
-				
-				pstmt = viewMenu.con.prepareStatement(selectMinfostmt);
-				pstmt.setInt(1, Integer.parseInt(patientidinput.getText()));
-				rs = pstmt.executeQuery();
-				
-				while(rs.next()){ //Gets the information from the "Medical Info" table
-					diagnosis = rs.getString("Diagnosis");
-					lastvisit = rs.getDate("Last_Visit");
-					ssn = rs.getString("Ssn");
-				}
-				pstmt.close();
-				rs.close();
-				
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			System.out.println(patientidinput.getText());
+			new Thread(a).start();
 			//Feeds the results obtained from the database to the 'patientrecords' menu
-			patientrecords(Integer.toString((pnum)), fname, lname, bdate.toString(), address, sex, phonenum, diagnosis, ssn, lastvisit.toString());
+			patientrecords(a.getPatientnum(), a.getFirstname(), a.getLastname(), (a.getBirthdate()).toString(), a.getAddress(), a.getGender(), a.getPhoneNumber(), a.getDiagnosis(), a.getSsn(), (a.getLastVisit()).toString());
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearch= new Scene(layout2, 640, 640);
@@ -191,7 +158,7 @@ public class doctorview extends Application{
 	 * Displays a patient's records.
 	 * @param patient info. (Should be replaced by patient object
 	 */
-	private static void patientrecords(String patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
+	public static void patientrecords(int patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
 		VBox layout2 = new VBox(10);
 		Label firstname = new Label(firstnamestr); Label lastname = new Label(lastnamestr); Label birthdate = new Label(birthdatestr);
 		Label homeaddress = new Label(homeaddressstr); Label gender = new Label(genderstr); Label phonenumber = new Label(phonenumberstr);
@@ -200,10 +167,10 @@ public class doctorview extends Application{
 		backbutton.setOnAction(e->patientsearch());
 		editrecordbutton.setOnAction(e-> recordeditor(patientid, firstnamestr, lastnamestr, birthdatestr, homeaddressstr, genderstr, phonenumberstr, diagnosisstr, ssn, lastaptdatestring));
 		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, editrecordbutton, backbutton);
-		Scene patientrecords = new Scene(layout2, 640, 640);
+		Scene patientrecords = new Scene(layout2, 800, 800);
 		window.setScene(patientrecords);
 	}
-	private static void recordeditor(String patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
+	private static void recordeditor(int patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
 		VBox layout3 = new VBox(10);
 		Date BirthDate;
 		
@@ -217,53 +184,12 @@ public class doctorview extends Application{
 		TextField addr = new TextField(homeaddressstr); TextField sex = new TextField(genderstr); TextField phonenum = new TextField(phonenumberstr);
 		TextField social = new TextField(ssn); TextField lastapt = new TextField(lastaptdatestring); TextField diago = new TextField(diagnosisstr);
 		
+		
 		updatebutton.setOnAction( e -> {
-			try {
-			Connection Con;
-			PreparedStatement pstmt;
-			
-			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", ""); //make sure to add password
-			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the personal info and medical info tables, excluding diagnosis
-			pstmt.setString(1, fname.getText());
-			pstmt.setString(2,  lname.getText());
-			pstmt.setObject(3, LocalDate.parse(birthdate.getText()));
-			pstmt.setString(4, addr.getText());
-			pstmt.setString(5,  sex.getText());
-			pstmt.setString(6, phonenum.getText());
-			pstmt.setInt(7, Integer.parseInt(patientid));
-			pstmt.executeUpdate();
-			pstmt = Con.prepareStatement(updateMedicalInfo);
-			pstmt.setString(1, social.getText());
-			pstmt.setObject(2, LocalDate.parse(lastapt.getText()));
-			pstmt.setInt(3, Integer.parseInt(patientid));
-			pstmt.executeUpdate();
-			
-			pstmt = Con.prepareStatement(selectCurrentDiag);
-			pstmt.setInt(1, Integer.parseInt(patientid));
-			ResultSet rs = pstmt.executeQuery();
-			ArrayList<String> Diagnoses = new ArrayList<String>();
-			while(rs.next()){
-				Diagnoses.add(rs.getString("Diagnosis"));
-			}
-			if(!Diagnoses.get(0).equals(diago.getText())){
-				pstmt = Con.prepareStatement(insertIntoDiagHistory);
-				pstmt.setInt(1, Integer.parseInt(patientid));
-				pstmt.setString(2, diago.getText());
-				pstmt.setObject(3, LocalDate.now());
-				pstmt.setObject(4, "Current Doctor");
-				pstmt.executeUpdate();
-				pstmt= Con.prepareStatement(updateDiagnosis);
-				pstmt.setString(1, diago.getText());
-				pstmt.setInt(2, Integer.parseInt(patientid));
-				pstmt.executeUpdate();
-			}
-			
-			pstmt.close();
-			patientrecords(patientid, fname.getText(), lname.getText(), birthdate.getText(), addr.getText(), sex.getText(), phonenum.getText(), diago.getText(), social.getText(), lastapt.getText());
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), patientid);
+			new Thread(a.recordupdater).start();
+			//new Thread(a).start();
+			patientrecords(a.getPatientnum(), a.getFirstname(), a.getLastname(), (a.getBirthdate()).toString(), a.getAddress(), a.getGender(), a.getPhoneNumber(), a.getDiagnosis(), a.getSsn(), (a.getLastVisit()).toString());
 			
 	});
 		
@@ -276,7 +202,7 @@ public class doctorview extends Application{
 		Scene recordeditor = new Scene(layout3, 680, 680);
 		window.setScene(recordeditor);
 	}
-	private static void diagnosishistory(String patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
+	private static void diagnosishistory(int patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
 		
 		BorderPane diaghistlayout = new BorderPane();
 		VBox Dleft = new VBox();
@@ -311,7 +237,7 @@ public class doctorview extends Application{
 		Collection<String> DatesofD = new ArrayList<>();
 		try {
 			pstmt = viewMenu.con.prepareStatement(selhistory);
-			pstmt.setInt(1, Integer.parseInt(patientid));
+			pstmt.setInt(1, patientid);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
 				Diagnoses.add(rs.getString("Diagnosis"));
