@@ -26,7 +26,7 @@ public class Doctor {
     Scanner scan = new Scanner(System.in);
     String values = "";
 
-    Connection conn = DBConfig.getConnection();
+
 
 
     private String doctorFName,doctorLName,fullName,doctorSpecialty;
@@ -62,15 +62,18 @@ public class Doctor {
         doctorPatientList.add(p);
 
         try {
+            Connection conn = DBConfig.getConnection();
 
             stmt = conn.createStatement();
 
-            table = Personal_Info(PNumber,LName,FName,BDate,Address,Sex,Phone_number);
+            table = "Personal_Info(PNumber,LName,FName,BDate,Address,Sex,Phone_number)";
 
             System.out.println("Enter all applicable fields separated by commas and make sure VARCHAR variables are surrounded by single quotation marks.");
 
             values = scan.nextLine();
+
             query = "INSERT INTO " + table + " VALUES (" + values + ")";
+
             stmt.executeUpdate(query);
 
         }

@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.sql.SQLException;
+
 
 public class Main extends Application {
 	private BusinessManager businessManager;
@@ -50,15 +52,36 @@ public class Main extends Application {
 		launch(args);
 	}
 	
-	public void onAddPatient() {
-		if(businessManager == null) {
+	public void onAddPatient()
+	{
+		if(businessManager == null)
+		{
 			businessManager = new BusinessManager("Example Manager");
-			businessManager.addDoctor(new Doctor("Aaron", "Griffin", "Everything"));
-		}
+			try
+			{
+
+				businessManager.addDoctor(new Doctor("Aaron", "Griffin", "Everything"));
+
+			}//end try
+
+			catch (SQLException e)
+			{
+
+				e.printStackTrace();
+
+			}//end catch
+
+		}//end if statement
+	}//end onAddPatient
+
+
+
+
 		Patient p = new Patient(firstField.getText() + " " + lastField.getText());
 		System.out.println(businessManager.toString());
 		System.out.println(p.toString());
 		businessManager.addPatient(p);
 		statusLabel.setText(firstField.getText() + " " + lastField.getText() + " was added.\nPatients: " + businessManager.countPatients());
 	}
+
 }
