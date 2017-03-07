@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="375.0" prefWidth="668.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hawksoft.UpdatePatientController">
+<AnchorPane id="AnchorPane" prefHeight="375.0" prefWidth="668.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.hawksoft.UpdatePatientController">
    <children>
       <GridPane alignment="CENTER_RIGHT" layoutX="6.0" layoutY="7.0" prefHeight="362.0" prefWidth="656.0">
         <columnConstraints>

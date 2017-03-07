@@ -77,11 +77,10 @@ public class Main extends Application {
 
 
 
-		Patient p = new Patient(firstField.getText(), lastField.getText());
-		System.out.println(businessManager.toString());
-		System.out.println(p.toString());
-		businessManager.addPatient(p);
-		statusLabel.setText(firstField.getText() + " " + lastField.getText() + " was added.\nPatients: " + businessManager.countPatients());
+//		Patient p = new Patient(firstField.getText(), lastField.getText());
+//		System.out.println(businessManager.toString());
+//		System.out.println(p.toString());
+//		businessManager.addPatient(p);
+//		statusLabel.setText(firstField.getText() + " " + lastField.getText() + " was added.\nPatients: " + businessManager.countPatients());
 	}
 
-}
