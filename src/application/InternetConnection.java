@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 
-public class InternetConnection {
+public class InternetConnection extends displayAppController{
 
     //May want to use InetAddress.isReachable if this doesn't meet our needs.
     public static boolean checkInternet() {
