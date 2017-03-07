@@ -18,8 +18,9 @@ public class Appointment {
 	private StringProperty apTime;
 	private StringProperty passed;
 	private StringProperty missed;
+	private StringProperty phone;
 
-	public Appointment(String appnum, String pnum, String pname, String DocID, String apdate, String aptime, String Passed, String Missed) {
+	public Appointment(String appnum, String pnum, String pname, String DocID, String apdate, String aptime, String Passed, String Missed, String phoneNum) {
 		this.appNum = new SimpleStringProperty(appnum);
 		this.Pnum = new SimpleStringProperty(pnum);
 		this.Pname = new SimpleStringProperty(pname);
@@ -28,6 +29,7 @@ public class Appointment {
 		this.apTime = new SimpleStringProperty(aptime);
 		this.passed = new SimpleStringProperty(Passed);
 		this.missed = new SimpleStringProperty(Missed);
+		this.phone = new SimpleStringProperty(phoneNum);
 	}
 
 	public StringProperty getAppNum() {
@@ -104,6 +106,13 @@ public class Appointment {
 
 	public void setMissed(StringProperty missed) {
 		this.missed = missed;
+	}
+	public void setPhone(StringProperty phoneNum) {
+		this.phone = phoneNum;
+	}
+
+	public StringProperty getPhone() {
+		return phone;
 	}
 
 

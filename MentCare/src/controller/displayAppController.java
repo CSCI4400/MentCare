@@ -19,14 +19,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+//import javafx.scene.control.Alert;
+//import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Appointment;
@@ -53,6 +56,7 @@ public class displayAppController {
     @FXML  private TableColumn<Appointment, String> TimeCol;
     @FXML  private TableColumn<Appointment, String> tpassed;
     @FXML  private TableColumn<Appointment, String> MissedCol;
+    @FXML  private TableColumn<Appointment, String> tPhoneCol;
     @FXML private Button btnCancel = new Button();
     @FXML private CheckBox cbWeek = new CheckBox();
 
@@ -70,6 +74,64 @@ public class displayAppController {
     static ObservableList<Appointment> appList = FXCollections.observableList(list);
     static ArrayList<Appointment> tempList = new ArrayList<Appointment>();
 
+    //Danni<start>----------------------------------------------------------------------------------------------------------------
+    @FXML private RadioButton rbAttend;
+    @FXML private RadioButton rbMiss;
+    @FXML private ToggleGroup attended;
+
+    @FXML
+    void mouseClicked(MouseEvent event) {
+    	int selectedIndex = patientTable.getSelectionModel().getSelectedIndex();
+    	if(selectedIndex >= 0){
+    		rbAttend.setDisable(false);
+    		rbMiss.setDisable(false);
+    	}
+    }
+
+    @FXML
+    public void AttendAppointment(ActionEvent event) throws Exception{
+    	try{
+	    	int selectedIndex = patientTable.getSelectionModel().getSelectedIndex();
+			String dateTemp = tempList.get(selectedIndex).getApDateString();
+			String timeTemp = tempList.get(selectedIndex).getApTimeString();
+			Connection conn = DBConfig.getConnection();
+			Statement statement = conn.createStatement();
+	    	if(attended.getSelectedToggle() == rbAttend){
+		 		//pass from current to past appointment
+		 		String currToPass = ("INSERT INTO `mentcare`.`Previous_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
+		 				+ "SELECT AppID, Pnum, Pname, DocID, apDate, apTime FROM Current_Appointment WHERE `apDate`='" + dateTemp
+		 				+ "' AND `apTime`='" + timeTemp + "';");
+		   		System.out.println(currToPass);
+			 	statement.execute(currToPass);
+			 	//delete from current appointment
+	    		String delcurrAttend = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
+	   				 "' AND `apTime`='" + timeTemp + "';");
+	   		 	System.out.println(delcurrAttend);
+		 		statement.execute(delcurrAttend);
+	    	}else if(attended.getSelectedToggle() == rbMiss){
+		 		//pass from current to miss appointment
+		 		String currToMiss = ("INSERT INTO `mentcare`.`Missed_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
+		 				+ "SELECT AppID, Pnum, Pname, DocID, apDate, apTime FROM Current_Appointment WHERE `apDate`='" + dateTemp
+		 				+ "' AND `apTime`='" + timeTemp + "';");
+		   		System.out.println(currToMiss);
+			 	statement.execute(currToMiss);
+			 	//delete from current appointment
+			 	String delcurAtten = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
+		   				 "' AND `apTime`='" + timeTemp + "';");
+		   		System.out.println(delcurAtten);
+		   		statement.execute(delcurAtten);
+	    	}else{
+	    		System.out.println("Failed to send current to past or missed appointment db tables.");
+	    	}
+	    	patientTable.getItems().remove(selectedIndex);
+	    	//deselect radio buttons after use
+	 		rbAttend.setSelected(false);
+		 	rbMiss.setSelected(false);
+    	}catch (Exception e){
+    		e.printStackTrace();
+    	}
+    }
+    //<end>-----------------------------------------------------------------------------------------------------------------------
     @FXML
     public void CancelAppointment(ActionEvent event) throws Exception{
     	try{
@@ -105,7 +167,7 @@ public class displayAppController {
 
 
     }
-    
+
     @FXML
     void ClickCancelButton(ActionEvent event) throws Exception {
 
@@ -199,11 +261,12 @@ public class displayAppController {
 
 
 			tempList.clear();
+			appList.clear();
 		    String query = ("select * from mentcare.Current_Appointment where apDate='" + enterDate + "'"); //that is for the date in textfield!
 		    Connection conn = DBConfig.getConnection();
 			Statement statement = conn.createStatement();
 	    	ResultSet RS = null;
-	    	String AppNum = null, Pnum = null, Pname = null,
+	    	String AppNum = null, Pnum = null, Pname = null, phoneNum = null,
 	    			DocID = null, apDate = null,  apTime = null, passed = null, missed;
 	    	String[] date = new String[7];
 	    	if(cbWeek.isSelected())
@@ -312,7 +375,9 @@ public class displayAppController {
     		apTime = RS.getString("apTime");
     		passed = Integer.toString(RS.getInt("passed"));
     		missed = Integer.toString(RS.getInt("missed"));
-    		Appointment temp = new Appointment(AppNum, Pnum, Pname, DocID, apDate, apTime, passed, missed);
+    		phoneNum = RS.getString("pPhone");
+
+    		Appointment temp = new Appointment(AppNum, Pnum, Pname, DocID, apDate, apTime, passed, missed, phoneNum);
 
 		      appList.add(temp);
 		      tempList.add(temp);
@@ -327,6 +392,7 @@ public class displayAppController {
             TimeCol.setCellValueFactory(cellData -> cellData.getValue().getApTime());
             //tpassed.setCellValueFactory(cellData -> cellData.getValue().getPassed());
             MissedCol.setCellValueFactory(cellData -> cellData.getValue().getMissed());
+            tPhoneCol.setCellValueFactory(cellData -> cellData.getValue().getPhone());
             patientTable.setItems(appList);
 		    }
 			} catch (Exception e) {
@@ -343,7 +409,7 @@ public class displayAppController {
     		Connection conn = DBConfig.getConnection();
     		Statement statement = conn.createStatement();
         	ResultSet RS = null;
-        	String AppNum = null, Pnum = null, Pname = null,
+        	String AppNum = null, Pnum = null, Pname = null, phoneNum = null,
         			DocID = null, apDate = null,  apTime = null, passed = null, missed;
 
         	List<Appointment> list = new ArrayList<Appointment>();
@@ -361,9 +427,10 @@ public class displayAppController {
         		DocID = (RS.getString("DocID"));
         		apDate = (RS.getString("apDate"));
         		apTime = RS.getString("apTime");
-        		passed = Integer.toString(RS.getInt("passed"));
         		missed = Integer.toString(RS.getInt("missed"));
-        		Appointment temp = new Appointment(AppNum, Pnum, Pname, DocID, apDate, apTime, passed, missed);
+        		passed = Integer.toString(RS.getInt("passed"));
+        		phoneNum = RS.getString("pPhone");
+        		Appointment temp = new Appointment(AppNum, Pnum, Pname, DocID, apDate, apTime, passed, missed, phoneNum);
   		      	appList.add(temp);
   		      	tempList.add(temp);
       		    }
@@ -376,6 +443,7 @@ public class displayAppController {
                 TimeCol.setCellValueFactory(cellData -> cellData.getValue().getApTime());
                 //tpassed.setCellValueFactory(cellData -> cellData.getValue().getPassed());
                 MissedCol.setCellValueFactory(cellData -> cellData.getValue().getMissed());
+                tPhoneCol.setCellValueFactory(cellData -> cellData.getValue().getPhone());
                 patientTable.setItems(appList);
 
     	} catch (Exception e) {
