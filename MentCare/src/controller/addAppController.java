@@ -53,7 +53,6 @@ public class addAppController {
         @FXML private Button submit;
         @FXML private Button cancel;
         @FXML private TextField PnumTF;
-        @FXML private TextField patientPhone;
 
         //make group for radio buttons
          @FXML private ToggleGroup rg = new ToggleGroup();
@@ -261,7 +260,6 @@ public class addAppController {
         String date = datePick.getValue().toString();
         String name = patientName.getText();//error checking needed
         String patientNum = PnumTF.getText();//error checking needed
-        String phone = patientPhone.getText();
         
         
         //printing purpose 
@@ -270,8 +268,8 @@ public class addAppController {
 
 
         //create query to send appt in db
-        String apptQuery = "INSERT INTO `Current_Appointment`(`Pnum`, `Pname`, `DocID`, `apDate`, `apTime`, pPhone) "
-                        + "VALUES (?,?,?,?,?,?)";
+        String apptQuery = "INSERT INTO `Current_Appointment`(`Pnum`, `Pname`, `DocID`, `apDate`, `apTime`) "
+                        + "VALUES (?,?,?,?,?)";
 
 
         //try to connect to db
@@ -285,7 +283,6 @@ public class addAppController {
         createAppt.setString(3, "0");
         createAppt.setString(4, date);
         createAppt.setString(5, selectedTime);
-        createAppt.setString(6, phone);
 
         //print query
         System.out.println("Query Sent" + createAppt.toString());
@@ -298,7 +295,6 @@ public class addAppController {
         {
                 patientName.clear();
                 PnumTF.clear();
-                patientPhone.clear();
                 
                 //can't clear date values yet, causes a null pointer error
                //datePick.getEditor().clear();
