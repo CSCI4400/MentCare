@@ -78,6 +78,11 @@ public class PrescriptionView extends Application {
 
         TableColumn pNameCol = new TableColumn("Prescription");
         pNameCol.setMinWidth(140);
+        /*
+        if(pNameCol != null){
+            pNameCol.setForeground(Color.Red);
+        }
+        */
         TableColumn lastDateCol = new TableColumn("Last Prescribed");
         lastDateCol.setMinWidth(100);
         TableColumn pDescriptionCol = new TableColumn("Description");
