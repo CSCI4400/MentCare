@@ -69,6 +69,7 @@ public class displayAppController {
     @FXML private Label locationL;
     @FXML private Label zipL;
     @FXML private Label phoneL;
+    @FXML private Label dateFeedback;
     @FXML private TextField DateTF;
     static List<Appointment> list = new ArrayList<Appointment>();
     static ObservableList<Appointment> appList = FXCollections.observableList(list);
@@ -186,79 +187,122 @@ public class displayAppController {
 		//loads the scene on top of whatever stage the button is in
 		stage.setScene(scene);
 	}
+    //Leap Year Check for date validation
+    public boolean isLeapYear(String y){
+    	int year = Integer.parseInt(y);
+    	boolean leap;
+    	leap = (year % 4 == 0);
 
+        // divisible by 4 and not 100
+        leap = leap && (year % 100 != 0);
+
+        // divisible by 4 and not 100 unless divisible by 400
+        leap = leap|| (year % 400 == 0);
+
+    	return leap;
+    }
     @FXML
 	void ClickGoButton(ActionEvent event) {
-	    	String enterDate = DateTF.getText();
-			try{
-				boolean valid = true;
-		    	//yyyy-mm-dd
-		    	Pattern p1 = Pattern.compile("([^0-9-])", Pattern.CASE_INSENSITIVE);
+    	String enterDate = DateTF.getText();
 
-		    	Matcher bDate = p1.matcher(enterDate);
-		    	boolean Dat = bDate.find();
+    	try{
+			boolean empty = false;
+			boolean valid = true;
+	    	//yyyy-mm-dd
+	    	Pattern p1 = Pattern.compile("([^0-9-])", Pattern.CASE_INSENSITIVE);
 
-		    	if(enterDate.equals("")){
-		    		System.out.println("Empty Field");
-		    		valid = false;
-		    	}
-		    	int count = 0;
-		    	for(int i = 0; i < enterDate.length(); i++){
-		    		if(enterDate.charAt(i) == '-')
-		    			count++;
-		    	}
+	    	Matcher bDate = p1.matcher(enterDate);
+	    	boolean Dat = bDate.find();
 
-		    	if(enterDate.length() != 10)
-		    	{
-		    		valid = false;
-		    		System.out.println("NOT A DATE"); //Replace with Label warning
-		    	}
-		    	else
-		    	{
+	    	if(enterDate.equals("")){ //empty field check
+	    		dateFeedback.setText("Empty Field");
+	    		empty = true;
+	    		dateFeedback.setVisible(true);
+	    		valid = false;
+	    	}
+	    	int count = 0;
+	    	for(int i = 0; i < enterDate.length(); i++){
+	    		if(enterDate.charAt(i) == '-')
+	    			count++;
+	    	}
 
-		    			if(Dat)
-		    			{
-		    				System.out.println("NOT A DATE");
-		    				valid = false;
-		    			}
-		    			else if(!enterDate.equals("") && count != 2)
-		    			{
-		    				System.out.println("NOT A DATE");
-		    				valid = false;
-		    			}
-		    			else
-		    			{
-		    				String[] parts = enterDate.split("-");
-		    				String part1 = parts[0];
-		    				String part2 = parts[1];
-		    				String part3 = parts[2];
-		    				int y = Integer.parseInt(part1);
-		    				int mon = Integer.parseInt(part2);
-		    				int d = Integer.parseInt(part3);
+	    	if(enterDate.length() != 10) //length check
+	    	{
+	    		valid = false;
+	    		if(!empty)
+	    			dateFeedback.setText("Invalid Length"); //Replace with Label warning
+	    		dateFeedback.setVisible(true);
+	    	}
+	    	else
+	    	{
 
+	    			if(Dat) //invalid character check
+	    			{
+	    				dateFeedback.setText("Invalid Character");
+	    				dateFeedback.setVisible(true);
+	    				valid = false;
+	    			}
+	    			else if(count != 2) // number of dashes check
+	    			{
+	    				dateFeedback.setText("Invalid Format");
+	    				dateFeedback.setVisible(true);
+	    				valid = false;
+	    			}
+	    			else
+	    			{
+	    				String[] parts = enterDate.split("-");
+	    				String part1 = parts[0];
+	    				String part2 = parts[1];
+	    				String part3 = parts[2];
+	    				int y = Integer.parseInt(part1);
+	    				int mon = Integer.parseInt(part2);
+	    				int d = Integer.parseInt(part3);
 
-		    				if(!enterDate.equals("") && enterDate.charAt(4) != '-' || enterDate.charAt(7) != '-'){
-		    					System.out.println("Invalid Date: bad format");
-		    					valid = false;
-		    				}
-		    				else if(!enterDate.equals("") && mon  > 12 || mon < 1 || d > 31 || d < 1 || y < 2017){
-		    					System.out.println("Invalid Date: ");
-		    					valid = false;
-		    				}
-		    				else if(!enterDate.equals("") && mon == 2 && d > 29){
-		    					System.out.println("Invalid Date: February out of range");
-		    					valid = false;
-		    				}
-		    				else if(!enterDate.equals("") && mon == 4 || mon == 6 || mon == 9 || mon == 11 && d > 30){
-		    					System.out.println("Invalid Date: out of range for month");
-		    					valid = false;
-		    				}
+	    				//Check for dashes in the right places,
+	    				//check for month !> 12 || < 1, day >31 || < 1, Y !< 2017
+	    				// Check february range
+	    				//check for 30 day months, 4, 6, 9, 11
 
-		    			}
-		    		}
+	    				if(enterDate.charAt(4) != '-' || enterDate.charAt(7) != '-') //check for correct dash placement
+	    				{
+	    					valid = false;
+	    					dateFeedback.setText("Invalid Format");
+		    				dateFeedback.setVisible(true);
+	    				}
+	    				else if(mon > 12 || mon < 1) //check that month exists
+	    				{
+	    					valid = false;
+	    					dateFeedback.setText("Invalid Month");
+		    				dateFeedback.setVisible(true);
+	    				}
+	    				else if((mon == 4 || mon == 6 || mon == 9 || mon == 11) && d > 30){ //Check 30 day months
+	    					valid = false;
+	    					dateFeedback.setText("Invalid Day");
+		    				dateFeedback.setVisible(true);
+	    				}
+	    				else if((mon == 2 && isLeapYear(enterDate.substring(0, 4))) && d > 29){ //Check Feb for leap year
+	    					valid = false;
+	    					dateFeedback.setText("Invalid Day");
+		    				dateFeedback.setVisible(true);
+	    				}
+	    				else if((mon == 2 && !isLeapYear(enterDate.substring(0, 4)) && d > 28)){
+	    					valid = false;
+	    					dateFeedback.setText("Invalid Day");
+		    				dateFeedback.setVisible(true);
+	    				}
+	    				else if((d > 31 || d < 1)){
+	    					valid = false;
+	    					dateFeedback.setText("Invalid Day");
+		    				dateFeedback.setVisible(true);
+	    				}
+
+	    				}
+
+	    			}
 
 		    if(valid){
 
+		    	dateFeedback.setVisible(false);
 
 			tempList.clear();
 			appList.clear();

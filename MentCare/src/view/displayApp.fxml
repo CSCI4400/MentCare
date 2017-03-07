@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -12,7 +17,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="504.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.displayAppController">
+<AnchorPane prefHeight="504.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.displayAppController">
    <children>
       <Label layoutX="14.0" layoutY="94.0" prefHeight="42.0" prefWidth="141.0" text="Enter a date:">
          <font>
@@ -75,5 +80,10 @@
             <Font name="Georgia Bold" size="15.0" />
          </font>
       </RadioButton>
+      <Label fx:id="dateFeedback" alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="71.0" prefHeight="17.0" prefWidth="167.0" textAlignment="CENTER" textFill="#a42525" visible="false">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
