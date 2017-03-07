@@ -27,6 +27,13 @@ public class Patient {
         this.sex = gen;
     }
 
+    //basic patient constructor
+    public Patient(String fNameIn, String lNameIn)
+    {
+        FName = fNameIn;
+        LName = lNameIn;
+    }
+
     public void setFName(String FName) {
         this.FName = FName;
     }

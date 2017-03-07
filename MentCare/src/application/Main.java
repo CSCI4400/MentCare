@@ -77,7 +77,7 @@ public class Main extends Application {
 
 
 
-		Patient p = new Patient(firstField.getText() + " " + lastField.getText());
+		Patient p = new Patient(firstField.getText(), lastField.getText());
 		System.out.println(businessManager.toString());
 		System.out.println(p.toString());
 		businessManager.addPatient(p);
