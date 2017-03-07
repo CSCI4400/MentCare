@@ -3,77 +3,62 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="504.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.displayAppController">
+<AnchorPane prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.displayAppController">
    <children>
-      <Label layoutX="14.0" layoutY="94.0" prefHeight="42.0" prefWidth="141.0" text="Enter a date:">
-         <font>
-            <Font name="Georgia Bold" size="16.0" />
-         </font></Label>
-      <Button fx:id="cancelButton" layoutX="24.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickBackButton" text="Back">
-         <font>
-            <Font name="Georgia" size="15.0" />
-         </font></Button>
-      <TextField fx:id="DateTF" layoutX="124.0" layoutY="96.0" prefHeight="39.0" prefWidth="167.0" promptText="YYYY-MM-DD">
-         <font>
-            <Font name="Times New Roman" size="15.0" />
-         </font></TextField>
-      <Button fx:id="displayButt" layoutX="448.0" layoutY="100.0" mnemonicParsing="false" onAction="#ClickGoButton" text="Display">
-         <font>
-            <Font name="Georgia" size="15.0" />
-         </font></Button>
-      <TableView fx:id="patientTable" layoutX="-1.0" layoutY="170.0" onMouseClicked="#mouseClicked" prefHeight="229.0" prefWidth="640.0" style="-fx-background-color: #F6F6F6;" AnchorPane.leftAnchor="-1.0">
+      <Label layoutX="19.0" layoutY="34.0" prefHeight="42.0" prefWidth="249.0" text="Enter a date:" />
+      <GridPane layoutX="14.0" layoutY="91.0" prefHeight="92.0" prefWidth="606.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.66666412353516" minWidth="10.0" prefWidth="118.66666412353516" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.6666717529297" minWidth="10.0" prefWidth="151.33333587646484" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="115.33332824707031" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.66668701171875" minWidth="10.0" prefWidth="102.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.66665649414062" minWidth="10.0" prefWidth="94.33331298828125" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="116.0" text="Patient Number" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="129.0" text="Patient Name" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="115.0" text="Doctor ID" GridPane.columnIndex="2" />
+            <Label fx:id="PnumLabel" alignment="CENTER" prefHeight="27.0" prefWidth="100.0" text="---" textAlignment="CENTER" GridPane.rowIndex="1" />
+            <Label fx:id="PnameLabel" alignment="CENTER" prefHeight="27.0" prefWidth="115.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="DocIDLabel" alignment="CENTER" prefHeight="27.0" prefWidth="130.0" text="---" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+             <Label fx:id="TimeLabel" alignment="CENTER" prefHeight="27.0" prefWidth="153.0" text="---" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+             <Label fx:id="DateLabel" alignment="CENTER" prefHeight="27.0" prefWidth="115.0" text="---" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="133.0" text="Date" GridPane.columnIndex="3" />
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="156.0" text="Time" GridPane.columnIndex="4" />
+             </children>
+      </GridPane>
+      <Button fx:id="cancelButton" layoutX="290.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickBackButton" text="Back" />
+      <TextField fx:id="DateTF" layoutX="127.0" layoutY="39.0" prefHeight="39.0" prefWidth="167.0" promptText="YYYY-MM-DD" />
+      <Button fx:id="displayButt" layoutX="450.0" layoutY="39.0" mnemonicParsing="false" onAction="#ClickGoButton" text="Display" />
+      <TableView fx:id="patientTable" layoutX="-1.0" layoutY="193.0" prefHeight="206.0" prefWidth="640.0" AnchorPane.leftAnchor="-1.0">
         <columns>
-          <TableColumn fx:id="PnumCol" prefWidth="97.0" text="Patient Number" />
-          <TableColumn fx:id="PnameCol" prefWidth="122.3333740234375" text="Patient Name" />
-            <TableColumn fx:id="DocIDCol" prefWidth="65.3333740234375" text="Doctor ID" />
-            <TableColumn fx:id="DateCol" prefWidth="99.66668701171875" text="Date" />
-            <TableColumn fx:id="TimeCol" prefWidth="63.0" text="Time" />
-            <TableColumn fx:id="tPhoneCol" prefWidth="101.6666259765625" text="Contact Number" />
-            <TableColumn fx:id="MissedCol" prefWidth="88.0" text="Missed" />
+          <TableColumn fx:id="PnumCol" prefWidth="127.0" text="Patient Number" />
+          <TableColumn fx:id="PnameCol" prefWidth="122.33332824707031" text="Patient Name" />
+            <TableColumn fx:id="DocIDCol" prefWidth="90.66667175292969" text="Doctor ID" />
+            <TableColumn fx:id="DateCol" prefWidth="101.92538452148438" text="Date" />
+            <TableColumn fx:id="TimeCol" prefWidth="90.07461547851562" text="Time" />
+            <TableColumn fx:id="MissedCol" prefWidth="106.33331298828125" text="Missed" />
         </columns>
-         <effect>
-            <Blend mode="MULTIPLY" />
-         </effect>
       </TableView>
-      <Button fx:id="displayAllButt" layoutX="532.0" layoutY="100.0" mnemonicParsing="false" onAction="#ClickDisplayAllButton" text="Display All!">
+      <Button fx:id="displayAllButt" layoutX="527.0" layoutY="39.0" mnemonicParsing="false" onAction="#ClickDisplayAllButton" text="Display All!" />
+      <Button fx:id="btnCancel" layoutX="19.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel" />
+      <CheckBox fx:id="cbWeek" layoutX="321.0" layoutY="45.0" mnemonicParsing="false" text="Full Week">
          <font>
-            <Font name="Georgia" size="15.0" />
-         </font></Button>
-      <Button fx:id="btnCancel" layoutX="241.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel Appointment">
-         <font>
-            <Font name="Georgia" size="15.0" />
-         </font></Button>
-      <CheckBox fx:id="cbWeek" layoutX="310.0" layoutY="104.0" mnemonicParsing="false" text="Full Week">
-         <font>
-            <Font name="Georgia Bold" size="16.0" />
+            <Font size="16.0" />
          </font>
       </CheckBox>
-      <Label layoutX="180.0" layoutY="34.0" text="Current Appointments">
-         <font>
-            <Font name="Georgia Bold" size="24.0" />
-         </font>
-      </Label>
-      <RadioButton fx:id="rbAttend" disable="true" layoutX="423.0" layoutY="431.0" mnemonicParsing="false" onAction="#AttendAppointment" text="Attended">
-         <font>
-            <Font name="Georgia Bold" size="15.0" />
-         </font>
-         <toggleGroup>
-            <ToggleGroup fx:id="attended" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="rbMiss" disable="true" layoutX="532.0" layoutY="431.0" mnemonicParsing="false" onAction="#AttendAppointment" text="Missed" toggleGroup="$attended">
-         <font>
-            <Font name="Georgia Bold" size="15.0" />
-         </font>
-      </RadioButton>
    </children>
 </AnchorPane>
