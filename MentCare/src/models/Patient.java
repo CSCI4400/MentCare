@@ -17,8 +17,8 @@ public class Patient {
 
 	String previous_harm_to_others;
 	String previous_harm_to_self;
-	
-	
+
+
 	//Variables that are initialized for data coming from patients table
 	int id;
 	String first_name = null;
@@ -29,9 +29,9 @@ public class Patient {
     String next_visit = null;
     String ssn = null;
     String photo = null;
-    
-    
-    
+
+
+
     // Constructor with all of the patient information
     public Patient(int id, int patient_history_id, String first_name, String last_name, String email_address, String home_address, String last_visit,
 			String next_visit, String ssn, String photo) {
@@ -53,15 +53,15 @@ public class Patient {
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.home_address = home_address;
-		
+
 	}
     public Patient(String first_name) {
 		super();
 		this.first_name = first_name;
-		
-		
+
+
 	}
-	
+
 	//******************Getters and Setters for everything except id which will not be able to be changed
 	public int getId() {
 		return id;
@@ -114,14 +114,14 @@ public class Patient {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	
+
 	public int getPatient_history_id() {
 		return history_id;
 	}
 	public void setPatient_history_id(int patient_history_id) {
 		this.history_id = patient_history_id;
 	}
-	
+
 	public String getSurgeries() {
 		return surgeries;
 	}
@@ -168,11 +168,11 @@ public class Patient {
 
 
 	//****************************end getters and setters
-	
-	
-	
-	
-	
+
+
+
+
+
 	//To string method to print patient information
 	public String toString(){
 		String result;
@@ -183,16 +183,16 @@ public class Patient {
 				  "Last Visit: " + getLast_visit() + "\n" +
 				  "Next Visit: " + getNext_visit()  + "\n" +
 				  "Socical Security Number: " + getssn() + "\n";
-				  
+
 				  return result;
-				  
-				  
+
+
 	}
-	
-    
+
+
     //********************************update methods for database****************************************
 	public void Update_Patient_Address(String newAddress) throws SQLException, ClassNotFoundException{
-		//This is no longer needed  
+		//This is no longer needed
 	    Class.forName("com.mysql.jdbc.Driver");
 	    System.out.println("Driver loaded");
 
@@ -207,9 +207,11 @@ public class Patient {
 	    // Execute a statement
 	   // ResultSet resultSet = statement.executeQuery
 	     // ("update patients set home_address = " + newAddress + " where id = " + p.getPatient_history_id()) ;
-	    String query = "update patients set home_address = " + newAddress + " where id = " + this.id;
+
+	    String query = "update patients set home_address = ?  where id = ?";
 	      java.sql.PreparedStatement preparedStmt = connection.prepareStatement(query);
-	      
+	      preparedStmt.setString  (1, newAddress);
+	      preparedStmt.setInt(2, this.id);
 
 	      // execute the java preparedstatement
 	      preparedStmt.executeUpdate();
@@ -217,6 +219,35 @@ public class Patient {
 	    connection.close();
 	    this.home_address = newAddress;
 	  }
-    
-    
+	public void Update_Patient_Danger_level(String newdanger) throws SQLException, ClassNotFoundException {
+		//This is no longer needed
+	    Class.forName("com.mysql.jdbc.Driver");
+	    System.out.println("Driver loaded");
+
+	    // Connect to a database
+	    java.sql.Connection connection = DriverManager.getConnection
+				("jdbc:mysql://198.71.227.86:3306/mentcare_db", "TeamTigerWoods", "GOATGOAT");
+	    System.out.println("Database connected");
+
+	    // Create a statement
+	    //Statement statement = connection.createStatement();
+
+	    // Execute a statement
+	   // ResultSet resultSet = statement.executeQuery
+	     // ("update patients set home_address = " + newAddress + " where id = " + p.getPatient_history_id()) ;
+
+	    String query = "update patients_history set threat_level = ?  where history_id = ?";
+	      java.sql.PreparedStatement preparedStmt = connection.prepareStatement(query);
+	      preparedStmt.setString  (1, newdanger);
+	      preparedStmt.setInt(2, this.history_id);
+
+	      // execute the java preparedstatement
+	      preparedStmt.executeUpdate();
+	    // Close the connection
+	    connection.close();
+	    this.threat_level = newdanger;
+
+	}
+
+
 }
