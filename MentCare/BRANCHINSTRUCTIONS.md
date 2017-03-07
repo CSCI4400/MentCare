@@ -54,6 +54,9 @@ https://git-scm.com/docs/git-pull
 https://git-scm.com/docs/git-push
 https://git-scm.com/docs/git-merge
 https://git-scm.com/docs/git-revert (use with caution)</p>
+
+<h3>Video Tutorial on How to Clone a Repository </h3>
+[Instructions on how to clone repository from git ](https://youtu.be/RJUNpjNOuAs)
 	
 <h3>Git Branching Model</h3>
 	

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="564.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <children>
+      <Button fx:id="dc_b_cu" layoutX="530.0" layoutY="63.0" mnemonicParsing="false" onAction="#ClickUpdate" text="Check for Update" />
+      <Label layoutX="275.0" layoutY="23.0" text="Doctor Mode" />
+      <Button fx:id="dc_b_refresh" layoutX="578.0" layoutY="525.0" mnemonicParsing="false" onAction="#ClickRefresh" text="Refresh" />
+      <TableView fx:id="tableD" layoutX="63.0" layoutY="142.0" prefHeight="326.0" prefWidth="519.0">
+        <columns>
+          <TableColumn fx:id="dc_columnAt" prefWidth="113.0" text="Patient Number" />
+          <TableColumn fx:id="dc_columnAd" prefWidth="137.0" text="First Name" />
+            <TableColumn fx:id="dc_columnfn" prefWidth="109.0" text="Last Name" />
+            <TableColumn fx:id="dc_columnPn" prefWidth="112.0" text="Prescription" />
+            <TableColumn fx:id="dc_columnDid" prefWidth="45.0" text="DL" />
+        </columns>
+      </TableView>
+      <Label fx:id="dc_lb_cu" layoutY="125.0" prefHeight="17.0" prefWidth="243.0" />
+      <Button fx:id="dc_b_gb" layoutX="14.0" layoutY="525.0" mnemonicParsing="false" onAction="#ClickGoBack" text="Go Back" />
+   </children>
+</AnchorPane>
