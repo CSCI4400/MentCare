@@ -1,6 +1,6 @@
 Basic GUI implementation.
 
 Unresolved issues:
-  Styling,
-  Database interactions,
-  Scene change issues
+  Styling (GUI council),
+  Database interactions (consult DBA),
+  Scene change issues (learn javaFX)
