@@ -1,4 +1,4 @@
-package mentcare;
+package view;
 
 import javafx.scene.layout.VBox;
 
@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
 
+import controller.PatientDAO;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,6 +32,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Patient;
 import javafx.scene.control.*;
 import javafx.scene.text.*;
 
@@ -43,7 +45,7 @@ public class doctorview extends Application{
 
 	String placeholder = "Placeholder for: ";
 	
-	static Patient a = new Patient(0);
+	static Patient a = new Patient();
 	static boolean patientupdate= false;
 	static String pid; //used to store the ID# of the patient whose record is being looked at
 	
@@ -143,11 +145,11 @@ public class doctorview extends Application{
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			pid = patientidinput.getText();
-			a = new Patient(Integer.parseInt(pid));
+			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 0);
+			//a = new Patient(Integer.parseInt(pid));
 			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
-			new Thread(a).start();
 			//Feeds the results obtained from the database to the 'patientrecords' menu
-			patientrecords(a.getPatientnum(), a.getFirstname(), a.getLastname(), (a.getBirthdate()).toString(), a.getAddress(), a.getGender(), a.getPhoneNumber(), a.getDiagnosis(), a.getSsn(), (a.getLastVisit()).toString());
+			patientrecords(a);
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearch= new Scene(layout2, 640, 640);
@@ -158,19 +160,19 @@ public class doctorview extends Application{
 	 * Displays a patient's records.
 	 * @param patient info. (Should be replaced by patient object
 	 */
-	public static void patientrecords(int patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
+	public static void patientrecords(Patient a) {
 		VBox layout2 = new VBox(10);
-		Label firstname = new Label(firstnamestr); Label lastname = new Label(lastnamestr); Label birthdate = new Label(birthdatestr);
-		Label homeaddress = new Label(homeaddressstr); Label gender = new Label(genderstr); Label phonenumber = new Label(phonenumberstr);
-		Label diagnosis = new Label(diagnosisstr); Label Ssn = new Label(ssn); Label lastapt = new Label(lastaptdatestring);
-		diagnosishistorybutton.setOnAction(e->diagnosishistory(patientid, firstnamestr, lastnamestr, birthdatestr, homeaddressstr, genderstr, phonenumberstr, diagnosisstr, ssn, lastaptdatestring));
+		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
+		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());
+		Label diagnosis = new Label(a.getDiagnosis()); Label Ssn = new Label(a.getSsn()); Label lastapt = new Label((a.getLastVisit()).toString());
+		diagnosishistorybutton.setOnAction(e->diagnosishistory(a));
 		backbutton.setOnAction(e->patientsearch());
-		editrecordbutton.setOnAction(e-> recordeditor(patientid, firstnamestr, lastnamestr, birthdatestr, homeaddressstr, genderstr, phonenumberstr, diagnosisstr, ssn, lastaptdatestring));
+		editrecordbutton.setOnAction(e-> recordeditor(a));
 		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, editrecordbutton, backbutton);
 		Scene patientrecords = new Scene(layout2, 800, 800);
 		window.setScene(patientrecords);
 	}
-	private static void recordeditor(int patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
+	private static void recordeditor(Patient a) {
 		VBox layout3 = new VBox(10);
 		Date BirthDate;
 		
@@ -180,21 +182,26 @@ public class doctorview extends Application{
 		String insertIntoDiagHistory = "INSERT INTO mentcare.Diagnosis_History VALUES ( ? , ?, ?, ? )";
 		String selectCurrentDiag = "SELECT mentcare.Medical_Info.Diagnosis FROM mentcare.Medical_Info WHERE ? = PNum";
 		
-		TextField fname = new TextField(firstnamestr); TextField lname = new TextField(lastnamestr); TextField birthdate = new TextField(birthdatestr);
-		TextField addr = new TextField(homeaddressstr); TextField sex = new TextField(genderstr); TextField phonenum = new TextField(phonenumberstr);
-		TextField social = new TextField(ssn); TextField lastapt = new TextField(lastaptdatestring); TextField diago = new TextField(diagnosisstr);
+		TextField fname = new TextField(a.getFirstname()); TextField lname = new TextField(a.getLastname()); 
+		TextField birthdate = new TextField((a.getBirthdate()).toString()); TextField addr = new TextField(a.getAddress()); 
+		TextField sex = new TextField(a.getGender()); TextField phonenum = new TextField(a.getPhoneNumber());
+		TextField social = new TextField(a.getSsn()); TextField lastapt = new TextField((a.getLastVisit()).toString());
+		TextField diago = new TextField(a.getDiagnosis());
 		
 		
 		updatebutton.setOnAction( e -> {
-			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), patientid);
-			new Thread(a.recordupdater).start();
+			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
 			//new Thread(a).start();
-			patientrecords(a.getPatientnum(), a.getFirstname(), a.getLastname(), (a.getBirthdate()).toString(), a.getAddress(), a.getGender(), a.getPhoneNumber(), a.getDiagnosis(), a.getSsn(), (a.getLastVisit()).toString());
 			
+			PatientDAO.updatePatientInfo(a);
+			patientrecords(a);
 	});
 		
 		
-		backbutton.setOnAction(e-> patientrecords(patientid, fname.getText(), lname.getText(), birthdate.getText(), addr.getText(), sex.getText(), phonenum.getText(), diago.getText(), social.getText(), lastapt.getText()));
+		backbutton.setOnAction(e-> {
+			PatientDAO.updatePatientInfo(a);
+			patientrecords(a);
+		});
 		
 		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, diagnosisl, diago , ssnl, social, lastvisitl, lastapt, updatebutton, backbutton);
 		
@@ -202,7 +209,7 @@ public class doctorview extends Application{
 		Scene recordeditor = new Scene(layout3, 680, 680);
 		window.setScene(recordeditor);
 	}
-	private static void diagnosishistory(int patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String diagnosisstr, String ssn, String lastaptdatestring) {
+	private static void diagnosishistory(Patient a) {
 		
 		BorderPane diaghistlayout = new BorderPane();
 		VBox Dleft = new VBox();
@@ -237,7 +244,7 @@ public class doctorview extends Application{
 		Collection<String> DatesofD = new ArrayList<>();
 		try {
 			pstmt = viewMenu.con.prepareStatement(selhistory);
-			pstmt.setInt(1, patientid);
+			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
 				Diagnoses.add(rs.getString("Diagnosis"));
@@ -267,7 +274,10 @@ public class doctorview extends Application{
 			Dright.getChildren().add(l);
 		}
 		
-	    backbutton.setOnAction(e-> patientrecords(patientid, firstnamestr, lastnamestr, birthdatestr, homeaddressstr, genderstr, phonenumberstr, diagnosisstr, ssn, lastaptdatestring));
+	    backbutton.setOnAction(e-> {
+	    	PatientDAO.updatePatientInfo(a);
+	    	patientrecords(a);
+	    });
 	    Dleft.getChildren().add(backbutton);
 		
 		Scene diaghistview = new Scene(diaghistlayout, 480, 480);

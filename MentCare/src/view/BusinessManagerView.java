@@ -1,4 +1,4 @@
-package mentcare;
+package view;
 
 import javafx.scene.layout.VBox;
 

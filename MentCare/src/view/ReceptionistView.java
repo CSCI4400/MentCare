@@ -1,4 +1,4 @@
-package mentcare;
+package view;
 
 import javafx.scene.layout.VBox;
 
@@ -31,6 +31,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.InitialDBConnection;
 import javafx.scene.control.*;
 import javafx.scene.text.*;
 

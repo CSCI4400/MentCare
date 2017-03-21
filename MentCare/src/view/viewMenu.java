@@ -1,7 +1,8 @@
-package mentcare;
+package view;
 
 import javafx.application.*;
 import javafx.stage.*;
+import model.InitialDBConnection;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.*;
@@ -17,7 +18,7 @@ public class viewMenu extends Application {
 	Button okbutton;
 	Button cancelbutton;
 	Button docView, recepView, bizView;
-	static Connection con;
+	public static Connection con;
 	
 	public static void main(String args[]){
 		
