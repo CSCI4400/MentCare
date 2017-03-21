@@ -53,6 +53,7 @@ public class BusinessManagerView extends Application {
 	static Button viewReportsButton = new Button("View Current Reports");
 	static Button viewClinicStatsButton = new Button("View Clinic Statistics");
 	
+	
 	static String exitconfirmation = "Are you sure you wanted to exit?";
 
 	@Override

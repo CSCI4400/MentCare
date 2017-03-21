@@ -23,9 +23,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -86,6 +83,7 @@ public class doctorview extends Application{
 	static Button okbutton = new Button("ok");
 	static Button cancelbutton = new Button("cancel");
 	static Button updatebutton = new Button("Update");
+	static CheckBox tempDiagnosis = new CheckBox("Diagnosis is temporary");
 	
 	public void start(Stage primaryStage) throws Exception {
 		//Adds buttons and labels
@@ -190,6 +188,10 @@ public class doctorview extends Application{
 		
 		
 		updatebutton.setOnAction( e -> {
+			/* if(tempDiagnosis.isSelected()){ //Add code here for handling status of Diagnosis in database
+			 * ifSelected will be true when checkbox is selected (Diagnosis is temporary) and false when 
+			 * checkbos is not selected (Diagnosis is not temporary)
+			}*/
 			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
 			//new Thread(a).start();
 			
@@ -203,7 +205,7 @@ public class doctorview extends Application{
 			patientrecords(a);
 		});
 		
-		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, diagnosisl, diago , ssnl, social, lastvisitl, lastapt, updatebutton, backbutton);
+		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, diagnosisl, diago , tempDiagnosis, ssnl, social, lastvisitl, lastapt, updatebutton, backbutton);
 		
 		
 		Scene recordeditor = new Scene(layout3, 680, 680);
