@@ -4,8 +4,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="480.0" prefWidth="640.0" styleClass="gridPane" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainViewController">
+<GridPane prefHeight="480.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainViewController">
    <columnConstraints>
       <ColumnConstraints maxWidth="93.0" minWidth="10.0" prefWidth="23.0" />
       <ColumnConstraints maxWidth="254.0" minWidth="49.0" prefWidth="200.0" />
@@ -17,9 +18,10 @@
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="40.0" />
-      <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="40.0" />
-      <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="40.0" />
-      <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="40.0" />
+      <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="50.0" />
+      <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="30.0" />
+      <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="29.0" />
+      <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="51.0" />
       <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="40.0" />
       <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="40.0" />
       <RowConstraints maxHeight="284.0" minHeight="0.0" prefHeight="0.0" />
@@ -35,10 +37,22 @@
       <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="0.0" />
       <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="0.0" />
       <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
+      <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
+      <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
+      <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
    </rowConstraints>
    <children>
-      <Button fx:id="displayButton" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#ClickButton" prefHeight="25.0" prefWidth="261.0" text="Display Appointments" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <Button fx:id="addButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="266.0" text="New Appointments" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Button fx:id="updateButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Modify Appointments" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Button fx:id="displayButton" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#ClickButton" prefHeight="25.0" prefWidth="261.0" text="Display Appointments" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Button>
+      <Button fx:id="addButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="266.0" text="New Appointments" GridPane.columnIndex="2" GridPane.rowIndex="4">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Button>
+      <Button fx:id="updateButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Modify Appointments" GridPane.columnIndex="2" GridPane.rowIndex="22">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Button>
    </children>
 </GridPane>

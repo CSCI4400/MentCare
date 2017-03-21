@@ -10,11 +10,11 @@
 
 <AnchorPane id="mentStyle" prefHeight="570.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addAppController">
    <children>
-      <RadioButton fx:id="rb9" layoutX="66.0" layoutY="360.0" mnemonicParsing="false" onAction="#timeSelect" text="9:00am">
+      <RadioButton fx:id="rb9" layoutX="66.0" layoutY="360.0" mnemonicParsing="false" onAction="#timeSelect" text="9:00am" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb10" layoutX="66.0" layoutY="390.0" mnemonicParsing="false" onAction="#timeSelect" text="10:00am">
+      <RadioButton fx:id="rb10" layoutX="66.0" layoutY="390.0" mnemonicParsing="false" onAction="#timeSelect" text="10:00am" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
@@ -31,74 +31,74 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <RadioButton fx:id="rb12" layoutX="66.0" layoutY="450.0" mnemonicParsing="false" onAction="#timeSelect" text="12:00pm">
+      <RadioButton fx:id="rb12" layoutX="66.0" layoutY="450.0" mnemonicParsing="false" onAction="#timeSelect" text="12:00pm" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb11" layoutX="66.0" layoutY="420.0" mnemonicParsing="false" onAction="#timeSelect" text="11:00am">
+      <RadioButton fx:id="rb11" layoutX="66.0" layoutY="420.0" mnemonicParsing="false" onAction="#timeSelect" text="11:00am" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb1" layoutX="194.0" layoutY="330.0" mnemonicParsing="false" onAction="#timeSelect" text="1:00pm">
+      <RadioButton fx:id="rb1" layoutX="194.0" layoutY="330.0" mnemonicParsing="false" onAction="#timeSelect" text="1:00pm" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb8" layoutX="66.0" layoutY="330.0" mnemonicParsing="false" onAction="#timeSelect" text="8:00am">
+      <RadioButton fx:id="rb8" layoutX="66.0" layoutY="330.0" mnemonicParsing="false" onAction="#timeSelect" text="8:00am" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb2" layoutX="194.0" layoutY="360.0" mnemonicParsing="false" onAction="#timeSelect" text="2:00pm">
+      <RadioButton fx:id="rb2" layoutX="194.0" layoutY="360.0" mnemonicParsing="false" onAction="#timeSelect" text="2:00pm" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb3" layoutX="194.0" layoutY="390.0" mnemonicParsing="false" onAction="#timeSelect" text="3:00pm">
+      <RadioButton fx:id="rb3" layoutX="194.0" layoutY="390.0" mnemonicParsing="false" onAction="#timeSelect" text="3:00pm" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb4" layoutX="194.0" layoutY="420.0" mnemonicParsing="false" onAction="#timeSelect" text="4:00pm">
+      <RadioButton fx:id="rb4" layoutX="194.0" layoutY="420.0" mnemonicParsing="false" onAction="#timeSelect" text="4:00pm" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="rb5" layoutX="194.0" layoutY="450.0" mnemonicParsing="false" onAction="#timeSelect" text="5:00pm">
+      <RadioButton fx:id="rb5" layoutX="194.0" layoutY="450.0" mnemonicParsing="false" onAction="#timeSelect" text="5:00pm" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <Label layoutX="93.0" layoutY="32.0" text="Add New Appointment">
+      <Label layoutX="93.0" layoutY="32.0" text="Add New Appointment" textFill="#010a66">
          <font>
             <Font name="Georgia Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="48.0" layoutY="250.0" text="Select a Date:">
+      <Label layoutX="50.0" layoutY="250.0" text="Select a Date:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="50.0" layoutY="295.0" text="Select the Time:">
+      <Label layoutX="50.0" layoutY="295.0" text="Select the Time:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="50.0" layoutY="148.0" text="Patient Name:">
+      <Label layoutX="50.0" layoutY="148.0" text="Patient Name:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="50.0" layoutY="101.0" text="Patient ID Number:">
+      <Label layoutX="50.0" layoutY="98.0" text="Patient ID Number:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="PnumTF" layoutX="190.0" layoutY="95.0" prefHeight="31.0" prefWidth="218.0" promptText="ID Number">
+      <TextField fx:id="PnumTF" layoutX="190.0" layoutY="92.0" prefHeight="31.0" prefWidth="218.0" promptText="ID Number">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="patientPhone" layoutX="190.0" layoutY="190.0" prefHeight="31.0" prefWidth="218.0" promptText="(###) ### - ####">
+      <TextField fx:id="patientPhone" layoutX="190.0" layoutY="194.0" prefHeight="31.0" prefWidth="218.0" promptText="(###) ### - ####">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </TextField>
-      <Label layoutX="50.0" layoutY="196.0" text="Patient Phone:">
+      <Label layoutX="50.0" layoutY="200.0" text="Patient Phone:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>

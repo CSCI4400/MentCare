@@ -31,7 +31,7 @@ public class updateAppController {
 	private MainFXApp main;
     public void setMain(MainFXApp mainIn)
     {
-    main=mainIn;
+    	main = mainIn;
     }
     
 	@FXML private Label statusLabel;
