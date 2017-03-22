@@ -84,8 +84,11 @@ public class displayAppController {
     static List<Appointment> list = new ArrayList<Appointment>();
     static ObservableList<Appointment> appList = FXCollections.observableList(list);
     static ArrayList<Appointment> tempList = new ArrayList<Appointment>();
-
-    //Danni<start>----------------------------------------------------------------------------------------------------------------
+    /*
+     * =======================================================================================================
+     * @author Danni
+     * =======================================================================================================
+     */
     public void initialize(){
     	try{
 	    	//sets date to the format we are using 
@@ -154,6 +157,7 @@ public class displayAppController {
 		    	}
 		    	System.out.println("Loop: " + i);
 		    }
+		   	System.out.println("*DONE SCANNING CURRENT APPOINTMENTS*");
 			tempList.clear();
     	}catch(Exception e){
     		e.printStackTrace();
@@ -170,10 +174,6 @@ public class displayAppController {
     		btnAttend.setDisable(false);
     		btnMiss.setDisable(false);
     		btnCancel.setDisable(false);
-    	}else{
-    		btnAttend.setDisable(true);
-    		btnMiss.setDisable(true);
-    		btnCancel.setDisable(true);
     	}
     }
 
@@ -187,116 +187,98 @@ public class displayAppController {
 			String timeTemp = tempList.get(selectedIndex).getApTimeString();
 			//connection to db
 			Connection conn = DBConfig.getConnection();
-			Statement statement = conn.createStatement();
-			ResultSet rs = null;
 	    	if(btnAttend.isArmed() == true){
 		 		//pass from current to past appointment
 		 		String currToPass = ("INSERT INTO `mentcare`.`Previous_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
 		 				+ "SELECT AppID, Pnum, Pname, DocID, apDate, apTime FROM Current_Appointment WHERE `apDate`='" + dateTemp
 		 				+ "' AND `apTime`='" + timeTemp + "';");
 		   		System.out.println(currToPass);
-			 	statement.execute(currToPass);
+		   		PreparedStatement prestat = conn.prepareStatement(currToPass);
+			 	prestat.execute(currToPass);
 			 	//delete from current appointment
 	    		String delcurrAttend = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 	   				 "' AND `apTime`='" + timeTemp + "';");
 	   		 	System.out.println(delcurrAttend);
-		 		statement.execute(delcurrAttend);
+		 		prestat.execute(delcurrAttend);
 	    	}else if(btnMiss.isArmed() == true){
 	    		try{
 	    			//gets data from the row at that date and time -> always unique
 		    		String getData = ("SELECT * FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 		   				 "' AND `apTime`='" + timeTemp + "';");
 		    		PreparedStatement curUserInfo = conn.prepareStatement(getData);
-		    		rs = curUserInfo.executeQuery();
-		    		if (rs.next())
-					{
-		    			//sets variables with retrieved db data
-		    			int AppID = rs.getInt("AppID");
-		    			String Pnum = rs.getString("Pnum");
-		    			String Pname = rs.getString("Pname");
-		    			String DocID = rs.getString("DocID");
-		    			String passed = rs.getString("Passed");
-		    			String missed = rs.getString("Missed");
-		    			String phoneNum = rs.getString("pPhone");
-		    			String apID = "" + AppID;
-		    			//sets data in model Appointment
-		    			Appointment patient = new Appointment(apID, Pnum, Pname, DocID, dateTemp, timeTemp, passed, missed, phoneNum);
-		    			//creates popup for when the missed button is clicked
-			    		Alert alert = new Alert(AlertType.CONFIRMATION);
-			    		DialogPane dialogPane = alert.getDialogPane();
-			    		//css for missed alert box
-			    		dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"
-			    						  + "-fx-font-size: 15px;"
-			    						  + "-fx-mid-text-color: #010a66;"
-			    						  + "-fx-font-family: georgia;");
-			    		alert.setTitle("Missed Appointment");
-			    		if(patient.getPhone().getValue() == null){
-			    			StringProperty phone = new SimpleStringProperty("No contact number");
-			    			patient.setPhone(phone);
-			    		}
-			    		//gets current clicked on patient name and displays it
-			    		alert.setHeaderText(patient.getPname().getValue() + " missed an appointment!" 
-			    						 + "\t\t  Contact: " + patient.getPhone().getValue());
-			    		alert.setContentText("Reason for Missing:");
-			    		//creates text area and makes it editable for the user
-			    		TextArea reason = new TextArea();
-			    		reason.setPromptText("Enter patient's reason for missing appointment.");
-			    		//makes text area editable for the user to type in input
-			    		reason.setEditable(true);
-			    		reason.setWrapText(true);
-			    		//sets grid dimensions
-			    		reason.setMaxWidth(Double.MAX_VALUE);
-			    		reason.setMaxHeight(Double.MAX_VALUE);
-			    		GridPane.setVgrow(reason, Priority.ALWAYS);
-			    		GridPane.setHgrow(reason, Priority.ALWAYS);
-			    		//places objects on grid
-			    		GridPane expContent = new GridPane();
-			    		expContent.setMaxWidth(Double.MAX_VALUE);
-			    		expContent.add(reason, 0, 0);	
-			    		//expands window to view full text area
-			    		alert.getDialogPane().setExpandableContent(expContent);
-			    		alert.getDialogPane().setExpanded(true);
-			    		//stores text area data
-			    		String pReason = reason.getText();
-			    		//waits for button to be clicked to preform an action -> stores in variable
-			    		Optional<ButtonType> result = alert.showAndWait();
-			    		
-			    		//if the user clicks the OK button -> sends table row information to db
-			    		if(result.get() == ButtonType.OK){
-			    			//pass from current to miss appointment
-					 		String currToMiss = ("INSERT INTO `mentcare`.`Missed_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
-					 				+ "SELECT AppID, Pnum, Pname, DocID, apDate, apTime FROM Current_Appointment WHERE `apDate`='" + dateTemp
-					 				+ "' AND `apTime`='" + timeTemp + "';");
-					 		//send reason for missing appointment to Missing_Appointment db table
-					 		String missReason = ("UPDATE `mentcare`.`Missed_Appointment` SET `ReasonMissed`='" + pReason + "' WHERE `apDate`='" + dateTemp
-					 				+ "' AND `apTime`='" + timeTemp + "';");
-					   		System.out.println(currToMiss);
-					   		System.out.println(missReason);
-						 	statement.execute(currToMiss);
-						 	statement.execute(missReason);
-						 	//delete from current appointment
-						 	String delcurAtten = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
-					   				 "' AND `apTime`='" + timeTemp + "';");
-					   		System.out.println(delcurAtten);
-					   		statement.execute(delcurAtten);
-					   		//removes selected row from display table
-					   		patientTable.getItems().remove(selectedIndex);
-					   		//close alert window
-					   		alert.hide();
-			    		}else{
-			    			//close alert window
-			    			alert.hide();
-			    			//System.out.println("Not currently exiting alert box like I should be!XD");
-			    		}
-					}
+		    		curUserInfo.execute();
+		    		//creates popup for when the missed button is clicked
+			    	Alert alert = new Alert(AlertType.CONFIRMATION);
+			    	DialogPane dialogPane = alert.getDialogPane();
+			    	//css for missed alert box
+			    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"
+			    					  + "-fx-font-size: 15px;"
+			    					  + "-fx-mid-text-color: #010a66;"
+			    					  + "-fx-font-family: georgia;");
+			    	alert.setTitle("Missed Appointment");
+			    	//sets selected patient phone number if no number was entered when the appointment was created
+			    	if(patientTable.getSelectionModel().getSelectedItem().getPhone().getValue() == null){
+			    		StringProperty phone = new SimpleStringProperty("No contact number");
+			    		patientTable.getSelectionModel().getSelectedItem().setPhone(phone);
+			    	}
+			    	//gets the currently selected row patient name and displays it
+			    	alert.setHeaderText(patientTable.getSelectionModel().getSelectedItem().getPname().getValue() + " missed an appointment!" 
+			    					 + "\t\t  Contact: " + patientTable.getSelectionModel().getSelectedItem().getPhone().getValue());
+			    	alert.setContentText("Reason for Missing:");
+			    	//creates text area and makes it editable for the user
+			    	TextArea reason = new TextArea();
+			    	reason.setPromptText("Enter patient's reason for missing appointment.");
+			    	//makes text area editable for the user to type in input
+			    	reason.setEditable(true);
+			    	reason.setWrapText(true);
+			    	//sets grid dimensions
+			    	reason.setMaxWidth(Double.MAX_VALUE);
+			    	reason.setMaxHeight(Double.MAX_VALUE);
+			    	GridPane.setVgrow(reason, Priority.ALWAYS);
+			    	GridPane.setHgrow(reason, Priority.ALWAYS);
+			    	//places objects on grid
+			    	GridPane expContent = new GridPane();
+			    	expContent.setMaxWidth(Double.MAX_VALUE);
+			    	expContent.add(reason, 0, 0);	
+			    	//expands window to view full text area
+			    	alert.getDialogPane().setExpandableContent(expContent);
+			    	alert.getDialogPane().setExpanded(true);
+			    	//waits for button to be clicked to preform an action -> stores in variable
+			    	Optional<ButtonType> result = alert.showAndWait();
+			    	//if the user clicks the OK button -> sends table row information to db
+			    	if(result.get() == ButtonType.OK){
+			    		//pass from current to miss appointment
+						String currToMiss = ("INSERT INTO `mentcare`.`Missed_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
+								+ "SELECT AppID, Pnum, Pname, DocID, apDate, apTime FROM Current_Appointment WHERE `apDate`='" + dateTemp
+								+ "' AND `apTime`='" + timeTemp + "';");
+						//sends reason for missing appointment to Missing_Appointment db table
+				 		String missReason = ("UPDATE `mentcare`.`Missed_Appointment` SET `ReasonMissed`='" + reason.getText() + "' WHERE `apDate`='" + dateTemp
+								+ "' AND `apTime`='" + timeTemp + "';");
+				   		System.out.println(currToMiss);
+				   		System.out.println(missReason);
+				   		System.out.println("Reason: " + reason.getText());
+				   		PreparedStatement prestat2 = conn.prepareStatement(currToMiss);
+				   		PreparedStatement prestat3 = conn.prepareStatement(missReason);
+					 	prestat2.execute();
+					 	prestat3.execute();
+					 	//delete from current appointment
+					 	String delcurAtten = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
+				   				 "' AND `apTime`='" + timeTemp + "';");
+				   		System.out.println(delcurAtten);
+				   		PreparedStatement prestat4 = conn.prepareStatement(delcurAtten);
+				   		prestat4.execute();
+				   		//removes selected row from display table
+				   		patientTable.getItems().remove(selectedIndex);
+				   		//close alert window
+				   		alert.hide();
+			    	}else{
+			    		//close alert window
+			    		alert.hide();
+			    		//System.out.println("Not currently exiting alert box like I should be!XD");
+			    	}
 	    		}catch(SQLException ex){//try
 					ex.printStackTrace();
-				}finally{//catch
-					if(rs != null)
-					{
-						rs.close();
-					}
-				}//finally
+	    		}
     		}else{
     			System.out.println("Failed to send current appointment information to either attended or missed db tables.");
 	    	}
@@ -304,7 +286,7 @@ public class displayAppController {
     		e.printStackTrace();
     	}
     }
-    //<end>-----------------------------------------------------------------------------------------------------------------------
+    //========================================================================================================
     @FXML
     public void CancelAppointment(ActionEvent event) throws Exception{
     	try{
@@ -313,7 +295,11 @@ public class displayAppController {
 	    	if(selectedIndex >= 0){
 	    		String dateTemp = tempList.get(selectedIndex).getApDateString();
 	    		String timeTemp = tempList.get(selectedIndex).getApTimeString();
-	    		//Danni<start>--------------------------------------------------------------------------------------------------
+	    		/*
+	    	     * ===========================================================================================
+	    	     * @author Danni
+	    	     * ===========================================================================================
+	    	     */
 	    		Alert confirm = new Alert(AlertType.CONFIRMATION);
 	    		DialogPane dialogPane = confirm.getDialogPane();
 	    		//css for cancel appointment confirmation box
@@ -327,36 +313,29 @@ public class displayAppController {
 	   				 "' AND `apTime`='" + timeTemp + "';");
 	    		Connection conn = DBConfig.getConnection();
 	    		PreparedStatement curUserInfo = conn.prepareStatement(getData);
-	    		ResultSet rs = curUserInfo.executeQuery();
-	    		if (rs.next())
-				{
-	    			//sets variables with retrieved db data
-	    			int AppID = rs.getInt("AppID");
-	    			String Pnum = rs.getString("Pnum");
-	    			String Pname = rs.getString("Pname");
-	    			String DocID = rs.getString("DocID");
-	    			String passed = rs.getString("Passed");
-	    			String missed = rs.getString("Missed");
-	    			String phoneNum = rs.getString("pPhone");
-	    			String apID = "" + AppID;
-	    			//sets data in model Appointment
-	    			Appointment patient = new Appointment(apID, Pnum, Pname, DocID, dateTemp, timeTemp, passed, missed, phoneNum);
-	    			confirm.setHeaderText("Are you sure you want to cancel " + patient.getPname().getValue() + "'s appointment?");
-				}
+	    		curUserInfo.execute();
+	    		//Asks if you really want to delete the selected appointment
+	    		confirm.setHeaderText("Are you sure you want to cancel " 
+	    				+ patientTable.getSelectionModel().getSelectedItem().getPname().getValue() + "'s appointment?");
+	    		//Warns about not being able to recover a cancelled appointment
 		    	confirm.setContentText("Cancelled appointments cannot be recovered, only rescheduled.");
+		    	//removes default OK and Cancel buttons from dialog gui
+		    	confirm.getButtonTypes().clear();
+		    	//adds Yes and No buttons to dialog gui
+		    	confirm.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
 	    		 Optional<ButtonType> res = confirm.showAndWait();
-	    		//if the user clicks the OK button -> sends table row information to db
-		    		if(res.get() == ButtonType.OK){
+	    		//if the user clicks the YES button -> sends table row information to db
+		    		if(res.get() == ButtonType.YES){
 		    			String delCurr = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 	    				 "' AND `apTime`='" + timeTemp + "';"); //that is for the date in textfield!
 		    			System.out.println(delCurr);
-		    			Statement statement = conn.createStatement();
-		    			statement.execute(delCurr);
+		    			PreparedStatement prestat5 = conn.prepareStatement(delCurr);
+		    			prestat5.execute();
 		    			patientTable.getItems().remove(selectedIndex);
 		    		}else{
 		    			confirm.hide();
 		    		}
-	    	}//<end>-------------------------------------------------------------------------------------------------------------
+	    	}//===============================================================================================
 	    	else
 	    	{
 	    	/*	// Nothing selected. Popup needs many of the same stuff as a basic window
