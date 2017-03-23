@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="273.0" layoutY="40.0" text="Add Users" />
+      <TextField fx:id="tfUserId" layoutX="124.0" layoutY="103.0" />
+      <TextField fx:id="tfPass" layoutX="124.0" layoutY="162.0" />
+      <TextField fx:id="tfUserName" layoutX="388.0" layoutY="221.0" />
+      <TextField fx:id="tfCreatedBy" layoutX="388.0" layoutY="103.0" />
+      <TextField fx:id="tfCreatedDate" layoutX="388.0" layoutY="162.0" />
+      <Label layoutX="60.0" layoutY="107.0" text="User ID" />
+      <Label layoutX="54.0" layoutY="166.0" text="Password" />
+      <Label layoutX="316.0" layoutY="107.0" text="Created By" />
+      <Label layoutX="310.0" layoutY="166.0" text="Created Date" />
+      <Label layoutX="316.0" layoutY="225.0" text="User Name" />
+      <Button fx:id="btnAddUser" disable="true" layoutX="268.0" layoutY="304.0" mnemonicParsing="false" text="Add User" />
+      <Label fx:id="lblUserErr" layoutX="185.0" layoutY="135.0" textFill="RED" />
+      <Label fx:id="lblPassErr" layoutX="185.0" layoutY="200.0" textFill="RED" />
+      <Label fx:id="lblCreatedBy" layoutX="449.0" layoutY="135.0" textFill="RED" />
+      <Label fx:id="lblCreatedDate" layoutX="449.0" layoutY="200.0" textFill="RED" />
+      <Label fx:id="lblUserName" layoutX="449.0" layoutY="258.0" textFill="RED" />
+      <Label fx:id="lblGeneralErr" layoutX="286.0" layoutY="346.0" textFill="RED" />
+   </children>
+</AnchorPane>
