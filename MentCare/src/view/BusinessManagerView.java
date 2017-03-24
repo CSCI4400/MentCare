@@ -17,10 +17,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
 
+import controller.ViewMenuController;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,11 +32,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import model.TimeoutTimer;
 import javafx.scene.control.*;
 import javafx.scene.text.*;
+
+import javafx.animation.PauseTransition;
 
 public class BusinessManagerView extends Application {
 	
@@ -53,11 +62,11 @@ public class BusinessManagerView extends Application {
 	static Button viewReportsButton = new Button("View Current Reports");
 	static Button viewClinicStatsButton = new Button("View Clinic Statistics");
 	
-	
 	static String exitconfirmation = "Are you sure you wanted to exit?";
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		
 		// TODO Auto-generated method stub
 		window = primaryStage;
 		window.setTitle("Business Manager View");
@@ -68,9 +77,9 @@ public class BusinessManagerView extends Application {
 		});
 		
 		logoutButton.setOnAction(e -> {
-			viewMenu vm = new viewMenu();
+			ViewMenuController vm = new ViewMenuController();
 			try {
-				vm.start(window);
+				//vm.start(window);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -89,6 +98,11 @@ public class BusinessManagerView extends Application {
 		Scene scene1 = new Scene(grid, 400, 400);
 		window.setScene(scene1);
 		window.show();
+		
+		//Set page to time out after 10 seconds
+		TimeoutTimer timeout = new TimeoutTimer(grid, window, 10); //This method is overloaded; if you only use two arguments the time defaults
+		timeout.start();                                           //to 120 seconds. I'm using 10 seconds to make it easier to demo.
+		
 	}
 	
 	private static void confirmExit() {

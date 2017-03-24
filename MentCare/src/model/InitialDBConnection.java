@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.viewMenu;
+import controller.ViewMenuController;
 
 public class InitialDBConnection implements Runnable {
 	public static final String DBPASSWORD = ""; //make sure to add password
@@ -24,7 +24,7 @@ public class InitialDBConnection implements Runnable {
 			
 			System.out.println("Connection success");
 			
-			viewMenu.con = Con1;
+			ViewMenuController.con = Con1;
 			
 			//Test statement
 			

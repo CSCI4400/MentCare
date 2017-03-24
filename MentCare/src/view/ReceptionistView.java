@@ -17,10 +17,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
 
+import controller.ViewMenuController;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,7 +36,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.InitialDBConnection;
+import model.TimeoutTimer;
 import javafx.scene.control.*;
 import javafx.scene.text.*;
 
@@ -77,6 +84,10 @@ public class ReceptionistView extends Application {
 	static Button updatebutton = new Button("Update");
 	static Button viewappointments = new Button("View Appointments");
 	static String exitconfirmation = "Are you sure you wanted to exit?";
+	
+	//Time out variables
+		Point2D prevMousePos = new Point2D(0,0);
+		int timeOutDelay = 5;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -90,7 +101,7 @@ public class ReceptionistView extends Application {
 		});
 		
 		logoutButton.setOnAction(e -> {
-			viewMenu vm = new viewMenu();
+			ViewMenuController vm = new ViewMenuController();
 			try {
 				vm.start(window);
 			} catch (Exception e1) {
@@ -122,6 +133,10 @@ public class ReceptionistView extends Application {
 		mainmenu = new Scene(grid, 500, 500);
 		window.setScene(mainmenu);
 		window.show();
+		
+		//Set page to time out after 10 seconds
+		TimeoutTimer timeout = new TimeoutTimer(grid, window, 10); //This method is overloaded; if you only use two arguments the time defaults
+		timeout.start();                                           //to 120 seconds. I'm using 10 seconds to make it easier to demo.
 	}
 	
 	private static void confirmExit() {
@@ -185,7 +200,7 @@ public class ReceptionistView extends Application {
 			String fname = "", lname = "", address = "", sex = "", phonenum = "", diagnosis="", ssn="";
 			Date bdate = null, lastvisit = null;
 			try {
-				PreparedStatement pstmt = viewMenu.con.prepareStatement(selectPStmt);
+				PreparedStatement pstmt = ViewMenuController.con.prepareStatement(selectPStmt);
 				pstmt.setInt(1, Integer.parseInt(pid));
 				ResultSet rs = pstmt.executeQuery();
 				while(rs.next()){
@@ -198,7 +213,7 @@ public class ReceptionistView extends Application {
 					bdate = rs.getDate("BDate");
 				}
 				
-				pstmt = viewMenu.con.prepareStatement(selectMStmt);
+				pstmt = ViewMenuController.con.prepareStatement(selectMStmt);
 				pstmt.setInt(1,Integer.parseInt(pid));
 				rs = pstmt.executeQuery();
 				while(rs.next()){

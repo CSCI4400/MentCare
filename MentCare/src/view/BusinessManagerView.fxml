@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BusinessManagerController">
+   <children>
+      <Label layoutX="150.0" layoutY="14.0" text="Welcome, Business Manager">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="LogOutButton" layoutX="271.0" layoutY="301.0" mnemonicParsing="false" onAction="#LogOut" text="Log Out" />
+      <Button fx:id="MissedAppointmentButton" layoutX="76.0" layoutY="80.0" mnemonicParsing="false" onAction="#viewMissedReport" text="View Missed Appointment Report" />
+      <Button fx:id="StatButton" layoutX="376.0" layoutY="80.0" mnemonicParsing="false" onAction="#viewStatReport" text="View Statistics" />
+      <Button fx:id="ForecastButton" layoutX="129.0" layoutY="175.0" mnemonicParsing="false" text="View Forecast" />
+   </children>
+</AnchorPane>

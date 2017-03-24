@@ -18,10 +18,15 @@ import java.util.Collection;
 import java.util.Locale;
 
 import controller.PatientDAO;
+import controller.ViewMenuController;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -29,7 +34,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Patient;
+import model.TimeoutTimer;
 import javafx.scene.control.*;
 import javafx.scene.text.*;
 
@@ -85,6 +92,10 @@ public class doctorview extends Application{
 	static Button updatebutton = new Button("Update");
 	static CheckBox tempDiagnosis = new CheckBox("Diagnosis is temporary");
 	
+	//Time out variables
+		Point2D prevMousePos = new Point2D(0,0);
+		int timeOutDelay = 5;
+	
 	public void start(Stage primaryStage) throws Exception {
 		//Adds buttons and labels
 		window = primaryStage;
@@ -134,6 +145,10 @@ public class doctorview extends Application{
 		mainmenu = new Scene(layout, 640, 480);
 		window.setScene(mainmenu);
 		window.show();
+		
+		//Set page to time out after 10 seconds
+		TimeoutTimer timeout = new TimeoutTimer(mainarea, window, 10); //This method is overloaded; if you only use two arguments the time defaults
+		timeout.start();                                               //to 120 seconds. I'm using 10 seconds to make it easier to demo.
 		
 	}
 	private static void patientsearch() {
@@ -245,7 +260,7 @@ public class doctorview extends Application{
 		Collection<String> DoctorNames = new ArrayList<>();
 		Collection<String> DatesofD = new ArrayList<>();
 		try {
-			pstmt = viewMenu.con.prepareStatement(selhistory);
+			pstmt = ViewMenuController.con.prepareStatement(selhistory);
 			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -312,7 +327,7 @@ public class doctorview extends Application{
 		
 		//Currently switches back to the viewMenu, this is only temporary
 		try {
-			viewMenu vMenu = new viewMenu();
+			ViewMenuController vMenu = new ViewMenuController();
 			vMenu.start(window);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -1,5 +1,6 @@
 package model;
 
+import controller.ViewMenuController;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -7,7 +8,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import view.viewMenu;
 
 public class TimeoutTimer {
 	
@@ -41,7 +41,7 @@ public class TimeoutTimer {
 		checkMouse.play();
 	}
 	public void logOut() { //To be changed when we have a more robust login/logout system
-		viewMenu logOut = new viewMenu();
+		ViewMenuController logOut = new ViewMenuController();
 		try {
 			logOut.start(window);
 		} catch (Exception e2) {

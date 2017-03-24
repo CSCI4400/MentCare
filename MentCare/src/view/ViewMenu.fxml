@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewMenuController">
+   <children>
+      <Button fx:id="BMView" layoutX="230.0" layoutY="56.0" mnemonicParsing="false" onAction="#switchToBMView" text="Business Manager View" />
+      <Button fx:id="RecepView" layoutX="245.0" layoutY="251.0" mnemonicParsing="false" onAction="#switchToRecepView" text="Receptionist View" />
+      <Button fx:id="DocView" layoutX="260.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToDocView" text="Doctor View" />
+   </children>
+</AnchorPane>

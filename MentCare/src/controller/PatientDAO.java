@@ -12,7 +12,6 @@ import javafx.application.Platform;
 import model.InitialDBConnection;
 import model.Patient;
 import view.doctorview;
-import view.viewMenu;
 
 public class PatientDAO {
 	public static Patient getPatientInfo(int patientnum, int accesslevel) {
@@ -27,7 +26,7 @@ public class PatientDAO {
 			t.run();
 		
 			try {
-				PreparedStatement pstmt = viewMenu.con.prepareStatement(selectPinfoStmt);
+				PreparedStatement pstmt = ViewMenuController.con.prepareStatement(selectPinfoStmt);
 				pstmt.setInt(1, patientnum);
 				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
 				while(rs.next()){ //Gets the information from the "Personal Info" table
@@ -40,7 +39,7 @@ public class PatientDAO {
 					a.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
 				}
 				
-				pstmt = viewMenu.con.prepareStatement(selectMinfostmt);
+				pstmt = ViewMenuController.con.prepareStatement(selectMinfostmt);
 				pstmt.setInt(1, patientnum);
 				rs = pstmt.executeQuery();
 				
