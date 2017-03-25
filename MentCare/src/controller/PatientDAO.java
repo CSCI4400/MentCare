@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import javafx.application.Platform;
 import model.InitialDBConnection;
 import model.Patient;
-import view.doctorview;
 
 public class PatientDAO {
 	public static Patient getPatientInfo(int patientnum, int accesslevel) {
@@ -48,7 +47,7 @@ public class PatientDAO {
 			}
 			Platform.runLater(new Runnable() {
 				public void run() {
-					doctorview.patientrecords(a);
+					DoctorViewController.patientrecords(a);
 				}
 			});
 			return a;

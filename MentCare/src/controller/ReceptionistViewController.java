@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import javafx.scene.layout.VBox;
 
@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
 
-import controller.ViewMenuController;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
@@ -44,7 +43,7 @@ import javafx.scene.text.*;
 
 
 
-public class ReceptionistView extends Application {
+public class ReceptionistViewController extends Application {
 	
 	static Stage window;
 	static Button logoutButton = new Button("Log Out");
@@ -187,8 +186,7 @@ public class ReceptionistView extends Application {
 	
 	private static void patientsearch() {
 		
-		String selectPStmt = "SELECT * FROM mentcare.Personal_Info WHERE ? = mentcare.Personal_Info.PNumber";
-		String selectMStmt = "SELECT Last_Visit FROM mentcare.Medical_Info WHERE ? = mentcare.Medical_Info.PNum";
+		String selectPStmt = "SELECT * FROM mentcare.Patient_Info WHERE ? = mentcare.Patient_Info.PNumber";
 		
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
@@ -197,7 +195,7 @@ public class ReceptionistView extends Application {
 		searchbutton.setOnAction(e -> {
 			pid = patientidinput.getText();
 			int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank values
-			String fname = "", lname = "", address = "", sex = "", phonenum = "", diagnosis="", ssn="";
+			String fname = "", lname = "", address = "", sex = "", phonenum = "";
 			Date bdate = null, lastvisit = null;
 			try {
 				PreparedStatement pstmt = ViewMenuController.con.prepareStatement(selectPStmt);
@@ -211,14 +209,10 @@ public class ReceptionistView extends Application {
 					sex = rs.getString("Sex");
 					phonenum = rs.getString("Phone_Number");
 					bdate = rs.getDate("BDate");
+					lastvisit = rs.getDate("Last_Visit");
+					
 				}
 				
-				pstmt = ViewMenuController.con.prepareStatement(selectMStmt);
-				pstmt.setInt(1,Integer.parseInt(pid));
-				rs = pstmt.executeQuery();
-				while(rs.next()){
-					lastvisit = rs.getDate("Last_Visit");
-				}
 				pstmt.close();
 				rs.close();
 			} catch (SQLException e1) {
@@ -251,8 +245,7 @@ public class ReceptionistView extends Application {
 	private static void recordedit(String patientid, String firstnamestr, String lastnamestr, String birthdatestr,
 			String homeaddressstr, String genderstr, String phonenumberstr, String lastvisitstring) {
 		
-		String updatePersonalInfo = "UPDATE mentcare.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ? WHERE PNumber = ? ";
-		String updateMedicalInfo = "UPDATE mentcare.Medical_Info SET Last_Visit = ? WHERE PNum = ?";
+		String updatePersonalInfo = "UPDATE mentcare.Patient_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Last_Visit = ? WHERE PNumber = ? ";
 		
 		VBox layout3 = new VBox(10);
 		Date BirthDate;
@@ -273,11 +266,8 @@ public class ReceptionistView extends Application {
 			pstmt.setString(4, addr.getText());
 			pstmt.setString(5,  sex.getText());
 			pstmt.setString(6, phonenum.getText());
-			pstmt.setInt(7, Integer.parseInt(patientid));
-			pstmt.executeUpdate();
-			pstmt = Con.prepareStatement(updateMedicalInfo);
-			pstmt.setObject(1, LocalDate.parse(lastapt.getText()));
-			pstmt.setInt(2, Integer.parseInt(pid));
+			pstmt.setObject(7, LocalDate.parse(lastapt.getText()));
+			pstmt.setInt(8, Integer.parseInt(pid));
 			pstmt.executeUpdate();
 			pstmt.close();
 			
