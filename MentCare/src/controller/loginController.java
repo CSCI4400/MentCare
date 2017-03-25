@@ -136,7 +136,7 @@ public class loginController {
 				if(!user.isEmpty() && !pass.isEmpty()){
 					//checks identification number and password from db against local variables
 					if(user.equals(idNum) && pass.equals(password)){
-						logIn = true;
+						logIn = true;//rs.next now equals false
 						System.out.println("..successul!");
 					}else{
 						logIn = false;
@@ -146,7 +146,7 @@ public class loginController {
 					lblErrLogIn.setText("User ID or password is empty.");
 				}
 			}
-			if(rs.next() == false){
+			if(logIn != true && rs.next() == false){//catches wrong input that is entered but not when login is found
 				lblErrLogIn.setText("Invalid user ID or password.");
 				logIn = false;
 			}
