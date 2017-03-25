@@ -3,7 +3,7 @@ import controller.mainViewController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 
 
@@ -13,7 +13,7 @@ public class MainFXApp extends Application {
 	public void start(Stage primaryStage) {
 		try {
 
-			GridPane root = (GridPane)FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
 			Scene scene = new Scene(root,640,480);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
