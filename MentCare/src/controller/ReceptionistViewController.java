@@ -36,7 +36,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.InitialDBConnection;
+import model.DBConnection;
 import model.TimeoutTimer;
 import javafx.scene.control.*;
 import javafx.scene.text.*;
@@ -75,14 +75,14 @@ public class ReceptionistViewController extends Application {
 	static Button diagnosishistorybutton = new Button("Diagnosis History");
 	static Button editrecordbutton = new Button("Update Personal Information");
 	static Button searchbutton = new Button(patientsearch);
-	static Button yesbutton = new Button("yes");
-	static Button nobutton = new Button("no");
+	static Button yesbutton = new Button("Yes");
+	static Button nobutton = new Button("No");
 	static Button backbutton = new Button("Back");
-	static Button okbutton = new Button("ok");
-	static Button cancelbutton = new Button("cancel");
+	static Button okbutton = new Button("OK");
+	static Button cancelbutton = new Button("Cancel");
 	static Button updatebutton = new Button("Update");
 	static Button viewappointments = new Button("View Appointments");
-	static String exitconfirmation = "Are you sure you wanted to exit?";
+	static String exitconfirmation = "Are you sure you want to exit?";
 	
 	//Time out variables
 		Point2D prevMousePos = new Point2D(0,0);
@@ -258,7 +258,7 @@ public class ReceptionistViewController extends Application {
 			Connection Con;
 			PreparedStatement pstmt;
 			
-			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", InitialDBConnection.DBPASSWORD);
+			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBConnection.DBPASSWORD);
 			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the personal info and possibly last visit date in medical info
 			pstmt.setString(1, fname.getText());
 			pstmt.setString(2,  lname.getText());

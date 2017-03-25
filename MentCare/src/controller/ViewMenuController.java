@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.InitialDBConnection;
+import model.DBConnection;
 import model.TimeoutTimer;
 
 public class ViewMenuController extends Application {
@@ -22,7 +22,7 @@ public class ViewMenuController extends Application {
 	
 	public static void main (String[] args){
 		
-		InitialDBConnection idb = new InitialDBConnection();
+		DBConnection idb = new DBConnection();
 		Thread t = new Thread(idb);
 		t.start();
 		launch(args);

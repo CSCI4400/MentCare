@@ -52,7 +52,7 @@ public class DoctorViewController extends Application{
 	static String pid; //used to store the ID# of the patient whose record is being looked at
 	
 	String welcomestring = "Welcome Doctor, " + "xyz";
-	static String exitconfirmation = "Are you sure you wanted to exit?";
+	static String exitconfirmation = "Are you sure you want to exit?";
 	
 	static String patientsearch = "Search";
 	
@@ -62,7 +62,7 @@ public class DoctorViewController extends Application{
 	static Scene addpatient;
 	Label welcome;
 	static Label todaysappointmentsl = new Label("Today's appointments:");
-	static Label patientidl = new Label("What is the patient's id?");
+	static Label patientidl = new Label("What is the patient id number?");
 	static Label firstnamel = new Label("First Name:");
 	static Label lastnamel = new Label("Last name:");
 	static Label birthdatel = new Label("Birthdate:");
@@ -82,11 +82,11 @@ public class DoctorViewController extends Application{
 	static Button diagnosishistorybutton = new Button("Diagnosis History");
 	static Button editrecordbutton = new Button("Edit Record");
 	static Button searchbutton = new Button(patientsearch);
-	static Button yesbutton = new Button("yes");
-	static Button nobutton = new Button("no");
+	static Button yesbutton = new Button("Yes");
+	static Button nobutton = new Button("No");
 	static Button backbutton = new Button("Back");
-	static Button okbutton = new Button("ok");
-	static Button cancelbutton = new Button("cancel");
+	static Button okbutton = new Button("OK");
+	static Button cancelbutton = new Button("Cancel");
 	static Button updatebutton = new Button("Update");
 	static CheckBox tempDiagnosis = new CheckBox("Diagnosis is temporary");
 	

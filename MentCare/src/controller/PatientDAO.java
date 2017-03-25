@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
-import model.InitialDBConnection;
+import model.DBConnection;
 import model.Patient;
 
 public class PatientDAO {
@@ -63,7 +63,7 @@ public class PatientDAO {
 			Connection Con;
 			PreparedStatement pstmt;
 			
-			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", InitialDBConnection.DBPASSWORD);
+			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBConnection.DBPASSWORD);
 			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the personal info and medical info tables, excluding diagnosis
 			pstmt.setString(1, a.getFirstname());
 			pstmt.setString(2,  a.getLastname());
