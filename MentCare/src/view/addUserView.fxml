@@ -1,30 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addUserContoller">
    <children>
-      <Label layoutX="273.0" layoutY="40.0" text="Add Users" />
-      <TextField fx:id="tfUserId" layoutX="124.0" layoutY="103.0" />
-      <TextField fx:id="tfPass" layoutX="124.0" layoutY="162.0" />
-      <TextField fx:id="tfUserName" layoutX="388.0" layoutY="221.0" />
-      <TextField fx:id="tfCreatedBy" layoutX="388.0" layoutY="103.0" />
-      <TextField fx:id="tfCreatedDate" layoutX="388.0" layoutY="162.0" />
-      <Label layoutX="60.0" layoutY="107.0" text="User ID" />
-      <Label layoutX="54.0" layoutY="166.0" text="Password" />
-      <Label layoutX="316.0" layoutY="107.0" text="Created By" />
-      <Label layoutX="310.0" layoutY="166.0" text="Created Date" />
-      <Label layoutX="316.0" layoutY="225.0" text="User Name" />
-      <Button fx:id="btnAddUser" disable="true" layoutX="268.0" layoutY="304.0" mnemonicParsing="false" text="Add User" />
-      <Label fx:id="lblUserErr" layoutX="185.0" layoutY="135.0" textFill="RED" />
-      <Label fx:id="lblPassErr" layoutX="185.0" layoutY="200.0" textFill="RED" />
-      <Label fx:id="lblCreatedBy" layoutX="449.0" layoutY="135.0" textFill="RED" />
-      <Label fx:id="lblCreatedDate" layoutX="449.0" layoutY="200.0" textFill="RED" />
-      <Label fx:id="lblUserName" layoutX="449.0" layoutY="258.0" textFill="RED" />
-      <Label fx:id="lblGeneralErr" layoutX="286.0" layoutY="346.0" textFill="RED" />
+      <Label layoutX="300.0" layoutY="41.0" text="Add New User">
+         <font>
+            <Font name="Georgia Bold" size="20.0" />
+         </font></Label>
+      <TextField fx:id="tfPass" layoutX="486.0" layoutY="140.0" />
+      <TextField fx:id="tfName" layoutX="152.0" layoutY="140.0" />
+      <Button fx:id="btnAddUser" disable="true" layoutX="333.0" layoutY="462.0" mnemonicParsing="false" text="Add User" />
+      <Label fx:id="lblPass" layoutX="394.0" layoutY="193.0" text="PASS" textFill="RED">
+         <font>
+            <Font name="Georgia Italic" size="15.0" />
+         </font></Label>
+      <Label fx:id="lblName" layoutX="56.0" layoutY="193.0" text="NAME" textFill="RED">
+         <font>
+            <Font name="Georgia Italic" size="15.0" />
+         </font></Label>
+      <Label fx:id="lblErr" layoutX="241.0" layoutY="91.0" textFill="RED">
+         <font>
+            <Font name="Georgia Italic" size="15.0" />
+         </font></Label>
+      <Label layoutX="56.0" layoutY="264.0" text="User Role:">
+         <font>
+            <Font name="Georgia Bold" size="15.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="radDoc" layoutX="78.0" layoutY="300.0" mnemonicParsing="false" text="Doctor">
+         <toggleGroup>
+            <ToggleGroup fx:id="roleGroup" />
+         </toggleGroup>
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="radRecep" layoutX="295.0" layoutY="300.0" mnemonicParsing="false" text="Receptionist" toggleGroup="$roleGroup">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="radNurse" layoutX="192.0" layoutY="300.0" mnemonicParsing="false" text="Nurse" toggleGroup="$roleGroup">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="radBusiness" layoutX="439.0" layoutY="300.0" mnemonicParsing="false" text="Business Manager" toggleGroup="$roleGroup">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </RadioButton>
+      <Label layoutX="56.0" layoutY="383.0" text="Auto-generated ID number:">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblID" layoutX="260.0" layoutY="384.0" text="- - - - - - -">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="146.0" text="Full Name:">
+         <font>
+            <Font name="Georgia Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="394.0" layoutY="146.0" text="Password:">
+         <font>
+            <Font name="Georgia Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
