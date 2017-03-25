@@ -11,8 +11,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.InitialDBConnection;
+import model.TimeoutTimer;
 
 public class ViewMenuController extends Application {
 	
@@ -40,11 +42,13 @@ public class ViewMenuController extends Application {
     void switchToBMView(ActionEvent event) {
     	try {
     		Node node = (Node) event.getSource();
-			AnchorPane BMView = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/BusinessManagerView.fxml"));
+			GridPane BMView = (GridPane) FXMLLoader.load(getClass().getResource("/view/BusinessManagerView.fxml"));
 			Scene scene2 = new Scene(BMView, 600, 600);
 			Stage primaryStage = (Stage) node.getScene().getWindow();
 			primaryStage.setScene(scene2);
 			primaryStage.show();
+			TimeoutTimer timeout = new TimeoutTimer(BMView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults
+			timeout.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,6 +72,12 @@ public class ViewMenuController extends Application {
 		AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/ViewMenu.fxml"));
 		Scene scene = new Scene(root,600,600);
 		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
+		//Set page to time out after 10 seconds
+		//TimeoutTimer timeout = new TimeoutTimer(root, scene, 10); //This method is overloaded; if you only use two arguments the time defaults
+		//timeout.start();                                           //to 120 seconds. I'm using 10 seconds to make it easier to demo.
+				
+		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		} catch(Exception e) {
