@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="addUserContoller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addUserController">
    <children>
       <Label layoutX="300.0" layoutY="41.0" text="Add New User">
          <font>
@@ -16,7 +16,7 @@
          </font></Label>
       <TextField fx:id="tfPass" layoutX="486.0" layoutY="140.0" />
       <TextField fx:id="tfName" layoutX="152.0" layoutY="140.0" />
-      <Button fx:id="btnAddUser" disable="true" layoutX="333.0" layoutY="462.0" mnemonicParsing="false" text="Add User" />
+      <Button fx:id="btnAddUser" disable="true" layoutX="333.0" layoutY="462.0" mnemonicParsing="false" onAction="#submitUser" text="Add User" />
       <Label fx:id="lblPass" layoutX="394.0" layoutY="193.0" text="PASS" textFill="RED">
          <font>
             <Font name="Georgia Italic" size="15.0" />

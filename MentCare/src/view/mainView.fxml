@@ -54,5 +54,6 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
+      <Button fx:id="userBttn" mnemonicParsing="false" onAction="#ClickButton" text="Add Users" GridPane.columnIndex="2" GridPane.rowIndex="5" />
    </children>
 </GridPane>
