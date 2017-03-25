@@ -159,7 +159,8 @@ public class doctorview extends Application{
 		searchbutton.setOnAction(e -> {
 			pid = patientidinput.getText();
 			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 0);
-			//a = new Patient(Integer.parseInt(pid));
+			a = new Patient();
+			a.setPatientnum(Integer.parseInt(pid));
 			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
 			//Feeds the results obtained from the database to the 'patientrecords' menu
 			patientrecords(a);
@@ -189,11 +190,11 @@ public class doctorview extends Application{
 		VBox layout3 = new VBox(10);
 		Date BirthDate;
 		
-		String updatePersonalInfo = "UPDATE mentcare.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ? WHERE PNumber = ? ";
-		String updateMedicalInfo = "UPDATE mentcare.Medical_Info SET Ssn = ?, Last_Visit = ? WHERE PNum = ?";
-		String updateDiagnosis = "UPDATE mentcare.Medical_Info SET Diagnosis = ? WHERE PNum = ?";
-		String insertIntoDiagHistory = "INSERT INTO mentcare.Diagnosis_History VALUES ( ? , ?, ?, ? )";
-		String selectCurrentDiag = "SELECT mentcare.Medical_Info.Diagnosis FROM mentcare.Medical_Info WHERE ? = PNum";
+		String updatePersonalInfo = "UPDATE mentcare2.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ? WHERE PNumber = ? ";
+		String updateMedicalInfo = "UPDATE mentcare2.Medical_Info SET Ssn = ?, Last_Visit = ? WHERE PNum = ?";
+		String updateDiagnosis = "UPDATE mentcare2.Medical_Info SET Diagnosis = ? WHERE PNum = ?";
+		String insertIntoDiagHistory = "INSERT INTO mentcare2.Diagnosis_History VALUES ( ? , ?, ?, ? )";
+		String selectCurrentDiag = "SELECT mentcare2.Medical_Info.Diagnosis FROM mentcare2.Medical_Info WHERE ? = PNum";
 		
 		TextField fname = new TextField(a.getFirstname()); TextField lname = new TextField(a.getLastname()); 
 		TextField birthdate = new TextField((a.getBirthdate()).toString()); TextField addr = new TextField(a.getAddress()); 

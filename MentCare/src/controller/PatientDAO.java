@@ -16,8 +16,7 @@ import view.doctorview;
 public class PatientDAO {
 	public static Patient getPatientInfo(int patientnum, int accesslevel) {
 		Patient a = new Patient();
-		String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number FROM mentcare.Personal_Info WHERE ? = mentcare.Personal_Info.PNumber";
-		String selectMinfostmt = "SELECT * FROM mentcare.Medical_Info WHERE ? = mentcare.Medical_Info.PNum";
+		String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare.Patient_Info WHERE ? = mentcare.Patient_Info.PNumber";
 		int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank values
 			
 		//Test code
@@ -37,13 +36,6 @@ public class PatientDAO {
 					a.setGender(rs.getString("Sex"));
 					a.setPhoneNumber(rs.getString("Phone_Number"));
 					a.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
-				}
-				
-				pstmt = ViewMenuController.con.prepareStatement(selectMinfostmt);
-				pstmt.setInt(1, patientnum);
-				rs = pstmt.executeQuery();
-				
-				while(rs.next()){ //Gets the information from the "Medical Info" table
 					a.setDiagnosis(rs.getString("Diagnosis"));
 					a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
 					a.setSsn(rs.getString("Ssn"));
@@ -63,11 +55,10 @@ public class PatientDAO {
 	}
 	public static void updatePatientInfo(Patient a) {
 		System.out.println("Record updater starting");
-		String updatePersonalInfo = "UPDATE mentcare.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ? WHERE PNumber = ? ";
-		String updateMedicalInfo = "UPDATE mentcare.Medical_Info SET Ssn = ?, Last_Visit = ? WHERE PNum = ?";
-		String updateDiagnosis = "UPDATE mentcare.Medical_Info SET Diagnosis = ? WHERE PNum = ?";
+		String updatePersonalInfo = "UPDATE mentcare.Patient_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Ssn = ?, Last_Visit = ? WHERE PNumber = ? ";
+		String updateDiagnosis = "UPDATE mentcare.Patient_Info SET Diagnosis = ? WHERE PNum = ?";
 		String insertIntoDiagHistory = "INSERT INTO mentcare.Diagnosis_History VALUES ( ? , ?, ?, ? )";
-		String selectCurrentDiag = "SELECT mentcare.Medical_Info.Diagnosis FROM mentcare.Medical_Info WHERE ? = PNum";
+		String selectCurrentDiag = "SELECT mentcare.Patient_Info.Diagnosis FROM mentcare.Patient_Info WHERE ? = PNumber";
 		
 		try {
 			Connection Con;
@@ -81,12 +72,9 @@ public class PatientDAO {
 			pstmt.setString(4, a.getAddress());
 			pstmt.setString(5,  a.getGender());
 			pstmt.setString(6, a.getPhoneNumber());
-			pstmt.setInt(7, a.getPatientnum());
-			pstmt.executeUpdate();
-			pstmt = Con.prepareStatement(updateMedicalInfo);
-			pstmt.setString(1, a.getSsn());
-			pstmt.setObject(2, a.getLastVisit());
-			pstmt.setInt(3, a.getPatientnum());
+			pstmt.setString(7, a.getSsn());
+			pstmt.setObject(8, a.getLastVisit());
+			pstmt.setInt(9, a.getPatientnum());
 			pstmt.executeUpdate();
 			
 			pstmt = Con.prepareStatement(selectCurrentDiag);
