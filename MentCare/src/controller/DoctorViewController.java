@@ -6,19 +6,32 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class BusinessManagerController {
-	
-	@FXML
+public class DoctorViewController {
+
+    @FXML
+    private Button CreatAppointButton;
+
+    @FXML
+    private Button AddPatientButton;
+
+    @FXML
+    private Button PatientRecordsButton;
+
+    @FXML
+    private Button InstitutionPatientButton;
+
+    @FXML
     private Button LogOutButton;
 
     @FXML
-    private Button MissedAppointmentButton;
+    void AddPatient(ActionEvent event) {
+
+    }
 
     @FXML
-    private Button StatButton;
+    void CreateAppointment(ActionEvent event) {
 
-    @FXML
-    private Button ForecastButton;
+    }
 
     @FXML
     void LogOut(ActionEvent event) {
@@ -35,12 +48,13 @@ public class BusinessManagerController {
     }
 
     @FXML
-    void viewMissedReport(ActionEvent event) {
+    void SearchPatient(ActionEvent event) {
+    	
 
     }
 
     @FXML
-    void viewStatReport(ActionEvent event) {
+    void ViewInstPatients(ActionEvent event) {
 
     }
 

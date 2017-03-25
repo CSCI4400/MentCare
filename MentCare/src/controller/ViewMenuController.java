@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.InitialDBConnection;
 import model.TimeoutTimer;
+import view.doctorview;
 
 public class ViewMenuController extends Application {
 	
@@ -58,6 +59,22 @@ public class ViewMenuController extends Application {
 
     @FXML
     void switchToDocView(ActionEvent event) {
+    	try {
+    		Node node = (Node) event.getSource();
+			/*GridPane DocView = (GridPane) FXMLLoader.load(getClass().getResource("/view/DoctorView.fxml"));
+			Scene scene3 = new Scene(DocView, 600, 600);*/
+			Stage primaryStage = (Stage) node.getScene().getWindow();
+			doctorview docview = new doctorview();
+			docview.start(primaryStage);
+			/*primaryStage.setScene(scene3);
+			primaryStage.show();
+			TimeoutTimer timeout = new TimeoutTimer(DocView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults
+			timeout.start();*/
+    		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
     }
 
