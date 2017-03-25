@@ -79,7 +79,8 @@ public class loginController {
 					lblErrLogIn.setText("Identification type not recognized.");
 				}
 			}else{
-				if(lblErrUserID.getText().equals("") && lblErrPassword.getText().equals("")){
+				if(lblErrUserID.getText().equals("") && lblErrPassword.getText().equals("") && 
+						lblErrLogIn.getText().equals("")){
 					//failed to log user into system
 					lblErrLogIn.setText("Invalid user ID or password.");
 				}
@@ -113,7 +114,7 @@ public class loginController {
 			return false;
 		}
 		try{
-			System.out.println("..connected!");
+			System.out.println("..passed!");//passed error checking
 			//connects to db
 			Connection conn = DBConfig.getConnection();
 			//query to search idNum and password columns for entered input from user
@@ -124,8 +125,9 @@ public class loginController {
 			ps.setString(2, password);
 			//stores result from query
 			ResultSet rs = ps.executeQuery();
-			System.out.println("..cross checking with db..");
+			System.out.println("..connecting to db..");
 			while(rs.next()){
+				System.out.println("..pulling from db..");
 				String user = rs.getString("idNum");
 				String pass = rs.getString("password");
 				System.out.println("User: " + user);
@@ -143,6 +145,10 @@ public class loginController {
 					//displays an error
 					lblErrLogIn.setText("User ID or password is empty.");
 				}
+			}
+			if(rs.next() == false){
+				lblErrLogIn.setText("Invalid user ID or password.");
+				logIn = false;
 			}
 		}catch(SQLException ex){
 			DBConfig.displayException(ex);
