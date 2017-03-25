@@ -69,7 +69,7 @@ public class ViewMenuController extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try{
-		AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/ViewMenu.fxml"));
+		GridPane root = (GridPane) FXMLLoader.load(getClass().getResource("/view/ViewMenu.fxml"));
 		Scene scene = new Scene(root,600,600);
 		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
