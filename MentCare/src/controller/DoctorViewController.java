@@ -51,7 +51,7 @@ public class DoctorViewController extends Application{
 	static boolean patientupdate= false;
 	static String pid; //used to store the ID# of the patient whose record is being looked at
 	
-	String welcomestring = "Welcome Doctor, " + "xyz";
+	static Label welcome = new Label("Welcome Doctor, " + "xyz");
 	static String exitconfirmation = "Are you sure you want to exit?";
 	
 	static String patientsearch = "Search";
@@ -60,25 +60,24 @@ public class DoctorViewController extends Application{
 	static Stage exitwindow;
 	static Scene mainmenu;
 	static Scene addpatient;
-	Label welcome;
-	static Label todaysappointmentsl = new Label("Today's appointments:");
-	static Label patientidl = new Label("What is the patient id number?");
-	static Label firstnamel = new Label("First Name:");
-	static Label lastnamel = new Label("Last name:");
-	static Label birthdatel = new Label("Birthdate:");
-	static Label homeaddressl = new Label("Home Address");
-	static Label genderl = new Label("Gender:");
-	static Label phonenumberl = new Label("Phone Number:");
-	static Label diagnosisl = new Label("Diagnosis:");
-	static Label ssnl = new Label("SSN: ");
+	static Label todaysappointmentsl = new Label("Today's Appointments:");
+	static Label patientidl = new Label("What is the Patient ID Number?");
+	static Text firstnamel = new Text("First Name:");
+	static Text lastnamel = new Text("Last name:");
+	static Text birthdatel = new Text("Birthdate:");
+	static Text homeaddressl = new Text("Home Address");
+	static Text genderl = new Text("Gender:");
+	static Text phonenumberl = new Text("Phone Number:");
+	static Text diagnosisl = new Text("Diagnosis:");
+	static Text ssnl = new Text("SSN: ");
 	static Label lastvisitl = new Label("Last Visit Was: ");
 	static Label exitconfirmationlabel;
-	static Button createappointmentbutton = new Button("Create appointment");
-	static Button patientrecordsbutton = new Button ("View/Edit patient records");
-	static Button patientperscriptionsbutton = new Button ("Patients perscriptions");
+	static Button createappointmentbutton = new Button("Create Appointment");
+	static Button patientrecordsbutton = new Button ("View/Edit Patient Records");
+	static Button patientperscriptionsbutton = new Button ("Patients Prescriptions");
 	static Button patientsheldbutton = new Button("Institutionalized Patients");
-	static Button addpatientbutton = new Button("Click to add a patient");
-	static Button logoutbutton = new Button("Log out");
+	static Button addpatientbutton = new Button("Add Patient");
+	static Button logoutbutton = new Button("Log Out");
 	static Button diagnosishistorybutton = new Button("Diagnosis History");
 	static Button editrecordbutton = new Button("Edit Record");
 	static Button searchbutton = new Button(patientsearch);
@@ -97,7 +96,6 @@ public class DoctorViewController extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		//Adds buttons and labels
 		window = primaryStage;
-		welcome = new Label(welcomestring);
 		window.setTitle("Doctor View");
 		window.setOnCloseRequest(e -> {
 			e.consume();
@@ -124,6 +122,7 @@ public class DoctorViewController extends Application{
 		
 		//Configures layout
 		VBox todaysappointmentslayout = new VBox(20);
+		todaysappointmentsl.setPadding(new Insets(0, 10, 10, 10));
 		todaysappointmentslayout.getChildren().addAll(todaysappointmentsl);
 		
 		GridPane mainarea = new GridPane();
@@ -134,7 +133,9 @@ public class DoctorViewController extends Application{
 		mainarea.add(patientsheldbutton, 1, 1);
 		mainarea.add(logoutbutton, 0, 2);
 		BorderPane layout = new BorderPane();
-		welcome.setPadding(new Insets(0, 0, 0, 180));
+		welcome.setPadding(new Insets(10, 10, 10, 220));
+		welcome.setStyle("-fx-font-weight: bold");
+		layout.setPadding(new Insets(15, 15, 15, 15));
 		layout.setTop(welcome);
 		layout.setLeft(todaysappointmentslayout);
 		layout.setCenter(mainarea);
@@ -177,6 +178,16 @@ public class DoctorViewController extends Application{
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
 		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());
 		Label diagnosis = new Label(a.getDiagnosis()); Label Ssn = new Label(a.getSsn()); Label lastapt = new Label((a.getLastVisit()).toString());
+		//Bolding all the labels for the patient information
+		firstnamel.setStyle("-fx-font-weight: bold");
+		lastnamel.setStyle("-fx-font-weight: bold");
+		birthdatel.setStyle("-fx-font-weight: bold");
+		homeaddressl.setStyle("-fx-font-weight: bold");
+		genderl.setStyle("-fx-font-weight: bold");
+		phonenumberl.setStyle("-fx-font-weight: bold");
+		diagnosisl.setStyle("-fx-font-weight: bold");
+		ssnl.setStyle("-fx-font-weight: bold");
+		lastvisitl.setStyle("-fx-font-weight: bold");
 		diagnosishistorybutton.setOnAction(e->diagnosishistory(a));
 		backbutton.setOnAction(e->patientsearch());
 		editrecordbutton.setOnAction(e-> recordeditor(a));

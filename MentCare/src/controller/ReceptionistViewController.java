@@ -53,7 +53,7 @@ public class ReceptionistViewController extends Application {
 	static Stage exitwindow;
 	static Scene mainmenu;
 	static Scene addpatient;
-	Label welcome;
+	static Label welcome = new Label("Welcome, " + "ReceptionistName");
 	static Label todaysappointmentsl = new Label("Today's appointments:");
 	static Label patientidl = new Label("What is the patient's id?");
 	static Label firstnamel = new Label("First Name:");
@@ -62,17 +62,14 @@ public class ReceptionistViewController extends Application {
 	static Label homeaddressl = new Label("Home Address");
 	static Label genderl = new Label("Gender:");
 	static Label phonenumberl = new Label("Phone Number:");
-	static Label diagnosisl = new Label("Diagnosis:");
-	static Label ssnl = new Label("SSN: ");
 	static Label lastvisitl = new Label("Last Visit Was: ");
 	static Label exitconfirmationlabel;
-	static Button createappointmentbutton = new Button("Create appointment");
+	static Button createappointmentbutton = new Button("Create Appointment");
 	static Button patientrecordsbutton = new Button ("View/Edit Patient Information");
-	static Button patientperscriptionsbutton = new Button ("Patients perscriptions");
+	static Button patientperscriptionsbutton = new Button ("Patients Prescriptions");
 	static Button patientsheldbutton = new Button("Institutionalized Patients");
-	static Button addpatientbutton = new Button("Click to add a new patient");
-	static Button logoutbutton = new Button("Log out");
-	static Button diagnosishistorybutton = new Button("Diagnosis History");
+	static Button addpatientbutton = new Button("Add Patient");
+	static Button logoutbutton = new Button("Log Out");
 	static Button editrecordbutton = new Button("Update Personal Information");
 	static Button searchbutton = new Button(patientsearch);
 	static Button yesbutton = new Button("Yes");
@@ -93,7 +90,8 @@ public class ReceptionistViewController extends Application {
 		// TODO Auto-generated method stub
 		window = primaryStage;
 		window.setTitle("Receptionist View");
-		welcome = new Label("Welcome, Receptionist");
+		welcome.setPadding(new Insets(10, 10, 10, 150));
+		welcome.setStyle("-fx-font-weight: bold");
 		window.setOnCloseRequest(e -> {
 			e.consume();
 			confirmExit();
@@ -129,7 +127,7 @@ public class ReceptionistViewController extends Application {
 		grid.add(viewappointments, 3, 2);
 		
 		
-		mainmenu = new Scene(grid, 500, 500);
+		mainmenu = new Scene(grid, 640, 480);
 		window.setScene(mainmenu);
 		window.show();
 		
@@ -235,6 +233,14 @@ public class ReceptionistViewController extends Application {
 		Label firstname = new Label(firstnamestr); Label lastname = new Label(lastnamestr); Label birthdate = new Label(birthdatestr);
 		Label homeaddress = new Label(homeaddressstr); Label gender = new Label(genderstr); Label phonenumber = new Label(phonenumberstr);
 		Label lastvisit = new Label(lastvisitstring);
+		//Bolding labels for patient information
+		firstnamel.setStyle("-fx-font-weight: bold");
+		lastnamel.setStyle("-fx-font-weight: bold");
+		birthdatel.setStyle("-fx-font-weight: bold");
+		homeaddressl.setStyle("-fx-font-weight: bold");
+		genderl.setStyle("-fx-font-weight: bold");
+		phonenumberl.setStyle("-fx-font-weight: bold");
+		lastvisitl.setStyle("-fx-font-weight: bold");
 		backbutton.setOnAction(e->patientsearch());
 		editrecordbutton.setOnAction(e-> recordedit(patientid, firstnamestr, lastnamestr, birthdatestr, homeaddressstr, genderstr, phonenumberstr, lastvisitstring));
 		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, lastvisitl, lastvisit, editrecordbutton, backbutton);

@@ -47,7 +47,7 @@ public class ViewMenuController extends Application {
 			Stage primaryStage = (Stage) node.getScene().getWindow();
 			primaryStage.setScene(scene2);
 			primaryStage.show();
-			TimeoutTimer timeout = new TimeoutTimer(BMView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults
+			TimeoutTimer timeout = new TimeoutTimer(BMView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults to 120 seconds
 			timeout.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
