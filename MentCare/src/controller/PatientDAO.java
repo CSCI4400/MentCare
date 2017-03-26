@@ -55,7 +55,7 @@ public class PatientDAO {
 	public static void updatePatientInfo(Patient a) {
 		System.out.println("Record updater starting");
 		String updatePersonalInfo = "UPDATE mentcare.Patient_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Ssn = ?, Last_Visit = ? WHERE PNumber = ? ";
-		String updateDiagnosis = "UPDATE mentcare.Patient_Info SET Diagnosis = ? WHERE PNum = ?";
+		String updateDiagnosis = "UPDATE mentcare.Patient_Info SET Diagnosis = ? WHERE PNumber = ?";
 		String insertIntoDiagHistory = "INSERT INTO mentcare.Diagnosis_History VALUES ( ? , ?, ?, ? )";
 		String selectCurrentDiag = "SELECT mentcare.Patient_Info.Diagnosis FROM mentcare.Patient_Info WHERE ? = PNumber";
 		

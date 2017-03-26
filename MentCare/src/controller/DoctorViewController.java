@@ -192,7 +192,7 @@ public class DoctorViewController extends Application{
 		backbutton.setOnAction(e->patientsearch());
 		editrecordbutton.setOnAction(e-> recordeditor(a));
 		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, editrecordbutton, backbutton);
-		Scene patientrecords = new Scene(layout2, 800, 800);
+		Scene patientrecords = new Scene(layout2, 700, 700);
 		window.setScene(patientrecords);
 	}
 	private static void recordeditor(Patient a) {
