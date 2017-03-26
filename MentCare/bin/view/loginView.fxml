@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
+   <children>
+      <TextField fx:id="tfUserID" layoutX="269.0" layoutY="138.0" />
+      <PasswordField fx:id="pfPassword" layoutX="268.0" layoutY="209.0" />
+      <Label layoutX="173.0" layoutY="142.0" text="ID Number:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Label>
+      <Label layoutX="179.0" layoutY="212.0" text="Password:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Label>
+      <Button fx:id="btnLogIn" layoutX="271.0" layoutY="320.0" mnemonicParsing="false" onAction="#logIn" text="Login">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Button>
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="224.0" layoutY="58.0" text="Mentcare" textAlignment="CENTER" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="35.0" />
+         </font></Label>
+      <Label fx:id="lblErrUserID" alignment="CENTER" layoutX="163.0" layoutY="177.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5a5a">
+         <font>
+            <Font name="Georgia Bold Italic" size="15.0" />
+         </font></Label>
+      <Label fx:id="lblErrPassword" alignment="CENTER" layoutX="166.0" layoutY="248.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5a5a">
+         <font>
+            <Font name="Georgia Bold Italic" size="15.0" />
+         </font></Label>
+      <Label fx:id="lblErrLogIn" alignment="CENTER" layoutX="165.0" layoutY="280.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5a5a">
+         <font>
+            <Font name="Georgia Bold Italic" size="15.0" />
+         </font></Label>
+   </children>
+</AnchorPane>
