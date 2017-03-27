@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SelectionScreenController">
+   <children>
+      <GridPane layoutX="2.0" layoutY="2.0" prefHeight="400.0" prefWidth="400.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="addPatient" mnemonicParsing="false" onAction="#buttonClicked" text="Add Patient" />
+            <Button fx:id="updatePatient" mnemonicParsing="false" onAction="#buttonClicked" text="Update Patient" GridPane.rowIndex="1" />
+            <Button fx:id="patientHistory" mnemonicParsing="false" onAction="#buttonClicked" text="Patient History" GridPane.rowIndex="2" />
+            <Button fx:id="businessHistory" mnemonicParsing="false" onAction="#buttonClicked" text="Business History" GridPane.rowIndex="3" />
+            <Button fx:id="businessPrediction" mnemonicParsing="false" onAction="#buttonClicked" text="Business Prediction" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
