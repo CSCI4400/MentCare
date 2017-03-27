@@ -100,15 +100,15 @@ public class displayAppController{
 	    	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    	//gets current date
 	    	Date date = new Date();
-	    	//sets date to current date with the right format
+	    	//sets date variable to current date with the right format
 	    	String today = dateFormat.format(date);
-	    	System.out.println(today);
 	    	
 	    	String AppNum, Pnum, Pname, DocID, apDate, apTime, missed, passed, phoneNum;
 	    	//pulls all data from Current_Appointment db table
 			String getData = ("SELECT * FROM `mentcare`.`Current_Appointment`");
 			//connects to db
 			Connection conn = DBConfig.getConnection();
+			//sends pull request
 			PreparedStatement ps = conn.prepareStatement(getData);
 			ResultSet rs = ps.executeQuery();
 			//retrieves data from the db table so long as there is data then sets in model
@@ -151,16 +151,18 @@ public class displayAppController{
 		   		//uses joda to check appointment date against current date - requires joda jar file
 		   		if(appDate.isBefore(curDate)){
 		   			//moves past appointments from Current_Appointment db table into Missed_Appointment db table
-		    		//passes data based on date and time of appointment from current to missed appointment db tables
+		    		//passes data based on date and time of appointment between db tables
 			 		String currToMiss = ("INSERT INTO `mentcare`.`Missed_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
 		 				+ "SELECT AppID, Pnum, Pname, DocID, apDate, apTime FROM Current_Appointment WHERE `apDate`='" + findDate
 		 				+ "' AND `apTime`='" + findTime + "';");
+			 		//sends request
 			 		PreparedStatement ps2 = conn.prepareStatement(currToMiss);
 					ps2.execute();
 			   		System.out.println(currToMiss);
 				 	//deletes from Current_Appointment db table
 			   		String delcurrApp = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + findDate +
 		   				 "' AND `apTime`='" + findTime + "';");
+			   		//sends request
 		    		PreparedStatement ps3 = conn.prepareStatement(delcurrApp);
 					ps3.execute();
 			  	 	System.out.println(delcurrApp);
@@ -183,7 +185,7 @@ public class displayAppController{
     @FXML private Button btnMiss;
     //enables attended and missed buttons once a row has been selected in the table
     @FXML
-    void mouseClicked(MouseEvent event) {
+    public void mouseClicked(MouseEvent event) {
     	int selectedIndex = patientTable.getSelectionModel().getSelectedIndex();
     	if(selectedIndex >= 0){
     		btnAttend.setDisable(false);
@@ -193,9 +195,9 @@ public class displayAppController{
     }
     
     /*
-     * Gets selected table row and puts it in either past or missed db table and  
-     * deletes that row from current appointment table. Also, removes that row's data  
-     * from the table in the display GUI.
+     * Gets selected table row and puts it in either past or missed db table depending on which 
+     * button is pressed for that row and deletes that row from Current_Appointment table db table.
+     * Also, removes that row's data from the table in the display GUI.
      */
     @FXML
     public void AttendAppointment(ActionEvent event) throws Exception{
@@ -213,12 +215,14 @@ public class displayAppController{
 		 				+ "SELECT AppID, Pnum, Pname, DocID, apDate, apTime FROM Current_Appointment WHERE `apDate`='" + dateTemp
 		 				+ "' AND `apTime`='" + timeTemp + "';");
 		   		System.out.println(currToPass);
+		   		//sends request
 		   		PreparedStatement ps4 = conn.prepareStatement(currToPass);
 			 	ps4.execute();
 			 	//deletes from current appointment
 	    		String delcurrAttend = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 	   				 "' AND `apTime`='" + timeTemp + "';");
 	   		 	System.out.println(delcurrAttend);
+	   		 	//sends request
 	   		 	PreparedStatement ps5 = conn.prepareStatement(delcurrAttend);
 		 		ps5.execute();
 		 		//removes selected row from display GUI table
@@ -228,13 +232,14 @@ public class displayAppController{
 	    			//gets data from the row at that date and time -> always unique
 		    		String getData = ("SELECT * FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 		   				 "' AND `apTime`='" + timeTemp + "';");
+		    		//sends request
 		    		PreparedStatement ps6 = conn.prepareStatement(getData);
 		    		ps6.execute();
 		    		//creates popup for when the missed button is clicked
 			    	Alert alert = new Alert(AlertType.CONFIRMATION);
 			    	DialogPane dialogPane = alert.getDialogPane();
 			    	//css for missed alert box
-			    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"
+			    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"//TODO for UI committee
 			    					  + "-fx-font-size: 15px;"
 			    					  + "-fx-mid-text-color: #010a66;"
 			    					  + "-fx-font-family: georgia;");
@@ -291,6 +296,7 @@ public class displayAppController{
 						//sends reason for missing appointment to Missing_Appointment db table
 				 		String missReason = ("UPDATE `mentcare`.`Missed_Appointment` SET `ReasonMissed`='" + pReason + "' WHERE `apDate`='" + dateTemp
 								+ "' AND `apTime`='" + timeTemp + "';");
+				 		//sends request
 				   		PreparedStatement ps7 = conn.prepareStatement(currToMiss);
 				   		PreparedStatement ps8 = conn.prepareStatement(missReason);
 					 	ps7.execute();
@@ -300,6 +306,7 @@ public class displayAppController{
 					 	//deletes from current appointment
 					 	String delcurAtten = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 				   				 "' AND `apTime`='" + timeTemp + "';");
+					 	//sends request
 				   		PreparedStatement ps9 = conn.prepareStatement(delcurAtten);
 				   		ps9.execute();
 				   		System.out.println(delcurAtten);
@@ -346,7 +353,7 @@ public class displayAppController{
 	    		Alert confirm = new Alert(AlertType.CONFIRMATION);
 	    		DialogPane dialogPane = confirm.getDialogPane();
 	    		//css for cancel appointment confirmation box
-		    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"
+		    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"//TODO for UI committee
 		    					  + "-fx-font-size: 15px;"
 		    					  + "-fx-mid-text-color: #010a66;"
 		    					  + "-fx-font-family: georgia;");
@@ -355,6 +362,7 @@ public class displayAppController{
 	    		String getData = ("SELECT * FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 	   				 "' AND `apTime`='" + timeTemp + "';");
 	    		Connection conn = DBConfig.getConnection();
+	    		//sends request
 	    		PreparedStatement ps10 = conn.prepareStatement(getData);
 	    		ps10.execute();
 	    		//Asks if you really want to delete the selected appointment
@@ -372,6 +380,7 @@ public class displayAppController{
 		    			String delCurr = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 	    				 "' AND `apTime`='" + timeTemp + "';"); 
 		    			System.out.println(delCurr);
+		    			//sends request
 		    			PreparedStatement ps11 = conn.prepareStatement(delCurr);
 		    			ps11.execute();
 		    			patientTable.getItems().remove(selectedIndex);

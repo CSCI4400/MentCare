@@ -14,11 +14,11 @@ public class MainFXApp extends Application {
 		try {
 
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
-			Scene scene = new Scene(root,640,480);
+			Scene scene = new Scene(root,610,420);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			// we need to give the controller access to the Main app.
-			mainViewController controller=new mainViewController();
+			mainViewController controller = new mainViewController();
 			controller.setMain(this);
 			primaryStage.show();
 

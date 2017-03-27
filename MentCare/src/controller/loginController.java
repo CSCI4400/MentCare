@@ -44,6 +44,7 @@ public class loginController {
 	@FXML
 	public void logIn (ActionEvent event) throws Exception{
 		System.out.println("Attempting to log in...");
+		//catches null pointer exception thrown when clearing labels
 		try{
 			lblErrUserID.setText(null);
 			lblErrPassword.setText(null);
@@ -59,17 +60,17 @@ public class loginController {
 				//stores identifying number for a specific type in a variable
 				String type = idNum.substring(0, 3);
 				//determines which GUI to take the user to depending on their identification number
-				if(type.equals("111")){//receptionists
+				if(type.equals("111")){//for receptionists
 					stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 					root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
 					scene = new Scene(root);
 					stage.setScene(scene);
-				}else if(type.equals("333") || type.equals("555")){//nurses (333) and doctors (555)
+				}else if(type.equals("333") || type.equals("555")){//for nurses (333) and doctors (555)
 					stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 					root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
 					scene = new Scene(root);
 					stage.setScene(scene);
-				}else if(type.equals("777")){//administrators
+				}else if(type.equals("777")){//for administrators
 					stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 					root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
 					scene = new Scene(root);
@@ -79,9 +80,10 @@ public class loginController {
 					lblErrLogIn.setText("Identification type not recognized.");
 				}
 			}else{
+				//checks to see if an error has been thrown somewhere else already. If not, throws this error.
 				if(lblErrUserID.getText().equals("") && lblErrPassword.getText().equals("") && 
 						lblErrLogIn.getText().equals("")){
-					//failed to log user into system
+					//failed to log user into system - wrong credentials
 					lblErrLogIn.setText("Invalid user ID or password.");
 				}
 			}
@@ -90,25 +92,25 @@ public class loginController {
 		}
 	}
 	/*
-	 * Checks entered user data for identification number and password against the data for those 
+	 * Checks entered user data identification number and password against the data for those 
 	 * columns in the db. Returns true if the entered identification number and matching password
 	 * are in the db in the same row. Returns false for everything else - includes error checking
 	 */
 	public boolean checkLogIn(String idNum, String password) throws SQLException{
 		boolean logIn = false;
 		boolean missing_credentials = false;
-		//checks to see if both fields are empty
+		//checks to see if both fields are empty. Throws an error if this is true.
 		if(idNum.equals("") && password.equals("")){
 			missing_credentials = true;
 			lblErrLogIn.setText("Please fill in both fields.");
-		}else if(idNum.equals("")){//checks for an input for idenification number. Returns an error if null
+		}else if(idNum.equals("")){//checks for input in idenification number textfield. Returns an error if null
 			missing_credentials = true;
 			lblErrUserID.setText("User identification number required.");
-		}else if(password.equals("")){//checks for an input for password. Returns an error if null
+		}else if(password.equals("")){//checks for input in password passwordfield. Returns an error if null
 			missing_credentials = true;
 			lblErrPassword.setText("Password is required.");
 		}
-		//breaks out of this method if the identification number or password is missing
+		//breaks out of this method if the identification number, password, or both are missing
 		if(missing_credentials){
 			System.out.println("..failed.");
 			return false;
@@ -117,9 +119,9 @@ public class loginController {
 			System.out.println("..passed!");//passed error checking
 			//connects to db
 			Connection conn = DBConfig.getConnection();
-			//query to search idNum and password columns for entered input from user
+			//query to pull data from idNum and password columns
 			String check = "SELECT idNum, password FROM Users WHERE idNum = ? AND password = ?";
-			//sends query to db
+			//sends request
 			PreparedStatement ps = conn.prepareStatement(check);
 			ps.setString(1, idNum);
 			ps.setString(2, password);
@@ -128,11 +130,12 @@ public class loginController {
 			System.out.println("..connecting to db..");
 			while(rs.next()){
 				System.out.println("..pulling from db..");
+				//sets db data into variables
 				String user = rs.getString("idNum");
 				String pass = rs.getString("password");
 				System.out.println("User: " + user);
 				System.out.println("Password: " + pass);
-				//makes sure the vairables are not empty before checking them against db content -> avoids NullPointerException
+				//makes sure the variables are not empty before checking them against db content -> avoids NullPointerException
 				if(!user.isEmpty() && !pass.isEmpty()){
 					//checks identification number and password from db against local variables
 					if(user.equals(idNum) && pass.equals(password)){
