@@ -238,30 +238,42 @@ public class DoctorViewController extends Application{
 	}
 	private static void diagnosishistory(Patient a) {
 		
-		BorderPane diaghistlayout = new BorderPane();
-		VBox Dleft = new VBox();
-		VBox Dmid = new VBox();
-		VBox Dright = new VBox();
+		GridPane DiagHistLayout = new GridPane();
+		VBox Diagnosis = new VBox();
+		VBox DocWhoDiagnosed = new VBox();
+		VBox DateOfDiagnosis = new VBox();
+		VBox DiagnIsTemp = new VBox();
 		
-		Dleft.setPadding(new Insets(15, 12, 15, 12));
-		Dleft.setSpacing(10);
+		Diagnosis.setPadding(new Insets(15, 12, 15, 12));
+		Diagnosis.setSpacing(10);
 		Text t1 = new Text("Diagnosis: ");
-		Dleft.getChildren().add(t1);
+		Diagnosis.getChildren().add(t1);
 		
-		Dmid.setPadding(new Insets(15, 12, 15, 12));
-		Dmid.setSpacing(10);
+		DocWhoDiagnosed.setPadding(new Insets(15, 12, 15, 12));
+		DocWhoDiagnosed.setSpacing(10);
 		Text t2 = new Text("Doctor Who Diagnosed: ");
-		Dmid.getChildren().add(t2);
+		DocWhoDiagnosed.getChildren().add(t2);
 		
 		
-		Dright.setPadding(new Insets(15, 12, 15, 12));
-		Dright.setSpacing(10);
+		DateOfDiagnosis.setPadding(new Insets(15, 12, 15, 12));
+		DateOfDiagnosis.setSpacing(10);
 		Text t3 = new Text("Date of Diagnosis: ");
-		Dright.getChildren().add(t3);
+		DateOfDiagnosis.getChildren().add(t3);
 		
-		diaghistlayout.setLeft(Dleft);
-		diaghistlayout.setCenter(Dmid);
-		diaghistlayout.setRight(Dright);
+		DiagnIsTemp.setPadding(new Insets(15, 12, 15, 12));
+		DiagnIsTemp.setSpacing(10);;
+		Text t4 = new Text("Diagnosis is Temporary: ");
+		DiagnIsTemp.getChildren().add(t4);
+		
+		GridPane.setRowIndex(Diagnosis, 0);
+		GridPane.setColumnIndex(Diagnosis, 0);
+		GridPane.setRowIndex(DocWhoDiagnosed, 0);
+		GridPane.setColumnIndex(DocWhoDiagnosed, 1);
+		GridPane.setRowIndex(DateOfDiagnosis, 0);
+		GridPane.setColumnIndex(DateOfDiagnosis, 2);
+		GridPane.setRowIndex(DiagnIsTemp, 0);
+		GridPane.setColumnIndex(DiagnIsTemp, 3);
+		
 		
 		String selhistory = "SELECT * FROM mentcare.Diagnosis_History WHERE ? = mentcare.Diagnosis_History.PNum";
 		
@@ -288,26 +300,28 @@ public class DoctorViewController extends Application{
 		
 		for(String s : Diagnoses){
 			Label l = new Label(s);
-			Dleft.getChildren().add(l);
+			Diagnosis.getChildren().add(l);
 		}
 		
 		for(String s: DoctorNames){
 			Label l = new Label(s);
-			Dmid.getChildren().add(l);
+			DocWhoDiagnosed.getChildren().add(l);
 		}
 		
 		for(String s: DatesofD){
 			Label l = new Label(s);
-			Dright.getChildren().add(l);
+			DateOfDiagnosis.getChildren().add(l);
 		}
 		
 	    backbutton.setOnAction(e-> {
 	    	PatientDAO.updatePatientInfo(a);
 	    	patientrecords(a);
 	    });
-	    Dleft.getChildren().add(backbutton);
+	    Diagnosis.getChildren().add(backbutton);
+	    
+	    DiagHistLayout.getChildren().addAll(Diagnosis, DocWhoDiagnosed, DateOfDiagnosis, DiagnIsTemp);
 		
-		Scene diaghistview = new Scene(diaghistlayout, 480, 480);
+		Scene diaghistview = new Scene(DiagHistLayout, 480, 480);
 		
 		window.setScene(diaghistview);
 		
