@@ -47,7 +47,13 @@ public class PatientDAO {
 			}
 			Platform.runLater(new Runnable() {
 				public void run() {
-					DoctorViewController.patientrecords(a);
+					if(accesslevel == 0){
+						PatientRecordsController.ViewPatientRecords(a, DoctorViewController.diagnosishistorybutton, DoctorViewController.backbutton, DoctorViewController.editrecordbutton, DoctorViewController.window, DoctorViewController.firstnamel, DoctorViewController.lastnamel, DoctorViewController.birthdatel, DoctorViewController.homeaddressl, DoctorViewController.genderl, DoctorViewController.phonenumberl, DoctorViewController.diagnosisl, DoctorViewController.ssnl, DoctorViewController.lastvisitl);
+					}
+					if(accesslevel == 1){
+						PatientRecordsController.ViewPatientRecords(a, ReceptionistViewController.backbutton, ReceptionistViewController.editrecordbutton, ReceptionistViewController.window, ReceptionistViewController.firstnamel, ReceptionistViewController.lastnamel, ReceptionistViewController.birthdatel, ReceptionistViewController.homeaddressl, ReceptionistViewController.genderl, ReceptionistViewController.phonenumberl, ReceptionistViewController.lastvisitl);
+					}
+					
 				}
 			});
 			return a;
@@ -64,7 +70,7 @@ public class PatientDAO {
 			PreparedStatement pstmt;
 			
 			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBConnection.DBPASSWORD);
-			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the personal info and medical info tables, excluding diagnosis
+			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the personal info table
 			pstmt.setString(1, a.getFirstname());
 			pstmt.setString(2,  a.getLastname());
 			pstmt.setObject(3, a.getBirthdate());

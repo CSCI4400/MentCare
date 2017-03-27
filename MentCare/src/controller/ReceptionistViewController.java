@@ -37,6 +37,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.DBConnection;
+import model.Patient;
 import model.TimeoutTimer;
 import javafx.scene.control.*;
 import javafx.scene.text.*;
@@ -47,22 +48,23 @@ public class ReceptionistViewController extends Application {
 	
 	static Stage window;
 	static Button logoutButton = new Button("Log Out");
-	static String patientsearch = "Search";
+	static String patientsearchl = "Search";
+	static Patient a = new Patient();
 	static String pid;
 	
 	static Stage exitwindow;
 	static Scene mainmenu;
 	static Scene addpatient;
-	static Label welcome = new Label("Welcome, " + "ReceptionistName");
-	static Label todaysappointmentsl = new Label("Today's appointments:");
-	static Label patientidl = new Label("What is the patient's id?");
-	static Label firstnamel = new Label("First Name:");
-	static Label lastnamel = new Label("Last name:");
-	static Label birthdatel = new Label("Birthdate:");
-	static Label homeaddressl = new Label("Home Address");
-	static Label genderl = new Label("Gender:");
-	static Label phonenumberl = new Label("Phone Number:");
-	static Label lastvisitl = new Label("Last Visit Was: ");
+	public static Label welcome = new Label("Welcome, " + "ReceptionistName");
+	public static Text todaysappointmentsl = new Text("Today's appointments:");
+	static Text patientidl = new Text("What is the patient's id?");
+	static Text firstnamel = new Text("First Name:");
+	static Text lastnamel = new Text("Last name:");
+	static Text birthdatel = new Text("Birthdate:");
+	static Text homeaddressl = new Text("Home Address");
+	static Text genderl = new Text("Gender:");
+	static Text phonenumberl = new Text("Phone Number:");
+	static Text lastvisitl = new Text("Last Visit Was: ");
 	static Label exitconfirmationlabel;
 	static Button createappointmentbutton = new Button("Create Appointment");
 	static Button patientrecordsbutton = new Button ("View/Edit Patient Information");
@@ -71,7 +73,7 @@ public class ReceptionistViewController extends Application {
 	static Button addpatientbutton = new Button("Add Patient");
 	static Button logoutbutton = new Button("Log Out");
 	static Button editrecordbutton = new Button("Update Personal Information");
-	static Button searchbutton = new Button(patientsearch);
+	static Button searchbutton = new Button(patientsearchl);
 	static Button yesbutton = new Button("Yes");
 	static Button nobutton = new Button("No");
 	static Button backbutton = new Button("Back");
@@ -182,53 +184,27 @@ public class ReceptionistViewController extends Application {
 		window.setScene(addpatient);
 	}
 	
-	private static void patientsearch() {
-		
-		String selectPStmt = "SELECT * FROM mentcare.Patient_Info WHERE ? = mentcare.Patient_Info.PNumber";
-		
+	public static void patientsearch() {
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		backbutton.setOnAction(e -> window.setScene(mainmenu));
+		backbutton.setOnAction(e-> window.setScene(mainmenu));
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			pid = patientidinput.getText();
-			int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank values
-			String fname = "", lname = "", address = "", sex = "", phonenum = "";
-			Date bdate = null, lastvisit = null;
-			try {
-				PreparedStatement pstmt = ViewMenuController.con.prepareStatement(selectPStmt);
-				pstmt.setInt(1, Integer.parseInt(pid));
-				ResultSet rs = pstmt.executeQuery();
-				while(rs.next()){
-					pnum = rs.getInt("PNumber");
-					fname = rs.getString("Fname");
-					lname = rs.getString("Lname");
-					address = rs.getString("Address");
-					sex = rs.getString("Sex");
-					phonenum = rs.getString("Phone_Number");
-					bdate = rs.getDate("BDate");
-					lastvisit = rs.getDate("Last_Visit");
-					
-				}
-				
-				pstmt.close();
-				rs.close();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			
-			
-			patientrecords(Integer.toString((pnum)), fname, lname, bdate.toString(), address, sex, phonenum, lastvisit.toString());
+			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 1);
+			a = new Patient();
+			a.setPatientnum(Integer.parseInt(pid));
+			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
+			//Feeds the results obtained from the database to the 'patientrecords' menu
+			PatientRecordsController.ViewPatientRecords(a, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, lastvisitl);
 		});
-		window.setTitle(patientsearch);
+		window.setTitle(patientsearchl);
 		Scene patientsearch= new Scene(layout2, 640, 640);
 		
 		window.setScene(patientsearch);
 	}
 	
-	private static void patientrecords(String patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String lastvisitstring) {
+	/*private static void patientrecords(String patientid, String firstnamestr, String lastnamestr, String birthdatestr, String homeaddressstr, String genderstr, String phonenumberstr, String lastvisitstring) {
 		VBox layout2 = new VBox(10);
 		Label firstname = new Label(firstnamestr); Label lastname = new Label(lastnamestr); Label birthdate = new Label(birthdatestr);
 		Label homeaddress = new Label(homeaddressstr); Label gender = new Label(genderstr); Label phonenumber = new Label(phonenumberstr);
@@ -246,58 +222,48 @@ public class ReceptionistViewController extends Application {
 		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, lastvisitl, lastvisit, editrecordbutton, backbutton);
 		Scene patientrecords = new Scene(layout2, 640, 640);
 		window.setScene(patientrecords);
-	}
+	}*/
 
-	private static void recordedit(String patientid, String firstnamestr, String lastnamestr, String birthdatestr,
-			String homeaddressstr, String genderstr, String phonenumberstr, String lastvisitstring) {
-		
-		String updatePersonalInfo = "UPDATE mentcare.Patient_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Last_Visit = ? WHERE PNumber = ? ";
-		
+	static void recordeditor(Patient a) {
 		VBox layout3 = new VBox(10);
 		Date BirthDate;
-		TextField fname = new TextField(firstnamestr); TextField lname = new TextField(lastnamestr); TextField birthdate = new TextField(birthdatestr);
-		TextField addr = new TextField(homeaddressstr); TextField sex = new TextField(genderstr); TextField phonenum = new TextField(phonenumberstr);
-		TextField lastapt = new TextField(lastvisitstring);
 		
-		updatebutton.setOnAction(e-> {
-			try{
-			Connection Con;
-			PreparedStatement pstmt;
+		String updatePersonalInfo = "UPDATE mentcare2.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ? WHERE PNumber = ? ";
+		String updateMedicalInfo = "UPDATE mentcare2.Medical_Info SET Ssn = ?, Last_Visit = ? WHERE PNum = ?";
+		String updateDiagnosis = "UPDATE mentcare2.Medical_Info SET Diagnosis = ? WHERE PNum = ?";
+		String insertIntoDiagHistory = "INSERT INTO mentcare2.Diagnosis_History VALUES ( ? , ?, ?, ? )";
+		String selectCurrentDiag = "SELECT mentcare2.Medical_Info.Diagnosis FROM mentcare2.Medical_Info WHERE ? = PNum";
+		
+		TextField fname = new TextField(a.getFirstname()); TextField lname = new TextField(a.getLastname()); 
+		TextField birthdate = new TextField((a.getBirthdate()).toString()); TextField addr = new TextField(a.getAddress()); 
+		TextField sex = new TextField(a.getGender()); TextField phonenum = new TextField(a.getPhoneNumber());
+		TextField social = new TextField(a.getSsn()); TextField lastapt = new TextField((a.getLastVisit()).toString());
+		TextField diago = new TextField(a.getDiagnosis());
+		
+		
+		updatebutton.setOnAction( e -> {
+			/* if(tempDiagnosis.isSelected()){ //Add code here for handling status of Diagnosis in database
+			 * ifSelected will be true when checkbox is selected (Diagnosis is temporary) and false when 
+			 * checkbos is not selected (Diagnosis is not temporary)
+			}*/
+			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
+			//new Thread(a).start();
 			
-			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBConnection.DBPASSWORD);
-			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the personal info and possibly last visit date in medical info
-			pstmt.setString(1, fname.getText());
-			pstmt.setString(2,  lname.getText());
-			pstmt.setObject(3, LocalDate.parse(birthdate.getText()));
-			pstmt.setString(4, addr.getText());
-			pstmt.setString(5,  sex.getText());
-			pstmt.setString(6, phonenum.getText());
-			pstmt.setObject(7, LocalDate.parse(lastapt.getText()));
-			pstmt.setInt(8, Integer.parseInt(pid));
-			pstmt.executeUpdate();
-			pstmt.close();
-			
-			patientrecords(patientid, fname.getText(), lname.getText(), birthdate.getText(), addr.getText(), sex.getText(), phonenum.getText(), lastapt.getText());
-			
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			PatientDAO.updatePatientInfo(a);
+			PatientRecordsController.ViewPatientRecords(a, backbutton, editrecordbutton, window, DoctorViewController.firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, lastvisitl);
+	});
+		
+		
+		backbutton.setOnAction(e-> {
+			PatientDAO.updatePatientInfo(a);
+			PatientRecordsController.ViewPatientRecords(a, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, lastvisitl);
 		});
-		
-		
-		
-		
-		backbutton.setOnAction(e-> patientrecords(patientid, fname.getText(), lname.getText(), birthdate.getText(), addr.getText(), sex.getText(), phonenum.getText(), lastapt.getText()));
 		
 		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, lastvisitl, lastapt, updatebutton, backbutton);
 		
 		
 		Scene recordeditor = new Scene(layout3, 680, 680);
 		window.setScene(recordeditor);
-		
-		
-		
-		
 	}
 	
 	

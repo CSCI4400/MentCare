@@ -8,6 +8,7 @@ import java.util.Collection;
 
 import controller.DoctorViewController;
 import controller.PatientDAO;
+import controller.PatientRecordsController;
 import controller.ViewMenuController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -99,7 +100,7 @@ public class DiagnosisHistoryView {
 		
 	    backbutton.setOnAction(e-> {
 	    	PatientDAO.updatePatientInfo(a);
-	    	DoctorViewController.patientrecords(a);
+	    	PatientRecordsController.ViewPatientRecords(a, DoctorViewController.diagnosishistorybutton, backbutton, DoctorViewController.editrecordbutton, window, DoctorViewController.firstnamel, DoctorViewController.lastnamel, DoctorViewController.birthdatel, DoctorViewController.homeaddressl, DoctorViewController.genderl, DoctorViewController.phonenumberl, DoctorViewController.diagnosisl, DoctorViewController.ssnl, DoctorViewController.lastvisitl);
 	    });
 	    Diagnosis.getChildren().add(backbutton);
 	    

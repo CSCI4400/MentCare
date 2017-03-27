@@ -63,15 +63,15 @@ public class DoctorViewController extends Application{
 	static Scene addpatient;
 	static Label todaysappointmentsl = new Label("Today's Appointments:");
 	static Label patientidl = new Label("What is the Patient ID Number?");
-	static Text firstnamel = new Text("First Name:");
-	static Text lastnamel = new Text("Last name:");
-	static Text birthdatel = new Text("Birthdate:");
-	static Text homeaddressl = new Text("Home Address");
-	static Text genderl = new Text("Gender:");
-	static Text phonenumberl = new Text("Phone Number:");
-	static Text diagnosisl = new Text("Diagnosis:");
-	static Text ssnl = new Text("SSN: ");
-	static Label lastvisitl = new Label("Last Visit Was: ");
+	public static Text firstnamel = new Text("First Name:");
+	public static Text lastnamel = new Text("Last name:");
+	public static Text birthdatel = new Text("Birthdate:");
+	public static Text homeaddressl = new Text("Home Address");
+	public static Text genderl = new Text("Gender:");
+	public static Text phonenumberl = new Text("Phone Number:");
+	public static Text diagnosisl = new Text("Diagnosis:");
+	public static Text ssnl = new Text("SSN: ");
+	public static Text lastvisitl = new Text("Last Visit Was: ");
 	static Label exitconfirmationlabel;
 	static Button createappointmentbutton = new Button("Create Appointment");
 	static Button patientrecordsbutton = new Button ("View/Edit Patient Records");
@@ -79,8 +79,8 @@ public class DoctorViewController extends Application{
 	static Button patientsheldbutton = new Button("Institutionalized Patients");
 	static Button addpatientbutton = new Button("Add Patient");
 	static Button logoutbutton = new Button("Log Out");
-	static Button diagnosishistorybutton = new Button("Diagnosis History");
-	static Button editrecordbutton = new Button("Edit Record");
+	public static Button diagnosishistorybutton = new Button("Diagnosis History");
+	public static Button editrecordbutton = new Button("Edit Record");
 	static Button searchbutton = new Button(patientsearch);
 	static Button yesbutton = new Button("Yes");
 	static Button nobutton = new Button("No");
@@ -151,7 +151,7 @@ public class DoctorViewController extends Application{
 		timeout.start();                                               //to 120 seconds. I'm using 10 seconds to make it easier to demo.
 		
 	}
-	private static void patientsearch() {
+	public static void patientsearch() {
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
 		backbutton.setOnAction(e-> window.setScene(mainmenu));
@@ -163,7 +163,7 @@ public class DoctorViewController extends Application{
 			a.setPatientnum(Integer.parseInt(pid));
 			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
 			//Feeds the results obtained from the database to the 'patientrecords' menu
-			patientrecords(a);
+			PatientRecordsController.ViewPatientRecords(a, diagnosishistorybutton, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, diagnosisl, ssnl, lastvisitl);
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearch= new Scene(layout2, 640, 640);
@@ -174,7 +174,7 @@ public class DoctorViewController extends Application{
 	 * Displays a patient's records.
 	 * @param patient info. (Should be replaced by patient object
 	 */
-	public static void patientrecords(Patient a) {
+	/*public static void patientrecords(Patient a) {
 		VBox layout2 = new VBox(10);
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
 		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());
@@ -195,8 +195,8 @@ public class DoctorViewController extends Application{
 		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, editrecordbutton, backbutton);
 		Scene patientrecords = new Scene(layout2, 700, 700);
 		window.setScene(patientrecords);
-	}
-	private static void recordeditor(Patient a) {
+	}*/
+	static void recordeditor(Patient a) {
 		VBox layout3 = new VBox(10);
 		Date BirthDate;
 		
@@ -222,13 +222,13 @@ public class DoctorViewController extends Application{
 			//new Thread(a).start();
 			
 			PatientDAO.updatePatientInfo(a);
-			patientrecords(a);
+			PatientRecordsController.ViewPatientRecords(a, diagnosishistorybutton, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, diagnosisl, ssnl, lastvisitl);
 	});
 		
 		
 		backbutton.setOnAction(e-> {
 			PatientDAO.updatePatientInfo(a);
-			patientrecords(a);
+			PatientRecordsController.ViewPatientRecords(a, diagnosishistorybutton, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, diagnosisl, ssnl, lastvisitl);
 		});
 		
 		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, diagnosisl, diago , tempDiagnosis, ssnl, social, lastvisitl, lastapt, updatebutton, backbutton);
