@@ -15,21 +15,21 @@ public class DBConnection implements Runnable {
 
 	@Override
 	public void run() {
-		
+
 		try{
-			
+
 			System.out.println("Establishing connection to database");
-			
-			Con1 = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBPASSWORD); 
-			
+
+			Con1 = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBPASSWORD);
+
 			System.out.println("Connection success");
-			
+
 			ViewMenuController.con = Con1;
-			
+
 	    } catch(Exception e){
 	    	e.printStackTrace();
 			}
-		
-		}	
+
+		}
 
 }

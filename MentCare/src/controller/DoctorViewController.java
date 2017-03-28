@@ -47,16 +47,16 @@ import javafx.scene.text.*;
 public class DoctorViewController extends Application{
 
 	String placeholder = "Placeholder for: ";
-	
+
 	static Patient a = new Patient();
 	static boolean patientupdate= false;
 	static String pid; //used to store the ID# of the patient whose record is being looked at
-	
+
 	static Label welcome = new Label("Welcome Doctor, " + "xyz");
 	static String exitconfirmation = "Are you sure you want to exit?";
-	
+
 	static String patientsearch = "Search";
-	
+
 	static Stage window;
 	static Stage exitwindow;
 	static Scene mainmenu;
@@ -88,12 +88,17 @@ public class DoctorViewController extends Application{
 	static Button okbutton = new Button("OK");
 	static Button cancelbutton = new Button("Cancel");
 	static Button updatebutton = new Button("Update");
+
+	static Label deathlabel = new Label("Is the patient deceased?");
+	static RadioButton yesdead = new RadioButton("Yes");
+	static RadioButton nodead = new RadioButton("No");
 	static CheckBox tempDiagnosis = new CheckBox("Diagnosis is temporary");
-	
+
+
 	//Time out variables
 		Point2D prevMousePos = new Point2D(0,0);
 		int timeOutDelay = 5;
-	
+
 	public void start(Stage primaryStage) throws Exception {
 		//Adds buttons and labels
 		window = primaryStage;
@@ -102,16 +107,16 @@ public class DoctorViewController extends Application{
 			e.consume();
 			confirmExit();
 		});
-		
-		
+
+
 		//Configure button actions
 		addpatientbutton.setOnAction(e -> addPatient());
 		patientrecordsbutton.setOnAction(e-> patientsearch());
-		
+
 		createappointmentbutton.setOnAction(e -> {
 			//Put code here for going to appointment view
 		});
-		
+
 		patientsheldbutton.setOnAction(e-> {
 			//Put code here for going to institutionalized patients view
 		});
@@ -119,13 +124,13 @@ public class DoctorViewController extends Application{
 			logout();
 			//return to main menu interface
 		});
-		
-		
+
+
 		//Configures layout
 		VBox todaysappointmentslayout = new VBox(20);
 		todaysappointmentsl.setPadding(new Insets(0, 10, 10, 10));
 		todaysappointmentslayout.getChildren().addAll(todaysappointmentsl);
-		
+
 		GridPane mainarea = new GridPane();
 		mainarea.setVgap(10); mainarea.setHgap(10);
 		mainarea.add(createappointmentbutton, 0, 0);
@@ -140,16 +145,16 @@ public class DoctorViewController extends Application{
 		layout.setTop(welcome);
 		layout.setLeft(todaysappointmentslayout);
 		layout.setCenter(mainarea);
-		
+
 		//Display stage
 		mainmenu = new Scene(layout, 640, 480);
 		window.setScene(mainmenu);
 		window.show();
-		
+
 		//Set page to time out after 10 seconds
 		TimeoutTimer timeout = new TimeoutTimer(mainarea, window, 10); //This method is overloaded; if you only use two arguments the time defaults
 		timeout.start();                                               //to 120 seconds. I'm using 10 seconds to make it easier to demo.
-		
+
 	}
 	public static void patientsearch() {
 		VBox layout2 = new VBox(20);
@@ -167,7 +172,7 @@ public class DoctorViewController extends Application{
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearch= new Scene(layout2, 640, 640);
-		
+
 		window.setScene(patientsearch);
 	}
 	/**
@@ -199,45 +204,50 @@ public class DoctorViewController extends Application{
 	static void recordeditor(Patient a) {
 		VBox layout3 = new VBox(10);
 		Date BirthDate;
-		
+
 		String updatePersonalInfo = "UPDATE mentcare2.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ? WHERE PNumber = ? ";
 		String updateMedicalInfo = "UPDATE mentcare2.Medical_Info SET Ssn = ?, Last_Visit = ? WHERE PNum = ?";
 		String updateDiagnosis = "UPDATE mentcare2.Medical_Info SET Diagnosis = ? WHERE PNum = ?";
 		String insertIntoDiagHistory = "INSERT INTO mentcare2.Diagnosis_History VALUES ( ? , ?, ?, ? )";
 		String selectCurrentDiag = "SELECT mentcare2.Medical_Info.Diagnosis FROM mentcare2.Medical_Info WHERE ? = PNum";
-		
-		TextField fname = new TextField(a.getFirstname()); TextField lname = new TextField(a.getLastname()); 
-		TextField birthdate = new TextField((a.getBirthdate()).toString()); TextField addr = new TextField(a.getAddress()); 
+
+		TextField fname = new TextField(a.getFirstname()); TextField lname = new TextField(a.getLastname());
+		TextField birthdate = new TextField((a.getBirthdate()).toString()); TextField addr = new TextField(a.getAddress());
 		TextField sex = new TextField(a.getGender()); TextField phonenum = new TextField(a.getPhoneNumber());
 		TextField social = new TextField(a.getSsn()); TextField lastapt = new TextField((a.getLastVisit()).toString());
 		TextField diago = new TextField(a.getDiagnosis());
-		
-		
+
+
 		updatebutton.setOnAction( e -> {
 			/* if(tempDiagnosis.isSelected()){ //Add code here for handling status of Diagnosis in database
-			 * ifSelected will be true when checkbox is selected (Diagnosis is temporary) and false when 
+			 * ifSelected will be true when checkbox is selected (Diagnosis is temporary) and false when
 			 * checkbos is not selected (Diagnosis is not temporary)
 			}*/
 			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
 			//new Thread(a).start();
-			
+
 			PatientDAO.updatePatientInfo(a);
 			PatientRecordsController.ViewPatientRecords(a, diagnosishistorybutton, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, diagnosisl, ssnl, lastvisitl);
 	});
-		
-		
+
+
 		backbutton.setOnAction(e-> {
 			PatientDAO.updatePatientInfo(a);
 			PatientRecordsController.ViewPatientRecords(a, diagnosishistorybutton, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, diagnosisl, ssnl, lastvisitl);
 		});
-		
-		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, diagnosisl, diago , tempDiagnosis, ssnl, social, lastvisitl, lastapt, updatebutton, backbutton);
-		
-		
+
+		final ToggleGroup deathSelect = new ToggleGroup();
+		yesdead.setToggleGroup(deathSelect);
+		nodead.setToggleGroup(deathSelect);
+		nodead.setSelected(true);
+
+		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, diagnosisl, diago , tempDiagnosis, ssnl, social, lastvisitl, lastapt, deathlabel, yesdead, nodead, updatebutton, backbutton);
+
+
 		Scene recordeditor = new Scene(layout3, 680, 680);
 		window.setScene(recordeditor);
 	}
-	
+
 	/**
 	 * Called when user wants to add a patient to the system, creates ok and cancel button
 	 */
@@ -246,7 +256,7 @@ public class DoctorViewController extends Application{
 		okbutton.setOnAction(e -> {
 			window.setScene(mainmenu); //return to mainmenu
 		});
-		
+
 		cancelbutton.setOnAction(e -> window.setScene(mainmenu));
 		HBox layout2 = new HBox(20);
 		layout2.getChildren().addAll(okbutton, cancelbutton);
@@ -259,7 +269,7 @@ public class DoctorViewController extends Application{
 	 */
 	private static void logout() {
 		//log out of system here
-		
+
 		//Currently switches back to the viewMenu, this is only temporary
 		try {
 			ViewMenuController vMenu = new ViewMenuController();
@@ -274,13 +284,13 @@ public class DoctorViewController extends Application{
 	 */
 	private static void confirmExit() {
 		exitwindow = new Stage();
-		
+
 		exitwindow.initModality(Modality.APPLICATION_MODAL);
 		exitwindow.setTitle(exitconfirmation);
-		
+
 		exitconfirmationlabel = new Label();
 		exitconfirmationlabel.setText(exitconfirmation);
-		
+
 		yesbutton.setOnAction(e ->  {
 			exitwindow.close();
 			exitProgram();
@@ -300,7 +310,7 @@ public class DoctorViewController extends Application{
 	/**
 	 * User confirms they want to close the program
 	 */
-	private static void exitProgram() {	
+	private static void exitProgram() {
 		window.close();
 	}
 }
