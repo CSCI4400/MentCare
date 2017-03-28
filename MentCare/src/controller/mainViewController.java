@@ -57,15 +57,20 @@ public class mainViewController {
 			updateAppController con3 = new updateAppController();
 			con3.setMain(main);
 			break;
-		case "userBttn":
+		case "userButton":
 			root = FXMLLoader.load(getClass().getResource("/view/addUserView.fxml"));
 			addUserController con4 = new addUserController();
 			con4.setMain(main);
 			break;
+		case "psychButton":
+			root = FXMLLoader.load(getClass().getResource("/view/psychView.fxml"));
+			psychController con5 = new psychController();
+			con5.setMain(main);
+			break;
 		default:
 			root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
-			mainViewController con5 = new mainViewController();
-			con5.setMain(main);
+			mainViewController con6 = new mainViewController();
+			con6.setMain(main);
 			break;
 		}
 		//sets fxml file as a scene
