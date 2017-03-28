@@ -125,25 +125,23 @@ public class addUserController {
         String IDQuery = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'mentcare' AND TABLE_NAME = 'Users'";
 		
 		 //try to connect to db
-        try (
-        	Connection conn = DBConfig.getConnection();
-              PreparedStatement getID = conn.prepareStatement(IDQuery, Statement.RETURN_GENERATED_KEYS);
-        	){
+        try (Connection conn = DBConfig.getConnection();
+             PreparedStatement getID = conn.prepareStatement(IDQuery, Statement.RETURN_GENERATED_KEYS);)
+        {
+        	//print query
+        	System.out.println("Query Sent" + getID.toString());
 
-        //print query
-        System.out.println("Query Sent" + getID.toString());
-
-        //get the result set and execute query
-       rs = getID.executeQuery();
+        	//get the result set and execute query
+        	rs = getID.executeQuery();
         
-       //move through the results
-        if (rs.next())
-		{
-        	//get the next auto increment
-        	nextIncrement = rs.getInt("AUTO_INCREMENT");
-        	System.out.println("nextIncrement" + nextIncrement);
-		}     
-      }//end try
+        	//move through the results
+        	if (rs.next())
+        	{
+        		//get the next auto increment
+        		nextIncrement = rs.getInt("AUTO_INCREMENT");
+        		System.out.println("nextIncrement" + nextIncrement);
+        	}     
+        }//end try
         
         //add the auto increment to the number to make ID
         uniqueID = uniqueID + nextIncrement;
@@ -154,89 +152,74 @@ public class addUserController {
         //replace that first number 
         strUniqueID.replaceFirst(strUniqueID, "0");
         
-         finalID = role + strUniqueID;
-         return finalID;
-   
+        finalID = role + strUniqueID;
+        return finalID;
 	}//end method
     
     @FXML
     void submitUser(ActionEvent event) throws SQLException {
-    	try{
-	    	if(errorChecking() == true){//puts data through error checking before doing anything with it - avoids/handles exceptions
-		    	//create user object
-		    	newUser user = new newUser();
+    	if(errorChecking() == true){//puts data through error checking before doing anything with it - avoids/handles exceptions
+    		//create user object
+		    newUser user = new newUser();	
 		    	
+		    //---Begin Anna 1---------------------------------------------------------------------------------------------
+		    //create string to concat the createdby and createdby ID number together 
+		    String createdIDandName = "";
+		    //---End Anna 1-----------------------------------------------------------------------------------------------
 		    	
-		    	
-		    	//---Begin Anna 1-----------------------------------------------------------------------------------------------
-		    	//create string to concat the createdby and createdby ID number together 
-		    	String createdIDandName = "";
-		    	//---End Anna 1-----------------------------------------------------------------------------------------------
-		    	
-		    	
-		    	
-		    	//set values from the GUI
-		    	user.setName(tfName.getText());
-		    	user.setRole(((Labeled) roleGroup.getSelectedToggle()).getText().toString());
-		    	user.setPassword(tfPass.getText());
-		    	user.setCreateDate(today);
-		    	
-		    	
-		    	//---Begin Anna 2-----------------------------------------------------------------------------------------------
-		    	//concatenates the logged on user's ID and name togther and sets this for the createdBY in the database- Anna
-		    	createdIDandName = loginController.loggedOnUser.getName() + ", " + loginController.loggedOnUser.getID();
-		    	user.setCreatedBy(createdIDandName);
-		    	//---End Anna 2-----------------------------------------------------------------------------------------------
-		    	
-		    	
-		    	
-		    	try {
-		    		//get the unique ID
-					user.setID(createUserID(roleGroup.getSelectedToggle().getUserData().toString()));
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		    	
-		    	//set the ID label on GUI
-		    	lblID.setText(user.getID());
-		    	
-		    	//print out the user created 
-		    	System.out.println("User: " + user);
-		    	
-		    	//send into database
-		    	//create query to send appt in db
-		        String newUserQuery = "INSERT INTO `Users`(`idNum`, `password`, `role`, `FullName`, `CreatedBy`, `CreatedDate`) VALUES (?,?,?,?,?,?)";
-		
-		        //try to connect to db
-		        try (Connection conn = DBConfig.getConnection();
-		                               PreparedStatement createUser = conn.prepareStatement(newUserQuery,Statement.RETURN_GENERATED_KEYS);)
-		                {
-		
-					        //set info into the query
-					        createUser.setString(1, user.getID());
-					        createUser.setString(2, user.getPassword());
-					        createUser.setString(3, user.getRole());
-					        createUser.setString(4, user.getName());
-					        createUser.setString(5, user.getCreatedBy());
-					        createUser.setString(6, user.getCreateDate());
-					
-					        //print query
-					        System.out.println("Query Sent " + createUser.toString());
-					
-					        //pass the query in
-					       createUser.executeUpdate();
-		    	
-		                }catch (SQLException e) {
-		        			// TODO Auto-generated catch block
-		        			e.printStackTrace();
-		        	}//end catch
-	    	}else{
-	    		System.out.println("\nFailed error checking.");
-	    	}
-    	}catch(Exception e){
-    		e.getMessage();
-    	}
+		    //set values from the GUI
+		    user.setName(tfName.getText());
+		    user.setRole(((Labeled) roleGroup.getSelectedToggle()).getText().toString());
+		    user.setPassword(tfPass.getText());
+		    user.setCreateDate(today);
+		    
+			//---Begin Anna 2---------------------------------------------------------------------------------------------
+		    //concatenates the logged on user's ID and name togther and sets this for the createdBY in the database- Anna
+		    createdIDandName = loginController.loggedOnUser.getName() + ", " + loginController.loggedOnUser.getID();
+		    user.setCreatedBy(createdIDandName);
+		    //---End Anna 2-----------------------------------------------------------------------------------------------
+		    
+		    try {
+		    	//get the unique ID
+				user.setID(createUserID(roleGroup.getSelectedToggle().getUserData().toString()));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		   	
+		   	//set the ID label on GUI
+		   	lblID.setText(user.getID());
+		   	
+		   	//print out the user created 
+		   	System.out.println("User: " + user);
+		   	
+		   	//send into database
+		   	//create query to send appt in db
+		    String newUserQuery = "INSERT INTO `Users`(`idNum`, `password`, `role`, `FullName`, `CreatedBy`, `CreatedDate`) VALUES (?,?,?,?,?,?)";
+		    //try to connect to db
+		    try (Connection conn = DBConfig.getConnection();
+		         PreparedStatement createUser = conn.prepareStatement(newUserQuery,Statement.RETURN_GENERATED_KEYS);)
+		    {
+		    	//set info into the query
+		    	createUser.setString(1, user.getID());
+		        createUser.setString(2, user.getPassword());
+		        createUser.setString(3, user.getRole());
+		        createUser.setString(4, user.getName());
+		        createUser.setString(5, user.getCreatedBy());
+		        createUser.setString(6, user.getCreateDate());
+		        
+			    //print query
+		        System.out.println("Query Sent " + createUser.toString());
+				
+		        //pass the query in
+		        createUser.executeUpdate();	
+		    }catch (SQLException e) {
+		        // TODO Auto-generated catch block
+		        e.printStackTrace();
+		    }//end catch
+	    }else{
+	    	System.out.println("Failed error checking.");
+	   	}
     }//end method
     
     /*
