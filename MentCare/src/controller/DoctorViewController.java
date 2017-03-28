@@ -62,7 +62,6 @@ public class DoctorViewController extends Application{
 	static Scene mainmenu;
 	static Scene addpatient;
 	static Label todaysappointmentsl = new Label("Today's Appointments:");
-	static Label patientidl = new Label("What is the Patient ID Number?");
 	static Label exitconfirmationlabel;
 	static Button createappointmentbutton = new Button("Create Appointment");
 	static Button patientrecordsbutton = new Button ("View/Edit Patient Records");
@@ -101,7 +100,7 @@ public class DoctorViewController extends Application{
 
 		//Configure button actions
 		addpatientbutton.setOnAction(e -> addPatient());
-		patientrecordsbutton.setOnAction(e-> patientsearch());
+		patientrecordsbutton.setOnAction(e-> SearchPatientController.searchPatientDoc(window));
 
 		createappointmentbutton.setOnAction(e -> {
 			//Put code here for going to appointment view
@@ -146,27 +145,6 @@ public class DoctorViewController extends Application{
 		timeout.start();                                               //to 120 seconds. I'm using 10 seconds to make it easier to demo.
 
 	}
-	public static void patientsearch() {
-		VBox layout2 = new VBox(20);
-		TextField patientidinput = new TextField();
-		backbutton.setOnAction(e-> window.setScene(mainmenu));
-		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
-		searchbutton.setOnAction(e -> {
-			pid = patientidinput.getText();
-			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 0);
-			a = new Patient();
-			a.setPatientnum(Integer.parseInt(pid));
-			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
-			//Feeds the results obtained from the database to the 'patientrecords' menu
-			PatientRecordsController.ViewPatientRecordsDoc(a, window);
-		});
-		window.setTitle(patientsearch);
-		Scene patientsearch= new Scene(layout2, 640, 640);
-
-		window.setScene(patientsearch);
-	}
-
-
 	/**
 	 * Called when user wants to add a patient to the system, creates ok and cancel button
 	 */

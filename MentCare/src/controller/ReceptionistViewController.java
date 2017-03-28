@@ -57,7 +57,6 @@ public class ReceptionistViewController extends Application {
 	static Scene addpatient;
 	public static Label welcome = new Label("Welcome, " + "ReceptionistName");
 	public static Text todaysappointmentsl = new Text("Today's appointments:");
-	static Text patientidl = new Text("What is the patient's id?");
 	static Label exitconfirmationlabel;
 	static Button createappointmentbutton = new Button("Create Appointment");
 	static Button patientrecordsbutton = new Button ("View/Edit Patient Information");
@@ -101,7 +100,7 @@ public class ReceptionistViewController extends Application {
 		
 		//Configure button actions
 		addpatientbutton.setOnAction(e -> addPatient());
-		patientrecordsbutton.setOnAction(e-> patientsearch());
+		patientrecordsbutton.setOnAction(e-> SearchPatientController.searchPatientRecep(window));
 		
 		createappointmentbutton.setOnAction(e -> {
 			//Put code here for going to appointment view
@@ -173,26 +172,6 @@ public class ReceptionistViewController extends Application {
 		addpatient = new Scene(addpatientlayout, 640, 480);
 		window.setScene(addpatient);
 	}
-	
-	public static void patientsearch() {
-		VBox layout2 = new VBox(20);
-		TextField patientidinput = new TextField();
-		backbutton.setOnAction(e-> window.setScene(mainmenu));
-		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
-		searchbutton.setOnAction(e -> {
-			pid = patientidinput.getText();
-			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 1);
-			a = new Patient();
-			a.setPatientnum(Integer.parseInt(pid));
-			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
-			//Feeds the results obtained from the database to the 'patientrecords' menu
-			PatientRecordsController.ViewPatientRecordsRecep(a, window);
-		});
-		window.setTitle(patientsearchl);
-		Scene patientsearch= new Scene(layout2, 640, 640);
-		
-		window.setScene(patientsearch);
-	}	
 	
 	
 }
