@@ -168,7 +168,7 @@ public class DoctorViewController extends Application{
 			a.setPatientnum(Integer.parseInt(pid));
 			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
 			//Feeds the results obtained from the database to the 'patientrecords' menu
-			PatientRecordsController.ViewPatientRecords(a, diagnosishistorybutton, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, diagnosisl, ssnl, lastvisitl);
+			PatientRecordsController.ViewPatientRecordsDoc(a, window);
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearch= new Scene(layout2, 640, 640);
@@ -178,13 +178,6 @@ public class DoctorViewController extends Application{
 
 	static void recordeditor(Patient a) {
 		VBox layout3 = new VBox(10);
-		Date BirthDate;
-
-		String updatePersonalInfo = "UPDATE mentcare2.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ? WHERE PNumber = ? ";
-		String updateMedicalInfo = "UPDATE mentcare2.Medical_Info SET Ssn = ?, Last_Visit = ? WHERE PNum = ?";
-		String updateDiagnosis = "UPDATE mentcare2.Medical_Info SET Diagnosis = ? WHERE PNum = ?";
-		String insertIntoDiagHistory = "INSERT INTO mentcare2.Diagnosis_History VALUES ( ? , ?, ?, ? )";
-		String selectCurrentDiag = "SELECT mentcare2.Medical_Info.Diagnosis FROM mentcare2.Medical_Info WHERE ? = PNum";
 
 		TextField fname = new TextField(a.getFirstname()); TextField lname = new TextField(a.getLastname());
 		TextField birthdate = new TextField((a.getBirthdate()).toString()); TextField addr = new TextField(a.getAddress());
@@ -202,13 +195,13 @@ public class DoctorViewController extends Application{
 			//new Thread(a).start();
 
 			PatientDAO.updatePatientInfo(a);
-			PatientRecordsController.ViewPatientRecords(a, diagnosishistorybutton, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, diagnosisl, ssnl, lastvisitl);
+			PatientRecordsController.ViewPatientRecordsDoc(a, window);
 	});
 
 
 		backbutton.setOnAction(e-> {
 			PatientDAO.updatePatientInfo(a);
-			PatientRecordsController.ViewPatientRecords(a, diagnosishistorybutton, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, diagnosisl, ssnl, lastvisitl);
+			PatientRecordsController.ViewPatientRecordsDoc(a, window);
 		});
 
 		final ToggleGroup deathSelect = new ToggleGroup();

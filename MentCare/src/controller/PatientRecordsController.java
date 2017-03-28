@@ -11,13 +11,26 @@ import view.DiagnosisHistoryView;
 
 public class PatientRecordsController {
 	
-	public static void ViewPatientRecords(Patient a, Button diagnosishistorybutton, Button backbutton, Button editrecordbutton, Stage window, Text firstnamel, Text lastnamel, Text birthdatel, Text homeaddressl, Text genderl, Text phonenumberl, Text diagnosisl, Text ssnl, Text lastvisitl){
+	static Button diagnosishistorybutton = new Button("Diagnosis History");
+	static Button backbutton = new Button("Back");
+	static Button editrecordbutton = new Button("Update Information");
+	public static Text firstnamel = new Text("First Name:");
+	public static Text lastnamel = new Text("Last name:");
+	public static Text birthdatel = new Text("Birthdate:");
+	public static Text homeaddressl = new Text("Home Address");
+	public static Text genderl = new Text("Gender:");
+	public static Text phonenumberl = new Text("Phone Number:");
+	public static Text diagnosisl = new Text("Diagnosis:");
+	public static Text ssnl = new Text("SSN: ");
+	public static Text lastvisitl = new Text("Last Visit Was: ");
+	
+	public static void ViewPatientRecordsDoc(Patient a, Stage window){
 		VBox layout2 = new VBox(10);
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
 		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());
 		Label diagnosis = new Label(a.getDiagnosis()); Label Ssn = new Label(a.getSsn()); Label lastapt = new Label((a.getLastVisit()).toString());
 		//Bolding all the labels for the patient information
-		diagnosishistorybutton.setOnAction(e->DiagnosisHistoryView.DiagnosisHistory(a, backbutton, window));
+		diagnosishistorybutton.setOnAction(e->DiagnosisHistoryView.DiagnosisHistory(a, window));
 		backbutton.setOnAction(e->DoctorViewController.patientsearch());
 		editrecordbutton.setOnAction(e-> DoctorViewController.recordeditor(a));
 		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, editrecordbutton, backbutton);
@@ -25,7 +38,7 @@ public class PatientRecordsController {
 		window.setScene(Docpatientrecords);
 	}
 	
-	public static void ViewPatientRecords(Patient a, Button backbutton, Button editrecordbutton, Stage window, Text firstnamel, Text lastnamel, Text birthdatel, Text homeaddressl, Text genderl, Text phonenumberl, Text lastvisitl){
+	public static void ViewPatientRecordsRecep(Patient a, Stage window){
 		VBox layout3 = new VBox(10);
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
 		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());

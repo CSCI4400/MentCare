@@ -48,10 +48,10 @@ public class PatientDAO {
 			Platform.runLater(new Runnable() {
 				public void run() {
 					if(accesslevel == 0){
-						PatientRecordsController.ViewPatientRecords(a, DoctorViewController.diagnosishistorybutton, DoctorViewController.backbutton, DoctorViewController.editrecordbutton, DoctorViewController.window, DoctorViewController.firstnamel, DoctorViewController.lastnamel, DoctorViewController.birthdatel, DoctorViewController.homeaddressl, DoctorViewController.genderl, DoctorViewController.phonenumberl, DoctorViewController.diagnosisl, DoctorViewController.ssnl, DoctorViewController.lastvisitl);
+						PatientRecordsController.ViewPatientRecordsDoc(a, DoctorViewController.window);
 					}
 					if(accesslevel == 1){
-						PatientRecordsController.ViewPatientRecords(a, ReceptionistViewController.backbutton, ReceptionistViewController.editrecordbutton, ReceptionistViewController.window, ReceptionistViewController.firstnamel, ReceptionistViewController.lastnamel, ReceptionistViewController.birthdatel, ReceptionistViewController.homeaddressl, ReceptionistViewController.genderl, ReceptionistViewController.phonenumberl, ReceptionistViewController.lastvisitl);
+						PatientRecordsController.ViewPatientRecordsRecep(a, ReceptionistViewController.window);
 					}
 					
 				}

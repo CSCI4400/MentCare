@@ -196,7 +196,7 @@ public class ReceptionistViewController extends Application {
 			a.setPatientnum(Integer.parseInt(pid));
 			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
 			//Feeds the results obtained from the database to the 'patientrecords' menu
-			PatientRecordsController.ViewPatientRecords(a, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, lastvisitl);
+			PatientRecordsController.ViewPatientRecordsRecep(a, window);
 		});
 		window.setTitle(patientsearchl);
 		Scene patientsearch= new Scene(layout2, 640, 640);
@@ -250,13 +250,13 @@ public class ReceptionistViewController extends Application {
 			//new Thread(a).start();
 			
 			PatientDAO.updatePatientInfo(a);
-			PatientRecordsController.ViewPatientRecords(a, backbutton, editrecordbutton, window, DoctorViewController.firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, lastvisitl);
+			PatientRecordsController.ViewPatientRecordsRecep(a, window);
 	});
 		
 		
 		backbutton.setOnAction(e-> {
 			PatientDAO.updatePatientInfo(a);
-			PatientRecordsController.ViewPatientRecords(a, backbutton, editrecordbutton, window, firstnamel, lastnamel, birthdatel, homeaddressl, genderl, phonenumberl, lastvisitl);
+			PatientRecordsController.ViewPatientRecordsRecep(a, window);
 		});
 		
 		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, lastvisitl, lastapt, updatebutton, backbutton);

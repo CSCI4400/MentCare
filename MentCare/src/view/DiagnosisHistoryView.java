@@ -22,7 +22,9 @@ import model.Patient;
 
 public class DiagnosisHistoryView {
 	
-	public static void DiagnosisHistory(Patient a, Button backbutton, Stage window){
+	static Button backbutton = new Button("Back");
+	
+	public static void DiagnosisHistory(Patient a, Stage window){
 		GridPane DiagHistLayout = new GridPane();
 		VBox Diagnosis = new VBox();
 		VBox DocWhoDiagnosed = new VBox();
@@ -100,7 +102,7 @@ public class DiagnosisHistoryView {
 		
 	    backbutton.setOnAction(e-> {
 	    	PatientDAO.updatePatientInfo(a);
-	    	PatientRecordsController.ViewPatientRecords(a, DoctorViewController.diagnosishistorybutton, backbutton, DoctorViewController.editrecordbutton, window, DoctorViewController.firstnamel, DoctorViewController.lastnamel, DoctorViewController.birthdatel, DoctorViewController.homeaddressl, DoctorViewController.genderl, DoctorViewController.phonenumberl, DoctorViewController.diagnosisl, DoctorViewController.ssnl, DoctorViewController.lastvisitl);
+	    	PatientRecordsController.ViewPatientRecordsDoc(a, window);
 	    });
 	    Diagnosis.getChildren().add(backbutton);
 	    
