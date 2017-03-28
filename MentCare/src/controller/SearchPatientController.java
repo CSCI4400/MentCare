@@ -20,11 +20,19 @@ public class SearchPatientController {
 	public static void searchPatientDoc(Stage window){
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		backbutton.setOnAction(e-> window.setScene(DoctorViewController.mainmenu));
+		DocViewController docView = new DocViewController();
+		backbutton.setOnAction(e-> {
+			try {
+				docView.start(window);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			pid = patientidinput.getText();
-			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 0);
+			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 0, window);
 			a = new Patient();
 			a.setPatientnum(Integer.parseInt(pid));
 			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
@@ -41,11 +49,19 @@ public class SearchPatientController {
 	public static void searchPatientRecep(Stage window){
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		backbutton.setOnAction(e-> window.setScene(ReceptionistViewController.mainmenu));
+		RecepViewController RView = new RecepViewController();
+		backbutton.setOnAction(e-> {
+			try {
+				RView.start(window);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			pid = patientidinput.getText();
-			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 1);
+			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 1, window);
 			a = new Patient();
 			a.setPatientnum(Integer.parseInt(pid));
 			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database

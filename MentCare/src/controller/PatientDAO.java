@@ -9,11 +9,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
+import javafx.stage.Stage;
 import model.DBConnection;
 import model.Patient;
 
 public class PatientDAO {
-	public static Patient getPatientInfo(int patientnum, int accesslevel) {
+	public static Patient getPatientInfo(int patientnum, int accesslevel, Stage window) {
 		Patient a = new Patient();
 		String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare.Patient_Info WHERE ? = mentcare.Patient_Info.PNumber";
 		int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank values
@@ -48,10 +49,10 @@ public class PatientDAO {
 			Platform.runLater(new Runnable() {
 				public void run() {
 					if(accesslevel == 0){
-						PatientRecordsController.ViewPatientRecordsDoc(a, DoctorViewController.window);
+						PatientRecordsController.ViewPatientRecordsDoc(a, window);
 					}
 					if(accesslevel == 1){
-						PatientRecordsController.ViewPatientRecordsRecep(a, ReceptionistViewController.window);
+						PatientRecordsController.ViewPatientRecordsRecep(a, window);
 					}
 					
 				}

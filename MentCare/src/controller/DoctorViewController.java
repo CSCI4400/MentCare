@@ -69,8 +69,7 @@ public class DoctorViewController extends Application{
 	static Button patientsheldbutton = new Button("Institutionalized Patients");
 	static Button addpatientbutton = new Button("Add Patient");
 	static Button logoutbutton = new Button("Log Out");
-	public static Button diagnosishistorybutton = new Button("Diagnosis History");
-	public static Button editrecordbutton = new Button("Edit Record");
+	
 	static Button searchbutton = new Button(patientsearch);
 	static Button yesbutton = new Button("Yes");
 	static Button nobutton = new Button("No");

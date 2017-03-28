@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.DBConnection;
@@ -61,9 +62,14 @@ public class ViewMenuController extends Application {
     	try {
     		Node node = (Node) event.getSource();
 			Stage primaryStage = (Stage) node.getScene().getWindow();
-			DoctorViewController docview = new DoctorViewController();
-			docview.start(primaryStage);
-    		
+			//DoctorViewController docview = new DoctorViewController();
+			//docview.start(primaryStage);
+    		BorderPane DocView = (BorderPane) FXMLLoader.load(getClass().getResource("/view/DoctorView.fxml"));
+    		Scene scene3 = new Scene(DocView, 600, 600);
+    		primaryStage.setScene(scene3);
+    		primaryStage.show();
+    		TimeoutTimer timeout = new TimeoutTimer(DocView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults to 120 seconds
+			timeout.start();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,8 +82,14 @@ public class ViewMenuController extends Application {
     	try {
     		Node node = (Node) event.getSource();
 			Stage primaryStage = (Stage) node.getScene().getWindow();
-			ReceptionistViewController recepview = new ReceptionistViewController();
-			recepview.start(primaryStage);
+			//ReceptionistViewController recepview = new ReceptionistViewController();
+			//recepview.start(primaryStage);
+			BorderPane RecepView = (BorderPane) FXMLLoader.load(getClass().getResource("/view/ReceptionistView.fxml"));
+			Scene scene4 = new Scene(RecepView, 600, 600);
+			primaryStage.setScene(scene4);
+			primaryStage.show();
+			TimeoutTimer timeout = new TimeoutTimer(RecepView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults to 120 seconds
+			timeout.start();
     		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
