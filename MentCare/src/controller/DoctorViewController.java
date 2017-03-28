@@ -175,32 +175,7 @@ public class DoctorViewController extends Application{
 
 		window.setScene(patientsearch);
 	}
-	/**
-	 * Displays a patient's records.
-	 * @param patient info. (Should be replaced by patient object
-	 */
-	/*public static void patientrecords(Patient a) {
-		VBox layout2 = new VBox(10);
-		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
-		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());
-		Label diagnosis = new Label(a.getDiagnosis()); Label Ssn = new Label(a.getSsn()); Label lastapt = new Label((a.getLastVisit()).toString());
-		//Bolding all the labels for the patient information
-		firstnamel.setStyle("-fx-font-weight: bold");
-		lastnamel.setStyle("-fx-font-weight: bold");
-		birthdatel.setStyle("-fx-font-weight: bold");
-		homeaddressl.setStyle("-fx-font-weight: bold");
-		genderl.setStyle("-fx-font-weight: bold");
-		phonenumberl.setStyle("-fx-font-weight: bold");
-		diagnosisl.setStyle("-fx-font-weight: bold");
-		ssnl.setStyle("-fx-font-weight: bold");
-		lastvisitl.setStyle("-fx-font-weight: bold");
-		diagnosishistorybutton.setOnAction(e->DiagnosisHistoryView.DiagnosisHistory(a, backbutton, window));
-		backbutton.setOnAction(e->patientsearch());
-		editrecordbutton.setOnAction(e-> recordeditor(a));
-		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, editrecordbutton, backbutton);
-		Scene patientrecords = new Scene(layout2, 700, 700);
-		window.setScene(patientrecords);
-	}*/
+
 	static void recordeditor(Patient a) {
 		VBox layout3 = new VBox(10);
 		Date BirthDate;
