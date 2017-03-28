@@ -21,12 +21,13 @@ public class mainViewController {
 	private MainFXApp main;
 	public void setMain(MainFXApp mainIn)
 	{
-	main=mainIn;
+		main = mainIn;
 	}
 
 	@FXML private Button displayButton;
     @FXML private Button addButton;
     @FXML private Button updateButton;
+    @FXML private Button userBttn;
 
     @FXML
 	void ClickButton(ActionEvent event) throws Exception {
@@ -43,27 +44,27 @@ public class mainViewController {
 		switch (temp) {
 		case "displayButton":
 			root = FXMLLoader.load(getClass().getResource("/view/displayApp.fxml"));
-			displayAppController con1=new displayAppController();
+			displayAppController con1 = new displayAppController();
 			con1.setMain(main);
 			break;
 		case "addButton":
 			root = FXMLLoader.load(getClass().getResource("/view/addApp.fxml"));
-			addAppController con2=new addAppController();
+			addAppController con2 = new addAppController();
 			con2.setMain(main);
 			break;
 		case "updateButton":
 			root = FXMLLoader.load(getClass().getResource("/view/updateApp.fxml"));
-			updateAppController con3=new updateAppController();
+			updateAppController con3 = new updateAppController();
 			con3.setMain(main);
 			break;
 		case "userBttn":
 			root = FXMLLoader.load(getClass().getResource("/view/addUserView.fxml"));
-			addUserController con4=new addUserController();
+			addUserController con4 = new addUserController();
 			con4.setMain(main);
 			break;
 		default:
 			root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
-			mainViewController con5=new mainViewController();
+			mainViewController con5 = new mainViewController();
 			con5.setMain(main);
 			break;
 		}

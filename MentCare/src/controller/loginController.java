@@ -46,15 +46,11 @@ public class loginController {
 		System.out.println("Attempting to log in...");
 		//catches null pointer exception thrown when clearing labels
 		try{
-			lblErrUserID.setText(null);
-			lblErrPassword.setText(null);
-			lblErrLogIn.setText(null);
-		}catch(NullPointerException ex){
-			ex.getMessage();
-		}
-		//stores textfield data in variables
-		String idNum = tfUserID.getText(), password = pfPassword.getText();
-		try{
+			lblErrUserID.setText("");
+			lblErrPassword.setText("");
+			lblErrLogIn.setText("");
+			//stores textfield data in variables
+			String idNum = tfUserID.getText(), password = pfPassword.getText();
 			//checks to see if the user is in the db
 			if(checkLogIn(idNum, password)){
 				//stores identifying number for a specific type in a variable
@@ -84,8 +80,9 @@ public class loginController {
 				if(lblErrUserID.getText().equals("") && lblErrPassword.getText().equals("") && 
 						lblErrLogIn.getText().equals("")){
 					//failed to log user into system - wrong credentials
-					lblErrLogIn.setText("Invalid user ID or password.");
+					lblErrLogIn.setText("Invalid login.");
 				}
+				System.out.println("Failed user login.");
 			}
 		}catch(Exception e){
 			e.getMessage();

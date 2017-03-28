@@ -8,33 +8,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addUserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addUserController">
    <children>
-      <Label layoutX="300.0" layoutY="41.0" text="Add New User">
+      <Label layoutX="232.0" layoutY="48.0" text="Add New User" textFill="#010a66">
          <font>
-            <Font name="Georgia Bold" size="20.0" />
+            <Font name="Georgia Bold" size="24.0" />
          </font></Label>
-      <TextField fx:id="tfPass" layoutX="486.0" layoutY="140.0" />
-      <TextField fx:id="tfName" layoutX="152.0" layoutY="140.0" />
-      <Button fx:id="btnAddUser" disable="true" layoutX="333.0" layoutY="459.0" mnemonicParsing="false" onAction="#submitUser" text="Add User" />
-      <Label fx:id="lblPass" layoutX="394.0" layoutY="193.0" textFill="RED">
+      <TextField fx:id="tfPass" layoutX="446.0" layoutY="141.0" />
+      <TextField fx:id="tfName" layoutX="139.0" layoutY="143.0" />
+      <Button fx:id="btnAddUser" disable="true" layoutX="279.0" layoutY="459.0" mnemonicParsing="false" onAction="#submitUser" text="Add User" textFill="#010a66">
          <font>
-            <Font name="Georgia Italic" size="15.0" />
-         </font></Label>
-      <Label fx:id="lblName" layoutX="56.0" layoutY="193.0" textFill="RED">
-         <font>
-            <Font name="Georgia Italic" size="15.0" />
-         </font></Label>
-      <Label fx:id="lblErr" layoutX="241.0" layoutY="91.0" textFill="RED">
+            <Font name="Georgia" size="15.0" />
+         </font></Button>
+      <Label fx:id="lblPass" alignment="CENTER" layoutX="346.0" layoutY="193.0" prefHeight="19.0" prefWidth="261.0" textFill="RED">
          <font>
             <Font name="Georgia Italic" size="15.0" />
          </font></Label>
-      <Label layoutX="56.0" layoutY="264.0" text="User Role:">
+      <Label fx:id="lblName" alignment="CENTER" layoutX="32.0" layoutY="193.0" prefHeight="19.0" prefWidth="298.0" textFill="RED">
+         <font>
+            <Font name="Georgia Bold Italic" size="15.0" />
+         </font></Label>
+      <Label fx:id="lblErr" alignment="CENTER" layoutX="206.0" layoutY="91.0" prefHeight="19.0" prefWidth="238.0" textFill="RED">
+         <font>
+            <Font name="Georgia Bold Italic" size="15.0" />
+         </font></Label>
+      <Label layoutX="44.0" layoutY="264.0" text="User Role:" textFill="#010a66">
          <font>
             <Font name="Georgia Bold" size="15.0" />
          </font>
       </Label>
-      <RadioButton fx:id="radDoc" layoutX="78.0" layoutY="300.0" mnemonicParsing="false" text="Doctor">
+      <RadioButton fx:id="radDoc" layoutX="74.0" layoutY="300.0" mnemonicParsing="false" text="Doctor" textFill="#010a66">
          <toggleGroup>
             <ToggleGroup fx:id="roleGroup" />
          </toggleGroup>
@@ -42,41 +45,49 @@
             <Font name="Georgia" size="15.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radRecep" layoutX="295.0" layoutY="300.0" mnemonicParsing="false" text="Receptionist" toggleGroup="$roleGroup">
+      <RadioButton fx:id="radRecep" layoutX="290.0" layoutY="300.0" mnemonicParsing="false" text="Receptionist" textFill="#010a66" toggleGroup="$roleGroup">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radNurse" layoutX="192.0" layoutY="300.0" mnemonicParsing="false" text="Nurse" toggleGroup="$roleGroup">
+      <RadioButton fx:id="radNurse" layoutX="187.0" layoutY="300.0" mnemonicParsing="false" text="Nurse" textFill="#010a66" toggleGroup="$roleGroup">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radBusiness" layoutX="439.0" layoutY="300.0" mnemonicParsing="false" text="Business Manager" toggleGroup="$roleGroup">
+      <RadioButton fx:id="radBusiness" layoutX="434.0" layoutY="300.0" mnemonicParsing="false" text="Business Manager" textFill="#010a66" toggleGroup="$roleGroup">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </RadioButton>
-      <Label layoutX="56.0" layoutY="383.0" text="Auto-generated ID number:">
+      <Label layoutX="56.0" layoutY="383.0" text="Auto-generated ID number:" textFill="#010a66">
          <font>
             <Font name="Georgia Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="lblID" layoutX="295.0" layoutY="384.0" text="- - - - - - -">
+      <Label fx:id="lblID" layoutX="295.0" layoutY="384.0" text="- - - - - - -" textFill="#010a66">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="56.0" layoutY="146.0" text="Full Name:">
+      <Label layoutX="43.0" layoutY="146.0" text="Full Name:" textFill="#010a66">
          <font>
             <Font name="Georgia Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="394.0" layoutY="146.0" text="Password:">
+      <Label layoutX="355.0" layoutY="146.0" text="Password:" textFill="#010a66">
          <font>
             <Font name="Georgia Bold" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btnBack" layoutX="46.0" layoutY="459.0" mnemonicParsing="false" onAction="#backMain" text="Back" />
+      <Button fx:id="btnBack" layoutX="46.0" layoutY="459.0" mnemonicParsing="false" onAction="#backMain" text="Back" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Button>
+      <Button fx:id="btnRefresh" layoutX="521.0" layoutY="459.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
