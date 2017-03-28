@@ -20,7 +20,7 @@ public class SearchPatientController {
 	public static void searchPatientDoc(Stage window){
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		DocViewController docView = new DocViewController();
+		DoctorViewController docView = new DoctorViewController();
 		backbutton.setOnAction(e-> {
 			try {
 				docView.start(window);
@@ -49,7 +49,7 @@ public class SearchPatientController {
 	public static void searchPatientRecep(Stage window){
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		RecepViewController RView = new RecepViewController();
+		ReceptionistViewController RView = new ReceptionistViewController();
 		backbutton.setOnAction(e-> {
 			try {
 				RView.start(window);

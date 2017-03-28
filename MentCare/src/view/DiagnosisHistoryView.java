@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import controller.DoctorViewController;
 import controller.PatientDAO;
 import controller.PatientRecordsController;
 import controller.ViewMenuController;
