@@ -1,4 +1,6 @@
 //Created by Anna 3/25/2017
+//modified by Anna 3/28/17 at 10:16pm, 1 updates 
+
 
 
 package model;
@@ -28,10 +30,12 @@ public class currentUser {
 		ID = iD;
 	}
 	
-	@Override
-	public String toString() {
-		return "newUser name=" + name + ", role=" + role + ", ID=" + ID;
-	}
+	//---Begin Anna 1-----------------------------------------------------------------------------------------------
+		@Override
+		public String toString() {
+			return "currentUser [name=" + name + ", role=" + role + ", ID=" + ID + "]";
+		}
+	//---End Anna 1-----------------------------------------------------------------------------------------------
 	
 	
 	

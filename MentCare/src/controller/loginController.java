@@ -1,6 +1,7 @@
 package controller;
 /*
  * @author Danni
+ * //modified by Anna 3/28/17 at 10:11am, 3 edits 
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.currentUser;
 
 public class loginController {
 	MainFXApp main = new MainFXApp();
@@ -30,6 +32,16 @@ public class loginController {
 	@FXML private TextField tfUserID;
 	@FXML private PasswordField pfPassword;
 	@FXML private Label lblErrUserID, lblErrPassword, lblErrLogIn;
+	
+	
+	
+	//---Begin Anna 1-----------------------------------------------------------------------------------------------
+	//create a current user object to store info in, make it static so other classes can access it
+	public static final currentUser loggedOnUser = new currentUser();
+	//---End Anna 1-----------------------------------------------------------------------------------------------
+
+		
+	
 	//sets main in Main.java 
 	public void setMain(MainFXApp mainIn)
 	{
@@ -116,8 +128,15 @@ public class loginController {
 			System.out.println("..passed!");//passed error checking
 			//connects to db
 			Connection conn = DBConfig.getConnection();
+			
+			
 			//query to pull data from idNum and password columns
-			String check = "SELECT idNum, password FROM Users WHERE idNum = ? AND password = ?";
+			//---Begin Anna 2-----------------------------------------------------------------------------------------------
+			//changed the query to select more information from the database- Anna
+			String check = "SELECT idNum, password, FullName, role FROM Users WHERE idNum = ? AND password = ?";
+			//---End Anna 2-----------------------------------------------------------------------------------------------
+			
+			
 			//sends request
 			PreparedStatement ps = conn.prepareStatement(check);
 			ps.setString(1, idNum);
@@ -130,6 +149,19 @@ public class loginController {
 				//sets db data into variables
 				String user = rs.getString("idNum");
 				String pass = rs.getString("password");
+				
+				
+				
+				//---Begin Anna 3-----------------------------------------------------------------------------------------------
+				//used the selected information the result set to add the info for the current logged on user
+				loggedOnUser.setID(user);
+				loggedOnUser.setName(rs.getString("FullName"));
+				loggedOnUser.setRole(rs.getString("role"));
+				System.out.println("Current logged on user: " + loggedOnUser);
+				//---End Anna 3-----------------------------------------------------------------------------------------------
+				
+				
+				
 				System.out.println("User: " + user);
 				System.out.println("Password: " + pass);
 				//makes sure the variables are not empty before checking them against db content -> avoids NullPointerException

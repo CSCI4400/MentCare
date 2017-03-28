@@ -1,8 +1,8 @@
 //Created by Anna 3/25/2017
+//modified by Anna 3/28/17 at 10:16am, 2 updates 
 
 //TODO
 /*
- * error checking
  * clear the fields 
  */
 
@@ -72,15 +72,10 @@ public class addUserController {
     //for the current day
     String today;
     
-    //meant to receive the activeUser from the log on, for now I just have a dummy person set
-    private currentUser activeUser = new currentUser();
     
   //groups radio buttons into toggle, disable buttons, set values, gets current date
     public void initialize()
-   {
-    	//for testing
-        activeUser.setName("anna");
-        
+   {        
         //set the date
         //curDate = new Date();
         Date date = new Date();
@@ -171,12 +166,30 @@ public class addUserController {
 		    	//create user object
 		    	newUser user = new newUser();
 		    	
+		    	
+		    	
+		    	//---Begin Anna 1-----------------------------------------------------------------------------------------------
+		    	//create string to concat the createdby and createdby ID number together 
+		    	String createdIDandName = "";
+		    	//---End Anna 1-----------------------------------------------------------------------------------------------
+		    	
+		    	
+		    	
 		    	//set values from the GUI
 		    	user.setName(tfName.getText());
 		    	user.setRole(((Labeled) roleGroup.getSelectedToggle()).getText().toString());
 		    	user.setPassword(tfPass.getText());
 		    	user.setCreateDate(today);
-		    	user.setCreatedBy(activeUser.getName());
+		    	
+		    	
+		    	//---Begin Anna 2-----------------------------------------------------------------------------------------------
+		    	//concatenates the logged on user's ID and name togther and sets this for the createdBY in the database- Anna
+		    	createdIDandName = loginController.loggedOnUser.getName() + ", " + loginController.loggedOnUser.getID();
+		    	user.setCreatedBy(createdIDandName);
+		    	//---End Anna 2-----------------------------------------------------------------------------------------------
+		    	
+		    	
+		    	
 		    	try {
 		    		//get the unique ID
 					user.setID(createUserID(roleGroup.getSelectedToggle().getUserData().toString()));
