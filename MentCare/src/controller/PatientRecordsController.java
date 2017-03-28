@@ -32,7 +32,7 @@ public class PatientRecordsController {
 		//Bolding all the labels for the patient information
 		diagnosishistorybutton.setOnAction(e->DiagnosisHistoryView.DiagnosisHistory(a, window));
 		backbutton.setOnAction(e->DoctorViewController.patientsearch());
-		editrecordbutton.setOnAction(e-> DoctorViewController.recordeditor(a));
+		editrecordbutton.setOnAction(e-> EditPatientRecordsController.DocEditPatientRecords(a, window));
 		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, editrecordbutton, backbutton);
 		Scene Docpatientrecords = new Scene(layout2, 700, 700);
 		window.setScene(Docpatientrecords);
@@ -45,7 +45,7 @@ public class PatientRecordsController {
 		Label lastapt = new Label((a.getLastVisit()).toString());
 		//Bolding all the labels for the patient information
 		backbutton.setOnAction(e->ReceptionistViewController.patientsearch());
-		editrecordbutton.setOnAction(e-> ReceptionistViewController.recordeditor(a));
+		editrecordbutton.setOnAction(e-> EditPatientRecordsController.RecepEditPatientRecords(a, window));
 		layout3.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, lastvisitl, lastapt, editrecordbutton, backbutton);
 		Scene Receppatientrecords = new Scene(layout3, 700, 700);
 		window.setScene(Receppatientrecords);
