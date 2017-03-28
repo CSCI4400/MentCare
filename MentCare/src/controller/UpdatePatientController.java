@@ -16,6 +16,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -70,5 +73,26 @@ public class UpdatePatientController {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }   
+    }
+	public void updatePatient(){
+    	try{
+    		Connection conn = DBConfig.getConnection();
+            	Statement stmt = conn.createStatement();
+            
+    		String fName = firstField.getText();
+    		String lName = lastField.getText();
+    		String bDate = birthField.getText();
+    		String address = addressField1.getText();
+    		String sex = sexChoice.getValue().toString();
+    		String pNumber = phoneField.getText();
+    	
+    		String query = "UPDATE `Personal_Info` SET `LName` =" + lName + ", `FName` =" + fName + ", `BDate` = " + bDate + ", `Address` = " + address + ", `Sex` = " + sex + 
+    			", `Phone_Number` = " + pNumber + "WHERE `FName` = " + fName + " AND `LName` = " + lName;
+    		
+    		stmt.executeUpdate(query);
+    	}
+    	catch (SQLException e){
+    		
+    	}
+    }
 }
