@@ -85,21 +85,21 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
-      <Button fx:id="cancelButton" layoutX="19.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back">
+      <Button fx:id="cancelButton" layoutX="19.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back" textFill="#010a66">
          <font>
-            <Font name="Georgia" size="14.0" />
+            <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="submitButton" layoutX="79.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickSubmitUpdateButton" text="Submit">
+      <Button fx:id="submitButton" layoutX="79.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickSubmitUpdateButton" text="Submit" textFill="#010a66">
          <font>
-            <Font name="Georgia" size="14.0" />
+            <Font name="Georgia" size="15.0" />
          </font></Button>
       <TextField fx:id="PnumField" layoutX="268.0" layoutY="43.0" prefHeight="25.0" prefWidth="238.0" promptText="Patient ID">
          <font>
             <Font name="Georgia" size="14.0" />
          </font></TextField>
-      <Button fx:id="goButton" layoutX="524.0" layoutY="43.0" mnemonicParsing="false" onAction="#ClickGoButton" text="Go!">
+      <Button fx:id="goButton" layoutX="524.0" layoutY="43.0" mnemonicParsing="false" onAction="#ClickGoButton" text="Go!" textFill="#010a66">
          <font>
-            <Font name="Georgia" size="14.0" />
+            <Font name="Georgia" size="15.0" />
          </font></Button>
    </children>
 </AnchorPane>

@@ -16,7 +16,7 @@
          <font>
             <Font name="Georgia Bold" size="16.0" />
          </font></Label>
-      <Button fx:id="cancelButton" layoutX="24.0" layoutY="432.0" mnemonicParsing="false" onAction="#ClickBackButton" text="Back">
+      <Button fx:id="cancelButton" layoutX="24.0" layoutY="432.0" mnemonicParsing="false" onAction="#ClickBackButton" text="Back" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
@@ -24,7 +24,7 @@
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font></TextField>
-      <Button fx:id="displayButt" layoutX="448.0" layoutY="100.0" mnemonicParsing="false" onAction="#ClickGoButton" text="Display">
+      <Button fx:id="displayButt" layoutX="448.0" layoutY="100.0" mnemonicParsing="false" onAction="#ClickGoButton" text="Display" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
@@ -42,11 +42,11 @@
             <Blend mode="MULTIPLY" />
          </effect>
       </TableView>
-      <Button fx:id="displayAllButt" layoutX="532.0" layoutY="100.0" mnemonicParsing="false" onAction="#ClickDisplayAllButton" text="Display All!">
+      <Button fx:id="displayAllButt" layoutX="532.0" layoutY="100.0" mnemonicParsing="false" onAction="#ClickDisplayAllButton" text="Display All!" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="btnCancel" disable="true" layoutX="543.0" layoutY="432.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel">
+      <Button fx:id="btnCancel" disable="true" layoutX="543.0" layoutY="432.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
@@ -65,12 +65,12 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnAttend" disable="true" layoutX="230.0" layoutY="434.0" mnemonicParsing="false" onAction="#AttendAppointment" text="Attended">
+      <Button fx:id="btnAttend" disable="true" layoutX="230.0" layoutY="434.0" mnemonicParsing="false" onAction="#AttendAppointment" text="Attended" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="btnMiss" disable="true" layoutX="337.0" layoutY="434.0" mnemonicParsing="false" onAction="#AttendAppointment" text="Missed">
+      <Button fx:id="btnMiss" disable="true" layoutX="337.0" layoutY="434.0" mnemonicParsing="false" onAction="#AttendAppointment" text="Missed" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>

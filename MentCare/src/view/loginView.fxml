@@ -19,7 +19,7 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
-      <Button fx:id="btnLogIn" layoutX="271.0" layoutY="320.0" mnemonicParsing="false" onAction="#logIn" text="Login">
+      <Button fx:id="btnLogIn" layoutX="271.0" layoutY="320.0" mnemonicParsing="false" onAction="#logIn" text="Login" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
@@ -27,15 +27,15 @@
          <font>
             <Font name="Georgia" size="35.0" />
          </font></Label>
-      <Label fx:id="lblErrUserID" alignment="CENTER" layoutX="163.0" layoutY="177.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5a5a">
+      <Label fx:id="lblErrUserID" alignment="CENTER" layoutX="87.0" layoutY="181.0" prefHeight="19.0" prefWidth="427.0" textFill="#ff5016">
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font></Label>
-      <Label fx:id="lblErrPassword" alignment="CENTER" layoutX="166.0" layoutY="248.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5a5a">
+      <Label fx:id="lblErrPassword" alignment="CENTER" layoutX="166.0" layoutY="248.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5016">
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font></Label>
-      <Label fx:id="lblErrLogIn" alignment="CENTER" layoutX="165.0" layoutY="280.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5a5a">
+      <Label fx:id="lblErrLogIn" alignment="CENTER" layoutX="165.0" layoutY="280.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5016">
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font></Label>

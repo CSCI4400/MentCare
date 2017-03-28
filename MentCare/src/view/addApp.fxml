@@ -23,11 +23,11 @@
             <Font name="Georgia" size="15.0" />
          </font></TextField>
       <DatePicker fx:id="datePick" editable="false" layoutX="190.0" layoutY="244.0" onAction="#checkDate" prefHeight="31.0" prefWidth="218.0" />
-      <Button fx:id="submit" layoutX="199.0" layoutY="505.0" mnemonicParsing="false" onAction="#submitAppt" text="Submit">
+      <Button fx:id="submit" layoutX="199.0" layoutY="505.0" mnemonicParsing="false" onAction="#submitAppt" text="Submit" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="cancel" layoutX="71.0" layoutY="505.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel">
+      <Button fx:id="cancel" layoutX="71.0" layoutY="505.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>

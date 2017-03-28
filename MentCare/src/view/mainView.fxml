@@ -46,19 +46,19 @@
       <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="50.0" />
    </rowConstraints>
    <children>
-      <Button fx:id="displayButton" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Display Appointments" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Button fx:id="displayButton" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Display Appointments" textFill="#010a66" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="addButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="New Appointments" GridPane.columnIndex="2" GridPane.rowIndex="4">
+      <Button fx:id="addButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="New Appointments" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="4">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="updateButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Modify Appointments" GridPane.columnIndex="2" GridPane.rowIndex="7">
+      <Button fx:id="updateButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Modify Appointments" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="7">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="userBttn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Add Users" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="26" GridPane.valignment="CENTER">
+      <Button fx:id="userBttn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Add Users" textFill="#010a66" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="26" GridPane.valignment="CENTER">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
