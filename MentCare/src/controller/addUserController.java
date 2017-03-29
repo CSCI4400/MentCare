@@ -231,16 +231,21 @@ public class addUserController {
 		     * @author Danni
 		     * ==============================================================================================*/
 		    try{
+		    	//creates alert of the information type - default: OK button and i image
 			    Alert idNum = new Alert(AlertType.INFORMATION);
+			    //needed in order to add css to the box
 			    DialogPane dialogPane = idNum.getDialogPane();
-		    	//css for missed alert box
+		    	//css for ID number alert box
 		    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"//TODO for UI committee
 		    					  + "-fx-font-size: 15px;"
 		    					  + "-fx-mid-text-color: #010a66;"
 		    					  + "-fx-font-family: georgia;");
+		    	//on the outside top of the box
 		    	idNum.setTitle("Auto-Generated ID Number");
+		    	//in box itself
 		    	idNum.setHeaderText("ID Number: " + user.getID());
 		    	idNum.setContentText("New user created! " + user.getName() + " now has access to the Mentcare system.");
+		    	//displays the alert box
 		    	Optional<ButtonType> result = idNum.showAndWait();
 		    	if(result.get() == ButtonType.OK){
 		    		//clears current data so the user can create more new users without having to leave the page
