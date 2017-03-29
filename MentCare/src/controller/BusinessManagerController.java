@@ -1,12 +1,18 @@
 package controller;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import view.MissedAppointmentReportView;
 
-public class BusinessManagerController {
+public class BusinessManagerController extends Application {
 	
 	@FXML
     private Button LogOutButton;
@@ -36,6 +42,14 @@ public class BusinessManagerController {
 
     @FXML
     void viewMissedReport(ActionEvent event) {
+    	Node node = (Node) event.getSource();
+    	Stage primaryStage = (Stage) node.getScene().getWindow();
+    	try {
+			MissedAppointmentReportView.MissedAppointmentReport(primaryStage);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
     }
 
@@ -43,5 +57,26 @@ public class BusinessManagerController {
     void viewStatReport(ActionEvent event) {
 
     }
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		try{
+			GridPane root = (GridPane) FXMLLoader.load(getClass().getResource("/view/BusinessManagerView.fxml"));
+			Scene scene = new Scene(root,600,600);
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
+			//Set page to time out after 10 seconds
+			//TimeoutTimer timeout = new TimeoutTimer(root, scene, 10); //This method is overloaded; if you only use two arguments the time defaults
+			//timeout.start();                                           //to 120 seconds. I'm using 10 seconds to make it easier to demo.
+					
+			
+			primaryStage.setScene(scene);
+			primaryStage.show();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		
+	}
 
 }
