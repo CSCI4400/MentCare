@@ -22,6 +22,11 @@ import model.Patient;
 public class DiagnosisHistoryView {
 	
 	static Button backbutton = new Button("Back");
+	static Button deleteTemp = new Button("Delete Temporary Diagnoses");
+	static String deleteTempDiagn = "DELETE FROM mentcare.Diagnosis_History WHERE mentcare.Diagnosis_History.Diagnosis_is_temp = 1";
+	static String mostRecentDiagnQuery = "SELECT Diagnosis FROM mentcare.Diagnosis_History WHERE PNum = ?";
+	static String mostRecentDiagnosis = "";
+	static String resetCurrentDiagn = "UPDATE mentcare.Patient_Info SET mentcare.Patient_Info.Diagnosis = ? WHERE mentcare.Patient_Info.PNumber = ? ";
 	
 	public static void DiagnosisHistory(Patient a, Stage window){
 		GridPane DiagHistLayout = new GridPane();
@@ -67,6 +72,7 @@ public class DiagnosisHistoryView {
 		Collection<String> Diagnoses = new ArrayList<>();
 		Collection<String> DoctorNames = new ArrayList<>();
 		Collection<String> DatesofD = new ArrayList<>();
+		Collection<Integer> TemporaryStatus = new ArrayList<>();
 		try {
 			pstmt = ViewMenuController.con.prepareStatement(selhistory);
 			pstmt.setInt(1, a.getPatientnum());
@@ -75,6 +81,7 @@ public class DiagnosisHistoryView {
 				Diagnoses.add(rs.getString("Diagnosis"));
 				DoctorNames.add(rs.getString("Name_of_doctor"));
 				DatesofD.add(rs.getDate("Date_of_diag").toString());
+				TemporaryStatus.add(rs.getInt("Diagnosis_is_temp"));
 			}
 			pstmt.close();
 			rs.close();
@@ -99,15 +106,56 @@ public class DiagnosisHistoryView {
 			DateOfDiagnosis.getChildren().add(l);
 		}
 		
+		for(Integer i: TemporaryStatus){
+			if(i == 0){
+				Label l = new Label("No");
+				DiagnIsTemp.getChildren().add(l);
+			}
+			else if(i == 1){
+				Label l = new Label("Yes");
+				DiagnIsTemp.getChildren().add(l);
+			}
+		}
+		
 	    backbutton.setOnAction(e-> {
-	    	PatientDAO.updatePatientInfo(a);
+	    	//PatientDAO.updatePatientInfo(a, 0);
 	    	PatientRecordsController.ViewPatientRecordsDoc(a, window);
+	    	
 	    });
-	    Diagnosis.getChildren().add(backbutton);
+	    
+	    deleteTemp.setMinWidth(250);
+	    
+	    deleteTemp.setOnAction(e ->{
+	    	PreparedStatement prepstmt; 
+	    	try {
+				prepstmt = ViewMenuController.con.prepareStatement(deleteTempDiagn);
+				prepstmt.execute();
+				prepstmt = ViewMenuController.con.prepareStatement(mostRecentDiagnQuery);
+				prepstmt.setInt(1, a.getPatientnum());
+				ResultSet result = prepstmt.executeQuery();
+				while(result.next()){
+					mostRecentDiagnosis = result.getString("Diagnosis");
+				}
+				
+				prepstmt = ViewMenuController.con.prepareStatement(resetCurrentDiagn);
+				prepstmt.setString(1, mostRecentDiagnosis);
+				prepstmt.setInt(2, a.getPatientnum());
+				prepstmt.execute();
+				result.close();
+				prepstmt.close();
+				a.setDiagnosis(mostRecentDiagnosis);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    	PatientRecordsController.ViewPatientRecordsDoc(a, window);
+	    	
+	    });
+	    Diagnosis.getChildren().addAll(deleteTemp, backbutton);
 	    
 	    DiagHistLayout.getChildren().addAll(Diagnosis, DocWhoDiagnosed, DateOfDiagnosis, DiagnIsTemp);
 		
-		Scene diaghistview = new Scene(DiagHistLayout, 480, 480);
+		Scene diaghistview = new Scene(DiagHistLayout, 700, 520);
 		
 		window.setScene(diaghistview);
 	}

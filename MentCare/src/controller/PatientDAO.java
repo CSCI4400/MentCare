@@ -59,11 +59,13 @@ public class PatientDAO {
 			});
 			return a;
 	}
-	public static void updatePatientInfo(Patient a) {
+	
+	public static void updatePatientInfo(Patient a, int DiagnosisCode) {
+		//DiagnosisCode indicates whether diagnosis is permanent or temporary
 		System.out.println("Record updater starting");
 		String updatePersonalInfo = "UPDATE mentcare.Patient_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Ssn = ?, Last_Visit = ? WHERE PNumber = ? ";
-		String updateDiagnosis = "UPDATE mentcare.Patient_Info SET Diagnosis = ? WHERE PNumber = ?";
-		String insertIntoDiagHistory = "INSERT INTO mentcare.Diagnosis_History VALUES ( ? , ?, ?, ? )";
+		String updateDiagnosis= "UPDATE mentcare.Patient_Info SET Diagnosis = ? WHERE PNumber = ?";
+		String insertIntoDiagHistory = "INSERT INTO mentcare.Diagnosis_History VALUES ( ?, ?, ?, ?, ? )";
 		String selectCurrentDiag = "SELECT mentcare.Patient_Info.Diagnosis FROM mentcare.Patient_Info WHERE ? = PNumber";
 		
 		try {
@@ -71,7 +73,7 @@ public class PatientDAO {
 			PreparedStatement pstmt;
 			
 			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBConnection.DBPASSWORD);
-			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the personal info table
+			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the patient info table
 			pstmt.setString(1, a.getFirstname());
 			pstmt.setString(2,  a.getLastname());
 			pstmt.setObject(3, a.getBirthdate());
@@ -96,6 +98,7 @@ public class PatientDAO {
 				pstmt.setString(2, a.getDiagnosis());
 				pstmt.setObject(3, LocalDate.now());
 				pstmt.setObject(4, "Current Doctor");
+				pstmt.setInt(5, DiagnosisCode);
 				pstmt.executeUpdate();
 				pstmt= Con.prepareStatement(updateDiagnosis);
 				pstmt.setString(1, a.getDiagnosis());

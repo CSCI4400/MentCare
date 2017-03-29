@@ -44,18 +44,20 @@ public class EditPatientRecordsController {
 
 
 		updatebutton.setOnAction( e -> {
-			/* if(tempDiagnosis.isSelected()){ //Add code here for handling status of Diagnosis in database
-			 * ifSelected will be true when checkbox is selected (Diagnosis is temporary) and false when
-			 * checkbos is not selected (Diagnosis is not temporary)
-			}*/
 			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
-
-			PatientDAO.updatePatientInfo(a);
+			if(tempDiagnosis.isSelected()){ 
+				PatientDAO.updatePatientInfo(a, 1);
+			}
+			
+			else if(!tempDiagnosis.isSelected()){
+				PatientDAO.updatePatientInfo(a, 0);
+			}
+			
 			PatientRecordsController.ViewPatientRecordsDoc(a, window);
 			});
 		
 		backbutton.setOnAction(e-> {
-			PatientDAO.updatePatientInfo(a);
+			//PatientDAO.updatePatientInfo(a, 0);
 			PatientRecordsController.ViewPatientRecordsDoc(a, window);
 		});
 
@@ -67,7 +69,7 @@ public class EditPatientRecordsController {
 		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, diagnosisl, diago , tempDiagnosis, ssnl, social, lastvisitl, lastapt, deathlabel, yesdead, nodead, updatebutton, backbutton);
 
 
-		Scene recordeditor = new Scene(layout3, 680, 680);
+		Scene recordeditor = new Scene(layout3, 680, 720);
 		window.setScene(recordeditor);
 	}
 	
@@ -89,13 +91,13 @@ public class EditPatientRecordsController {
 			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
 			//new Thread(a).start();
 			
-			PatientDAO.updatePatientInfo(a);
+			PatientDAO.updatePatientInfo(a, 0);
 			PatientRecordsController.ViewPatientRecordsRecep(a, window);
 	});
 		
 		
 		backbutton.setOnAction(e-> {
-			PatientDAO.updatePatientInfo(a);
+			//PatientDAO.updatePatientInfo(a, 0);
 			PatientRecordsController.ViewPatientRecordsRecep(a, window);
 		});
 		
