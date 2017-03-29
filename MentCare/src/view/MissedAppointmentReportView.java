@@ -111,6 +111,23 @@ public class MissedAppointmentReportView{
 		}
 		
 		//Add info from database to report
+		for(String s : FirstNames){
+			Label l = new Label(s);
+			l.setPadding(new Insets(0, 0, 0, 60));
+			Fnames.getChildren().add(l);
+		}
+		
+		for(String s : LastNames){
+			Label l = new Label(s);
+			l.setPadding(new Insets(0, 0, 0, 60));
+			Lnames.getChildren().add(l);
+		}
+		
+		for(String s : PhoneNumbers){
+			Label l = new Label(s);
+			l.setPadding(new Insets(0, 0, 0, 30));
+			PhoneNums.getChildren().add(l);
+		}
 		
 		
 		
