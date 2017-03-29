@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.mysql.jdbc.Statement;
@@ -25,7 +26,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.RadioButton;
@@ -54,9 +59,7 @@ public class addUserController {
     private Label lblName;
     @FXML
     private Label lblErr;
-    @FXML
-    private Label lblID;
-   
+
     //all radio buttons and togglegroups
     @FXML
     private RadioButton radDoc;
@@ -72,7 +75,16 @@ public class addUserController {
     //for the current day
     String today;
     
-    
+    /* ========================================================================================================
+     * @author Danni
+     * ======================================================================================================*/
+    //needed to load a different view
+    Parent root;
+    Stage stage;
+    Scene scene;
+    //links button
+  	@FXML Button btnBack;
+    //=========================================================================================================
   //groups radio buttons into toggle, disable buttons, set values, gets current date
     public void initialize()
    {        
@@ -81,7 +93,7 @@ public class addUserController {
         Date date = new Date();
         DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
         today = dformat.format(date);
-        System.out.print("Date: " + today);
+        System.out.println("Date: " + today);
         
     	btnAddUser.setDisable(false);
     	
@@ -187,9 +199,6 @@ public class addUserController {
 				e.printStackTrace();
 			}
 		   	
-		   	//set the ID label on GUI
-		   	lblID.setText(user.getID());
-		   	
 		   	//print out the user created 
 		   	System.out.println("User: " + user);
 		   	
@@ -217,6 +226,33 @@ public class addUserController {
 		        // TODO Auto-generated catch block
 		        e.printStackTrace();
 		    }//end catch
+		    
+		    /* ================================================================================================
+		     * @author Danni
+		     * ==============================================================================================*/
+		    try{
+			    Alert idNum = new Alert(AlertType.INFORMATION);
+			    DialogPane dialogPane = idNum.getDialogPane();
+		    	//css for missed alert box
+		    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"//TODO for UI committee
+		    					  + "-fx-font-size: 15px;"
+		    					  + "-fx-mid-text-color: #010a66;"
+		    					  + "-fx-font-family: georgia;");
+		    	idNum.setTitle("Auto-Generated ID Number");
+		    	idNum.setHeaderText("ID Number: " + user.getID());
+		    	idNum.setContentText("New user created! " + user.getName() + " now has access to the Mentcare system.");
+		    	Optional<ButtonType> result = idNum.showAndWait();
+		    	if(result.get() == ButtonType.OK){
+		    		//clears current data so the user can create more new users without having to leave the page
+		    		stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+		    		root = FXMLLoader.load(getClass().getResource("/view/addUserView.fxml"));
+		    		scene = new Scene(root);
+		    		stage.setScene(scene);
+		    	}
+		    }catch(Exception e){
+		    	e.getMessage();
+		    }
+		    //=================================================================================================
 	    }else{
 	    	System.out.println("Failed error checking.");
 	   	}
@@ -227,25 +263,12 @@ public class addUserController {
      * @author Danni
      * ========================================================================================================
      */
-    Parent root;
-    Stage stage;
-    Scene scene;
-    //links buttons
-	@FXML Button btnBack;
-	@FXML Button btnRefresh;
+    
 	//takes user back to main view page
     @FXML 
     void backMain (ActionEvent event) throws Exception{
     	stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 		root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
-		scene = new Scene(root);
-		stage.setScene(scene);
-    }
-    //clears current data so the user can create more new users without having to leave the page
-    @FXML
-    void refresh (ActionEvent event) throws Exception{
-    	stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-		root = FXMLLoader.load(getClass().getResource("/view/addUserView.fxml"));
 		scene = new Scene(root);
 		stage.setScene(scene);
     }

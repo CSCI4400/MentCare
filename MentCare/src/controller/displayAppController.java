@@ -1,6 +1,6 @@
 package controller;
 /*
- * @author Caleb
+ * @author Caleb - reused Christian
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -374,20 +374,20 @@ public class displayAppController{
 		    	confirm.getButtonTypes().clear();
 		    	//adds Yes and No buttons to dialog gui
 		    	confirm.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
-	    		 Optional<ButtonType> res = confirm.showAndWait();
+	    		Optional<ButtonType> res = confirm.showAndWait();
 	    		//if the user clicks the YES button -> sends table row information to db
-		    		if(res.get() == ButtonType.YES){
-		    			String delCurr = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
-	    				 "' AND `apTime`='" + timeTemp + "';"); 
-		    			System.out.println(delCurr);
-		    			//sends request
-		    			PreparedStatement ps11 = conn.prepareStatement(delCurr);
-		    			ps11.execute();
-		    			patientTable.getItems().remove(selectedIndex);
-		    		}else{
-		    			//closes pop-up dialog box
-		    			confirm.hide();
-		    		}
+		    	if(res.get() == ButtonType.YES){
+		    		String delCurr = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
+	    			 "' AND `apTime`='" + timeTemp + "';"); 
+	    			System.out.println(delCurr);
+	    			//sends request
+	    			PreparedStatement ps11 = conn.prepareStatement(delCurr);
+	    			ps11.execute();
+	    			patientTable.getItems().remove(selectedIndex);
+	    		}else{
+	    			//closes pop-up dialog box
+	    			confirm.hide();
+	    		}
 	    	}//====================================================================================================
 	    	else
 	    	{

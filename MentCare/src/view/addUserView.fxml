@@ -8,23 +8,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addUserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addUserController">
    <children>
       <Label layoutX="232.0" layoutY="48.0" text="Add New User" textFill="#010a66">
          <font>
-            <Font name="Georgia Bold" size="24.0" />
+            <Font name="Georgia Bold" size="26.0" />
          </font></Label>
       <TextField fx:id="tfPass" layoutX="446.0" layoutY="141.0" />
       <TextField fx:id="tfName" layoutX="139.0" layoutY="143.0" />
-      <Button fx:id="btnAddUser" disable="true" layoutX="279.0" layoutY="459.0" mnemonicParsing="false" onAction="#submitUser" text="Add User" textFill="#010a66">
+      <Button fx:id="btnAddUser" disable="true" layoutX="279.0" layoutY="409.0" mnemonicParsing="false" onAction="#submitUser" text="Add User" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Label fx:id="lblPass" alignment="CENTER" layoutX="346.0" layoutY="193.0" prefHeight="19.0" prefWidth="261.0" textFill="#ff5016">
+      <Label fx:id="lblPass" alignment="CENTER" layoutX="346.0" layoutY="193.0" prefHeight="52.0" prefWidth="261.0" textAlignment="CENTER" textFill="#ff5016" wrapText="true">
          <font>
-            <Font name="Georgia Italic" size="15.0" />
+            <Font name="Georgia Bold Italic" size="15.0" />
          </font></Label>
-      <Label fx:id="lblName" alignment="CENTER" layoutX="32.0" layoutY="193.0" prefHeight="19.0" prefWidth="298.0" textFill="#ff5016">
+      <Label fx:id="lblName" alignment="CENTER" layoutX="32.0" layoutY="193.0" prefHeight="52.0" prefWidth="298.0" textAlignment="CENTER" textFill="#ff5016" wrapText="true">
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font></Label>
@@ -60,16 +60,6 @@
             <Font name="Georgia" size="15.0" />
          </font>
       </RadioButton>
-      <Label layoutX="56.0" layoutY="383.0" text="Auto-generated ID number:" textFill="#010a66">
-         <font>
-            <Font name="Georgia Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblID" layoutX="295.0" layoutY="384.0" text="- - - - - - -" textFill="#010a66">
-         <font>
-            <Font name="Times New Roman" size="15.0" />
-         </font>
-      </Label>
       <Label layoutX="43.0" layoutY="146.0" text="Full Name:" textFill="#010a66">
          <font>
             <Font name="Georgia Bold" size="15.0" />
@@ -80,14 +70,9 @@
             <Font name="Georgia Bold" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btnBack" layoutX="46.0" layoutY="459.0" mnemonicParsing="false" onAction="#backMain" text="Back" textFill="#010a66">
+      <Button fx:id="btnBack" layoutX="59.0" layoutY="409.0" mnemonicParsing="false" onAction="#backMain" text="Back" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="btnRefresh" layoutX="521.0" layoutY="459.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" textFill="#010a66">
-         <font>
-            <Font name="Georgia" size="15.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
