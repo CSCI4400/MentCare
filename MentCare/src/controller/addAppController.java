@@ -25,6 +25,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+<<<<<<< HEAD
+=======
+import javafx.scene.control.SingleSelectionModel;
+>>>>>>> master
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -348,9 +352,19 @@ public class addAppController {
                 //gets some fxml file
                 root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
                 //sets fxml file as a scene
+<<<<<<< HEAD
                 scene = new Scene(root);
                 //loads the scene on top of whatever stage the button is in
                 stage.setScene(scene);
+=======
+              
+                scene = new Scene(root);
+                //set tab to which we are returning
+             	controller.mainViewController.setTab(1);
+                //loads the scene on top of whatever stage the button is in
+                stage.setScene(scene);
+                
+>>>>>>> master
         } catch (Exception e){
                 e.printStackTrace();
                 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -69,3 +70,44 @@
       </Button>
    </children>
 </GridPane>
+=======
+<?import java.lang.String?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainViewController">
+   <children>
+      <TabPane fx:id="tpMenu" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0" side="LEFT" stylesheets="@../application/application.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab fx:id="tbUsers" text="Users">
+            <content>
+              <AnchorPane fx:id="apUser" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab fx:id="tbAppointments" text="Appointments">
+               <content>
+                  <AnchorPane id="apAppointments" fx:id="apAppointments" prefHeight="200.0" prefWidth="613.0">
+                     <styleClass>
+                        <String fx:value="tab-label" />
+                        <String fx:value="tab" />
+                        <String fx:value="root" />
+                     </styleClass>
+                  </AnchorPane>
+               </content>
+          </Tab>
+            <Tab fx:id="tbPatients" text="Patients">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab fx:id="tbBusiness" text="Business">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
+>>>>>>> master

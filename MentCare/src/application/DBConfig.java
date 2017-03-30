@@ -7,10 +7,17 @@ import java.sql.SQLException;
 
 public class DBConfig {
 
+<<<<<<< HEAD
 	private static final String USERNAME = "mentcare";
 	private static final String PASSWORD = "mentcare1";
 	private static final String CONN = ("jdbc:mysql://164.132.49.5/");
 	private static final String DB = "mentcare2";
+=======
+	private static final String USERNAME = "bscotch";
+	private static final String PASSWORD = "mentcare";
+	private static final String CONN = ("jdbc:mysql://localhost:3307/");
+	private static final String DB = "mentcare";
+>>>>>>> master
 
 	// connection  method that connects us to the MySQL database
 	public static Connection getConnection() throws SQLException{
