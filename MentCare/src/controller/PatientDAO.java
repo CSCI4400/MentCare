@@ -19,10 +19,6 @@ public class PatientDAO {
 		String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare.Patient_Info WHERE ? = mentcare.Patient_Info.PNumber";
 		int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank values
 
-		//Test code
-		String abc = "hello world";
-			Thread t = new Thread(abc);
-			t.run();
 
 			try {
 				PreparedStatement pstmt = ViewMenuController.con.prepareStatement(selectPinfoStmt);

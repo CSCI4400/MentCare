@@ -1,5 +1,8 @@
 package controller;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javafx.scene.Scene;
@@ -32,7 +35,9 @@ public class EditPatientRecordsController {
 	public static Text ssnl = new Text("SSN: ");
 	public static Text lastvisitl = new Text("Last Visit Was: ");
 	static CheckBox tempDiagnosis = new CheckBox("Diagnosis is temporary");
-
+	static String deathCheck = "SELECT mentcare.Patient_Info.Dead FROM mentcare.Patient_Info WHERE mentcare.Patient_Info.PNumber = ?";
+	static String setDead = "UPDATE mentcare.Patient_Info SET mentcare.Patient_Info.Dead = 'yes' WHERE PNumber = ? ";
+	
 	public static void DocEditPatientRecords(Patient a, Stage window){
 		VBox layout3 = new VBox(10);
 
@@ -41,16 +46,52 @@ public class EditPatientRecordsController {
 		TextField sex = new TextField(a.getGender()); TextField phonenum = new TextField(a.getPhoneNumber());
 		TextField social = new TextField(a.getSsn()); TextField lastapt = new TextField((a.getLastVisit()).toString());
 		TextField diago = new TextField(a.getDiagnosis());
+		
+		final ToggleGroup deathSelect = new ToggleGroup();
+		yesdead.setToggleGroup(deathSelect);
+		nodead.setToggleGroup(deathSelect);
+		nodead.setSelected(true);
+		
+		try {
+			PreparedStatement pstmt = ViewMenuController.con.prepareStatement(deathCheck);
+			pstmt.setInt(1, a.getPatientnum());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				if(rs.getString("Dead").equals("yes")){
+					updatebutton.setDisable(true);
+				}
+			}
+			
+			pstmt.close();
+			rs.close();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 
 		updatebutton.setOnAction( e -> {
-			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
-			if(tempDiagnosis.isSelected()){ 
-				PatientDAO.updatePatientInfo(a, 1);
+			if(yesdead.isSelected()){
+				try {
+					PreparedStatement pstmt = ViewMenuController.con.prepareStatement(setDead);
+					pstmt.setInt(1, a.getPatientnum());
+					pstmt.execute();
+					pstmt.close();
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
-			
-			else if(!tempDiagnosis.isSelected()){
-				PatientDAO.updatePatientInfo(a, 0);
+			else if(nodead.isSelected()){
+				a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
+				if(tempDiagnosis.isSelected()){ 
+					PatientDAO.updatePatientInfo(a, 1);
+			}
+				else if(!tempDiagnosis.isSelected()){
+					PatientDAO.updatePatientInfo(a, 0);
+			}
 			}
 			
 			PatientRecordsController.ViewPatientRecordsDoc(a, window);
@@ -61,10 +102,7 @@ public class EditPatientRecordsController {
 			PatientRecordsController.ViewPatientRecordsDoc(a, window);
 		});
 
-		final ToggleGroup deathSelect = new ToggleGroup();
-		yesdead.setToggleGroup(deathSelect);
-		nodead.setToggleGroup(deathSelect);
-		nodead.setSelected(true);
+		
 
 		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, diagnosisl, diago , tempDiagnosis, ssnl, social, lastvisitl, lastapt, deathlabel, yesdead, nodead, updatebutton, backbutton);
 
@@ -82,14 +120,26 @@ public class EditPatientRecordsController {
 		TextField social = new TextField(a.getSsn()); TextField lastapt = new TextField((a.getLastVisit()).toString());
 		TextField diago = new TextField(a.getDiagnosis());
 		
+		try {
+			PreparedStatement pstmt = ViewMenuController.con.prepareStatement(deathCheck);
+			pstmt.setInt(1, a.getPatientnum());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				if(rs.getString("Dead").equals("yes")){
+					updatebutton.setDisable(true);
+				}
+			}
+			
+			pstmt.close();
+			rs.close();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		updatebutton.setOnAction( e -> {
-			/* if(tempDiagnosis.isSelected()){ //Add code here for handling status of Diagnosis in database
-			 * ifSelected will be true when checkbox is selected (Diagnosis is temporary) and false when 
-			 * checkbos is not selected (Diagnosis is not temporary)
-			}*/
 			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
-			//new Thread(a).start();
 			
 			PatientDAO.updatePatientInfo(a, 0);
 			PatientRecordsController.ViewPatientRecordsRecep(a, window);
