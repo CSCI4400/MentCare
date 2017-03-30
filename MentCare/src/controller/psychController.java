@@ -97,3 +97,4 @@ public class psychController {
 		stage.setScene(scene);
 	}
 }
+

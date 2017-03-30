@@ -349,6 +349,9 @@ public class addAppController {
                 //gets some fxml file
                 root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
                 //sets fxml file as a scene
+
+             
+
               
                 scene = new Scene(root);
                 //set tab to which we are returning
@@ -356,6 +359,7 @@ public class addAppController {
                 //loads the scene on top of whatever stage the button is in
                 stage.setScene(scene);
                 
+
         } catch (Exception e){
                 e.printStackTrace();
                 }

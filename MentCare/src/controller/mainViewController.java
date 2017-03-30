@@ -1,8 +1,10 @@
-/*
- * @author Caleb
- * Description: Hub for menus
- */
+
+//edited by Anna, 3/25/17, added a button and link to addUser
+
 package controller;
+
+import application.MainFXApp;
+
 
 import java.io.IOException;
 
@@ -18,6 +20,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
+import javafx.stage.Stage;
+
+
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -25,13 +31,16 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
+
 public class mainViewController {
 
 	Stage stage;
 	Scene scene;
 	Parent root;
+
 	private static int numTab = 0;
 	
+
 	//always reference main method, and build constructor
 	private MainFXApp main;
 	public void setMain(MainFXApp mainIn)
@@ -106,4 +115,5 @@ public class mainViewController {
 			  }
 			});
 	}
+
 }
