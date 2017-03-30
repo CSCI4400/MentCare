@@ -3,12 +3,8 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Pattern;
-
 import application.DBConfig;
 import application.MainFXApp;
 import javafx.collections.FXCollections;
@@ -45,7 +41,6 @@ public class psychController {
 	//creates lists for psychologist
 	static List<Psychologist> list = new ArrayList<Psychologist>();
 	static ObservableList<Psychologist> appList = FXCollections.observableList(list);
-	static ArrayList<Psychologist> tempList = new ArrayList<Psychologist>();
 	
 	//sets main in Main.java 
 	public void setMain(MainFXApp mainIn)
@@ -58,12 +53,6 @@ public class psychController {
 		System.out.println("Search Button pressed.");
 		lblErrInvalidInput.setText("");
 		lblErrUserNotFound.setText("");
-	
-		
-			
-		
-    	
-		
 		try{
 			//Dumps list to clear view.
 			appList.clear();
@@ -76,19 +65,15 @@ public class psychController {
     		{
     		String query = ("select * from mentcare.Psych_Notes where Pnum='" + enterPnum + "'"); //Grabs all columns based on Pnum textfield.
     		   
-    		     
     		Connection conn = DBConfig.getConnection();
     		PreparedStatement statement = conn.prepareStatement(query);
         	ResultSet RS = null;
         	String Pnum = null, DocID = null, PsychNotes = null;
 
-        
         	//this will execute the String 'query' exactly as if you were in SQL console
         	//and it returns a result set which contains everything we want, but we need to decode it first
-        	
         	RS = statement.executeQuery(query);
         	//if the query goes through, RS will no longer be null
-        	
         		while (RS.next()){	
         			//ToDo Create Database tables with mentioned parameters.
         			Pnum = Integer.toString(RS.getInt("Pnum"));
@@ -97,7 +82,6 @@ public class psychController {
         			System.out.println("Pnum : " + Pnum + "\nDocID: " + DocID + "\nPsychNotes: " + PsychNotes);
         			Psychologist psych = new Psychologist(Pnum, DocID, PsychNotes);
   		      		appList.add(psych);
-  		      		tempList.add(psych);
       		    }
         		//numeric input is entered, but user doesn't exist.
         		if(Pnum==null)
@@ -105,8 +89,6 @@ public class psychController {
             		System.out.println("No such user.");
             		
             	}
-    		
-        	
         		//Updates table in psychView
         		PNumCol.setCellValueFactory(cellData -> cellData.getValue().getPNumber());
                 DocNumCol.setCellValueFactory(cellData -> cellData.getValue().getDocID());
