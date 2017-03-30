@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import application.MainFXApp;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.DBConnection;
@@ -21,7 +22,7 @@ public class PatientDAO {
 
 
 			try {
-				PreparedStatement pstmt = ViewMenuController.con.prepareStatement(selectPinfoStmt);
+				PreparedStatement pstmt = MainFXApp.con.prepareStatement(selectPinfoStmt);
 				pstmt.setInt(1, patientnum);
 				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
 				while(rs.next()){ //Gets the information from the "Personal Info" table

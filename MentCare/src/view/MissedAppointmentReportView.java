@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
+import application.MainFXApp;
 import controller.BusinessManagerController;
 import controller.ViewMenuController;
 import javafx.application.Application;
@@ -90,13 +90,13 @@ public class MissedAppointmentReportView{
 		int totalabsent = 0;
 		
 		try {
-			pstmt = ViewMenuController.con.prepareStatement(countmissedquery);
+			pstmt = MainFXApp.con.prepareStatement(countmissedquery);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
 				totalabsent = rs.getInt(1);
 			}
 			
-			pstmt = ViewMenuController.con.prepareStatement(getabsenteeinfo);
+			pstmt = MainFXApp.con.prepareStatement(getabsenteeinfo);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				FirstNames.add(rs.getString("Fname"));
