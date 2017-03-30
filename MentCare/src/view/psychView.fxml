@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="628.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.psychController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="628.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.psychController">
    <children>
       <Button fx:id="searchBtn" layoutX="442.0" layoutY="34.0" mnemonicParsing="false" onAction="#ClickSearchButton" text="Search" textFill="#010a66">
          <font>
@@ -33,5 +33,7 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
+      <Label fx:id="lblErrInvalidInput" layoutX="183.0" layoutY="63.0" prefHeight="29.0" prefWidth="291.0" textFill="#ee150a" />
+      <Label fx:id="lblErrUserNotFound" layoutX="212.0" layoutY="67.0" prefHeight="19.0" prefWidth="224.0" textFill="#e80505" />
    </children>
 </AnchorPane>
