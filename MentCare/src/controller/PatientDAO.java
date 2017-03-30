@@ -18,12 +18,12 @@ public class PatientDAO {
 		Patient a = new Patient();
 		String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare.Patient_Info WHERE ? = mentcare.Patient_Info.PNumber";
 		int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank values
-			
+
 		//Test code
 		String abc = "hello world";
 			Thread t = new Thread(abc);
 			t.run();
-		
+
 			try {
 				PreparedStatement pstmt = ViewMenuController.con.prepareStatement(selectPinfoStmt);
 				pstmt.setInt(1, patientnum);
@@ -54,12 +54,12 @@ public class PatientDAO {
 					if(accesslevel == 1){
 						PatientRecordsController.ViewPatientRecordsRecep(a, window);
 					}
-					
+
 				}
 			});
 			return a;
 	}
-	
+
 	public static void updatePatientInfo(Patient a, int DiagnosisCode) {
 		//DiagnosisCode indicates whether diagnosis is permanent or temporary
 		System.out.println("Record updater starting");
@@ -67,12 +67,23 @@ public class PatientDAO {
 		String updateDiagnosis= "UPDATE mentcare.Patient_Info SET Diagnosis = ? WHERE PNumber = ?";
 		String insertIntoDiagHistory = "INSERT INTO mentcare.Diagnosis_History VALUES ( ?, ?, ?, ?, ? )";
 		String selectCurrentDiag = "SELECT mentcare.Patient_Info.Diagnosis FROM mentcare.Patient_Info WHERE ? = PNumber";
-		
+		String checkDeath = "SELECT Dead FROM mentcare.Patient_Info WHERE ? = PNumber";
+
 		try {
 			Connection Con;
 			PreparedStatement pstmt;
-			
+
 			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBConnection.DBPASSWORD);
+			pstmt = Con.prepareStatement(checkDeath);
+			pstmt.setInt(1, a.getPatientnum());
+			ResultSet rt = pstmt.executeQuery();
+			ArrayList<String> Dead = new ArrayList<String>();
+			while(rt.next()){
+				Dead.add(rt.getString("Dead"));
+			}
+
+			if("no".equals(Dead.get(0))){
+
 			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the patient info table
 			pstmt.setString(1, a.getFirstname());
 			pstmt.setString(2,  a.getLastname());
@@ -84,7 +95,7 @@ public class PatientDAO {
 			pstmt.setObject(8, a.getLastVisit());
 			pstmt.setInt(9, a.getPatientnum());
 			pstmt.executeUpdate();
-			
+
 			pstmt = Con.prepareStatement(selectCurrentDiag);
 			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rs = pstmt.executeQuery();
@@ -105,8 +116,12 @@ public class PatientDAO {
 				pstmt.setInt(2, a.getPatientnum());
 				pstmt.executeUpdate();
 			}
-			
+
 		pstmt.close();
+			}
+			else{
+				pstmt.close();
+			}
 
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
