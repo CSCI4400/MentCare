@@ -23,8 +23,7 @@
             <Font name="Georgia" size="15.0" />
          </font></TextField>
 
-      <TableView fx:id="psychTable" layoutY="126.0" prefHeight="237.0" prefWidth="628.0">
-
+   
       <TableView fx:id="psychTable" layoutX="-6.0" layoutY="94.0" prefHeight="272.0" prefWidth="634.0">
 
         <columns>
