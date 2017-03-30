@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" prefHeight="650.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainViewController">
+   <children>
+      <AnchorPane fx:id="patientInfoPane" onMouseExited="#timeOut" onMouseMoved="#resetTimer" prefHeight="650.0" prefWidth="1050.0" visible="false">
+         <children>
+            <Button fx:id="updateAddressButton" layoutX="208.0" layoutY="414.0" mnemonicParsing="false" text="Update" />
+            <TextArea fx:id="addressTextArea" layoutX="19.0" layoutY="451.0" prefHeight="86.0" prefWidth="244.0" />
+            <TableView fx:id="tablePersonalInfo" layoutX="31.0" layoutY="63.0" prefHeight="337.0" prefWidth="988.0">
+              <columns>
+                <TableColumn fx:id="columnPNumber" editable="false" prefWidth="117.0" text="PNumber" />
+                <TableColumn fx:id="columnFName" editable="false" prefWidth="162.0" text="First Name" />
+                <TableColumn fx:id="columnLName" prefWidth="149.0" text="Last Name" />
+                <TableColumn fx:id="columnBDate" prefWidth="119.0" text="Birth Date" />
+                <TableColumn fx:id="columnSex" prefWidth="30.0" text="Sex" />
+                <TableColumn fx:id="columnAddress" prefWidth="186.0" text="Address" />
+                <TableColumn fx:id="columnPhoneNumber" prefWidth="169.0" text="Phone Number" />
+                <TableColumn fx:id="columnDangerLvl" prefWidth="55.0" text="DL" />
+              </columns>
+            </TableView>
+            <Label layoutX="19.0" layoutY="409.0" text="Address:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="dangerTextField" layoutX="19.0" layoutY="580.0" prefHeight="25.0" prefWidth="46.0" />
+            <Label layoutX="19.0" layoutY="545.0" text="Danger Level:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="380.0" layoutY="7.0" prefHeight="56.0" prefWidth="291.0" text="Patient Information">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <Button fx:id="updateDangerLvlButton" layoutX="108.0" layoutY="580.0" mnemonicParsing="false" text="Update" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="loginPane" layoutX="263.0" layoutY="169.0" prefHeight="275.0" prefWidth="525.0" visible="false">
+         <children>
+            <Button fx:id="loginBtn" layoutX="240.0" layoutY="224.0" mnemonicParsing="false" text="Login" />
+            <TextField fx:id="usernameTF" layoutX="188.0" layoutY="155.0" promptText="Username" />
+            <PasswordField fx:id="passwordTF" layoutX="188.0" layoutY="188.0" promptText="Password" />
+            <Label layoutX="62.0" layoutY="14.0" text="Mentcare">
+               <font>
+                  <Font size="96.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <BorderPane prefHeight="650.0" prefWidth="1050.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="Jump To Page">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#showLogin" text="Login" />
+                        <MenuItem mnemonicParsing="false" onAction="#showPatientInfo" text="View Patients" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
