@@ -4,8 +4,6 @@
 {
 	-fx-background-image:url("gui_bg.jpg");
 }
-<<<<<<< HEAD
-=======
 
 .tab *.tab-label {
     -fx-rotate: 90;
@@ -21,4 +19,4 @@
 	-fx-faint-focus-color: transparent;
 }
 
->>>>>>> master
+
