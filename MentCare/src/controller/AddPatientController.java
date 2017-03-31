@@ -6,7 +6,8 @@
 package controller;
 
 import application.DBConfig;
-import application.HawksoftSprint2;
+import application.MainFXApp;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -33,9 +34,9 @@ public class AddPatientController {
     Scene scene;
     Parent root;
     
-    private HawksoftSprint2 main;
+    private MainFXApp main;
     
-    public void setMain(HawksoftSprint2 mainIn){
+    public void setMain(MainFXApp mainIn){
         main = mainIn;
     }
     
@@ -114,8 +115,8 @@ public class AddPatientController {
                     }
                     
                 case "backButton":
-                    root = FXMLLoader.load(getClass().getResource("/view/SelectionScreen.fxml"));
-                    SelectionScreenController act2 = new SelectionScreenController();
+                    root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
+                    patientViewController act2 = new patientViewController();
                     act2.setMain(main);
                     break;
 		default:

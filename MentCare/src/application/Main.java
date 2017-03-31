@@ -38,7 +38,7 @@ public class Main extends Application {
 
 	private void loadMainWindow() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/view/loginView.fxml"));
+		loader.setLocation(Main.class.getResource("/view/mainView.fxml"));
 		try {
 			primaryLayout = loader.load();
 			scene = new Scene(primaryLayout);

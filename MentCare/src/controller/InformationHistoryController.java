@@ -5,7 +5,7 @@
  */
 package controller;
 
-import application.HawksoftSprint2;
+import application.MainFXApp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,9 +25,9 @@ public class InformationHistoryController {
     Scene scene;
     Parent root;
     
-    private HawksoftSprint2 main;
+    private MainFXApp main;
     
-    public void setMain(HawksoftSprint2 mainIn){
+    public void setMain(MainFXApp mainIn){
         main = mainIn;
     }
     
@@ -43,8 +43,8 @@ public class InformationHistoryController {
             
             switch (source) {
                 case "backButton":
-                    root = FXMLLoader.load(getClass().getResource("/view/SelectionScreen.fxml"));
-                    SelectionScreenController act2 = new SelectionScreenController();
+                    root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
+                    patientViewController act2 = new patientViewController();
                     act2.setMain(main);
                     break;
 		default:
