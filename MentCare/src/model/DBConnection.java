@@ -11,7 +11,7 @@ import application.MainFXApp;
 import controller.ViewMenuController;
 
 public class DBConnection implements Runnable {
-	public static final String DBPASSWORD = "mentcare1"; //make sure to add password
+	public static final String DBPASSWORD = ""; //make sure to add password
 	Connection Con1;
 
 	@Override
