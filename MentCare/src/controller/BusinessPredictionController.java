@@ -8,6 +8,7 @@ package controller;
 import application.HawksoftSprint2;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,8 +48,10 @@ public class BusinessPredictionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        weekLabel.setText("Scooby-Doo");
+    	
+    	String today_date = new SimpleDateFormat("yyyy-MM-dd").format(Date());
+    	
+        weekLabel.setText("today_date");
         monthLabel.setText("Scooby-Doo");
         yearLabel.setText("Scooby-Doo");
         
