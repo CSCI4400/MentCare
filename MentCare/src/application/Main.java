@@ -1,5 +1,5 @@
 package application;
-	
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -13,14 +13,13 @@ import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 
-
 public class Main extends Application {
 	private BusinessManager businessManager;
-	
+
 	private Stage primaryStage;
 	private Scene scene;
 	private AnchorPane primaryLayout;
-	
+
 	@FXML
 	private TextField firstField;
 	@FXML
@@ -49,39 +48,33 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	public void onAddPatient()
-	{
-		if(businessManager == null)
-		{
+
+	public void onAddPatient() {
+		if (businessManager == null) {
 			businessManager = new BusinessManager("Example Manager");
-			try
-			{
+			try {
 
 				businessManager.addDoctor(new Doctor("Aaron", "Griffin", "Everything"));
 
-			}//end try
+			} // end try
 
-			catch (SQLException e)
-			{
+			catch (SQLException e) {
 
 				e.printStackTrace();
 
-			}//end catch
+			} // end catch
 
-		}//end if statement
-	}//end onAddPatient
+		} // end if statement
+	}// end onAddPatient
 
-
-
-
-//		Patient p = new Patient(firstField.getText(), lastField.getText());
-//		System.out.println(businessManager.toString());
-//		System.out.println(p.toString());
-//		businessManager.addPatient(p);
-//		statusLabel.setText(firstField.getText() + " " + lastField.getText() + " was added.\nPatients: " + businessManager.countPatients());
-	}
-
+	// Patient p = new Patient(firstField.getText(), lastField.getText());
+	// System.out.println(businessManager.toString());
+	// System.out.println(p.toString());
+	// businessManager.addPatient(p);
+	// statusLabel.setText(firstField.getText() + " " + lastField.getText() + "
+	// was added.\nPatients: " + businessManager.countPatients());
+}

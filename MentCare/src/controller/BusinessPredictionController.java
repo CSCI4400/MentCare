@@ -7,6 +7,7 @@ package controller;
 
 import application.HawksoftSprint2;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import java.util.Date;
 import javafx.event.ActionEvent;
@@ -49,7 +50,7 @@ public class BusinessPredictionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	
-    	String today_date = new SimpleDateFormat("yyyy-MM-dd").format(Date());
+    	String today_date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     	
         weekLabel.setText("today_date");
         monthLabel.setText("Scooby-Doo");
