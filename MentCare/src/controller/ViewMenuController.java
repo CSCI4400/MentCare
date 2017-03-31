@@ -19,7 +19,7 @@ import model.TimeoutTimer;
 
 public class ViewMenuController extends Application {
 	
-	public static Connection con;
+	//public static Connection con;
 	
 	public static void main (String[] args){
 		

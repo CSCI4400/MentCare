@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import application.MainFXApp;
 import controller.PatientDAO;
 import controller.PatientRecordsController;
 import controller.ViewMenuController;
@@ -74,7 +75,7 @@ public class DiagnosisHistoryView {
 		Collection<String> DatesofD = new ArrayList<>();
 		Collection<Integer> TemporaryStatus = new ArrayList<>();
 		try {
-			pstmt = ViewMenuController.con.prepareStatement(selhistory);
+			pstmt = MainFXApp.con.prepareStatement(selhistory);
 			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -128,16 +129,16 @@ public class DiagnosisHistoryView {
 	    deleteTemp.setOnAction(e ->{
 	    	PreparedStatement prepstmt; 
 	    	try {
-				prepstmt = ViewMenuController.con.prepareStatement(deleteTempDiagn);
+				prepstmt = MainFXApp.con.prepareStatement(deleteTempDiagn);
 				prepstmt.execute();
-				prepstmt = ViewMenuController.con.prepareStatement(mostRecentDiagnQuery);
+				prepstmt = MainFXApp.con.prepareStatement(mostRecentDiagnQuery);
 				prepstmt.setInt(1, a.getPatientnum());
 				ResultSet result = prepstmt.executeQuery();
 				while(result.next()){
 					mostRecentDiagnosis = result.getString("Diagnosis");
 				}
 				
-				prepstmt = ViewMenuController.con.prepareStatement(resetCurrentDiagn);
+				prepstmt = MainFXApp.con.prepareStatement(resetCurrentDiagn);
 				prepstmt.setString(1, mostRecentDiagnosis);
 				prepstmt.setInt(2, a.getPatientnum());
 				prepstmt.execute();

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import application.MainFXApp;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,7 +37,7 @@ public class PatientRecordsController {
 		Label diagnosis = new Label(a.getDiagnosis()); Label Ssn = new Label(a.getSsn()); Label lastapt = new Label((a.getLastVisit()).toString());
 		//Bolding all the labels for the patient information
 		try {
-			PreparedStatement pstmt = ViewMenuController.con.prepareStatement(deathCheck);
+			PreparedStatement pstmt = MainFXApp.con.prepareStatement(deathCheck);
 			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -70,7 +71,7 @@ public class PatientRecordsController {
 		Label lastapt = new Label((a.getLastVisit()).toString());
 		//Bolding all the labels for the patient information
 		try {
-			PreparedStatement pstmt = ViewMenuController.con.prepareStatement(deathCheck);
+			PreparedStatement pstmt = MainFXApp.con.prepareStatement(deathCheck);
 			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import application.MainFXApp;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -53,7 +54,7 @@ public class EditPatientRecordsController {
 		nodead.setSelected(true);
 		
 		try {
-			PreparedStatement pstmt = ViewMenuController.con.prepareStatement(deathCheck);
+			PreparedStatement pstmt = MainFXApp.con.prepareStatement(deathCheck);
 			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -73,7 +74,7 @@ public class EditPatientRecordsController {
 		updatebutton.setOnAction( e -> {
 			if(yesdead.isSelected()){
 				try {
-					PreparedStatement pstmt = ViewMenuController.con.prepareStatement(setDead);
+					PreparedStatement pstmt = MainFXApp.con.prepareStatement(setDead);
 					pstmt.setInt(1, a.getPatientnum());
 					pstmt.execute();
 					pstmt.close();
@@ -121,7 +122,7 @@ public class EditPatientRecordsController {
 		TextField diago = new TextField(a.getDiagnosis());
 		
 		try {
-			PreparedStatement pstmt = ViewMenuController.con.prepareStatement(deathCheck);
+			PreparedStatement pstmt = MainFXApp.con.prepareStatement(deathCheck);
 			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){

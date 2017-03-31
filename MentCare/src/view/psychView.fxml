@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="628.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.psychController">
+   <children>
+      <Button fx:id="searchBtn" layoutX="442.0" layoutY="34.0" mnemonicParsing="false" onAction="#ClickSearchButton" text="Search" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Button>
+      <Label layoutX="91.0" layoutY="39.0" prefHeight="17.0" prefWidth="135.0" text="Patient Number:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Label>
+      <TextField fx:id="PnumTF" layoutX="210.0" layoutY="34.0" prefHeight="25.0" prefWidth="209.0">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></TextField>
+
+   
+      <TableView fx:id="psychTable" layoutX="-6.0" layoutY="94.0" prefHeight="272.0" prefWidth="634.0">
+
+        <columns>
+          <TableColumn fx:id="PNumCol" prefWidth="117.0" text="Patient Number" />
+          <TableColumn fx:id="DocNumCol" prefWidth="107.0" text="Doctor Number" />
+            <TableColumn fx:id="PsychNoteCol" prefWidth="408.0" text="Psychologist Notes" />
+        </columns>
+      </TableView>
+      <Button fx:id="backBtn" alignment="CENTER_RIGHT" layoutX="291.0" layoutY="379.0" mnemonicParsing="false" onAction="#ClickBackBtn" text="Back" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Button>
+
+      <Label fx:id="lblErrInvalidInput" alignment="CENTER" layoutX="91.0" layoutY="63.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5016" wrapText="true">
+         <font>
+            <Font name="Georgia Bold Italic" size="14.0" />
+         </font></Label>
+      <Label fx:id="lblErrUserNotFound" alignment="CENTER" layoutX="91.0" layoutY="97.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5016" wrapText="true">
+         <font>
+            <Font name="Georgia Bold Italic" size="14.0" />
+         </font></Label>
+
+   </children>
+</AnchorPane>
