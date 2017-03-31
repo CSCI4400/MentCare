@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,7 +19,7 @@ public class Main extends Application {
 	
 	private Stage primaryStage;
 	private Scene scene;
-	private VBox primaryLayout;
+	private AnchorPane primaryLayout;
 	
 	@FXML
 	private TextField firstField;
@@ -38,7 +39,7 @@ public class Main extends Application {
 
 	private void loadMainWindow() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("/application/AddPatients.fxml"));
+		loader.setLocation(Main.class.getResource("/view/loginView.fxml"));
 		try {
 			primaryLayout = loader.load();
 			scene = new Scene(primaryLayout);
