@@ -40,8 +40,6 @@ public class updateAppController {
     @FXML private Button cancelButton;
     @FXML private Button submitButton;
     @FXML private Label PnameLabel;
-    //@FXML private Label FnameLabel;
-    //@FXML private Label LnameLabel;
     @FXML private Label DocIDLabel;
     @FXML private Label apTimeLabel;
     @FXML private Label apDateLabel;
@@ -50,8 +48,6 @@ public class updateAppController {
     @FXML private TextField DocIDField;
     @FXML private TextField PnumField;
     @FXML private TextField providerTF;
-    //@FXML private TextField FnameField;
-    //@FXML private TextField LnameField;
     @FXML private TextField PnameField;
     @FXML private Label AppIDLabel;
     
@@ -62,13 +58,10 @@ public class updateAppController {
     	// SET BUTTON TO DISABLED BECAUSE ANNA HATES USERS
     	submitButton.setDisable(true);
     	
-    	// Only enable submit once all fields have a value *STILL KINDA BUGGY*
+    	// Creates listeners that call checkFields() when each input has been filled in and then enables submit
     	PnameField.setOnAction((event) -> {
     		if(checkFields() && submitButton.isDisabled()) submitButton.setDisable(false);
     	});
-    	/*LnameField.setOnAction((event) -> {
-    		if(checkFields() && submitButton.isDisabled()) submitButton.setDisable(false);
-    	});*/
     	DocIDField.setOnAction((event) -> {
     		if(checkFields() && submitButton.isDisabled()) submitButton.setDisable(false);
     	});
@@ -100,8 +93,6 @@ public class updateAppController {
 	    	
 	    	if(RS != null){
 	    		while (RS.next()) {
-	  		      //FnameLabel.setText(RS.getString("Fname"));
-	  		      //LnameLabel.setText(RS.getString("Lname"));
 	    		 PnameLabel.setText(RS.getString("Pname"));
 	  		     DocIDLabel.setText(RS.getString("DocID"));
 	  		     apDateLabel.setText(RS.getString("apDate"));
@@ -121,8 +112,6 @@ public class updateAppController {
     	int AppID;
 		String Pnum, Pname, apDate, apTime, DocID;
     	Pnum = PnumField.getText();
-		//Fname = FnameField.getText();
-		//Lname = LnameField.getText();
     	Pname = PnameField.getText();
 		apDate = apDateField.getValue().toString();
 		apTime = apTimeField.getValue();
@@ -153,10 +142,6 @@ public class updateAppController {
     void resetLabels() {
     	// Helper method, clears fields and labels
     	statusLabel.setText("Status: Update complete.");
-		/*FnameLabel.setText("");
-		LnameLabel.setText("");
-		FnameField.setText("");
-		LnameField.setText("");*/
     	PnameLabel.setText("");
     	PnameField.setText("");
 		PnumField.setText("");
@@ -174,7 +159,6 @@ public class updateAppController {
     	if (
     			!PnumField.getText().isEmpty() &&
     			!PnameField.getText().isEmpty() &&
-    			//!LnameField.getText().isEmpty() &&
     			!DocIDField.getText().isEmpty() &&
     			!(apDateField == null) &&
     			!(apTimeField.getValue() == null)

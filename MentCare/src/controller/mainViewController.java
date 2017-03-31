@@ -101,11 +101,16 @@ public class mainViewController {
 					      apAppointments.getChildren().setAll(temp);
 						  break;
 					  case "tbUsers":
+						  // ADD MAIN USERS VIEW HERE
+						  // USE APPOINTMENTS AS EXAMPLE
 						  break;
 					  case "tbPatients":
-						  
+						  // ADD MAIN PATIENTS VIEW HERE
+						  // USE APPOINTMENTS AS EXAMPLE
 						  break;
 					  case "tbBusiness":
+						  // ADD MAIN BUSINESS VIEW HERE
+						  // USE BUSINESS AS EXAMPLE
 						  break;
 					  }
 					    
