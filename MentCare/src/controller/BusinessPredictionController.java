@@ -6,13 +6,17 @@
 package controller;
 
 import application.HawksoftSprint2;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
@@ -20,7 +24,7 @@ import javafx.stage.Stage;
  *
  * @author sad2e
  */
-public class BusinessPredictionController {
+public class BusinessPredictionController implements Initializable {
 
     Stage stage;
     Scene scene;
@@ -32,12 +36,28 @@ public class BusinessPredictionController {
         main = mainIn;
     }
     
+    @FXML private Label weekLabel;
+    @FXML private Label monthLabel;
+    @FXML private Label yearLabel;
     @FXML private Button historyButton;
     @FXML private Button backButton;
+    
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        weekLabel.setText("Scooby-Doo");
+        monthLabel.setText("Scooby-Doo");
+        yearLabel.setText("Scooby-Doo");
+        
+    } 
     
     @FXML public void buttonClicked(ActionEvent click) throws Exception {
         try{
             stage = (Stage) ((Button) click.getSource()).getScene().getWindow();
+            
         
             String source = ((Node) click.getSource()).getId();
             

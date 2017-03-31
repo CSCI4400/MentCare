@@ -5,7 +5,13 @@
  */
 package controller;
 
+import application.DBConfig;
 import application.HawksoftSprint2;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +49,6 @@ public class AddPatientController {
     @FXML private ChoiceBox sexChoice;
     @FXML private TextField phoneField;
     
-    
     @FXML public void onAddPatient(ActionEvent click) throws Exception {
         try{
             stage = (Stage) ((Button) click.getSource()).getScene().getWindow();
@@ -52,10 +57,62 @@ public class AddPatientController {
             
             switch (source) {
 		case "addButton":
-                    root = FXMLLoader.load(getClass().getResource("/view/AddPatient.fxml"));
-                    AddPatientController act1 = new AddPatientController();
-                    act1.setMain(main);
-                    break;
+                    try{
+                        if(!firstField.getText().trim().equals("") &&
+                                !lastField.getText().trim().equals("") &&
+                                !birthField.getText().trim().equals("") &&
+                                !addressField1.getText().trim().equals("") &&
+                                !sexChoice.getValue().equals("") &&
+                                !(phoneField.getText().trim().equals("") ||
+                                phoneField.getText().trim().length() != 12)){
+                            String first = firstField.getText().trim();
+                            String last = lastField.getText().trim();
+                            String birth = birthField.getText().trim();
+                            String addr = addressField1.getText().trim().concat(" ").
+                                    concat(addressField2.getText().trim());
+                            String sex = sexChoice.getValue().toString();
+                            String phNum = phoneField.getText().trim();
+                            
+                            String patQuery = "INSERT INTO `Patient_Info`(`FNAME`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`) "
+                                + "VALUES (?,?,?,?,?,?,?)";
+                            
+                            Connection conn = DBConfig.getConnection();
+                            PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
+                            
+                            addPat.setString(1, first);
+                            addPat.setString(2, last);
+                            addPat.setDate(3, Date.valueOf(birth));
+                            addPat.setString(4, addr);
+                            addPat.setString(5, sex);
+                            addPat.setString(6, phNum);
+                            addPat.setString(7,"no");
+                            
+                            System.out.println("Query Sent" + addPat.toString());
+                            
+                            int accepted  = addPat.executeUpdate();
+                            
+                            if(accepted == 1){
+                                root = FXMLLoader.load(getClass().getResource("/view/AddPatient.fxml"));
+                                AddPatientController act1 = new AddPatientController();
+                                act1.setMain(main);
+                                break;
+                            }
+                            else{
+                                System.out.println("Query failed");
+                                root = FXMLLoader.load(getClass().getResource("/view/AddPatient.fxml"));
+                                AddPatientController act1 = new AddPatientController();
+                                act1.setMain(main);
+                                break;
+                            }
+                            
+                        }
+                        else{
+                            break;
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                    
                 case "backButton":
                     root = FXMLLoader.load(getClass().getResource("/view/SelectionScreen.fxml"));
                     SelectionScreenController act2 = new SelectionScreenController();
