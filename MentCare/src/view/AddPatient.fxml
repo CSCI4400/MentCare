@@ -63,6 +63,7 @@
                   <TextField fx:id="lastField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                   <Label text="Birthdate" GridPane.rowIndex="2" />
+                  <TextField fx:id="birthField" promptText="YYYY-MM-DD" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                   <Label text="Address" GridPane.rowIndex="3" />
 
@@ -95,7 +96,6 @@
                   <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddPatient" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
                   <Button fx:id="backButton" mnemonicParsing="false" onAction="#onAddPatient" text="Back" GridPane.rowIndex="7" />
-                  <TextField fx:id="birthField" promptText="YYYY-MM-DD" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                </children>
 
