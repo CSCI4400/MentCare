@@ -73,11 +73,6 @@ public class DoctorViewController extends Application {
 			Scene scene = new Scene(root,600,600);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
-			//Set page to time out after 10 seconds
-			//TimeoutTimer timeout = new TimeoutTimer(root, scene, 10); //This method is overloaded; if you only use two arguments the time defaults
-			//timeout.start();                                           //to 120 seconds. I'm using 10 seconds to make it easier to demo.
-					
-			
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			} catch(Exception e) {

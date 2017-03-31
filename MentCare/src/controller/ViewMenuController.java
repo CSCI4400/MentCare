@@ -20,8 +20,10 @@ import model.TimeoutTimer;
 public class ViewMenuController extends Application {
 	
 	//public static Connection con;
+	static TimeoutTimer timeout;
 	
 	public static void main (String[] args){
+		
 		
 		DBConnection idb = new DBConnection();
 		Thread t = new Thread(idb);
@@ -48,7 +50,7 @@ public class ViewMenuController extends Application {
 			Stage primaryStage = (Stage) node.getScene().getWindow();
 			primaryStage.setScene(scene2);
 			primaryStage.show();
-			TimeoutTimer timeout = new TimeoutTimer(BMView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults to 120 seconds
+			timeout = new TimeoutTimer(BMView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults to 120 seconds
 			timeout.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -68,7 +70,7 @@ public class ViewMenuController extends Application {
     		Scene scene3 = new Scene(DocView, 600, 600);
     		primaryStage.setScene(scene3);
     		primaryStage.show();
-    		TimeoutTimer timeout = new TimeoutTimer(DocView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults to 120 seconds
+    		timeout = new TimeoutTimer(DocView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults to 120 seconds
 			timeout.start();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -88,7 +90,7 @@ public class ViewMenuController extends Application {
 			Scene scene4 = new Scene(RecepView, 600, 600);
 			primaryStage.setScene(scene4);
 			primaryStage.show();
-			TimeoutTimer timeout = new TimeoutTimer(RecepView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults to 120 seconds
+			timeout = new TimeoutTimer(RecepView, primaryStage, 10); //This method is overloaded; if you only use two arguments the time defaults to 120 seconds
 			timeout.start();
     		
 		} catch (Exception e) {
@@ -105,16 +107,14 @@ public class ViewMenuController extends Application {
 		Scene scene = new Scene(root,600,600);
 		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
-		//Set page to time out after 10 seconds
-		//TimeoutTimer timeout = new TimeoutTimer(root, scene, 10); //This method is overloaded; if you only use two arguments the time defaults
-		//timeout.start();                                           //to 120 seconds. I'm using 10 seconds to make it easier to demo.
-				
-		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		try {
+			timeout.stop(); //Stop if timeout has been initialized
+		} catch (Exception e) {} //Otherwise, do nothing
 	}
 
 }

@@ -17,6 +17,7 @@ public class TimeoutTimer {
 	Stage window;
 	Point2D prevMousePos = new Point2D(0,0);
 	int timeOutDelay = 120;
+	PauseTransition checkMouse;
 	
 	public TimeoutTimer(Pane g, Stage w) {
 		gp = g;
@@ -32,7 +33,7 @@ public class TimeoutTimer {
 		ObjectProperty<Point2D> mouseLocation = new SimpleObjectProperty<>(new Point2D(0, 0)); //Create a container for the mouse position
 		gp.setOnMouseMoved(e -> mouseLocation.set(new Point2D(e.getX(), e.getY()))); //Fill the container with the mouse position
 		
-		PauseTransition checkMouse = new PauseTransition(Duration.seconds(timeOutDelay)); //Begin PauseTransition declaration
+		checkMouse = new PauseTransition(Duration.seconds(timeOutDelay)); //Begin PauseTransition declaration
 		checkMouse.setOnFinished( event -> {
 			if (prevMousePos.getX() == mouseLocation.get().getX() && prevMousePos.getY() == mouseLocation.get().getY()) { //If the previous mouse position is equal to the current, then log out.
 				logOut();
@@ -42,6 +43,9 @@ public class TimeoutTimer {
 			}
 		});
 		checkMouse.play();
+	}
+	public void stop() {
+		checkMouse.stop();
 	}
 	public void logOut() { //To be changed when we have a more robust login/logout system
 		ViewMenuController logOut = new ViewMenuController();
