@@ -1,7 +1,11 @@
 package application;
+
+import java.sql.Connection;
+
 import controller.mainViewController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.DBConnection;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +15,7 @@ public class MainFXApp extends Application {
 
 
 	private static Scene scene;
+	public static Connection con;
 	
 	public static Scene getScene(){
 		return scene;
@@ -39,6 +44,9 @@ public class MainFXApp extends Application {
 
 
 	public static void main(String[] args) {
+		DBConnection idb = new DBConnection();
+		Thread t = new Thread(idb);
+		t.start();
 		launch(args);
 
 	}
