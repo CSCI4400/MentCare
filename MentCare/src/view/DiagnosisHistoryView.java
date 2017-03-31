@@ -24,7 +24,9 @@ public class DiagnosisHistoryView {
 	
 	static Button backbutton = new Button("Back");
 	static Button deleteTemp = new Button("Delete Temporary Diagnoses");
+	static Button deleteExpired = new Button("Delete Expired Diagnoses");
 	static String deleteTempDiagn = "DELETE FROM mentcare.Diagnosis_History WHERE mentcare.Diagnosis_History.Diagnosis_is_temp = 1";
+	static String deleteExpiredDiagn = "DELETE FROM mentcare.Diagnosis_History WHERE Diagnosis_is_temp = 1 AND DATEDIFF(CURDATE(), Date_of_diag) > 14";
 	static String mostRecentDiagnQuery = "SELECT Diagnosis FROM mentcare.Diagnosis_History WHERE PNum = ?";
 	static String mostRecentDiagnosis = "";
 	static String resetCurrentDiagn = "UPDATE mentcare.Patient_Info SET mentcare.Patient_Info.Diagnosis = ? WHERE mentcare.Patient_Info.PNumber = ? ";
@@ -152,7 +154,36 @@ public class DiagnosisHistoryView {
 	    	PatientRecordsController.ViewPatientRecordsDoc(a, window);
 	    	
 	    });
-	    Diagnosis.getChildren().addAll(deleteTemp, backbutton);
+	    
+	    deleteExpired.setMinWidth(250);
+	    
+	    deleteExpired.setOnAction(e ->{
+	    	PreparedStatement prepstmt;
+	    	try{
+	    		prepstmt = MainFXApp.con.prepareStatement(deleteExpiredDiagn);
+	    		prepstmt.execute();
+	    		prepstmt = MainFXApp.con.prepareStatement(mostRecentDiagnQuery);
+				prepstmt.setInt(1, a.getPatientnum());
+				ResultSet result = prepstmt.executeQuery();
+				while(result.next()){
+					mostRecentDiagnosis = result.getString("Diagnosis");
+				}
+				
+				prepstmt = MainFXApp.con.prepareStatement(resetCurrentDiagn);
+				prepstmt.setString(1, mostRecentDiagnosis);
+				prepstmt.setInt(2, a.getPatientnum());
+				prepstmt.execute();
+				result.close();
+				prepstmt.close();
+				a.setDiagnosis(mostRecentDiagnosis);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    	PatientRecordsController.ViewPatientRecordsDoc(a, window);
+	    });
+	    
+	    Diagnosis.getChildren().addAll(deleteTemp, deleteExpired, backbutton);
 	    
 	    DiagHistLayout.getChildren().addAll(Diagnosis, DocWhoDiagnosed, DateOfDiagnosis, DiagnIsTemp);
 		
