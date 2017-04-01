@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConfig {
+public class DBConfig {//
 
 	private static final String USERNAME = "mentcare";
 	private static final String PASSWORD = "mentcare1";
