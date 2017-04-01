@@ -59,6 +59,7 @@ public class mainViewController {
 	@FXML private TabPane tpMenu = new TabPane();
 	@FXML AnchorPane apUser = new AnchorPane();
 	@FXML AnchorPane apAppointments = new AnchorPane();
+	@FXML AnchorPane apPatients = new AnchorPane();
 	@FXML Tab tbUsers = new Tab();
 	@FXML Tab tbAppointments = new Tab();
 	@FXML Tab tbPatients = new Tab();
@@ -93,20 +94,23 @@ public class mainViewController {
 				  	
 				  try {	
 					  String call = newTab.getId().toString();
+					  URL toPane;
+					  AnchorPane temp;
 					  switch(call)
 					  {
-					  case "tbAppointments":
-						  URL toPane = getClass().getResource("/view/appointmentView.fxml");
-					      AnchorPane temp = FXMLLoader.load(toPane);     
-					      apAppointments.getChildren().setAll(temp);
-						  break;
 					  case "tbUsers":
 						  // ADD MAIN USERS VIEW HERE
 						  // USE APPOINTMENTS AS EXAMPLE
 						  break;
+					  case "tbAppointments":
+						  toPane = getClass().getResource("/view/appointmentView.fxml");
+					      temp = FXMLLoader.load(toPane);     
+					      apAppointments.getChildren().setAll(temp);
+						  break;
 					  case "tbPatients":
-						  // ADD MAIN PATIENTS VIEW HERE
-						  // USE APPOINTMENTS AS EXAMPLE
+						  toPane = getClass().getResource("/view/patientView.fxml");
+					      temp = FXMLLoader.load(toPane);
+					      apPatients.getChildren().setAll(temp);
 						  break;
 					  case "tbBusiness":
 						  // ADD MAIN BUSINESS VIEW HERE
