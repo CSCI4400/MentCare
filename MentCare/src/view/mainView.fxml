@@ -25,9 +25,15 @@
                </content>
           </Tab>
             <Tab fx:id="tbPatients" text="Patients">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <AnchorPane id="apPatients" fx:id="apPatients" prefHeight="200.0" prefWidth="613.0">
+                     <styleClass>
+                        <String fx:value="tab-label" />
+                        <String fx:value="tab" />
+                        <String fx:value="root" />
+                     </styleClass>
+                  </AnchorPane>
+               </content>
             </Tab>
             <Tab fx:id="tbBusiness" text="Business">
               <content>
