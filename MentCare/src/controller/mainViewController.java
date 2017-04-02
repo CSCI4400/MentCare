@@ -57,6 +57,7 @@ public class mainViewController {
 		return numTab;
 	}
 	@FXML private TabPane tpMenu = new TabPane();
+	@FXML AnchorPane apBusiness = new AnchorPane();
 	@FXML AnchorPane apUser = new AnchorPane();
 	@FXML AnchorPane apAppointments = new AnchorPane();
 	@FXML AnchorPane apPatients = new AnchorPane();
