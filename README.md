@@ -1,5 +1,12 @@
 ## FOR MENU TAB INTEGRATION
-  Add your main view fxml to this switch statement in MainViewController, follow the examples from appointments and patients
+
+  2 - Add your main view fxml to this switch statement in MainViewController, follow the examples from appointments and patients
+```Java
+@FXML AnchorPane apBusiness = new AnchorPane();
+@FXML AnchorPane apUser = new AnchorPane();
+@FXML AnchorPane apAppointments = new AnchorPane();
+@FXML AnchorPane apPatients = new AnchorPane();
+```
 ```Java
 switch(call)
 	  {
