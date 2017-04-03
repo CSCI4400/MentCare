@@ -28,6 +28,8 @@ public class patientViewController {
 	private Button updateButton;
 	@FXML
 	private Button historyButton;
+	@FXML
+	private Button searchPatientButton;
 
 	@FXML
 	void ClickButton(ActionEvent event) throws Exception {
@@ -57,6 +59,12 @@ public class patientViewController {
 				root = FXMLLoader.load(getClass().getResource("/view/InformationHistory.fxml"));
 				InformationHistoryController con3 = new InformationHistoryController();
 				con3.setMain(main);
+				break;
+			case "searchPatientButton":
+				//Currently searches as if the person using is a doctor. 
+				//Add code here to call search for a receptionist or search for a doc based on
+				//who is logged in
+				SearchPatientController.searchPatientDoc(stage);
 				break;
 			default:
 				root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
