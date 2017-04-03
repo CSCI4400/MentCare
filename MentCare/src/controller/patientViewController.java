@@ -30,6 +30,10 @@ public class patientViewController {
 	private Button historyButton;
 	@FXML
 	private Button searchPatientButton;
+	//Button added to fxml by TigerWooos
+	@FXML
+	private Button patientListButton;
+
 
 	@FXML
 	void ClickButton(ActionEvent event) throws Exception {
@@ -61,15 +65,21 @@ public class patientViewController {
 				con3.setMain(main);
 				break;
 			case "searchPatientButton":
-				//Currently searches as if the person using is a doctor. 
+				//Currently searches as if the person using is a doctor.
 				//Add code here to call search for a receptionist or search for a doc based on
 				//who is logged in
 				SearchPatientController.searchPatientDoc(stage);
 				break;
+				//CKS button loads patient list created by TigerWoods
+			case "patientListButton":
+				root = FXMLLoader.load(getClass().getResource("/view/PatientListView.fxml"));
+				InformationHistoryController con4 = new InformationHistoryController();
+				con4.setMain(main);
+				break;
 			default:
 				root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
-				mainViewController con4 = new mainViewController();
-				con4.setMain(main);
+				mainViewController con5 = new mainViewController();
+				con5.setMain(main);
 				break;
 			}
 			// sets fxml file as a scene
