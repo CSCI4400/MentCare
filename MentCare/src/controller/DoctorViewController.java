@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.TimeoutTimer;
 
 public class DoctorViewController extends Application {
 
@@ -74,6 +75,8 @@ public class DoctorViewController extends Application {
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			primaryStage.setScene(scene);
+			TimeoutTimer timeout = new TimeoutTimer(root, primaryStage, 10);
+			timeout.start();
 			primaryStage.show();
 			} catch(Exception e) {
 				e.printStackTrace();
