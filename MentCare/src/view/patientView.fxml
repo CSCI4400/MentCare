@@ -67,6 +67,11 @@
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
+            <Button fx:id="searchPatientButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Search for a Patient" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="11">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+            </Button>
          </children>
       </GridPane>
    </children>
