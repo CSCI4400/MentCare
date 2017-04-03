@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import application.MainFXApp;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.DBConnection;
 import model.Patient;
@@ -117,6 +119,12 @@ public class PatientDAO {
 		pstmt.close();
 			}
 			else{
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information Alert");
+				alert.setHeaderText("Update did not occur");
+				alert.setContentText("This patient is dead. Information cannot be updated.");
+				alert.showAndWait();
+				
 				pstmt.close();
 			}
 
