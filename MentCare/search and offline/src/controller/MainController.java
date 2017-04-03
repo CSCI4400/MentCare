@@ -199,7 +199,62 @@ ResultSet rs = conn.createStatement().executeQuery("SELECT Fname, Lname, Bdate, 
 	        
 
 	    }
-	    public void ClickDoctorMode(ActionEvent event) throws Exception {
+		
+	public void PullPatient(ActionEvent event) throws Exception {
+		String queryV = ("select * from mentcare.Current_Appointment where ");
+	    	for(int p = 0; p<date.length; p++){
+	    		if(p!=(date.length-1)){
+	    			queryV  = queryV + ("apDate='"+ date[p] +"' or ");
+	    		} else{
+	    			queryV  = queryV + ("apDate='"+ date[p] +"';");
+	    		}
+
+	    	}
+	    //Debugging
+	    System.out.println(queryV);
+
+	    //this will execute the String 'query' exactly as if you were in SQL console
+	    //and it returns a result set which contains everything we want, but we need to decode it first
+	    if(!cbWeek.isSelected()){
+	    	RS = statement.executeQuery(query);
+	    } else{
+	    	RS = statement.executeQuery(queryV);
+	    }
+	    //if the query goes through, RS will no longer be null
+    		while (RS.next()) {
+
+    			AppNum = Integer.toString(RS.getInt("AppID"));
+  		        Pnum = Integer.toString(RS.getInt("Pnum"));
+    			Pname = RS.getString("Pname");
+    			DocID = (RS.getString("DocID"));
+    			apDate = (RS.getString("apDate"));
+    			apTime = RS.getString("apTime");
+    			passed = Integer.toString(RS.getInt("passed"));
+    			missed = Integer.toString(RS.getInt("missed"));
+    			Appointment temp = new Appointment(AppNum, Pnum, Pname, DocID, apDate, apTime, passed, missed);
+
+		      appList.add(temp);
+		      tempList.add(temp);
+
+  		    }
+
+    	   //tAppNum.setCellValueFactory(cellData -> cellData.getValue().getAppNum());
+    	    PnumCol.setCellValueFactory(cellData -> cellData.getValue().getPnum());
+            PnameCol.setCellValueFactory(cellData -> cellData.getValue().getPname());
+            DocIDCol.setCellValueFactory(cellData -> cellData.getValue().getDocID());
+            DateCol.setCellValueFactory(cellData -> cellData.getValue().getApDate());
+            TimeCol.setCellValueFactory(cellData -> cellData.getValue().getApTime());
+            //tpassed.setCellValueFactory(cellData -> cellData.getValue().getPassed());
+            MissedCol.setCellValueFactory(cellData -> cellData.getValue().getMissed());
+            patientTable.setItems(appList);
+		    }
+			} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+    }
+	}
+	    
+		public void ClickDoctorMode(ActionEvent event) throws Exception {
 	    	
 	    	stage = (Stage)((Button) event.getSource()).getScene().getWindow();
 	    	root = FXMLLoader.load(getClass().getResource("/view/Doctor.fxml"));
