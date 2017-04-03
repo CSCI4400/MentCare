@@ -83,40 +83,40 @@ public class PatientDAO {
 
 			if("no".equals(Dead.get(0))){
 
-			pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the patient info table
-			pstmt.setString(1, a.getFirstname());
-			pstmt.setString(2,  a.getLastname());
-			pstmt.setObject(3, a.getBirthdate());
-			pstmt.setString(4, a.getAddress());
-			pstmt.setString(5,  a.getGender());
-			pstmt.setString(6, a.getPhoneNumber());
-			pstmt.setString(7, a.getSsn());
-			pstmt.setObject(8, a.getLastVisit());
-			pstmt.setInt(9, a.getPatientnum());
-			pstmt.executeUpdate();
+				pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the patient info table
+				pstmt.setString(1, a.getFirstname());
+				pstmt.setString(2,  a.getLastname());
+				pstmt.setObject(3, a.getBirthdate());
+				pstmt.setString(4, a.getAddress());
+				pstmt.setString(5,  a.getGender());
+				pstmt.setString(6, a.getPhoneNumber());
+				pstmt.setString(7, a.getSsn());
+				pstmt.setObject(8, a.getLastVisit());
+				pstmt.setInt(9, a.getPatientnum());
+				pstmt.executeUpdate();
 
-			pstmt = Con.prepareStatement(selectCurrentDiag);
-			pstmt.setInt(1, a.getPatientnum());
-			ResultSet rs = pstmt.executeQuery();
-			ArrayList<String> Diagnoses = new ArrayList<String>();
-			while(rs.next()){
-				Diagnoses.add(rs.getString("Diagnosis"));
-			}
-			if(!Diagnoses.get(0).equals(a.getDiagnosis())){
-				pstmt = Con.prepareStatement(insertIntoDiagHistory);
+				pstmt = Con.prepareStatement(selectCurrentDiag);
 				pstmt.setInt(1, a.getPatientnum());
-				pstmt.setString(2, a.getDiagnosis());
-				pstmt.setObject(3, LocalDate.now());
-				pstmt.setObject(4, "Current Doctor");
-				pstmt.setInt(5, DiagnosisCode);
-				pstmt.executeUpdate();
-				pstmt= Con.prepareStatement(updateDiagnosis);
-				pstmt.setString(1, a.getDiagnosis());
-				pstmt.setInt(2, a.getPatientnum());
-				pstmt.executeUpdate();
-			}
+				ResultSet rs = pstmt.executeQuery();
+				ArrayList<String> Diagnoses = new ArrayList<String>();
+				while(rs.next()){
+					Diagnoses.add(rs.getString("Diagnosis"));
+				}
+					if(!Diagnoses.get(0).equals(a.getDiagnosis())){
+						pstmt = Con.prepareStatement(insertIntoDiagHistory);
+						pstmt.setInt(1, a.getPatientnum());
+						pstmt.setString(2, a.getDiagnosis());
+						pstmt.setObject(3, LocalDate.now());
+						pstmt.setObject(4, "Current Doctor");
+						pstmt.setInt(5, DiagnosisCode);
+						pstmt.executeUpdate();
+						pstmt= Con.prepareStatement(updateDiagnosis);
+						pstmt.setString(1, a.getDiagnosis());
+						pstmt.setInt(2, a.getPatientnum());
+						pstmt.executeUpdate();
+					}
 
-		pstmt.close();
+					pstmt.close();
 			}
 			else{
 				Alert alert = new Alert(AlertType.INFORMATION);
