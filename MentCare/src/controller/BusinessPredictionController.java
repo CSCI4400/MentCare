@@ -6,12 +6,19 @@
 package controller;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
+import application.DBConfig;
 import application.MainFXApp;
 
 import java.util.Date;
+
+import com.mysql.jdbc.Statement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import model.DBConnection;
 /**
  * FXML Controller class
  *
@@ -53,10 +61,39 @@ public class BusinessPredictionController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     	
     	String today_date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-    	
-        weekLabel.setText("today_date");
+        ResultSet rs = null;
+
+        String IDQuery = "SELECT COUNT(*) FROM Previous_Appointment WHERE `apDate` BETWEEN '2016-09-16'  AND '2017-03-01'";
+
+        try (Connection conn = DBConfig.getConnection();
+
+             PreparedStatement getID = conn.prepareStatement(IDQuery, Statement.RETURN_GENERATED_KEYS);)
+        {
+            //print query
+
+            System.out.println("Query Sent" + getID.toString());
+
+            //get the result set and execute query
+            rs = getID.executeQuery();
+
+            if (rs.next())
+            {
+                System.out.println("Result " + rs);
+
+            }
+        }//end try
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }//end catch
+
+
+        weekLabel.setText(rs.toString());
         monthLabel.setText("Scooby-Doo");
         yearLabel.setText("Scooby-Doo");
+
+
+
         
     } 
     
