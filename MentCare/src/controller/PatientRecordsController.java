@@ -15,7 +15,7 @@ import model.Patient;
 import view.DiagnosisHistoryView;
 
 public class PatientRecordsController {
-	
+
 	static Button diagnosishistorybutton = new Button("Diagnosis History");
 	static Button backbutton = new Button("Back");
 	static Button updatebutton = new Button("Update Information");
@@ -29,7 +29,7 @@ public class PatientRecordsController {
 	public static Text ssnl = new Text("SSN: ");
 	public static Text lastvisitl = new Text("Last Visit Was: ");
 	static String deathCheck = "SELECT mentcare.Patient_Info.Dead FROM mentcare.Patient_Info WHERE mentcare.Patient_Info.PNumber = ?";
-	
+
 	public static void ViewPatientRecordsDoc(Patient a, Stage window){
 		VBox layout2 = new VBox(10);
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
@@ -44,18 +44,21 @@ public class PatientRecordsController {
 				if(rs.getString("Dead").equals("yes")){
 					updatebutton.setDisable(true);
 				}
+				else if(rs.getString("Dead").equals("no")){
+					updatebutton.setDisable(false);
+				}
 			}
-			
+
 			pstmt.close();
 			rs.close();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
-		
-		
+
+
+
+
 		diagnosishistorybutton.setOnAction(e->DiagnosisHistoryView.DiagnosisHistory(a, window));
 		backbutton.setOnAction(e->SearchPatientController.searchPatientDoc(window));
 		updatebutton.setOnAction(e-> EditPatientRecordsController.DocEditPatientRecords(a, window));
@@ -63,7 +66,7 @@ public class PatientRecordsController {
 		Scene Docpatientrecords = new Scene(layout2, 700, 700);
 		window.setScene(Docpatientrecords);
 	}
-	
+
 	public static void ViewPatientRecordsRecep(Patient a, Stage window){
 		VBox layout3 = new VBox(10);
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
@@ -79,7 +82,7 @@ public class PatientRecordsController {
 					updatebutton.setDisable(true);
 				}
 			}
-			
+
 			pstmt.close();
 			rs.close();
 		} catch (SQLException e1) {
@@ -91,7 +94,7 @@ public class PatientRecordsController {
 		layout3.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, lastvisitl, lastapt, updatebutton, backbutton);
 		Scene Receppatientrecords = new Scene(layout3, 700, 700);
 		window.setScene(Receppatientrecords);
-		
+
 	}
 
 }
