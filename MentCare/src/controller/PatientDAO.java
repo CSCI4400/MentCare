@@ -36,7 +36,7 @@ public class PatientDAO {
 					a.setPhoneNumber(rs.getString("Phone_Number"));
 					a.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
 					a.setDiagnosis(rs.getString("Diagnosis"));
-					a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
+					//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
 					a.setSsn(rs.getString("Ssn"));
 				}
 				pstmt.close();
@@ -124,7 +124,7 @@ public class PatientDAO {
 				alert.setHeaderText("Update did not occur");
 				alert.setContentText("This patient is dead. Information cannot be updated.");
 				alert.showAndWait();
-				
+
 				pstmt.close();
 			}
 
