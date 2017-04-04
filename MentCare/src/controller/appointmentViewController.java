@@ -25,6 +25,7 @@ public class appointmentViewController {
 	@FXML private Button displayButton;
     @FXML private Button addButton;
     @FXML private Button updateButton;
+    @FXML private Button statistics;
 
     
     
@@ -57,6 +58,11 @@ public class appointmentViewController {
 			updateAppController con3=new updateAppController();
 			con3.setMain(main);
 			break;
+                case "statistics":
+                        root = FXMLLoader.load(getClass().getResource("/view/BusinessPrediction.fxml"));
+                        BusinessPredictionController con5=new BusinessPredictionController();
+                        con5.setMain(main);
+                        break;
 		default:
 			root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
 			mainViewController con4=new mainViewController();

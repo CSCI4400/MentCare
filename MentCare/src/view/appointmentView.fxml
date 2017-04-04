@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.appointmentViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.appointmentViewController">
    <children>
       <GridPane layoutX="-6.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0" styleClass="mentStyle" stylesheets="@../application/application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
@@ -73,6 +73,11 @@
                </font>
             </Button>
             <Button fx:id="userButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="262.0" text="Add Users" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="9">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="statistics" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Statistics" textFill="#010a66" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="11">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
