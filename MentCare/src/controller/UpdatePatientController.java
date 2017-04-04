@@ -56,15 +56,8 @@ public class UpdatePatientController {
             String source = ((Node) click.getSource()).getId();
             
             switch (source) {
-		case "addButton":
-                    try{
-            stage = (Stage) ((Button) click.getSource()).getScene().getWindow();
-        
-            String source = ((Node) click.getSource()).getId();
-            
-            switch (source) {
-		case "addButton":
-			try{
+	case "addButton":
+		try{
                 if(!firstField.getText().trim().equals("") &&
                         !lastField.getText().trim().equals("") &&
                         !birthField.getText().trim().equals("") &&
