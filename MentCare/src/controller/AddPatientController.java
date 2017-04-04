@@ -46,9 +46,10 @@ public class AddPatientController {
     @FXML private TextField lastField;
     @FXML private TextField birthField;
     @FXML private TextField addressField1;
-    @FXML private TextField addressField2;
+    @FXML private TextField diagnosis;
     @FXML private ChoiceBox sexChoice;
     @FXML private TextField phoneField;
+    @FXML private TextField soc;
     
     @FXML public void onAddPatient(ActionEvent click) throws Exception {
         try{
@@ -64,18 +65,21 @@ public class AddPatientController {
                                 !birthField.getText().trim().equals("") &&
                                 !addressField1.getText().trim().equals("") &&
                                 !sexChoice.getValue().equals("") &&
+                                !diagnosis.getText().trim().equals("") &&
+                                soc.getText().length() == 9 &&
                                 !(phoneField.getText().trim().equals("") ||
                                 phoneField.getText().trim().length() != 12)){
                             String first = firstField.getText().trim();
                             String last = lastField.getText().trim();
                             String birth = birthField.getText().trim();
-                            String addr = addressField1.getText().trim().concat(" ").
-                                    concat(addressField2.getText().trim());
+                            String addr = addressField1.getText().trim();
                             String sex = sexChoice.getValue().toString();
                             String phNum = phoneField.getText().trim();
+                            String social = soc.getText().trim();
+                            String diag = diagnosis.getText().trim();
                             
-                            String patQuery = "INSERT INTO `Patient_Info`(`FNAME`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`) "
-                                + "VALUES (?,?,?,?,?,?,?)";
+                            String patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`) "
+                                + "VALUES (?,?,?,?,?,?,?,?,?)";
                             
                             Connection conn = DBConfig.getConnection();
                             PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
@@ -87,6 +91,8 @@ public class AddPatientController {
                             addPat.setString(5, sex);
                             addPat.setString(6, phNum);
                             addPat.setString(7,"no");
+                            addPat.setString(8, social);
+                            addPat.setString(9, diag);
                             
                             System.out.println("Query Sent" + addPat.toString());
                             
