@@ -244,7 +244,7 @@ public class addUserController {
 		    	//on the outside top of the box
 		    	idNum.setTitle("Auto-Generated ID Number");
 		    	//in box itself
-		    	idNum.setHeaderText("ID Number: " + user.getID() + "\n" + "Password: " + user.getPasword());
+		    	idNum.setHeaderText("ID Number: " + user.getID() + "\n" + "Password: " + user.getPassword());
 		    	idNum.setContentText("New user created! " + user.getName() + " now has access to the Mentcare system.");
 		    	//displays the alert box
 		    	Optional<ButtonType> result = idNum.showAndWait();
