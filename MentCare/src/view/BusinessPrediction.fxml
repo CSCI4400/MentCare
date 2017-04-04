@@ -45,19 +45,17 @@
 
                <children>
 
-                  <Label text="Patients in a Week" />
+                  <Label text="Patients in last week" />
 
                   <Label fx:id="weekLabel" text="?" GridPane.columnIndex="1" />
 
-                  <Label text="Patients in a Month" GridPane.rowIndex="2" />
+                  <Label text="Patients in last month" GridPane.rowIndex="2" />
 
                   <Label fx:id="monthLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                  <Label text="Patients in a Year" GridPane.rowIndex="4" />
+                  <Label text="Patients in last year" GridPane.rowIndex="4" />
 
                   <Label fx:id="yearLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-
-                  <Button fx:id="historyButton" mnemonicParsing="false" onAction="#buttonClicked" text="History" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
                   <Button fx:id="backButton" mnemonicParsing="false" onAction="#buttonClicked" text="Back" GridPane.rowIndex="6" />
                   <Label text="Prediction for next week" GridPane.rowIndex="1" />
@@ -65,7 +63,7 @@
                   <Label text="Prediction for next month" GridPane.rowIndex="3" />
                   <Label text="Prediction for next year" GridPane.rowIndex="5" />
                   <Label fx:id="monthPredict" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="yearPredict" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
                </children>
 

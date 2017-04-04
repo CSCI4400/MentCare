@@ -51,7 +51,11 @@ public class BusinessPredictionController implements Initializable {
     @FXML private Label weekLabel;
     @FXML private Label monthLabel;
     @FXML private Label yearLabel;
-    @FXML private Button historyButton;
+
+    @FXML private Label weekPredict;
+    @FXML private Label monthPredict;
+    @FXML private Label yearPredict;
+    
     @FXML private Button backButton;
     
     /**
@@ -59,27 +63,24 @@ public class BusinessPredictionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	
-    	String today_date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    	int weekVal= 0;
+    	int monthVal = 0;
+    	int yearVal = 0;
+
+
         ResultSet rs = null;
 
-        String IDQuery = "SELECT COUNT(*) FROM Previous_Appointment WHERE `apDate` BETWEEN '2016-09-16'  AND '2017-03-01'";
+        String IDQuery = "SELECT COUNT(*) FROM Previous_Appointment WHERE DATE(apDate) > (NOW() - INTERVAL 7 DAY)";
 
         try (Connection conn = DBConfig.getConnection();
-
-             PreparedStatement getID = conn.prepareStatement(IDQuery, Statement.RETURN_GENERATED_KEYS);)
+             PreparedStatement getID = conn.prepareStatement(IDQuery, Statement.RETURN_GENERATED_KEYS))
         {
-            //print query
-
             System.out.println("Query Sent" + getID.toString());
-
-            //get the result set and execute query
             rs = getID.executeQuery();
-
             if (rs.next())
             {
-                System.out.println("Result " + rs);
-
+                weekVal =  ((Number) rs.getObject(1)).intValue();
+                System.out.print(weekVal);
             }
         }//end try
         catch (SQLException e) {
@@ -88,9 +89,57 @@ public class BusinessPredictionController implements Initializable {
         }//end catch
 
 
-        weekLabel.setText(rs.toString());
-        monthLabel.setText("Scooby-Doo");
-        yearLabel.setText("Scooby-Doo");
+        weekLabel.setText(Integer.toString(weekVal));
+        weekPredict.setText(Integer.toString(yearVal/52));
+
+
+
+        String IDQuery2 = "SELECT COUNT(*) FROM Previous_Appointment WHERE DATE(apDate) > (NOW() - INTERVAL 30 DAY)";
+
+        try (Connection conn = DBConfig.getConnection();
+             PreparedStatement getID = conn.prepareStatement(IDQuery2, Statement.RETURN_GENERATED_KEYS))
+        {
+            System.out.println("Query Sent" + getID.toString());
+            rs = getID.executeQuery();
+            if (rs.next())
+            {
+                monthVal =  ((Number) rs.getObject(1)).intValue();
+                System.out.print("\n" + monthVal);
+            }
+        }//end try
+
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }//end catch
+
+
+
+        monthLabel.setText(Integer.toString(monthVal));
+        monthPredict.setText(Integer.toString(yearVal/12));
+
+
+        String IDQuery3 = "SELECT COUNT(*) FROM Previous_Appointment WHERE DATE(apDate) > (NOW() - INTERVAL 365 DAY)";
+
+        try (Connection conn = DBConfig.getConnection();
+             PreparedStatement getID = conn.prepareStatement(IDQuery3, Statement.RETURN_GENERATED_KEYS))
+        {
+            System.out.println("Query Sent " + getID.toString());
+            rs = getID.executeQuery();
+            if (rs.next())
+            {
+                yearVal =  ((Number) rs.getObject(1)).intValue();
+                System.out.print(yearVal);
+            }
+        }//end try
+
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }//end catch
+
+        yearLabel.setText(Integer.toString(yearVal));
+        yearPredict.setText(Integer.toString(yearVal));
 
 
 
