@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BusinessPredictionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BusinessPredictionController">
 
    <children>
 
@@ -31,10 +31,13 @@
               <rowConstraints>
 
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 
@@ -42,21 +45,25 @@
 
                <children>
 
-                  <Label text="Patients in a Week" />
+                  <Label text="Patients in last week" />
 
                   <Label fx:id="weekLabel" text="?" GridPane.columnIndex="1" />
 
-                  <Label text="Patients in a Month" GridPane.rowIndex="1" />
+                  <Label text="Patients in last month" GridPane.rowIndex="2" />
 
-                  <Label fx:id="monthLabel" text="?" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="monthLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                  <Label text="Patients in a Year" GridPane.rowIndex="2" />
+                  <Label text="Patients in last year" GridPane.rowIndex="4" />
 
-                  <Label fx:id="yearLabel" text="?" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="yearLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                  <Button fx:id="historyButton" mnemonicParsing="false" onAction="#buttonClicked" text="History" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#buttonClicked" text="Back" GridPane.rowIndex="3" />
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#buttonClicked" text="Back" GridPane.rowIndex="6" />
+                  <Label text="Prediction for next week" GridPane.rowIndex="1" />
+                  <Label fx:id="weekPredict" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Prediction for next month" GridPane.rowIndex="3" />
+                  <Label text="Prediction for next year" GridPane.rowIndex="5" />
+                  <Label fx:id="monthPredict" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="yearPredict" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
                </children>
 

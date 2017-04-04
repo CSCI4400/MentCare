@@ -39,6 +39,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 
@@ -65,11 +66,11 @@
                   <Label text="Birthdate" GridPane.rowIndex="2" />
                   <TextField fx:id="birthField" promptText="YYYY-MM-DD" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                  <Label text="Address" GridPane.rowIndex="3" />
+                  <Label text="Address" GridPane.rowIndex="4" />
 
-                  <TextField fx:id="addressField1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="addressField1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                  <TextField fx:id="addressField2" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="diagnosis" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
                   <Label text="Sex" GridPane.rowIndex="5" />
 
@@ -93,9 +94,12 @@
 
                   <TextField fx:id="phoneField" promptText="xxx-xxx-xxxx" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddPatient" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddPatient" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onAddPatient" text="Back" GridPane.rowIndex="7" />
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onAddPatient" text="Back" GridPane.rowIndex="8" />
+                  <Label text="SSN" GridPane.rowIndex="3" />
+                  <TextField fx:id="soc" promptText="xxxxxxxxx" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Diagnosis" GridPane.rowIndex="7" />
 
                </children>
 
