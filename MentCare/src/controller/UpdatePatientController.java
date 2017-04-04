@@ -18,6 +18,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -55,10 +57,66 @@ public class UpdatePatientController {
             
             switch (source) {
 		case "addButton":
-                    root = FXMLLoader.load(getClass().getResource("/view/UpdatePatient.fxml"));
-                    UpdatePatientController act1 = new UpdatePatientController();
-                    act1.setMain(main);
+                    try{
+            stage = (Stage) ((Button) click.getSource()).getScene().getWindow();
+        
+            String source = ((Node) click.getSource()).getId();
+            
+            switch (source) {
+		case "addButton":
+			try{
+                if(!firstField.getText().trim().equals("") &&
+                        !lastField.getText().trim().equals("") &&
+                        !birthField.getText().trim().equals("") &&
+                        !addressField1.getText().trim().equals("") &&
+                        !sexChoice.getValue().equals("") &&
+                        !(phoneField.getText().trim().equals("") ||
+                        phoneField.getText().trim().length() != 12)){
+                    String first = firstField.getText().trim();
+                    String last = lastField.getText().trim();
+                    String birth = birthField.getText().trim();
+                    String addr = addressField1.getText().trim().concat(" ").
+                            concat(addressField2.getText().trim());
+                    String sex = sexChoice.getValue().toString();
+                    String phNum = phoneField.getText().trim();
+                    
+                    String patQuery = "UPDATE `Personal_Info` SET `LName` =  ?  , `FName` = ?, `BDate` = ?, `Address` =  ?, `Sex` = ? , `Phone_Number` = ? WHERE `FName` = '" + first + "' AND `LName` = '"+ last +"'";
+                    
+                    Connection conn = DBConfig.getConnection();
+                    PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
+                    
+                    addPat.setString(1, first);
+                    addPat.setString(2, last);
+                    addPat.setDate(3, Date.valueOf(birth));
+                    addPat.setString(4, addr);
+                    addPat.setString(5, sex);
+                    addPat.setString(6, phNum);
+                    
+                    System.out.println("Query Sent" + addPat.toString());
+                    
+                    int accepted  = addPat.executeUpdate();
+                    
+                    if(accepted == 1){
+                        root = FXMLLoader.load(getClass().getResource("/view/UpdatePatient.fxml"));
+                        UpdatePatientController act1 = new UpdatePatientController();
+                        act1.setMain(main);
+                        break;
+                    }
+                    else{
+                        System.out.println("Query failed");
+                        root = FXMLLoader.load(getClass().getResource("/view/UpdatePatient.fxml"));
+                        UpdatePatientController act1 = new UpdatePatientController();
+                        act1.setMain(main);
+                        break;
+                    }
+                    
+                }
+                else{
                     break;
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
                 case "backButton":
                     root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
                     patientViewController act2 = new patientViewController();
@@ -74,26 +132,5 @@ public class UpdatePatientController {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }
-	public void updatePatient(){
-    	try{
-    		Connection conn = DBConfig.getConnection();
-            	Statement stmt = conn.createStatement();
-            
-    		String fName = firstField.getText();
-    		String lName = lastField.getText();
-    		String bDate = birthField.getText();
-    		String address = addressField1.getText();
-    		String sex = sexChoice.getValue().toString();
-    		String pNumber = phoneField.getText();
-    	
-    		String query = "UPDATE `Personal_Info` SET `LName` =" + lName + ", `FName` =" + fName + ", `BDate` = " + bDate + ", `Address` = " + address + ", `Sex` = " + sex + 
-    			", `Phone_Number` = " + pNumber + "WHERE `FName` = " + fName + " AND `LName` = " + lName;
-    		
-    		stmt.executeUpdate(query);
-    	}
-    	catch (SQLException e){
-    		
-    	}
     }
 }
