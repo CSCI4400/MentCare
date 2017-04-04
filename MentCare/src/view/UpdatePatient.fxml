@@ -79,9 +79,9 @@
 
 				        <FXCollections fx:factory="observableArrayList">
 
-				            <String fx:value="Male" />
+				            <String fx:value="M" />
 
-				            <String fx:value="Female" />
+				            <String fx:value="F" />
 
 				        </FXCollections>
 
