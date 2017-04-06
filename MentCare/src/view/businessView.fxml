@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.patientViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.businessViewController">
    <children>
       <GridPane layoutX="-6.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0" styleClass="mentStyle" stylesheets="@../application/application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
@@ -53,24 +53,29 @@
             <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
          </rowConstraints>
          <children>
-            <Button  alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Add User" textFill="#010a66" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Add User" textFill="#010a66" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button  mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Update Patient" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Button mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Update Patient" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button  mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Buissness History" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="8">
+            <Button fx:id="bizHistoryButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Buissness History" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="8">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button  mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Buisness Prediction" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="12">
+            <Button fx:id="bizPredictionButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Buisness Prediction" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="12">
                <font>
                   <Font name="Georgia" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="missedAppointReportButton" mnemonicParsing="false" onAction="#ClickButton" text="Today's Missed Appointment Report" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="10">
+               <font>
+                  <Font name="Georgia" size="14.0" />
                </font>
             </Button>
 

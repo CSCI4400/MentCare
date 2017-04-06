@@ -9,7 +9,6 @@ import java.util.Collection;
 import application.MainFXApp;
 import controller.PatientDAO;
 import controller.PatientRecordsController;
-import controller.ViewMenuController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,7 +20,7 @@ import javafx.stage.Stage;
 import model.Patient;
 
 public class DiagnosisHistoryView {
-	
+
 	static Button backbutton = new Button("Back");
 	static Button deleteTemp = new Button("Delete Temporary Diagnoses");
 	static Button deleteExpired = new Button("Delete Expired Diagnoses");
@@ -30,35 +29,35 @@ public class DiagnosisHistoryView {
 	static String mostRecentDiagnQuery = "SELECT Diagnosis FROM mentcare.Diagnosis_History WHERE PNum = ?";
 	static String mostRecentDiagnosis = "";
 	static String resetCurrentDiagn = "UPDATE mentcare.Patient_Info SET mentcare.Patient_Info.Diagnosis = ? WHERE mentcare.Patient_Info.PNumber = ? ";
-	
+
 	public static void DiagnosisHistory(Patient a, Stage window){
 		GridPane DiagHistLayout = new GridPane();
 		VBox Diagnosis = new VBox();
 		VBox DocWhoDiagnosed = new VBox();
 		VBox DateOfDiagnosis = new VBox();
 		VBox DiagnIsTemp = new VBox();
-		
+
 		Diagnosis.setPadding(new Insets(15, 12, 15, 12));
 		Diagnosis.setSpacing(10);
 		Text t1 = new Text("Diagnosis: ");
 		Diagnosis.getChildren().add(t1);
-		
+
 		DocWhoDiagnosed.setPadding(new Insets(15, 12, 15, 12));
 		DocWhoDiagnosed.setSpacing(10);
 		Text t2 = new Text("Doctor Who Diagnosed: ");
 		DocWhoDiagnosed.getChildren().add(t2);
-		
-		
+
+
 		DateOfDiagnosis.setPadding(new Insets(15, 12, 15, 12));
 		DateOfDiagnosis.setSpacing(10);
 		Text t3 = new Text("Date of Diagnosis: ");
 		DateOfDiagnosis.getChildren().add(t3);
-		
+
 		DiagnIsTemp.setPadding(new Insets(15, 12, 15, 12));
 		DiagnIsTemp.setSpacing(10);;
 		Text t4 = new Text("Diagnosis is Temporary: ");
 		DiagnIsTemp.getChildren().add(t4);
-		
+
 		GridPane.setRowIndex(Diagnosis, 0);
 		GridPane.setColumnIndex(Diagnosis, 0);
 		GridPane.setRowIndex(DocWhoDiagnosed, 0);
@@ -67,10 +66,10 @@ public class DiagnosisHistoryView {
 		GridPane.setColumnIndex(DateOfDiagnosis, 2);
 		GridPane.setRowIndex(DiagnIsTemp, 0);
 		GridPane.setColumnIndex(DiagnIsTemp, 3);
-		
-		
+
+
 		String selhistory = "SELECT * FROM mentcare.Diagnosis_History WHERE ? = mentcare.Diagnosis_History.PNum";
-		
+
 		PreparedStatement pstmt;
 		Collection<String> Diagnoses = new ArrayList<>();
 		Collection<String> DoctorNames = new ArrayList<>();
@@ -88,27 +87,27 @@ public class DiagnosisHistoryView {
 			}
 			pstmt.close();
 			rs.close();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		for(String s : Diagnoses){
 			Label l = new Label(s);
 			Diagnosis.getChildren().add(l);
 		}
-		
+
 		for(String s: DoctorNames){
 			Label l = new Label(s);
 			DocWhoDiagnosed.getChildren().add(l);
 		}
-		
+
 		for(String s: DatesofD){
 			Label l = new Label(s);
 			DateOfDiagnosis.getChildren().add(l);
 		}
-		
+
 		for(Integer i: TemporaryStatus){
 			if(i == 0){
 				Label l = new Label("No");
@@ -119,17 +118,17 @@ public class DiagnosisHistoryView {
 				DiagnIsTemp.getChildren().add(l);
 			}
 		}
-		
+
 	    backbutton.setOnAction(e-> {
 	    	//PatientDAO.updatePatientInfo(a, 0);
 	    	PatientRecordsController.ViewPatientRecordsDoc(a, window);
-	    	
+
 	    });
-	    
+
 	    deleteTemp.setMinWidth(250);
-	    
+
 	    deleteTemp.setOnAction(e ->{
-	    	PreparedStatement prepstmt; 
+	    	PreparedStatement prepstmt;
 	    	try {
 				prepstmt = MainFXApp.con.prepareStatement(deleteTempDiagn);
 				prepstmt.execute();
@@ -139,7 +138,7 @@ public class DiagnosisHistoryView {
 				while(result.next()){
 					mostRecentDiagnosis = result.getString("Diagnosis");
 				}
-				
+
 				prepstmt = MainFXApp.con.prepareStatement(resetCurrentDiagn);
 				prepstmt.setString(1, mostRecentDiagnosis);
 				prepstmt.setInt(2, a.getPatientnum());
@@ -152,11 +151,11 @@ public class DiagnosisHistoryView {
 				e1.printStackTrace();
 			}
 	    	PatientRecordsController.ViewPatientRecordsDoc(a, window);
-	    	
+
 	    });
-	    
+
 	    deleteExpired.setMinWidth(250);
-	    
+
 	    deleteExpired.setOnAction(e ->{
 	    	PreparedStatement prepstmt;
 	    	try{
@@ -168,7 +167,7 @@ public class DiagnosisHistoryView {
 				while(result.next()){
 					mostRecentDiagnosis = result.getString("Diagnosis");
 				}
-				
+
 				prepstmt = MainFXApp.con.prepareStatement(resetCurrentDiagn);
 				prepstmt.setString(1, mostRecentDiagnosis);
 				prepstmt.setInt(2, a.getPatientnum());
@@ -182,13 +181,13 @@ public class DiagnosisHistoryView {
 			}
 	    	PatientRecordsController.ViewPatientRecordsDoc(a, window);
 	    });
-	    
+
 	    Diagnosis.getChildren().addAll(deleteTemp, deleteExpired, backbutton);
-	    
+
 	    DiagHistLayout.getChildren().addAll(Diagnosis, DocWhoDiagnosed, DateOfDiagnosis, DiagnIsTemp);
-		
+
 		Scene diaghistview = new Scene(DiagHistLayout, 700, 520);
-		
+
 		window.setScene(diaghistview);
 	}
 
