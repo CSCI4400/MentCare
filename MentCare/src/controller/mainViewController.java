@@ -39,7 +39,7 @@ public class mainViewController {
 	Parent root;
 
 	private static int numTab = 0;
-	
+
 
 	//always reference main method, and build constructor
 	private MainFXApp main;
@@ -47,27 +47,29 @@ public class mainViewController {
 	{
 	main=mainIn;
 	}
-	
+
 	public static void setTab(int t){
 		numTab = t;
 		System.out.println("SET: "+numTab);
 	}
-	
+
 	public static int getTab(){
 		return numTab;
 	}
 	@FXML private TabPane tpMenu = new TabPane();
-	@FXML AnchorPane apUser = new AnchorPane();
+
 	@FXML AnchorPane apAppointments = new AnchorPane();
 	@FXML AnchorPane apPatients = new AnchorPane();
-	@FXML Tab tbUsers = new Tab();
+	@FXML AnchorPane toBuisnessPane = new AnchorPane();
+
 	@FXML Tab tbAppointments = new Tab();
 	@FXML Tab tbPatients = new Tab();
 	@FXML Tab tbBusiness = new Tab();
 	@FXML SingleSelectionModel<Tab> selectionModel = tpMenu.getSelectionModel();
 
-	
+
 	public void initialize(){
+
 		
 		System.out.println(numTab);
 		switch(numTab){
@@ -86,25 +88,22 @@ public class mainViewController {
 			break;
 		}
 		numTab = 0;
-		
-		
+
+
 		//tpMenu.getTabs().remove(0); //This line can remove a tab at any given index (top index is 0)
 		tpMenu.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			  @Override public void changed(ObservableValue<? extends Tab> tab, Tab oldTab, Tab newTab) {
-				  	
-				  try {	
+
+				  try {
 					  String call = newTab.getId().toString();
 					  URL toPane;
 					  AnchorPane temp;
 					  switch(call)
 					  {
-					  case "tbUsers":
-						  // ADD MAIN USERS VIEW HERE
-						  // USE APPOINTMENTS AS EXAMPLE
-						  break;
+
 					  case "tbAppointments":
 						  toPane = getClass().getResource("/view/appointmentView.fxml");
-					      temp = FXMLLoader.load(toPane);     
+					      temp = FXMLLoader.load(toPane);
 					      apAppointments.getChildren().setAll(temp);
 						  break;
 					  case "tbPatients":
@@ -113,11 +112,12 @@ public class mainViewController {
 					      apPatients.getChildren().setAll(temp);
 						  break;
 					  case "tbBusiness":
-						  // ADD MAIN BUSINESS VIEW HERE
-						  // USE BUSINESS AS EXAMPLE
+						  toPane = getClass().getResource("/view/businessView.fxml");
+					      temp = FXMLLoader.load(toPane);
+					      toBuisnessPane.getChildren().setAll(temp);
 						  break;
 					  }
-					    
+
 				    } catch (IOException e) {
 				      e.printStackTrace();
 				    }

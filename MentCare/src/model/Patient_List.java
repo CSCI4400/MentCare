@@ -61,8 +61,8 @@ public class Patient_List  {
 		      last_name = resultSet.getString("last_name");
 		      email_address = resultSet.getString("email_address");
 		      home_address = resultSet.getString("home_address");
-		      last_visit = resultSet.getString("last_visit");
-		      next_visit = resultSet.getString("next_visit");
+		      //last_visit = resultSet.getString("last_visit");
+		      //next_visit = resultSet.getString("next_visit");
 		      ssn = resultSet.getString("ssn");
 		      photo = resultSet.getString("photo");
 
