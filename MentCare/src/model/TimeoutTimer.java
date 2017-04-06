@@ -1,10 +1,14 @@
 package model;
 
-import controller.ViewMenuController;
+
+import controller.mainViewController;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -12,13 +16,13 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class TimeoutTimer {
-	
+
 	Pane gp;
 	Stage window;
 	Point2D prevMousePos = new Point2D(0,0);
 	int timeOutDelay = 120;
 	PauseTransition checkMouse;
-	
+
 	public TimeoutTimer(Pane g, Stage w) {
 		gp = g;
 		window = w;
@@ -28,11 +32,11 @@ public class TimeoutTimer {
 		window = w;
 		timeOutDelay = TOD;
 	}
-	
+
 	public void start() {
 		ObjectProperty<Point2D> mouseLocation = new SimpleObjectProperty<>(new Point2D(0, 0)); //Create a container for the mouse position
 		gp.setOnMouseMoved(e -> mouseLocation.set(new Point2D(e.getX(), e.getY()))); //Fill the container with the mouse position
-		
+
 		checkMouse = new PauseTransition(Duration.seconds(timeOutDelay)); //Begin PauseTransition declaration
 		checkMouse.setOnFinished( event -> {
 			if (prevMousePos.getX() == mouseLocation.get().getX() && prevMousePos.getY() == mouseLocation.get().getY()) { //If the previous mouse position is equal to the current, then log out.
@@ -48,9 +52,10 @@ public class TimeoutTimer {
 		checkMouse.stop();
 	}
 	public void logOut() { //To be changed when we have a more robust login/logout system
-		ViewMenuController logOut = new ViewMenuController();
 		try {
-			logOut.start(window);
+			AnchorPane mainv = (AnchorPane) FXMLLoader.load(mainViewController.class.getResource("/view/mainView.fxml"));
+			Scene scene = new Scene(mainv,600,400);
+			window.setScene(scene);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}

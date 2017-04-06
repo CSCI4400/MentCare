@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.MainFXApp;
-import controller.ViewMenuController;
 
 public class DBConnection implements Runnable {
 	public static final String DBPASSWORD = "mentcare1"; //make sure to add password

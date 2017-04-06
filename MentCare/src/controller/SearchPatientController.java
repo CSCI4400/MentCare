@@ -23,7 +23,6 @@ public class SearchPatientController {
 	public static void searchPatientDoc(Stage window){
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		DoctorViewController docView = new DoctorViewController();
 		backbutton.setOnAction(e-> {
 			try {
 				AnchorPane mainv = (AnchorPane) FXMLLoader.load(mainViewController.class.getResource("/view/mainView.fxml"));
@@ -54,10 +53,11 @@ public class SearchPatientController {
 	public static void searchPatientRecep(Stage window){
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		ReceptionistViewController RView = new ReceptionistViewController();
 		backbutton.setOnAction(e-> {
 			try {
-				RView.start(window);
+				AnchorPane mainv = (AnchorPane) FXMLLoader.load(mainViewController.class.getResource("/view/mainView.fxml"));
+				Scene scene = new Scene(mainv,600,400);
+				window.setScene(scene);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
