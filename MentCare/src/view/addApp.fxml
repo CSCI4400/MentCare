@@ -18,7 +18,7 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <TextField fx:id="patientName" layoutX="190.0" layoutY="142.0" prefHeight="31.0" prefWidth="218.0" promptText="Last Name, First Name">
+      <TextField fx:id="patientName" editable="false" layoutX="190.0" layoutY="142.0" prefHeight="31.0" prefWidth="218.0" promptText="Last Name, First Name">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></TextField>
@@ -93,7 +93,7 @@
             <Font name="Georgia" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="patientPhone" layoutX="190.0" layoutY="194.0" prefHeight="31.0" prefWidth="218.0" promptText="(###) ### - ####">
+      <TextField fx:id="patientPhone" editable="false" layoutX="190.0" layoutY="194.0" prefHeight="31.0" prefWidth="218.0" promptText="(###) ### - ####">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
@@ -101,6 +101,16 @@
       <Label layoutX="50.0" layoutY="200.0" text="Patient Phone:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="searchBtn" layoutX="436.0" layoutY="93.0" mnemonicParsing="false" onAction="#searchPatient" text="Search" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblErrPatient" layoutX="438.0" layoutY="133.0" prefHeight="19.0" prefWidth="191.0" textFill="#ff5016" wrapText="true">
+         <font>
+            <Font name="Georgia Bold Italic" size="15.0" />
          </font>
       </Label>
    </children>
