@@ -33,6 +33,9 @@ public class patientViewController {
 	//Button added to fxml by TigerWooos
 	@FXML
 	private Button patientListButton;
+	//button added to fxml by Butterscotch
+	@FXML
+    private Button psychButton;
 
 
 	@FXML
@@ -75,6 +78,12 @@ public class patientViewController {
 				root = FXMLLoader.load(getClass().getResource("/view/PatientListView.fxml"));
 				InformationHistoryController con4 = new InformationHistoryController();
 				con4.setMain(main);
+				break;
+			case "psychButton":
+				//added by Butterscotch
+				root = FXMLLoader.load(getClass().getResource("/view/psychView.fxml"));
+				psychController con6 = new psychController();
+				con6.setMain(main);
 				break;
 			default:
 				root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));

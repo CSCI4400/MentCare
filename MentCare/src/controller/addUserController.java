@@ -276,7 +276,10 @@ public class addUserController {
     	stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 		root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
 		scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
+		//*************************deleted by butterscotch
+		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		//**************************
 		stage.setScene(scene);
 		
     }

@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import view.MissedAppointmentReportView;
+import controller.addUserController;
 
 public class businessViewController {
 
@@ -31,6 +32,10 @@ public class businessViewController {
 
     @FXML
     private Button missedAppointReportButton;
+    
+    //added by butterscotch
+    @FXML
+    private Button userButton;
 
     @FXML
     void ClickButton(ActionEvent event) {
@@ -49,11 +54,23 @@ public class businessViewController {
 			case "missedAppointReportButton":
 				MissedAppointmentReportView.MissedAppointmentReport(stage);
 				break;
+			case "userButton":
+				//added by butterscotch*********************
+				root = FXMLLoader.load(getClass().getResource("/view/addUserView.fxml"));
+				addUserController con2=new addUserController();
+				con2.setMain(main);
+				break;
 
-    }
+			}
+			//added by butterscotch*********************************
+			// sets fxml file as a scene
+			scene = new Scene(root);
+			// loads the scene on top of whatever stage the button is in
+			stage.setScene(scene);
+			//******************************************************
     	}catch (Exception e) {
 			e.printStackTrace();
 		}
 
-}
+    }
 }
