@@ -92,7 +92,7 @@ public class psychController {
 	@FXML
 	void ClickBackBtn (ActionEvent event) throws Exception{
 		stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-		root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
+		root = FXMLLoader.load(getClass().getResource("/view/patientView.fxml"));
 		scene = new Scene(root);
 		stage.setScene(scene);
 	}
