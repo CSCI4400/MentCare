@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Patient;
@@ -31,33 +32,51 @@ public class DiagnosisHistoryView {
 	static String resetCurrentDiagn = "UPDATE mentcare.Patient_Info SET mentcare.Patient_Info.Diagnosis = ? WHERE mentcare.Patient_Info.PNumber = ? ";
 
 	public static void DiagnosisHistory(Patient a, Stage window){
+
+		backbutton.setFont(Font.font("Georgia", 15));
+		deleteTemp.setFont(Font.font("Georgia", 15));
+		deleteExpired.setFont(Font.font("Georgia", 15));
+
+
+		//This method controls the view for the Diagnosis History view.
+		//Since the view is dynamic and the number of labels is not known in advance,
+		//it is not an FXML file
 		GridPane DiagHistLayout = new GridPane();
 		VBox Diagnosis = new VBox();
 		VBox DocWhoDiagnosed = new VBox();
 		VBox DateOfDiagnosis = new VBox();
 		VBox DiagnIsTemp = new VBox();
 
+
+		//label for Diagnosis column
 		Diagnosis.setPadding(new Insets(15, 12, 15, 12));
 		Diagnosis.setSpacing(10);
 		Text t1 = new Text("Diagnosis: ");
+		t1.setFont(Font.font("Georgia", 15));
 		Diagnosis.getChildren().add(t1);
 
+		//label for Doctor Who Diagnosed column
 		DocWhoDiagnosed.setPadding(new Insets(15, 12, 15, 12));
 		DocWhoDiagnosed.setSpacing(10);
 		Text t2 = new Text("Doctor Who Diagnosed: ");
+		t2.setFont(Font.font("Georgia", 15));
 		DocWhoDiagnosed.getChildren().add(t2);
 
 
+		//Label for Date of Diagnosis column
 		DateOfDiagnosis.setPadding(new Insets(15, 12, 15, 12));
 		DateOfDiagnosis.setSpacing(10);
 		Text t3 = new Text("Date of Diagnosis: ");
+		t3.setFont(Font.font("Georgia", 15));
 		DateOfDiagnosis.getChildren().add(t3);
 
 		DiagnIsTemp.setPadding(new Insets(15, 12, 15, 12));
 		DiagnIsTemp.setSpacing(10);;
 		Text t4 = new Text("Diagnosis is Temporary: ");
+		t4.setFont(Font.font("Georgia", 15));
 		DiagnIsTemp.getChildren().add(t4);
 
+		//Sets up layout for columns
 		GridPane.setRowIndex(Diagnosis, 0);
 		GridPane.setColumnIndex(Diagnosis, 0);
 		GridPane.setRowIndex(DocWhoDiagnosed, 0);
@@ -68,9 +87,11 @@ public class DiagnosisHistoryView {
 		GridPane.setColumnIndex(DiagnIsTemp, 3);
 
 
+		//Query to get the diagnosis history from the database
 		String selhistory = "SELECT * FROM mentcare.Diagnosis_History WHERE ? = mentcare.Diagnosis_History.PNum";
 
 		PreparedStatement pstmt;
+		//Array Lists for holding the lists of info for each column
 		Collection<String> Diagnoses = new ArrayList<>();
 		Collection<String> DoctorNames = new ArrayList<>();
 		Collection<String> DatesofD = new ArrayList<>();
@@ -94,44 +115,57 @@ public class DiagnosisHistoryView {
 		}
 
 		for(String s : Diagnoses){
+			//adds labels for each diagnosis entry in the database
 			Label l = new Label(s);
+			l.setFont(Font.font("Georgia", 15));
 			Diagnosis.getChildren().add(l);
 		}
 
 		for(String s: DoctorNames){
+			//adds labels for each doctor who diagnosed entry in the database
 			Label l = new Label(s);
+			l.setFont(Font.font("Georgia", 15));
 			DocWhoDiagnosed.getChildren().add(l);
 		}
 
 		for(String s: DatesofD){
+			//adds labels for each date of diagnosis entry in the database
 			Label l = new Label(s);
+			l.setFont(Font.font("Georgia", 15));
 			DateOfDiagnosis.getChildren().add(l);
 		}
 
 		for(Integer i: TemporaryStatus){
+			//adds labels to indicate if a diagnosis is temporary
 			if(i == 0){
 				Label l = new Label("No");
+				l.setFont(Font.font("Georgia", 15));
 				DiagnIsTemp.getChildren().add(l);
 			}
 			else if(i == 1){
 				Label l = new Label("Yes");
+				l.setFont(Font.font("Georgia", 15));
 				DiagnIsTemp.getChildren().add(l);
 			}
 		}
 
 	    backbutton.setOnAction(e-> {
-	    	//PatientDAO.updatePatientInfo(a, 0);
+	    	//Back button returns to the patient records view for a doctor.
 	    	PatientRecordsController.ViewPatientRecordsDoc(a, window);
 
 	    });
 
+	    //Setting a minimum width to ensure readability
 	    deleteTemp.setMinWidth(250);
 
 	    deleteTemp.setOnAction(e ->{
 	    	PreparedStatement prepstmt;
 	    	try {
+	    		//Executes the query that deletes all temporary diagnoses for the current patient
 				prepstmt = MainFXApp.con.prepareStatement(deleteTempDiagn);
 				prepstmt.execute();
+				//Resets the diagnosis for the patient to the last non-temporary diagnosis
+				//Gets the last diagnosis
 				prepstmt = MainFXApp.con.prepareStatement(mostRecentDiagnQuery);
 				prepstmt.setInt(1, a.getPatientnum());
 				ResultSet result = prepstmt.executeQuery();
@@ -139,12 +173,14 @@ public class DiagnosisHistoryView {
 					mostRecentDiagnosis = result.getString("Diagnosis");
 				}
 
+				//Resets the diagnosis for the patient to the last non-temp diagnosis
 				prepstmt = MainFXApp.con.prepareStatement(resetCurrentDiagn);
 				prepstmt.setString(1, mostRecentDiagnosis);
 				prepstmt.setInt(2, a.getPatientnum());
 				prepstmt.execute();
 				result.close();
 				prepstmt.close();
+				//Updates the current patient object to reflect the new state of the database
 				a.setDiagnosis(mostRecentDiagnosis);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block

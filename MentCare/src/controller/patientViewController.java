@@ -70,7 +70,9 @@ public class patientViewController {
 			case "searchPatientButton":
 				//Currently searches as if the person using is a doctor.
 				//Add code here to call search for a receptionist or search for a doc based on
-				//who is logged in
+				//who is logged in. The method for receptionist is also static and is called
+				// earchPatientRecep. It takes the same argument (the current stage) and the
+				//back button on both search methods returns to the main menu.
 				SearchPatientController.searchPatientDoc(stage);
 				break;
 				//CKS button loads patient list created by TigerWoods

@@ -20,10 +20,13 @@ public class SearchPatientController {
 	static String pid; //used to store the ID# of the patient whose record is being looked at
 	static String patientsearch = "Search";
 
-	public static void searchPatientDoc(Stage window){
+	public static void searchPatientDoc(Stage window){//This search method is for a doctor, so it
+		//calls the method for the patient view that has medical info
+		//sets up layout, since the view is dynamic and not contained in an FXML file
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
 		backbutton.setOnAction(e-> {
+			//back button returns to the main menu
 			try {
 				AnchorPane mainv = (AnchorPane) FXMLLoader.load(mainViewController.class.getResource("/view/mainView.fxml"));
 				Scene scene = new Scene(mainv,600,400);
@@ -35,12 +38,15 @@ public class SearchPatientController {
 		});
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
+			//gets the patient id number. Currently there is no error checking.
 			pid = patientidinput.getText();
+			//validate input and add searching by fields other than id number here
 			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 0, window);
 			a = new Patient();
 			a.setPatientnum(Integer.parseInt(pid));
-			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
-			//Feeds the results obtained from the database to the 'patientrecords' menu
+			//Calls the static method for displaying patient record info for a doctor.
+			//This means that medical info is displayed. Parameters are a patient object and the
+			//current stage
 			PatientRecordsController.ViewPatientRecordsDoc(a, window);
 		});
 		window.setTitle(patientsearch);
@@ -50,10 +56,12 @@ public class SearchPatientController {
 
 	}
 
-	public static void searchPatientRecep(Stage window){
+	public static void searchPatientRecep(Stage window){//This search button is for a receptionist,so
+		//it calls the patient view that does not have medical info
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
 		backbutton.setOnAction(e-> {
+			//back button returns to the main menu
 			try {
 				AnchorPane mainv = (AnchorPane) FXMLLoader.load(mainViewController.class.getResource("/view/mainView.fxml"));
 				Scene scene = new Scene(mainv,600,400);
@@ -66,11 +74,13 @@ public class SearchPatientController {
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			pid = patientidinput.getText();
+			//validate input and add searching by fields other than id number here
 			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 1, window);
 			a = new Patient();
 			a.setPatientnum(Integer.parseInt(pid));
-			//These strings represents the prepared statements that will be executed to retrieve the patient info from the database
-			//Feeds the results obtained from the database to the 'patientrecords' menu
+			//Calls the static method for displaying patient record info for a receptionist.
+			//This means that there is no medical or diagnosis info displayed.
+			//Parameters are the patient object and the current stage.
 			PatientRecordsController.ViewPatientRecordsRecep(a, window);
 		});
 		window.setTitle(patientsearch);
