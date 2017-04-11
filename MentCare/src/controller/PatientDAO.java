@@ -19,11 +19,12 @@ import model.Patient;
 public class PatientDAO {
 	public static Patient getPatientInfo(int patientnum, int accesslevel, Stage window) {
 		Patient a = new Patient();
+		//Query for getting the current patient info
 		String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare.Patient_Info WHERE ? = mentcare.Patient_Info.PNumber";
-		int pnum = -1; //The variables passed to the 'patientrcords' method are initiated to blank values
 
 
 			try {
+				//queries the database for the current patient info
 				PreparedStatement pstmt = MainFXApp.con.prepareStatement(selectPinfoStmt);
 				pstmt.setInt(1, patientnum);
 				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
@@ -48,9 +49,11 @@ public class PatientDAO {
 			Platform.runLater(new Runnable() {
 				public void run() {
 					if(accesslevel == 0){
+						//Goes to the patient records screen for a Doctor
 						PatientRecordsController.ViewPatientRecordsDoc(a, window);
 					}
 					if(accesslevel == 1){
+						//Goes to the patient records screen for a receptionist
 						PatientRecordsController.ViewPatientRecordsRecep(a, window);
 					}
 
@@ -62,16 +65,22 @@ public class PatientDAO {
 	public static void updatePatientInfo(Patient a, int DiagnosisCode) {
 		//DiagnosisCode indicates whether diagnosis is permanent or temporary
 		System.out.println("Record updater starting");
+		//Query for updating patient info in the database
 		String updatePersonalInfo = "UPDATE mentcare.Patient_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Ssn = ?, Last_Visit = ? WHERE PNumber = ? ";
+		//Query for updating diagnosis in the database. Needs to be a separate query to handle diagnosis history
 		String updateDiagnosis= "UPDATE mentcare.Patient_Info SET Diagnosis = ? WHERE PNumber = ?";
+		//Query for adding a new entry to the diagnosis history
 		String insertIntoDiagHistory = "INSERT INTO mentcare.Diagnosis_History VALUES ( ?, ?, ?, ?, ? )";
+		//Query for getting the current diagnosis for a patient
 		String selectCurrentDiag = "SELECT mentcare.Patient_Info.Diagnosis FROM mentcare.Patient_Info WHERE ? = PNumber";
+		//Query for checking if a patient is dead
 		String checkDeath = "SELECT Dead FROM mentcare.Patient_Info WHERE ? = PNumber";
 
 		try {
 			Connection Con;
 			PreparedStatement pstmt;
 
+			//Sets up a connection to the database
 			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBConnection.DBPASSWORD);
 			pstmt = Con.prepareStatement(checkDeath);
 			pstmt.setInt(1, a.getPatientnum());
@@ -82,6 +91,7 @@ public class PatientDAO {
 			}
 
 			if("no".equals(Dead.get(0))){
+				//Only updates if a patient is dead
 
 				pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the patient info table
 				pstmt.setString(1, a.getFirstname());
@@ -103,6 +113,7 @@ public class PatientDAO {
 					Diagnoses.add(rs.getString("Diagnosis"));
 				}
 					if(!Diagnoses.get(0).equals(a.getDiagnosis())){
+						//Updates diagnosis history table if diagnosis has been changed
 						pstmt = Con.prepareStatement(insertIntoDiagHistory);
 						pstmt.setInt(1, a.getPatientnum());
 						pstmt.setString(2, a.getDiagnosis());
@@ -119,6 +130,9 @@ public class PatientDAO {
 					pstmt.close();
 			}
 			else{
+				//Alert box. This is a fall back that confirms that an update did not occur since
+				//a patient is dead. This code should not be reachable if the database is working
+				//correctly because the update button will be disabled for a dead patient
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information Alert");
 				alert.setHeaderText("Update did not occur");
