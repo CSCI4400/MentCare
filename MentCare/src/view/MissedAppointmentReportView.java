@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Patient;
 
@@ -34,6 +35,15 @@ public class MissedAppointmentReportView{
 	static Label report = new Label("Today's Missed Appointments");
 
 	public static void MissedAppointmentReport(Stage window){
+		//This is a report that counts the missed appointments for the day
+		//It also lists the first name, last name, and phone number for the patients that missed
+
+		backbutton.setFont(Font.font("Georgia", 15));
+		tMissed.setFont(Font.font("Georgia", 15));
+		fnames.setFont(Font.font("Georgia", 15));
+		lnames.setFont(Font.font("Georgia", 15));
+		phones.setFont(Font.font("Georgia", 15));
+		report.setFont(Font.font("Georgia", 15));
 
 		backbutton.setOnAction(e -> {
 			try {
@@ -46,6 +56,7 @@ public class MissedAppointmentReportView{
 			}
 		});
 
+		//Setting up style for the column headers
 		report.setStyle("-fx-font-weight: bold");
 		report.setPadding(new Insets(0, 0, 0, 220));
 
@@ -92,12 +103,16 @@ public class MissedAppointmentReportView{
 		int totalabsent = 0;
 
 		try {
+			//Queries the database to count the number of missed appointments for today
 			pstmt = MainFXApp.con.prepareStatement(countmissedquery);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
 				totalabsent = rs.getInt(1);
 			}
 
+
+			//Queries the database to get the first name, last name, and phone number of the
+			//patients who had missed appointments today
 			pstmt = MainFXApp.con.prepareStatement(getabsenteeinfo);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -113,27 +128,35 @@ public class MissedAppointmentReportView{
 		}
 
 		//Add info from database to report
+		//adds labels for the first name values
 		for(String s : FirstNames){
 			Label l = new Label(s);
+			l.setFont(Font.font("Georgia", 15));
 			l.setPadding(new Insets(0, 0, 0, 60));
 			Fnames.getChildren().add(l);
 		}
 
+		//adds labels for the last name values
 		for(String s : LastNames){
 			Label l = new Label(s);
+			l.setFont(Font.font("Georgia", 15));
 			l.setPadding(new Insets(0, 0, 0, 60));
 			Lnames.getChildren().add(l);
 		}
 
+		//adds labels for the phone number values
 		for(String s : PhoneNumbers){
 			Label l = new Label(s);
+			l.setFont(Font.font("Georgia", 15));
 			l.setPadding(new Insets(0, 0, 0, 30));
 			PhoneNums.getChildren().add(l);
 		}
 
 
 
+		//Adds a label with the total number of absences
 		Label absentcount = new Label(Integer.toString(totalabsent));
+		absentcount.setFont(Font.font("Georgia", 15));
 		absentcount.setPadding(new Insets(0, 0, 0, 70));
 
 		totalMissed.getChildren().add(absentcount);
@@ -147,7 +170,7 @@ public class MissedAppointmentReportView{
 		mainLayout.setCenter(MissedAppointmentLayout);
 		mainLayout.setBottom(backbutton);
 
-		Scene MissedReport = new Scene(mainLayout, 700, 600);
+		Scene MissedReport = new Scene(mainLayout, 900, 600);
 
 		window.setScene(MissedReport);
 

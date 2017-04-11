@@ -222,7 +222,7 @@ public class DiagnosisHistoryView {
 
 	    DiagHistLayout.getChildren().addAll(Diagnosis, DocWhoDiagnosed, DateOfDiagnosis, DiagnIsTemp);
 
-		Scene diaghistview = new Scene(DiagHistLayout, 700, 520);
+		Scene diaghistview = new Scene(DiagHistLayout, 900, 520);
 
 		window.setScene(diaghistview);
 	}
