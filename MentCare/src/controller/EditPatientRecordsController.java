@@ -37,9 +37,9 @@ public class EditPatientRecordsController {
 	public static Text lastvisitl = new Text("Last Visit Was: ");
 	static CheckBox tempDiagnosis = new CheckBox("Diagnosis is temporary");
 	//Query to check if the patient is dead
-	static String deathCheck = "SELECT mentcare.Patient_Info.Dead FROM mentcare.Patient_Info WHERE mentcare.Patient_Info.PNumber = ?";
+	static String deathCheck = "SELECT mentcare2.Personal_Info.Dead FROM mentcare2.Personal_Info WHERE mentcare2.Personal_Info.PNumber = ?";
 	//Query to set a patient as dead in the database
-	static String setDead = "UPDATE mentcare.Patient_Info SET mentcare.Patient_Info.Dead = 'yes' WHERE PNumber = ? ";
+	static String setDead = "UPDATE mentcare2.Personal_Info SET mentcare2.Personal_Info.Dead = 'yes' WHERE PNumber = ? ";
 
 	public static void DocEditPatientRecords(Patient a, Stage window){//This method controls
 		//editing a patient as a Doctor. This means that medical info is editable.

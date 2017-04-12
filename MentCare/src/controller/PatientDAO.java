@@ -20,7 +20,7 @@ public class PatientDAO {
 	public static Patient getPatientInfo(int patientnum, int accesslevel, Stage window) {
 		Patient a = new Patient();
 		//Query for getting the current patient info
-		String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare.Patient_Info WHERE ? = mentcare.Patient_Info.PNumber";
+		String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
 
 
 			try {
@@ -66,15 +66,15 @@ public class PatientDAO {
 		//DiagnosisCode indicates whether diagnosis is permanent or temporary
 		System.out.println("Record updater starting");
 		//Query for updating patient info in the database
-		String updatePersonalInfo = "UPDATE mentcare.Patient_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Ssn = ?, Last_Visit = ? WHERE PNumber = ? ";
+		String updatePersonalInfo = "UPDATE mentcare2.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Ssn = ?, Last_Visit = ? WHERE PNumber = ? ";
 		//Query for updating diagnosis in the database. Needs to be a separate query to handle diagnosis history
-		String updateDiagnosis= "UPDATE mentcare.Patient_Info SET Diagnosis = ? WHERE PNumber = ?";
+		String updateDiagnosis= "UPDATE mentcare2.Personal_Info SET Diagnosis = ? WHERE PNumber = ?";
 		//Query for adding a new entry to the diagnosis history
-		String insertIntoDiagHistory = "INSERT INTO mentcare.Diagnosis_History VALUES ( ?, ?, ?, ?, ? )";
+		String insertIntoDiagHistory = "INSERT INTO mentcare2.Diagnosis_History VALUES ( ?, ?, ?, ?, ? )";
 		//Query for getting the current diagnosis for a patient
-		String selectCurrentDiag = "SELECT mentcare.Patient_Info.Diagnosis FROM mentcare.Patient_Info WHERE ? = PNumber";
+		String selectCurrentDiag = "SELECT mentcare2.Personal_Info.Diagnosis FROM mentcare2.Personal_Info WHERE ? = PNumber";
 		//Query for checking if a patient is dead
-		String checkDeath = "SELECT Dead FROM mentcare.Patient_Info WHERE ? = PNumber";
+		String checkDeath = "SELECT Dead FROM mentcare2.Personal_Info WHERE ? = PNumber";
 
 		try {
 			Connection Con;
