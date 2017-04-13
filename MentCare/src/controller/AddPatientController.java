@@ -28,17 +28,17 @@ import javafx.stage.Stage;
  * @author sad2e
  */
 public class AddPatientController {
-    
+
     Stage stage;
     Scene scene;
     Parent root;
-    
+
     private MainFXApp main;
-    
+
     public void setMain(MainFXApp mainIn){
         main = mainIn;
     }
-    
+
     @FXML private Button addButton;
     @FXML private Button backButton;
     @FXML private TextField firstField;
@@ -49,13 +49,13 @@ public class AddPatientController {
     @FXML private ChoiceBox sexChoice;
     @FXML private TextField phoneField;
     @FXML private TextField soc;
-    
+
     @FXML public void onAddPatient(ActionEvent click) throws Exception {
         try{
             stage = (Stage) ((Button) click.getSource()).getScene().getWindow();
-        
+
             String source = ((Node) click.getSource()).getId();
-            
+
             switch (source) {
 		case "addButton":
                     try{
@@ -76,13 +76,13 @@ public class AddPatientController {
                             String phNum = phoneField.getText().trim();
                             String social = soc.getText().trim();
                             String diag = diagnosis.getText().trim();
-                            
+
                             String patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`) "
                                 + "VALUES (?,?,?,?,?,?,?,?,?)";
-                            
+
                             Connection conn = DBConfig.getConnection();
                             PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
-                            
+
                             addPat.setString(1, first);
                             addPat.setString(2, last);
                             addPat.setDate(3, Date.valueOf(birth));
@@ -92,11 +92,11 @@ public class AddPatientController {
                             addPat.setString(7,"no");
                             addPat.setString(8, social);
                             addPat.setString(9, diag);
-                            
+
                             System.out.println("Query Sent" + addPat.toString());
-                            
+
                             int accepted  = addPat.executeUpdate();
-                            
+
                             if(accepted == 1){
                                 root = FXMLLoader.load(getClass().getResource("/view/AddPatient.fxml"));
                                 AddPatientController act1 = new AddPatientController();
@@ -110,7 +110,7 @@ public class AddPatientController {
                                 act1.setMain(main);
                                 break;
                             }
-                            
+
                         }
                         else{
                             break;
@@ -118,7 +118,7 @@ public class AddPatientController {
                     }catch(Exception e){
                         e.printStackTrace();
                     }
-                    
+
                 case "backButton":
                     root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
                     patientViewController act2 = new patientViewController();
@@ -134,5 +134,5 @@ public class AddPatientController {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }   
+    }
 }

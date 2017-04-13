@@ -25,11 +25,11 @@ public class DiagnosisHistoryView {
 	static Button backbutton = new Button("Back");
 	static Button deleteTemp = new Button("Delete Temporary Diagnoses");
 	static Button deleteExpired = new Button("Delete Expired Diagnoses");
-	static String deleteTempDiagn = "DELETE FROM mentcare.Diagnosis_History WHERE mentcare.Diagnosis_History.Diagnosis_is_temp = 1";
-	static String deleteExpiredDiagn = "DELETE FROM mentcare.Diagnosis_History WHERE Diagnosis_is_temp = 1 AND DATEDIFF(CURDATE(), Date_of_diag) > 14";
-	static String mostRecentDiagnQuery = "SELECT Diagnosis FROM mentcare.Diagnosis_History WHERE PNum = ?";
+	static String deleteTempDiagn = "DELETE FROM mentcare2.Diagnosis_History WHERE mentcare2.Diagnosis_History.Diagnosis_is_temp = 1";
+	static String deleteExpiredDiagn = "DELETE FROM mentcare2.Diagnosis_History WHERE Diagnosis_is_temp = 1 AND DATEDIFF(CURDATE(), Date_of_diag) > 14";
+	static String mostRecentDiagnQuery = "SELECT Diagnosis FROM mentcare2.Diagnosis_History WHERE PNum = ?";
 	static String mostRecentDiagnosis = "";
-	static String resetCurrentDiagn = "UPDATE mentcare.Patient_Info SET mentcare.Patient_Info.Diagnosis = ? WHERE mentcare.Patient_Info.PNumber = ? ";
+	static String resetCurrentDiagn = "UPDATE mentcare2.Patient_Info SET mentcare2.Patient_Info.Diagnosis = ? WHERE mentcare2.Patient_Info.PNumber = ? ";
 
 	public static void DiagnosisHistory(Patient a, Stage window){
 
@@ -88,7 +88,7 @@ public class DiagnosisHistoryView {
 
 
 		//Query to get the diagnosis history from the database
-		String selhistory = "SELECT * FROM mentcare.Diagnosis_History WHERE ? = mentcare.Diagnosis_History.PNum";
+		String selhistory = "SELECT * FROM mentcare2.Diagnosis_History WHERE ? = mentcare2.Diagnosis_History.PNum";
 
 		PreparedStatement pstmt;
 		//Array Lists for holding the lists of info for each column
