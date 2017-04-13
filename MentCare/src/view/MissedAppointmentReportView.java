@@ -26,8 +26,8 @@ public class MissedAppointmentReportView{
 
 	static Button backbutton = new Button("Back");
 
-	static private String countmissedquery = "SELECT COUNT(*) FROM mentcare.Missed_Appointment WHERE missed = 1 AND mentcare.Missed_Appointment.apdate = CURDATE()";
-	static private String getabsenteeinfo = "SELECT Fname, LNAME, Phone_Number FROM mentcare.Patient_Info, mentcare.Missed_Appointment WHERE mentcare.Missed_Appointment.PNum = mentcare.Patient_Info.PNumber AND mentcare.Missed_Appointment.missed = 1 AND mentcare.Missed_Appointment.apDate = CURDATE();";
+	static private String countmissedquery = "SELECT COUNT(*) FROM mentcare2.Missed_Appointment WHERE missed = 1 AND mentcare2.Missed_Appointment.apdate = CURDATE()";
+	static private String getabsenteeinfo = "SELECT Fname, LNAME, Phone_Number FROM mentcare2.Personal_Info, mentcare2.Missed_Appointment WHERE mentcare2.Missed_Appointment.PNum = mentcare2.Personal_Info.PNumber AND mentcare2.Missed_Appointment.missed = 1 AND mentcare2.Missed_Appointment.apDate = CURDATE();";
 	static Label tMissed = new Label("Total Missed Appointments: ");
 	static Label fnames = new Label("Absentee First Name: ");
 	static Label lnames = new Label("Absentee Last Name: ");

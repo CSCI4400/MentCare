@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Patient;
 
@@ -23,6 +24,11 @@ public class SearchPatientController {
 	public static void searchPatientDoc(Stage window){//This search method is for a doctor, so it
 		//calls the method for the patient view that has medical info
 		//sets up layout, since the view is dynamic and not contained in an FXML file
+		backbutton.setFont(Font.font("Georgia", 15));
+		searchbutton.setFont(Font.font("Georgia", 15));
+		patientidl.setFont(Font.font("Georgia", 15));
+
+
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
 		backbutton.setOnAction(e-> {
@@ -58,6 +64,11 @@ public class SearchPatientController {
 
 	public static void searchPatientRecep(Stage window){//This search button is for a receptionist,so
 		//it calls the patient view that does not have medical info
+
+		backbutton.setFont(Font.font("Georgia", 15));
+		searchbutton.setFont(Font.font("Georgia", 15));
+		patientidl.setFont(Font.font("Georgia", 15));
+
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
 		backbutton.setOnAction(e-> {

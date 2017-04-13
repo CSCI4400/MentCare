@@ -25,11 +25,11 @@ public class DiagnosisHistoryView {
 	static Button backbutton = new Button("Back");
 	static Button deleteTemp = new Button("Delete Temporary Diagnoses");
 	static Button deleteExpired = new Button("Delete Expired Diagnoses");
-	static String deleteTempDiagn = "DELETE FROM mentcare.Diagnosis_History WHERE mentcare.Diagnosis_History.Diagnosis_is_temp = 1";
-	static String deleteExpiredDiagn = "DELETE FROM mentcare.Diagnosis_History WHERE Diagnosis_is_temp = 1 AND DATEDIFF(CURDATE(), Date_of_diag) > 14";
-	static String mostRecentDiagnQuery = "SELECT Diagnosis FROM mentcare.Diagnosis_History WHERE PNum = ?";
+	static String deleteTempDiagn = "DELETE FROM mentcare2.Diagnosis_History WHERE mentcare2.Diagnosis_History.Diagnosis_is_temp = 1";
+	static String deleteExpiredDiagn = "DELETE FROM mentcare2.Diagnosis_History WHERE Diagnosis_is_temp = 1 AND DATEDIFF(CURDATE(), Date_of_diag) > 14";
+	static String mostRecentDiagnQuery = "SELECT Diagnosis FROM mentcare2.Diagnosis_History WHERE PNum = ?";
 	static String mostRecentDiagnosis = "";
-	static String resetCurrentDiagn = "UPDATE mentcare.Patient_Info SET mentcare.Patient_Info.Diagnosis = ? WHERE mentcare.Patient_Info.PNumber = ? ";
+	static String resetCurrentDiagn = "UPDATE mentcare2.Patient_Info SET mentcare2.Patient_Info.Diagnosis = ? WHERE mentcare2.Patient_Info.PNumber = ? ";
 
 	public static void DiagnosisHistory(Patient a, Stage window){
 
@@ -53,6 +53,7 @@ public class DiagnosisHistoryView {
 		Diagnosis.setSpacing(10);
 		Text t1 = new Text("Diagnosis: ");
 		t1.setFont(Font.font("Georgia", 15));
+		t1.setStyle("-fx-font-weight: bold");
 		Diagnosis.getChildren().add(t1);
 
 		//label for Doctor Who Diagnosed column
@@ -60,6 +61,7 @@ public class DiagnosisHistoryView {
 		DocWhoDiagnosed.setSpacing(10);
 		Text t2 = new Text("Doctor Who Diagnosed: ");
 		t2.setFont(Font.font("Georgia", 15));
+		t2.setStyle("-fx-font-weight: bold");
 		DocWhoDiagnosed.getChildren().add(t2);
 
 
@@ -68,12 +70,14 @@ public class DiagnosisHistoryView {
 		DateOfDiagnosis.setSpacing(10);
 		Text t3 = new Text("Date of Diagnosis: ");
 		t3.setFont(Font.font("Georgia", 15));
+		t3.setStyle("-fx-font-weight: bold");
 		DateOfDiagnosis.getChildren().add(t3);
 
 		DiagnIsTemp.setPadding(new Insets(15, 12, 15, 12));
 		DiagnIsTemp.setSpacing(10);;
 		Text t4 = new Text("Diagnosis is Temporary: ");
 		t4.setFont(Font.font("Georgia", 15));
+		t4.setStyle("-fx-font-weight: bold");
 		DiagnIsTemp.getChildren().add(t4);
 
 		//Sets up layout for columns
@@ -88,7 +92,7 @@ public class DiagnosisHistoryView {
 
 
 		//Query to get the diagnosis history from the database
-		String selhistory = "SELECT * FROM mentcare.Diagnosis_History WHERE ? = mentcare.Diagnosis_History.PNum";
+		String selhistory = "SELECT * FROM mentcare2.Diagnosis_History WHERE ? = mentcare2.Diagnosis_History.PNum";
 
 		PreparedStatement pstmt;
 		//Array Lists for holding the lists of info for each column
