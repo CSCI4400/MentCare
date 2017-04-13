@@ -14,6 +14,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Patient;
@@ -50,6 +51,45 @@ public class EditPatientRecordsController {
 		TextField sex = new TextField(a.getGender()); TextField phonenum = new TextField(a.getPhoneNumber());
 		TextField social = new TextField(a.getSsn()); TextField lastapt = new TextField((a.getLastVisit()).toString());
 		TextField diago = new TextField(a.getDiagnosis());
+
+		//Setting font for buttons
+		backbutton.setFont(Font.font("Georgia", 15));
+		updatebutton.setFont(Font.font("Georgia", 15));
+		deathlabel.setFont(Font.font("Georgia", 15));
+		yesdead.setFont(Font.font("Georgia", 15));
+		nodead.setFont(Font.font("Georgia", 15));
+
+		//Setting up fonts for labels
+		firstnamel.setFont(Font.font("Georgia", 15));
+		firstnamel.setStyle("-fx-font-weight: bold");
+		lastnamel.setFont(Font.font("Georgia", 15));
+		lastnamel.setStyle("-fx-font-weight: bold");
+		birthdatel.setFont(Font.font("Georgia", 15));
+		birthdatel.setStyle("-fx-font-weight: bold");
+		homeaddressl.setFont(Font.font("Georgia", 15));
+		homeaddressl.setStyle("-fx-font-weight: bold");
+		genderl.setFont(Font.font("Georgia", 15));
+		genderl.setStyle("-fx-font-weight: bold");
+		phonenumberl.setFont(Font.font("Georgia", 15));
+		phonenumberl.setStyle("-fx-font-weight: bold");
+		diagnosisl.setFont(Font.font("Georgia", 15));
+		diagnosisl.setStyle("-fx-font-weight: bold");
+		ssnl.setFont(Font.font("Georgia", 15));
+		ssnl.setStyle("-fx-font-weight: bold");
+		lastvisitl.setFont(Font.font("Georgia", 15));
+		lastvisitl.setStyle("-fx-font-weight: bold");
+
+
+		//Setting up fonts for patient information
+		fname.setFont(Font.font("Georgia", 15));
+		lname.setFont(Font.font("Georgia", 15));
+		birthdate.setFont(Font.font("Georgia", 15));
+		addr.setFont(Font.font("Georgia", 15));
+		sex.setFont(Font.font("Georgia", 15));
+		phonenum.setFont(Font.font("Georgia", 15));
+		social.setFont(Font.font("Georgia", 15));
+		lastapt.setFont(Font.font("Georgia", 15));
+		diago.setFont(Font.font("Georgia", 15));
 
 		//Sets up a ToggleGroup so that the yes and no buttons for indicating if a patient is dead
 		//are mutually exclusive
@@ -130,7 +170,7 @@ public class EditPatientRecordsController {
 		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, diagnosisl, diago , tempDiagnosis, ssnl, social, lastvisitl, lastapt, deathlabel, yesdead, nodead, updatebutton, backbutton);
 
 
-		Scene recordeditor = new Scene(layout3, 680, 720);
+		Scene recordeditor = new Scene(layout3, 680, 800);
 		window.setScene(recordeditor);
 	}
 
@@ -141,9 +181,45 @@ public class EditPatientRecordsController {
 		TextField fname = new TextField(a.getFirstname()); TextField lname = new TextField(a.getLastname());
 		TextField birthdate = new TextField((a.getBirthdate()).toString()); TextField addr = new TextField(a.getAddress());
 		TextField sex = new TextField(a.getGender()); TextField phonenum = new TextField(a.getPhoneNumber());
-		TextField social = new TextField(a.getSsn()); TextField lastapt = new TextField((a.getLastVisit()).toString());
-		TextField diago = new TextField(a.getDiagnosis());
+		TextField lastapt = new TextField((a.getLastVisit()).toString());
 
+
+		//Setting font for buttons
+		backbutton.setFont(Font.font("Georgia", 15));
+		updatebutton.setFont(Font.font("Georgia", 15));
+		deathlabel.setFont(Font.font("Georgia", 15));
+		yesdead.setFont(Font.font("Georgia", 15));
+		nodead.setFont(Font.font("Georgia", 15));
+
+		//Setting up fonts for labels
+		firstnamel.setFont(Font.font("Georgia", 15));
+		firstnamel.setStyle("-fx-font-weight: bold");
+		lastnamel.setFont(Font.font("Georgia", 15));
+		lastnamel.setStyle("-fx-font-weight: bold");
+		birthdatel.setFont(Font.font("Georgia", 15));
+		birthdatel.setStyle("-fx-font-weight: bold");
+		homeaddressl.setFont(Font.font("Georgia", 15));
+		homeaddressl.setStyle("-fx-font-weight: bold");
+		genderl.setFont(Font.font("Georgia", 15));
+		genderl.setStyle("-fx-font-weight: bold");
+		phonenumberl.setFont(Font.font("Georgia", 15));
+		phonenumberl.setStyle("-fx-font-weight: bold");
+		diagnosisl.setFont(Font.font("Georgia", 15));
+		diagnosisl.setStyle("-fx-font-weight: bold");
+		ssnl.setFont(Font.font("Georgia", 15));
+		ssnl.setStyle("-fx-font-weight: bold");
+		lastvisitl.setFont(Font.font("Georgia", 15));
+		lastvisitl.setStyle("-fx-font-weight: bold");
+
+		//Setting up fonts for patient information
+				fname.setFont(Font.font("Georgia", 15));
+				lname.setFont(Font.font("Georgia", 15));
+				birthdate.setFont(Font.font("Georgia", 15));
+				addr.setFont(Font.font("Georgia", 15));
+				sex.setFont(Font.font("Georgia", 15));
+				phonenum.setFont(Font.font("Georgia", 15));
+
+				lastapt.setFont(Font.font("Georgia", 15));
 		try {
 			//Check to see if the patient is dead
 			PreparedStatement pstmt = MainFXApp.con.prepareStatement(deathCheck);
@@ -171,7 +247,7 @@ public class EditPatientRecordsController {
 
 		updatebutton.setOnAction( e -> {
 			//Updates the patient object first
-			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
+			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), a.getSsn(), LocalDate.parse(lastapt.getText()), a.getDiagnosis(), a.getPatientnum());
 
 			//Calls the method to update a patient record in the database as a receptionist
 			PatientDAO.updatePatientInfo(a, 0);
@@ -189,7 +265,7 @@ public class EditPatientRecordsController {
 		layout3.getChildren().addAll(firstnamel, fname, lastnamel, lname, birthdatel, birthdate, homeaddressl, addr, genderl, sex, phonenumberl, phonenum, lastvisitl, lastapt, updatebutton, backbutton);
 
 
-		Scene recordeditor = new Scene(layout3, 680, 680);
+		Scene recordeditor = new Scene(layout3, 680, 750);
 		window.setScene(recordeditor);
 
 	}

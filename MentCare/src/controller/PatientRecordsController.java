@@ -31,7 +31,7 @@ public class PatientRecordsController {
 	public static Text ssnl = new Text("SSN: ");
 	public static Text lastvisitl = new Text("Last Visit Was: ");
 	//This is the database query to check if a patient is dead
-	static String deathCheck = "SELECT mentcare.Patient_Info.Dead FROM mentcare.Patient_Info WHERE mentcare.Patient_Info.PNumber = ?";
+	static String deathCheck = "SELECT mentcare2.Personal_Info.Dead FROM mentcare2.Personal_Info WHERE mentcare2.Personal_Info.PNumber = ?";
 
 	public static void ViewPatientRecordsDoc(Patient a, Stage window){
 		//This method is the patient record viewer for a doctor.
