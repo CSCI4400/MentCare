@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.time.LocalDate;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -77,8 +79,8 @@ public class AddPatientController {
                             String social = soc.getText().trim();
                             String diag = diagnosis.getText().trim();
 
-                            String patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`) "
-                                + "VALUES (?,?,?,?,?,?,?,?,?)";
+                            String patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`, `Last_Visit`) "
+                                + "VALUES (?,?,?,?,?,?,?,?,?,?)";
 
                             Connection conn = DBConfig.getConnection();
                             PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
@@ -92,6 +94,7 @@ public class AddPatientController {
                             addPat.setString(7,"no");
                             addPat.setString(8, social);
                             addPat.setString(9, diag);
+                            addPat.setObject(10, LocalDate.now());
 
                             System.out.println("Query Sent" + addPat.toString());
 
