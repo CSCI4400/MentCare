@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Patient;
@@ -39,6 +40,42 @@ public class PatientRecordsController {
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
 		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());
 		Label diagnosis = new Label(a.getDiagnosis()); Label Ssn = new Label(a.getSsn()); Label lastapt = new Label((a.getLastVisit()).toString());
+
+		//Sets font of labels
+		firstnamel.setFont(Font.font("Georgia", 15));
+		firstnamel.setStyle("-fx-font-weight: bold");
+		lastnamel.setFont(Font.font("Georgia", 15));
+		lastnamel.setStyle("-fx-font-weight: bold");
+		birthdatel.setFont(Font.font("Georgia", 15));
+		birthdatel.setStyle("-fx-font-weight: bold");
+		homeaddressl.setFont(Font.font("Georgia", 15));
+		homeaddressl.setStyle("-fx-font-weight: bold");
+		genderl.setFont(Font.font("Georgia", 15));
+		genderl.setStyle("-fx-font-weight: bold");
+		phonenumberl.setFont(Font.font("Georgia", 15));
+		phonenumberl.setStyle("-fx-font-weight: bold");
+		diagnosisl.setFont(Font.font("Georgia", 15));
+		diagnosisl.setStyle("-fx-font-weight: bold");
+		ssnl.setFont(Font.font("Georgia", 15));
+		ssnl.setStyle("-fx-font-weight: bold");
+		lastvisitl.setFont(Font.font("Georgia", 15));
+		lastvisitl.setStyle("-fx-font-weight: bold");
+
+		//Sets font of patient information
+		firstname.setFont(Font.font("Georgia", 15));
+		lastname.setFont(Font.font("Georgia", 15));
+		birthdate.setFont(Font.font("Georgia", 15));
+		homeaddress.setFont(Font.font("Georgia", 15));
+		gender.setFont(Font.font("Georgia", 15));
+		phonenumber.setFont(Font.font("Georgia", 15));
+		diagnosis.setFont(Font.font("Georgia", 15));
+		Ssn.setFont(Font.font("Georgia", 15));
+		lastapt.setFont(Font.font("Georgia", 15));
+
+		diagnosishistorybutton.setFont(Font.font("Georgia", 15));
+		backbutton.setFont(Font.font("Georgia", 15));
+		updatebutton.setFont(Font.font("Georgia", 15));
+
 		try {
 			//Prepares a query and checks the database to see if the patient is dead
 			PreparedStatement pstmt = MainFXApp.con.prepareStatement(deathCheck);
@@ -87,6 +124,41 @@ public class PatientRecordsController {
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
 		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());
 		Label lastapt = new Label((a.getLastVisit()).toString());
+
+		//Sets font of labels
+		firstnamel.setFont(Font.font("Georgia", 15));
+		firstnamel.setStyle("-fx-font-weight: bold");
+		lastnamel.setFont(Font.font("Georgia", 15));
+		lastnamel.setStyle("-fx-font-weight: bold");
+		birthdatel.setFont(Font.font("Georgia", 15));
+		birthdatel.setStyle("-fx-font-weight: bold");
+		homeaddressl.setFont(Font.font("Georgia", 15));
+		homeaddressl.setStyle("-fx-font-weight: bold");
+		genderl.setFont(Font.font("Georgia", 15));
+		genderl.setStyle("-fx-font-weight: bold");
+		phonenumberl.setFont(Font.font("Georgia", 15));
+		phonenumberl.setStyle("-fx-font-weight: bold");
+		diagnosisl.setFont(Font.font("Georgia", 15));
+		diagnosisl.setStyle("-fx-font-weight: bold");
+		ssnl.setFont(Font.font("Georgia", 15));
+		ssnl.setStyle("-fx-font-weight: bold");
+		lastvisitl.setFont(Font.font("Georgia", 15));
+		lastvisitl.setStyle("-fx-font-weight: bold");
+
+		//Sets font of patient information
+		firstname.setFont(Font.font("Georgia", 15));
+		lastname.setFont(Font.font("Georgia", 15));
+		birthdate.setFont(Font.font("Georgia", 15));
+		homeaddress.setFont(Font.font("Georgia", 15));
+		gender.setFont(Font.font("Georgia", 15));
+		phonenumber.setFont(Font.font("Georgia", 15));
+		lastapt.setFont(Font.font("Georgia", 15));
+
+		diagnosishistorybutton.setFont(Font.font("Georgia", 15));
+		backbutton.setFont(Font.font("Georgia", 15));
+		updatebutton.setFont(Font.font("Georgia", 15));
+
+
 		try {
 			//Queries the database to check if the patient is dead.
 			//Works the same way as in the doctor view above
