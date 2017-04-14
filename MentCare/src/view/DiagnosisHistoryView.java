@@ -29,7 +29,7 @@ public class DiagnosisHistoryView {
 	static String deleteExpiredDiagn = "DELETE FROM mentcare2.Diagnosis_History WHERE Diagnosis_is_temp = 1 AND DATEDIFF(CURDATE(), Date_of_diag) > 14";
 	static String mostRecentDiagnQuery = "SELECT Diagnosis FROM mentcare2.Diagnosis_History WHERE PNum = ?";
 	static String mostRecentDiagnosis = "";
-	static String resetCurrentDiagn = "UPDATE mentcare2.Patient_Info SET mentcare2.Patient_Info.Diagnosis = ? WHERE mentcare2.Patient_Info.PNumber = ? ";
+	static String resetCurrentDiagn = "UPDATE mentcare2.Personal_Info SET mentcare2.Personal_Info.Diagnosis = ? WHERE mentcare2.Personal_Info.PNumber = ? ";
 
 	public static void DiagnosisHistory(Patient a, Stage window){
 
