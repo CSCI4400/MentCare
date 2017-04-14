@@ -14,7 +14,7 @@ public class Patient_History {
 
 				    // Connect to a database
 				    java.sql.Connection connection = DriverManager.getConnection
-							("jdbc:mysql://198.71.227.86:3306/mentcare_db", "TeamTigerWoods", "GOATGOAT");
+							("jdbc:mysql://164.132.49.5:3306/mentcare2", "mentcare", "mentcare1");
 				    System.out.println("Database connected");
 
 				    // Create a statement

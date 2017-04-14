@@ -39,7 +39,7 @@ public class loginController {
 	//create a current user object to store info in, make it static so other classes can access it
 	public static final currentUser loggedOnUser = new currentUser();
 	//---End Anna 1-----------------------------------------------------------------------------------------------
-
+	
 		
 	
 	//sets main in Main.java 
@@ -63,6 +63,7 @@ public class loginController {
 			lblErrLogIn.setText("");
 			//stores textfield data in variables
 			String idNum = tfUserID.getText(), password = pfPassword.getText();
+			
 			//checks to see if the user is in the db
 			if(checkLogIn(idNum, password)){
 				//stores identifying number for a specific type in a variable

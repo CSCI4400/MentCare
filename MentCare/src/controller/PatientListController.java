@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -66,7 +67,10 @@ public class PatientListController  {
     protected Label nextVisitLabel;
     @FXML
     protected Label homeAddressLabel;
-
+    @FXML
+    protected Label phoneNumberLabel;
+    @FXML
+    protected Label lastChangedByLabel;
     //Text Areas
     @FXML
     protected TextArea patientHistory;
@@ -81,6 +85,10 @@ public class PatientListController  {
     //Buttons
     @FXML Button changeAddressButton;
     @FXML Button backButton;
+    @FXML Button update_patient;
+    @FXML Button add_patient;
+
+
 
 
 
@@ -102,7 +110,7 @@ public class PatientListController  {
 
 	}
 
-	 @FXML public void backButtonAction(ActionEvent click) throws Exception {
+	 @FXML public void MenuButtonAction(ActionEvent click) throws Exception {
 	        try{
 	            stage = (Stage) ((Button) click.getSource()).getScene().getWindow();
 
@@ -114,6 +122,19 @@ public class PatientListController  {
 	                    patientViewController act2 = new patientViewController();
 	                    act2.setMain(main);
 	                    break;
+
+	                case "update_patient":
+	                    root = FXMLLoader.load(getClass().getResource("/view/UpdatePatient.fxml"));
+	                    patientViewController act3 = new patientViewController();
+	                    act3.setMain(main);
+	                    break;
+
+	                case "add_patient":
+	                    root = FXMLLoader.load(getClass().getResource("/view/AddPatient.fxml"));
+	                    patientViewController act4 = new patientViewController();
+	                    act4.setMain(main);
+	                    break;
+
 			default:
 	                    break;
 	            }
@@ -125,7 +146,6 @@ public class PatientListController  {
 	            e.printStackTrace();
 	        }
 	    }
-
 
 
 
@@ -217,15 +237,17 @@ public class PatientListController  {
 
 	         lastNameLabel.setText(patient.getLast_name());
 
-	         ssnLabel.setText(patient.getssn());
+	         //ssnLabel.setText(patient.getssn());
 
-	         lastVisitLabel.setText(patient.getLast_visit());
+	         //lastVisitLabel.setText(patient.getLast_visit());
 
-	         nextVisitLabel.setText(patient.getNext_visit());
+	         //nextVisitLabel.setText(patient.getNext_visit());
 
 	         homeAddressLabel.setText(patient.getHome_address());
 
+	         phoneNumberLabel.setText(patient.getPhone_Number());
 
+	         lastChangedByLabel.setText(patient.getLast_Changed_By());
 
 	         //Patient History
 	         Patient_History hist = new Patient_History(patient);
