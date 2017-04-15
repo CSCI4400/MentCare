@@ -205,16 +205,16 @@ public class PatientRecordsController {
 		//backbutton currently goes to the Doctor search.
 		//Should be an if statement that calls appropriate search (Doctor or Receptionist)
 		backbutton.setOnAction(e-> {
-		if(loginController.loggedOnUser.getRole().equals("Doctor")){
+		/*if(loginController.loggedOnUser.getRole().equals("Doctor")){
 			SearchPatientController.searchPatientDoc(window);
 		}
 		else if(loginController.loggedOnUser.getRole().equals("Receptionist")){
 			SearchPatientController.searchPatientRecep(window);
 		}
-		else{
+		else{*/
 			//Fall back for testing, delete once login system is up and running
 			SearchPatientController.searchPatientDoc(window);
-		}
+		//}
 		});
 		layout4.getChildren().addAll(noPatientFound, backbutton);
 		Scene noPatientFoundLayout = new Scene(layout4, 500, 500);

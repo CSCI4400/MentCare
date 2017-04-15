@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,10 +29,23 @@ public class SearchPatientController {
 		backbutton.setFont(Font.font("Georgia", 15));
 		searchbutton.setFont(Font.font("Georgia", 15));
 		patientidl.setFont(Font.font("Georgia", 15));
+		
+		
 
 
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
+		
+		patientidinput.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")){
+					patientidinput.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+				
+			}
+		});
+		
 		backbutton.setOnAction(e-> {
 			//back button returns to the main menu
 			try {
@@ -45,6 +60,7 @@ public class SearchPatientController {
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			//gets the patient id number. Currently there is no error checking.
+			
 			pid = patientidinput.getText();
 			//validate input and add searching by fields other than id number here
 			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
