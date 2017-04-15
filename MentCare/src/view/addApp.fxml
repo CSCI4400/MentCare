@@ -108,7 +108,7 @@
             <Font name="Georgia" size="15.0" />
          </font>
       </Button>
-      <Label fx:id="lblErrPatient" layoutX="438.0" layoutY="133.0" prefHeight="19.0" prefWidth="191.0" textFill="#ff5016" wrapText="true">
+      <Label fx:id="lblErrPatient" layoutX="438.0" layoutY="133.0" prefHeight="19.0" prefWidth="191.0" textFill="#ff5619" wrapText="true">
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font>
