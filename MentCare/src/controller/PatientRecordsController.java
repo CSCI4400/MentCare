@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Patient;
+import model.currentUser;
 import view.DiagnosisHistoryView;
 
 public class PatientRecordsController {
@@ -203,7 +204,18 @@ public class PatientRecordsController {
 		noPatientFound.setFont(Font.font("Georgia", 15));
 		//backbutton currently goes to the Doctor search.
 		//Should be an if statement that calls appropriate search (Doctor or Receptionist)
-		backbutton.setOnAction(e-> SearchPatientController.searchPatientDoc(window));
+		backbutton.setOnAction(e-> {
+		if(loginController.loggedOnUser.getRole().equals("Doctor")){
+			SearchPatientController.searchPatientDoc(window);
+		}
+		else if(loginController.loggedOnUser.getRole().equals("Receptionist")){
+			SearchPatientController.searchPatientRecep(window);
+		}
+		else{
+			//Fall back for testing, delete once login system is up and running
+			SearchPatientController.searchPatientDoc(window);
+		}
+		});
 		layout4.getChildren().addAll(noPatientFound, backbutton);
 		Scene noPatientFoundLayout = new Scene(layout4, 500, 500);
 		window.setScene(noPatientFoundLayout);
