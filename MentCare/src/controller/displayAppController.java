@@ -1,3 +1,6 @@
+//Changes on 4/15/17
+	//updated to mentcare2
+
 package controller;
 
 import java.sql.Connection;
@@ -104,7 +107,7 @@ public class displayAppController{
 	    	System.out.println(today);
 	    	String AppNum, Pnum, Pname, DocID, apDate, apTime, missed, passed, phoneNum;
 	    	//pulls all data from Current_Appointment db table
-			String getData = ("SELECT * FROM `mentcare`.`Current_Appointment`");
+			String getData = ("SELECT * FROM `mentcare2`.`Current_Appointment`");
 			//connects to db
 			Connection conn = DBConfig.getConnection();
 
@@ -152,7 +155,7 @@ public class displayAppController{
 		   			//moves past appointments from Current_Appointment db table into Missed_Appointment db table
 
 		    		//passes data based on date and time of appointment from current to missed appointment db tables
-			 		String currToMiss = ("INSERT INTO `mentcare`.`Missed_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
+			 		String currToMiss = ("INSERT INTO `mentcare2`.`Missed_Appointment`(AppID, Pnum, Pname, DocId, apDate, apTime) "
 		 				+ "SELECT AppID, Pnum, Pname, DocID, apDate, apTime FROM Current_Appointment WHERE `apDate`='" + findDate
 		 				+ "' AND `apTime`='" + findTime + "';");
 
@@ -160,7 +163,7 @@ public class displayAppController{
 					ps2.execute();
 			   		System.out.println(currToMiss);
 				 	//deletes from Current_Appointment db table
-			   		String delcurrApp = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + findDate +
+			   		String delcurrApp = ("DELETE FROM `mentcare2`.`Current_Appointment` WHERE `apDate`='" + findDate +
 		   				 "' AND `apTime`='" + findTime + "';");
 
 		    		PreparedStatement ps3 = conn.prepareStatement(delcurrApp);
@@ -219,7 +222,7 @@ public class displayAppController{
 			Connection conn = DBConfig.getConnection();
 	    	if(btnAttend.isArmed() == true){
 		 		//passes from current to past appointment db tables
-		 		String currToPass = ("INSERT INTO `mentcare`.`Previous_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
+		 		String currToPass = ("INSERT INTO `mentcare2`.`Previous_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
 		 				+ "SELECT AppID, Pnum, Pname, DocID, apDate, apTime FROM Current_Appointment WHERE `apDate`='" + dateTemp
 		 				+ "' AND `apTime`='" + timeTemp + "';");
 		   		System.out.println(currToPass);
@@ -227,7 +230,7 @@ public class displayAppController{
 		   		PreparedStatement ps4 = conn.prepareStatement(currToPass);
 			 	ps4.execute();
 			 	//deletes from current appointment
-	    		String delcurrAttend = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
+	    		String delcurrAttend = ("DELETE FROM `mentcare2`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 	   				 "' AND `apTime`='" + timeTemp + "';");
 	   		 	System.out.println(delcurrAttend);
 
@@ -238,7 +241,7 @@ public class displayAppController{
 	    	}else if(btnMiss.isArmed() == true){
 	    		try{//try2
 	    			//gets data from the row at that date and time -> always unique
-		    		String getData = ("SELECT * FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
+		    		String getData = ("SELECT * FROM `mentcare2`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 		   				 "' AND `apTime`='" + timeTemp + "';");
 
 		    		//sends request
@@ -301,11 +304,11 @@ public class displayAppController{
 				    		pReason = "No reason was given.";
 				    	}
 			    		//pass from current to miss appointment
-						String currToMiss = ("INSERT INTO `mentcare`.`Missed_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
+						String currToMiss = ("INSERT INTO `mentcare2`.`Missed_Appointment`(AppID, Pnum, Pname, DocId, apDate, apTime) "
 								+ "SELECT AppID, Pnum, Pname, DocID, apDate, apTime FROM Current_Appointment WHERE `apDate`='" + dateTemp
 								+ "' AND `apTime`='" + timeTemp + "';");
 						//sends reason for missing appointment to Missing_Appointment db table
-				 		String missReason = ("UPDATE `mentcare`.`Missed_Appointment` SET `ReasonMissed`='" + pReason + "' WHERE `apDate`='" + dateTemp
+				 		String missReason = ("UPDATE `mentcare2`.`Missed_Appointment` SET `ReasonMissed`='" + pReason + "' WHERE `apDate`='" + dateTemp
 								+ "' AND `apTime`='" + timeTemp + "';");
 
 				   		PreparedStatement ps7 = conn.prepareStatement(currToMiss);
@@ -315,7 +318,7 @@ public class displayAppController{
 					 	System.out.println(currToMiss);
 				   		System.out.println(missReason);
 					 	//deletes from current appointment
-					 	String delcurAtten = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
+					 	String delcurAtten = ("DELETE FROM `mentcare2`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 				   				 "' AND `apTime`='" + timeTemp + "';");
 
 				   		PreparedStatement ps9 = conn.prepareStatement(delcurAtten);
@@ -372,7 +375,7 @@ public class displayAppController{
 		    					  + "-fx-font-family: georgia;");
 		    	confirm.setTitle("Cancel Appointment");
 		    	//gets data from the row at that date and time -> always unique
-	    		String getData = ("SELECT * FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
+	    		String getData = ("SELECT * FROM `mentcare2`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 	   				 "' AND `apTime`='" + timeTemp + "';");
 	    		Connection conn = DBConfig.getConnection();
 
@@ -391,7 +394,7 @@ public class displayAppController{
 	    		Optional<ButtonType> res = confirm.showAndWait();
 	    		//if the user clicks the YES button -> sends table row information to db
 		    	if(res.get() == ButtonType.YES){
-		    		String delCurr = ("DELETE FROM `mentcare`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
+		    		String delCurr = ("DELETE FROM `mentcare2`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 	    			 "' AND `apTime`='" + timeTemp + "';"); 
 	    			System.out.println(delCurr);
 	    			//sends request
@@ -562,7 +565,7 @@ public class displayAppController{
 
 			tempList.clear();
 			appList.clear();
-		    String query = ("select * from mentcare.Current_Appointment where apDate='" + enterDate + "'"); //that is for the date in textfield!
+		    String query = ("select * from mentcare2.Current_Appointment where apDate='" + enterDate + "'"); //that is for the date in textfield!
 		    Connection conn = DBConfig.getConnection();
 			Statement statement = conn.createStatement();
 	    	ResultSet RS = null;
@@ -645,7 +648,7 @@ public class displayAppController{
 	    		 }
 	    	}
 
-	    	String queryV = ("select * from mentcare.Current_Appointment where ");
+	    	String queryV = ("select * from mentcare2.Current_Appointment where ");
 	    	for(int p = 0; p<date.length; p++){
 	    		if(p!=(date.length-1)){
 	    			queryV  = queryV + ("apDate='"+ date[p] +"' or ");
@@ -705,7 +708,7 @@ public class displayAppController{
     	System.out.println("Display All Button pressed");
     	try{
     		tempList.clear();
-    		String query = ("select * from mentcare.Current_Appointment");
+    		String query = ("select * from mentcare2.Current_Appointment");
     		Connection conn = DBConfig.getConnection();
     		Statement statement = conn.createStatement();
         	ResultSet RS = null;
