@@ -16,29 +16,41 @@ import javafx.stage.Stage;
 import model.DBConnection;
 import model.Patient;
 
+
 public class PatientDAO {
-	public static Patient getPatientInfo(int patientnum, int accesslevel, Stage window) {
+	
+	static Boolean noPatientFound = false;
+
+	public static Patient getPatientInfo(int patientnum, Stage window) {
 		Patient a = new Patient();
 		//Query for getting the current patient info
-		String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
+		String selectPinfoStmtPnum = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
 
 
 			try {
 				//queries the database for the current patient info
-				PreparedStatement pstmt = MainFXApp.con.prepareStatement(selectPinfoStmt);
+				PreparedStatement pstmt = MainFXApp.con.prepareStatement(selectPinfoStmtPnum);
 				pstmt.setInt(1, patientnum);
 				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
-				while(rs.next()){ //Gets the information from the "Personal Info" table
-					a.setPatientnum(rs.getInt("PNumber"));
-					a.setFirstname(rs.getString("Fname"));
-					a.setLastname(rs.getString("Lname"));
-					a.setAddress(rs.getString("Address"));
-					a.setGender(rs.getString("Sex"));
-					a.setPhoneNumber(rs.getString("Phone_Number"));
-					a.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
-					a.setDiagnosis(rs.getString("Diagnosis"));
-					//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
-					a.setSsn(rs.getString("Ssn"));
+				if(!rs.isBeforeFirst()){
+					//This means that there is no patient with the patient ID number entered
+					System.out.println("No patient found");
+					noPatientFound = true;
+				}
+				else{
+					noPatientFound = false;
+					while(rs.next()){ //Gets the information from the "Personal Info" table
+						a.setPatientnum(rs.getInt("PNumber"));
+						a.setFirstname(rs.getString("Fname"));
+						a.setLastname(rs.getString("Lname"));
+						a.setAddress(rs.getString("Address"));
+						a.setGender(rs.getString("Sex"));
+						a.setPhoneNumber(rs.getString("Phone_Number"));
+						a.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
+						a.setDiagnosis(rs.getString("Diagnosis"));
+						//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
+						a.setSsn(rs.getString("Ssn"));
+						}
 				}
 				pstmt.close();
 				rs.close();
@@ -48,13 +60,22 @@ public class PatientDAO {
 			}
 			Platform.runLater(new Runnable() {
 				public void run() {
-					if(accesslevel == 0){
-						//Goes to the patient records screen for a Doctor
-						PatientRecordsController.ViewPatientRecordsDoc(a, window);
+					if(noPatientFound){
+						PatientRecordsController.NoPatientFound(a, window);
 					}
-					if(accesslevel == 1){
-						//Goes to the patient records screen for a receptionist
-						PatientRecordsController.ViewPatientRecordsRecep(a, window);
+					else{
+						if(loginController.loggedOnUser.equals("Doctor")){
+							//Goes to the patient records screen for a Doctor
+							PatientRecordsController.ViewPatientRecordsDoc(a, window);
+						}
+						if(loginController.loggedOnUser.equals("Receptionist")){
+							//Goes to the patient records screen for a receptionist
+							PatientRecordsController.ViewPatientRecordsRecep(a, window);
+						}
+						else{
+							//fall back case for testing. Remove once login system is implemented
+							PatientRecordsController.ViewPatientRecordsDoc(a, window);
+						}
 					}
 
 				}
@@ -118,7 +139,7 @@ public class PatientDAO {
 						pstmt.setInt(1, a.getPatientnum());
 						pstmt.setString(2, a.getDiagnosis());
 						pstmt.setObject(3, LocalDate.now());
-						pstmt.setObject(4, "Current Doctor");
+						pstmt.setObject(4, loginController.loggedOnUser.getName());
 						pstmt.setInt(5, DiagnosisCode);
 						pstmt.executeUpdate();
 						pstmt= Con.prepareStatement(updateDiagnosis);
