@@ -37,11 +37,11 @@
             <Font name="Georgia" size="15.0" />
          </font></Button>
 
-      <Label fx:id="lblErrInvalidInput" alignment="CENTER" layoutX="91.0" layoutY="63.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5016" wrapText="true">
+      <Label fx:id="lblErrInvalidInput" alignment="CENTER" layoutX="91.0" layoutY="63.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5619" wrapText="true">
          <font>
             <Font name="Georgia Bold Italic" size="14.0" />
          </font></Label>
-      <Label fx:id="lblErrUserNotFound" alignment="CENTER" layoutX="91.0" layoutY="97.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5016" wrapText="true">
+      <Label fx:id="lblErrUserNotFound" alignment="CENTER" layoutX="91.0" layoutY="97.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5619" wrapText="true">
          <font>
             <Font name="Georgia Bold Italic" size="14.0" />
          </font></Label>

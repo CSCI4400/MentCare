@@ -22,7 +22,7 @@
          </font></Button>
       <TextField fx:id="DateTF" layoutX="124.0" layoutY="96.0" prefHeight="39.0" prefWidth="167.0" promptText="YYYY-MM-DD">
          <font>
-            <Font name="Times New Roman" size="15.0" />
+            <Font name="Georgia" size="15.0" />
          </font></TextField>
       <Button fx:id="displayButt" layoutX="448.0" layoutY="100.0" mnemonicParsing="false" onAction="#ClickGoButton" text="Display" textFill="#010a66">
          <font>
@@ -60,9 +60,9 @@
             <Font name="Georgia Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="dateFeedback" alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="71.0" prefHeight="17.0" prefWidth="167.0" textAlignment="CENTER" textFill="#a42525" visible="false">
+      <Label fx:id="dateFeedback" alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="71.0" prefHeight="17.0" prefWidth="167.0" textAlignment="CENTER" textFill="#ff5619" visible="false">
          <font>
-            <Font name="System Italic" size="14.0" />
+            <Font name="Georgia Bold Italic" size="15.0" />
          </font>
       </Label>
       <Button fx:id="btnAttend" disable="true" layoutX="230.0" layoutY="434.0" mnemonicParsing="false" onAction="#AttendAppointment" text="Attended" textFill="#010a66">
