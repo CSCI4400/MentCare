@@ -16,7 +16,11 @@ import javafx.stage.Stage;
 import model.DBConnection;
 import model.Patient;
 
+
 public class PatientDAO {
+	
+	static Boolean noPatientFound = false;
+
 	public static Patient getPatientInfo(int patientnum, int accesslevel, Stage window) {
 		Patient a = new Patient();
 		//Query for getting the current patient info
@@ -31,8 +35,10 @@ public class PatientDAO {
 				if(!rs.isBeforeFirst()){
 					//This means that there is no patient with the patient ID number entered
 					System.out.println("No patient found");
+					noPatientFound = true;
 				}
 				else{
+					noPatientFound = false;
 					while(rs.next()){ //Gets the information from the "Personal Info" table
 						a.setPatientnum(rs.getInt("PNumber"));
 						a.setFirstname(rs.getString("Fname"));
@@ -54,13 +60,18 @@ public class PatientDAO {
 			}
 			Platform.runLater(new Runnable() {
 				public void run() {
-					if(accesslevel == 0){
-						//Goes to the patient records screen for a Doctor
-						PatientRecordsController.ViewPatientRecordsDoc(a, window);
+					if(noPatientFound){
+						PatientRecordsController.NoPatientFound(a, window);
 					}
-					if(accesslevel == 1){
-						//Goes to the patient records screen for a receptionist
-						PatientRecordsController.ViewPatientRecordsRecep(a, window);
+					else{
+						if(accesslevel == 0){
+							//Goes to the patient records screen for a Doctor
+							PatientRecordsController.ViewPatientRecordsDoc(a, window);
+						}
+						if(accesslevel == 1){
+							//Goes to the patient records screen for a receptionist
+							PatientRecordsController.ViewPatientRecordsRecep(a, window);
+						}
 					}
 
 				}

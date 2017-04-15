@@ -196,5 +196,17 @@ public class PatientRecordsController {
 		window.setScene(Receppatientrecords);
 
 	}
+	
+	public static void NoPatientFound(Patient a, Stage window){
+		VBox layout4 = new VBox(10);
+		Label noPatientFound = new Label("No patient found");
+		noPatientFound.setFont(Font.font("Georgia", 15));
+		//backbutton currently goes to the Doctor search.
+		//Should be an if statement that calls appropriate search (Doctor or Receptionist)
+		backbutton.setOnAction(e-> SearchPatientController.searchPatientDoc(window));
+		layout4.getChildren().addAll(noPatientFound, backbutton);
+		Scene noPatientFoundLayout = new Scene(layout4, 500, 500);
+		window.setScene(noPatientFoundLayout);
+	}
 
 }
