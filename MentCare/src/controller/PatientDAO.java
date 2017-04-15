@@ -20,25 +20,31 @@ public class PatientDAO {
 	public static Patient getPatientInfo(int patientnum, int accesslevel, Stage window) {
 		Patient a = new Patient();
 		//Query for getting the current patient info
-		String selectPinfoStmt = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
+		String selectPinfoStmtPnum = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
 
 
 			try {
 				//queries the database for the current patient info
-				PreparedStatement pstmt = MainFXApp.con.prepareStatement(selectPinfoStmt);
+				PreparedStatement pstmt = MainFXApp.con.prepareStatement(selectPinfoStmtPnum);
 				pstmt.setInt(1, patientnum);
 				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
-				while(rs.next()){ //Gets the information from the "Personal Info" table
-					a.setPatientnum(rs.getInt("PNumber"));
-					a.setFirstname(rs.getString("Fname"));
-					a.setLastname(rs.getString("Lname"));
-					a.setAddress(rs.getString("Address"));
-					a.setGender(rs.getString("Sex"));
-					a.setPhoneNumber(rs.getString("Phone_Number"));
-					a.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
-					a.setDiagnosis(rs.getString("Diagnosis"));
-					//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
-					a.setSsn(rs.getString("Ssn"));
+				if(!rs.isBeforeFirst()){
+					//This means that there is no patient with the patient ID number entered
+					System.out.println("No patient found");
+				}
+				else{
+					while(rs.next()){ //Gets the information from the "Personal Info" table
+						a.setPatientnum(rs.getInt("PNumber"));
+						a.setFirstname(rs.getString("Fname"));
+						a.setLastname(rs.getString("Lname"));
+						a.setAddress(rs.getString("Address"));
+						a.setGender(rs.getString("Sex"));
+						a.setPhoneNumber(rs.getString("Phone_Number"));
+						a.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
+						a.setDiagnosis(rs.getString("Diagnosis"));
+						//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
+						a.setSsn(rs.getString("Ssn"));
+						}
 				}
 				pstmt.close();
 				rs.close();
