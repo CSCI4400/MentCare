@@ -139,7 +139,7 @@ public class PatientDAO {
 						pstmt.setInt(1, a.getPatientnum());
 						pstmt.setString(2, a.getDiagnosis());
 						pstmt.setObject(3, LocalDate.now());
-						pstmt.setObject(4, "Current Doctor");
+						pstmt.setObject(4, loginController.loggedOnUser.getName());
 						pstmt.setInt(5, DiagnosisCode);
 						pstmt.executeUpdate();
 						pstmt= Con.prepareStatement(updateDiagnosis);
