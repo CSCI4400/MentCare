@@ -47,7 +47,7 @@ public class SearchPatientController {
 			//gets the patient id number. Currently there is no error checking.
 			pid = patientidinput.getText();
 			//validate input and add searching by fields other than id number here
-			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 0, window);
+			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
 			a = new Patient();
 			a.setPatientnum(Integer.parseInt(pid));
 			//Calls the static method for displaying patient record info for a doctor.
@@ -86,7 +86,7 @@ public class SearchPatientController {
 		searchbutton.setOnAction(e -> {
 			pid = patientidinput.getText();
 			//validate input and add searching by fields other than id number here
-			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 1, window);
+			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
 			a = new Patient();
 			a.setPatientnum(Integer.parseInt(pid));
 			//Calls the static method for displaying patient record info for a receptionist.

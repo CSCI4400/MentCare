@@ -21,7 +21,7 @@ public class PatientDAO {
 	
 	static Boolean noPatientFound = false;
 
-	public static Patient getPatientInfo(int patientnum, int accesslevel, Stage window) {
+	public static Patient getPatientInfo(int patientnum, Stage window) {
 		Patient a = new Patient();
 		//Query for getting the current patient info
 		String selectPinfoStmtPnum = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
@@ -64,13 +64,17 @@ public class PatientDAO {
 						PatientRecordsController.NoPatientFound(a, window);
 					}
 					else{
-						if(accesslevel == 0){
+						if(loginController.loggedOnUser.equals("Doctor")){
 							//Goes to the patient records screen for a Doctor
 							PatientRecordsController.ViewPatientRecordsDoc(a, window);
 						}
-						if(accesslevel == 1){
+						if(loginController.loggedOnUser.equals("Receptionist")){
 							//Goes to the patient records screen for a receptionist
 							PatientRecordsController.ViewPatientRecordsRecep(a, window);
+						}
+						else{
+							//fall back case for testing. Remove once login system is implemented
+							PatientRecordsController.ViewPatientRecordsDoc(a, window);
 						}
 					}
 
