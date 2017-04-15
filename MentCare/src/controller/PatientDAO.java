@@ -96,6 +96,8 @@ public class PatientDAO {
 		String selectCurrentDiag = "SELECT mentcare2.Personal_Info.Diagnosis FROM mentcare2.Personal_Info WHERE ? = PNumber";
 		//Query for checking if a patient is dead
 		String checkDeath = "SELECT Dead FROM mentcare2.Personal_Info WHERE ? = PNumber";
+		//Query for keeping a record of changes in the Patient History table
+		String updatePersonalHistory = "INSERT INTO mentcare2.Personal_History (Address, BDate, Fname, Lname, Phone_Number, PNumber, Sex, Modified_By)  VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			Connection Con;
@@ -133,22 +135,35 @@ public class PatientDAO {
 				while(rs.next()){
 					Diagnoses.add(rs.getString("Diagnosis"));
 				}
-					if(!Diagnoses.get(0).equals(a.getDiagnosis())){
-						//Updates diagnosis history table if diagnosis has been changed
-						pstmt = Con.prepareStatement(insertIntoDiagHistory);
-						pstmt.setInt(1, a.getPatientnum());
-						pstmt.setString(2, a.getDiagnosis());
-						pstmt.setObject(3, LocalDate.now());
-						pstmt.setObject(4, loginController.loggedOnUser.getName());
-						pstmt.setInt(5, DiagnosisCode);
-						pstmt.executeUpdate();
-						pstmt= Con.prepareStatement(updateDiagnosis);
-						pstmt.setString(1, a.getDiagnosis());
-						pstmt.setInt(2, a.getPatientnum());
-						pstmt.executeUpdate();
+				if(!Diagnoses.get(0).equals(a.getDiagnosis())){
+					//Updates diagnosis history table if diagnosis has been changed
+					pstmt = Con.prepareStatement(insertIntoDiagHistory);
+					pstmt.setInt(1, a.getPatientnum());
+					pstmt.setString(2, a.getDiagnosis());
+					pstmt.setObject(3, LocalDate.now());
+					pstmt.setObject(4, loginController.loggedOnUser.getName());
+					pstmt.setInt(5, DiagnosisCode);
+					pstmt.executeUpdate();
+					pstmt= Con.prepareStatement(updateDiagnosis);
+					pstmt.setString(1, a.getDiagnosis());
+					pstmt.setInt(2, a.getPatientnum());
+					pstmt.executeUpdate();
 					}
+				//Add updated info to patient history
+				pstmt = Con.prepareStatement(updatePersonalHistory);
+				pstmt.setString(1, a.getAddress());
+				pstmt.setObject(2, a.getBirthdate());
+				pstmt.setString(3, a.getFirstname());
+				pstmt.setString(4, a.getLastname());
+				pstmt.setString(5, a.getPhoneNumber());
+				pstmt.setInt(6, a.getPatientnum());
+				pstmt.setString(7, a.getGender());
+				pstmt.setString(8, loginController.loggedOnUser.getName());
+				pstmt.executeUpdate();
+				
 
-					pstmt.close();
+				rs.close();
+			    pstmt.close();
 			}
 			else{
 				//Alert box. This is a fall back that confirms that an update did not occur since
