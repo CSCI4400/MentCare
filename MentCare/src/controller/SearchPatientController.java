@@ -36,6 +36,7 @@ public class SearchPatientController {
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
 		
+		//Validates input in the search textbox, only accepts numerical input
 		patientidinput.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -87,6 +88,18 @@ public class SearchPatientController {
 
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
+		
+		//Validates input in the search textbox, only accepts numerical input
+		patientidinput.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")){
+					patientidinput.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+				
+			}
+		});
+		
 		backbutton.setOnAction(e-> {
 			//back button returns to the main menu
 			try {
