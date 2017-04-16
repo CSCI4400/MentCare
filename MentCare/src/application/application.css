@@ -43,6 +43,12 @@
     -fx-font-family: georgia;
 }
 
+.table-view .table-row-cell
+{
+	-fx-mid-text-color: #010a66;
+	-fx-font-family: georgia;
+}
+
 .alert
 {
 	-fx-background-image: url(mentcare_bg.jpg);
