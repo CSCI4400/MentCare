@@ -7,14 +7,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.businessViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.businessViewController">
    <children>
       <GridPane layoutX="-6.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0" styleClass="mentStyle" stylesheets="@../application/application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
-            <ColumnConstraints maxWidth="93.0" minWidth="10.0" prefWidth="23.0" />
-            <ColumnConstraints maxWidth="254.0" minWidth="49.0" prefWidth="200.0" />
-            <ColumnConstraints maxWidth="280.0" minWidth="49.0" prefWidth="280.0" />
-            <ColumnConstraints maxWidth="480.0" minWidth="48.0" prefWidth="200.0" />
+            <ColumnConstraints maxWidth="254.0" minWidth="49.0" prefWidth="123.0" />
+            <ColumnConstraints maxWidth="292.0" minWidth="49.0" prefWidth="263.0" />
+            <ColumnConstraints maxWidth="480.0" minWidth="48.0" prefWidth="211.0" />
             <ColumnConstraints maxWidth="279.0" minWidth="3.0" prefWidth="3.0" />
             <ColumnConstraints maxWidth="200.0" minWidth="0.0" prefWidth="0.0" />
             <ColumnConstraints maxWidth="95.0" minWidth="0.0" prefWidth="0.0" />
@@ -22,17 +21,11 @@
          <rowConstraints>
             <RowConstraints />
             <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="40.0" />
-            <RowConstraints maxHeight="440.0" minHeight="15.0" prefHeight="27.0" />
-            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="59.0" />
-            <RowConstraints maxHeight="440.0" minHeight="24.0" prefHeight="24.0" />
-            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="48.0" />
-            <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="10.0" />
-            <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="10.0" />
-            <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="15.0" />
-            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="70.0" />
-            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="70.0" />
-            <RowConstraints maxHeight="440.0" minHeight="14.0" prefHeight="15.0" />
-            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="39.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="76.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="76.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="76.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="76.0" />
+            <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="19.0" />
             <RowConstraints maxHeight="284.0" minHeight="0.0" prefHeight="0.0" />
             <RowConstraints maxHeight="142.0" minHeight="0.0" prefHeight="0.0" />
             <RowConstraints maxHeight="58.0" minHeight="0.0" prefHeight="0.0" />
@@ -47,30 +40,27 @@
             <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="0.0" />
             <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
             <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
-            <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="11.0" />
-            <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="28.0" />
-            <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="30.0" />
             <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
          </rowConstraints>
          <children>
-            <Button fx:id="userButton" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Add User" textFill="#010a66" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="userButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Add User" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Update Patient" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Button mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Update Patient" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="bizHistoryButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Buissness History and Prediction" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="8">
+            <Button fx:id="bizHistoryButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Buissness History and Prediction" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="missedAppointReportButton" mnemonicParsing="false" onAction="#ClickButton" text="Today's Missed Appointment Report" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="10">
+            <Button fx:id="missedAppointReportButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Today's Missed Appointment Report" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
-                  <Font name="Georgia" size="14.0" />
+                  <Font name="Georgia" size="15.0" />
                </font>
             </Button>
 

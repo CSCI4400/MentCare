@@ -9,33 +9,39 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="loginStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
    <children>
-      <TextField fx:id="tfUserID" layoutX="269.0" layoutY="138.0" />
-      <PasswordField fx:id="pfPassword" layoutX="268.0" layoutY="209.0" />
-      <Label layoutX="173.0" layoutY="142.0" text="ID Number:" textFill="#010a66">
+      <TextField fx:id="tfUserID" layoutX="241.0" layoutY="143.0">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></TextField>
+      <PasswordField fx:id="pfPassword" layoutX="241.0" layoutY="214.0">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></PasswordField>
+      <Label layoutX="150.0" layoutY="148.0" text="ID Number:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
-      <Label layoutX="179.0" layoutY="212.0" text="Password:" textFill="#010a66">
+      <Label layoutX="150.0" layoutY="219.0" text="Password:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
-      <Button fx:id="btnLogIn" layoutX="271.0" layoutY="320.0" mnemonicParsing="false" onAction="#logIn" text="Login" textFill="#010a66">
+      <Button fx:id="btnLogIn" layoutX="271.0" layoutY="323.0" mnemonicParsing="false" onAction="#logIn" text="Login" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
       <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="224.0" layoutY="58.0" text="Mentcare" textAlignment="CENTER" textFill="#010a66">
          <font>
-            <Font name="Georgia" size="35.0" />
+            <Font name="Georgia" size="38.0" />
          </font></Label>
-      <Label fx:id="lblErrUserID" alignment="CENTER" layoutX="87.0" layoutY="181.0" prefHeight="19.0" prefWidth="427.0" textFill="#ff5016">
+      <Label fx:id="lblErrUserID" alignment="CENTER" layoutX="87.0" layoutY="185.0" prefHeight="19.0" prefWidth="427.0" textFill="#ff5016">
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font></Label>
-      <Label fx:id="lblErrPassword" alignment="CENTER" layoutX="166.0" layoutY="248.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5016">
+      <Label fx:id="lblErrPassword" alignment="CENTER" layoutX="166.0" layoutY="253.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5016">
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font></Label>
-      <Label fx:id="lblErrLogIn" alignment="CENTER" layoutX="165.0" layoutY="280.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5016">
+      <Label fx:id="lblErrLogIn" alignment="CENTER" layoutX="165.0" layoutY="288.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5016">
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font></Label>
