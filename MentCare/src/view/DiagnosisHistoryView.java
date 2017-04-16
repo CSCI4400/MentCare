@@ -9,6 +9,7 @@ import java.util.Collection;
 import application.MainFXApp;
 import controller.PatientDAO;
 import controller.PatientRecordsController;
+import controller.mainViewController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -227,6 +228,8 @@ public class DiagnosisHistoryView {
 	    DiagHistLayout.getChildren().addAll(Diagnosis, DocWhoDiagnosed, DateOfDiagnosis, DiagnIsTemp);
 
 		Scene diaghistview = new Scene(DiagHistLayout, 900, 520);
+		
+		diaghistview.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
 		window.setScene(diaghistview);
 	}

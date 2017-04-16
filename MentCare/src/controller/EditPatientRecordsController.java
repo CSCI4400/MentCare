@@ -171,6 +171,10 @@ public class EditPatientRecordsController {
 
 
 		Scene recordeditor = new Scene(layout3, 680, 800);
+		
+		recordeditor.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
+
+		
 		window.setScene(recordeditor);
 	}
 
@@ -266,6 +270,9 @@ public class EditPatientRecordsController {
 
 
 		Scene recordeditor = new Scene(layout3, 680, 750);
+		
+		recordeditor.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
+		
 		window.setScene(recordeditor);
 
 	}

@@ -1,5 +1,8 @@
 package controller;
 
+import javax.print.DocFlavor.URL;
+
+import application.MainFXApp;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -75,6 +78,8 @@ public class SearchPatientController {
 		window.setTitle(patientsearch);
 		Scene patientsearchDoc = new Scene(layout2, 640, 640);
 
+		patientsearchDoc.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
+
 		window.setScene(patientsearchDoc);
 
 	}
@@ -125,6 +130,9 @@ public class SearchPatientController {
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearchRecep = new Scene(layout2, 640, 640);
+		
+		patientsearchRecep.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
+
 
 		window.setScene(patientsearchRecep);
 
