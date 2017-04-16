@@ -252,11 +252,9 @@ public class displayAppController{
 			    	Alert alert = new Alert(AlertType.CONFIRMATION);
 			    	DialogPane dialogPane = alert.getDialogPane();
 			    	//css for missed alert box
-
-			    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"
- 					  + "-fx-font-size: 15px;"
-			    					  + "-fx-mid-text-color: #010a66;"
-			    					  + "-fx-font-family: georgia;");
+			    	dialogPane.getStylesheets().add(
+			    			   getClass().getResource("/application/application.css").toExternalForm());
+			    	dialogPane.getStyleClass().add("alert");
 			    	alert.setTitle("Missed Appointment");
 			    	//sets selected patient phone number if no number was entered when the appointment was created
 			    	if(patientTable.getSelectionModel().getSelectedItem().getPhone().getValue() == null){
@@ -367,12 +365,9 @@ public class displayAppController{
 	    		Alert confirm = new Alert(AlertType.CONFIRMATION);
 	    		DialogPane dialogPane = confirm.getDialogPane();
 	    		//css for cancel appointment confirmation box
-
-		    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"
-
-		    					  + "-fx-font-size: 15px;"
-		    					  + "-fx-mid-text-color: #010a66;"
-		    					  + "-fx-font-family: georgia;");
+	    		dialogPane.getStylesheets().add(
+		    			   getClass().getResource("/application/application.css").toExternalForm());
+		    	dialogPane.getStyleClass().add("alert");
 		    	confirm.setTitle("Cancel Appointment");
 		    	//gets data from the row at that date and time -> always unique
 	    		String getData = ("SELECT * FROM `mentcare2`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
