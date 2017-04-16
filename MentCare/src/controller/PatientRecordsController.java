@@ -207,6 +207,7 @@ public class PatientRecordsController {
 	}
 	
 	public static void NoPatientFound(Patient a, Stage window){
+		//This is the scene that appears if a search does not return any results
 		VBox layout4 = new VBox(10);
 		Label noPatientFound = new Label("No patient found");
 		noPatientFound.setFont(Font.font("Georgia", 15));
@@ -226,6 +227,7 @@ public class PatientRecordsController {
 		});
 		layout4.getChildren().addAll(noPatientFound, backbutton);
 		Scene noPatientFoundLayout = new Scene(layout4, 500, 500);
+		noPatientFoundLayout.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 		window.setScene(noPatientFoundLayout);
 	}
 
