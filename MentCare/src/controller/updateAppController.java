@@ -1,3 +1,7 @@
+//Changes on 4/15/17
+	//changed the way it checks to see if there is a patient appointment
+	//updated to mentcare2
+
 package controller;
 
 
@@ -87,11 +91,17 @@ public class updateAppController {
 		try (
 				Connection conn = DBConfig.getConnection();
 				Statement statement = conn.createStatement();
-				ResultSet RS = statement.executeQuery("select * from mentcare.Current_Appointment where PNum=" + PnumField.getText() + ";");
+				ResultSet RS = statement.executeQuery("select * from mentcare2.Current_Appointment where PNum=" + PnumField.getText() + ";");
 				) // End try-with-res
 		{
-	    	
-	    	if(RS != null){
+			//------ANNA
+			//changed the way it checks for appointment so the labels update correctly
+			//System.out.print(RS.getRow());
+			if(!RS.isBeforeFirst())//change
+				{
+	    		statusLabel.setText("Status: Appointment Not Found");
+				}
+			else{//changed
 	    		while (RS.next()) {
 	    		 PnameLabel.setText(RS.getString("Pname"));
 	  		     DocIDLabel.setText(RS.getString("DocID"));
@@ -101,6 +111,7 @@ public class updateAppController {
 	    		}
 	    		statusLabel.setText("Status: Appointment Found");
 	    	} // End if
+	    	
 		} catch (SQLException e) {
 				DBConfig.displayException(e);
 		}// End Catch
@@ -118,7 +129,7 @@ public class updateAppController {
 		DocID = DocIDField.getText();
 		AppID = Integer.parseInt(AppIDLabel.getText());
 
-		String query = ("UPDATE mentcare.Current_Appointment SET Pname = ?, DocID = ?, apDate = ?, apTime = ? WHERE AppID = ?");
+		String query = ("UPDATE mentcare2.Current_Appointment SET Pname = ?, DocID = ?, apDate = ?, apTime = ? WHERE AppID = ?");
 		
 		
     	try (Connection conn = DBConfig.getConnection();

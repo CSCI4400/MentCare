@@ -1,3 +1,5 @@
+//fixed the back button- Anna 4/15/17
+
 package controller;
 
 import java.sql.Connection;
@@ -92,7 +94,7 @@ public class psychController {
 	@FXML
 	void ClickBackBtn (ActionEvent event) throws Exception{
 		stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-		root = FXMLLoader.load(getClass().getResource("/view/patientView.fxml"));
+		root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
 		scene = new Scene(root);
 		stage.setScene(scene);
 	}

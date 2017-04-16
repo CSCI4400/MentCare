@@ -11,10 +11,9 @@
    <children>
       <GridPane layoutX="-6.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0" styleClass="mentStyle" stylesheets="@../application/application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
-            <ColumnConstraints maxWidth="93.0" minWidth="10.0" prefWidth="23.0" />
-            <ColumnConstraints maxWidth="254.0" minWidth="49.0" prefWidth="200.0" />
-            <ColumnConstraints maxWidth="280.0" minWidth="49.0" prefWidth="280.0" />
-            <ColumnConstraints maxWidth="480.0" minWidth="48.0" prefWidth="200.0" />
+            <ColumnConstraints maxWidth="132.0" minWidth="10.0" prefWidth="126.0" />
+            <ColumnConstraints maxWidth="308.0" minWidth="49.0" prefWidth="256.0" />
+            <ColumnConstraints maxWidth="480.0" minWidth="48.0" prefWidth="127.0" />
             <ColumnConstraints maxWidth="279.0" minWidth="3.0" prefWidth="3.0" />
             <ColumnConstraints maxWidth="200.0" minWidth="0.0" prefWidth="0.0" />
             <ColumnConstraints maxWidth="95.0" minWidth="0.0" prefWidth="0.0" />
@@ -22,16 +21,11 @@
          <rowConstraints>
             <RowConstraints />
             <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="40.0" />
-            <RowConstraints maxHeight="440.0" minHeight="15.0" prefHeight="27.0" />
-            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="59.0" />
-            <RowConstraints maxHeight="440.0" minHeight="24.0" prefHeight="24.0" />
-            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="48.0" />
-            <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="10.0" />
-            <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="10.0" />
-            <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="15.0" />
-            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="70.0" />
-            <RowConstraints maxHeight="440.0" minHeight="14.0" prefHeight="15.0" />
-            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="39.0" />
+            <RowConstraints maxHeight="440.0" minHeight="15.0" prefHeight="28.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="85.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="85.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="85.0" />
+            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="54.0" />
             <RowConstraints maxHeight="284.0" minHeight="0.0" prefHeight="0.0" />
             <RowConstraints maxHeight="142.0" minHeight="0.0" prefHeight="0.0" />
             <RowConstraints maxHeight="58.0" minHeight="0.0" prefHeight="0.0" />
@@ -46,28 +40,20 @@
             <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="0.0" />
             <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
             <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
-            <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="11.0" />
-            <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="28.0" />
-            <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="30.0" />
             <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
          </rowConstraints>
          <children>
-            <Button fx:id="displayButton" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Display Appointments" textFill="#010a66" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="displayButton" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Display Appointments" textFill="#010a66" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="addButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="New Appointments" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="New Appointments" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Modify Appointments" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="8">
-               <font>
-                  <Font name="Georgia" size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="statistics" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Statistics" textFill="#010a66" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="11">
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Modify Appointments" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>

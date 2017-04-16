@@ -28,9 +28,6 @@ public class businessViewController {
     private Button bizHistoryButton;
 
     @FXML
-    private Button bizPredictionButton;
-
-    @FXML
     private Button missedAppointReportButton;
 
     //added by butterscotch
@@ -64,6 +61,11 @@ public class businessViewController {
 				addUserController con2=new addUserController();
 				con2.setMain(main);
 				break;
+                        case "bizHistoryButton":
+                                root = FXMLLoader.load(getClass().getResource("/view/BusinessPrediction.fxml"));
+                                BusinessPredictionController con3 = new BusinessPredictionController();
+                                con3.setMain(main);
+                                break;
 
 			}
 			//added by butterscotch*********************************

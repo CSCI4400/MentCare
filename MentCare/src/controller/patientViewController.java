@@ -73,7 +73,16 @@ public class patientViewController {
 				//who is logged in. The method for receptionist is also static and is called
 				// earchPatientRecep. It takes the same argument (the current stage) and the
 				//back button on both search methods returns to the main menu.
-				SearchPatientController.searchPatientDoc(stage);
+				if(loginController.loggedOnUser.equals("Doctor")){
+					SearchPatientController.searchPatientDoc(stage);
+				}
+				else if(loginController.loggedOnUser.equals("Receptionist")){
+					SearchPatientController.searchPatientRecep(stage);
+				}
+				else{
+					//Fall back for testing, delete or comment out once login system is in place
+					SearchPatientController.searchPatientDoc(stage);
+				}
 				break;
 				//CKS button loads patient list created by TigerWoods
 			case "patientListButton":

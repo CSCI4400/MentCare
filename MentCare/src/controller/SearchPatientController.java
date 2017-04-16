@@ -1,5 +1,10 @@
 package controller;
 
+import javax.print.DocFlavor.URL;
+
+import application.MainFXApp;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,10 +32,24 @@ public class SearchPatientController {
 		backbutton.setFont(Font.font("Georgia", 15));
 		searchbutton.setFont(Font.font("Georgia", 15));
 		patientidl.setFont(Font.font("Georgia", 15));
+		
+		
 
 
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
+		
+		//Validates input in the search textbox, only accepts numerical input
+		patientidinput.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")){
+					patientidinput.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+				
+			}
+		});
+		
 		backbutton.setOnAction(e-> {
 			//back button returns to the main menu
 			try {
@@ -45,9 +64,10 @@ public class SearchPatientController {
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			//gets the patient id number. Currently there is no error checking.
+			
 			pid = patientidinput.getText();
 			//validate input and add searching by fields other than id number here
-			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 0, window);
+			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
 			a = new Patient();
 			a.setPatientnum(Integer.parseInt(pid));
 			//Calls the static method for displaying patient record info for a doctor.
@@ -57,6 +77,8 @@ public class SearchPatientController {
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearchDoc = new Scene(layout2, 640, 640);
+
+		patientsearchDoc.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
 		window.setScene(patientsearchDoc);
 
@@ -71,6 +93,18 @@ public class SearchPatientController {
 
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
+		
+		//Validates input in the search textbox, only accepts numerical input
+		patientidinput.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")){
+					patientidinput.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+				
+			}
+		});
+		
 		backbutton.setOnAction(e-> {
 			//back button returns to the main menu
 			try {
@@ -86,7 +120,7 @@ public class SearchPatientController {
 		searchbutton.setOnAction(e -> {
 			pid = patientidinput.getText();
 			//validate input and add searching by fields other than id number here
-			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), 1, window);
+			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
 			a = new Patient();
 			a.setPatientnum(Integer.parseInt(pid));
 			//Calls the static method for displaying patient record info for a receptionist.
@@ -96,6 +130,9 @@ public class SearchPatientController {
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearchRecep = new Scene(layout2, 640, 640);
+		
+		patientsearchRecep.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
+
 
 		window.setScene(patientsearchRecep);
 

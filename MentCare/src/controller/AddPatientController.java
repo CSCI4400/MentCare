@@ -80,7 +80,7 @@ public class AddPatientController {
                             String diag = diagnosis.getText().trim();
 
                             String patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`, `Last_Visit`) "
-                                + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+                                + "VALUES (?,?,?,?,?,?,no,?,?,?)";
 
                             Connection conn = DBConfig.getConnection();
                             PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);

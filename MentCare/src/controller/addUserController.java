@@ -1,11 +1,6 @@
-
+//up to date with mentcare2
 //Created by Anna 3/25/2017
 //modified by Anna 3/28/17 at 10:16am, 2 updates 
-
-//TODO
-/*
- * clear the fields 
- */
 
 package controller;
 

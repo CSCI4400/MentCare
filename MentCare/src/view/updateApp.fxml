@@ -39,8 +39,14 @@
                <font>
                   <Font name="Georgia" size="15.0" />
                </font></Label>
-            <Label fx:id="PnameLabel" alignment="CENTER" prefHeight="27.0" prefWidth="232.0" text="---" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="PnameField" prefHeight="27.0" prefWidth="217.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Label fx:id="PnameLabel" alignment="CENTER" prefHeight="27.0" prefWidth="232.0" text="---" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font></Label>
+            <TextField fx:id="PnameField" prefHeight="27.0" prefWidth="217.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font></TextField>
             <Label alignment="CENTER" prefHeight="27.0" prefWidth="176.0" text="Original Info" textFill="#010a66" GridPane.columnIndex="2">
                <font>
                   <Font name="Georgia" size="15.0" />
@@ -53,19 +59,31 @@
                <font>
                   <Font name="Georgia" size="15.0" />
                </font></Label>
-            <Label fx:id="DocIDLabel" alignment="CENTER" prefHeight="27.0" prefWidth="232.0" text="---" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField fx:id="DocIDField" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label fx:id="DocIDLabel" alignment="CENTER" prefHeight="27.0" prefWidth="232.0" text="---" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font></Label>
+            <TextField fx:id="DocIDField" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font></TextField>
             <Label text="Appointment Day" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font></Label>
-            <Label fx:id="apDateLabel" text="---" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label fx:id="apDateLabel" text="---" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font></Label>
             <DatePicker fx:id="apDateField" prefHeight="26.0" prefWidth="232.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <Label text="Appointment Time" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font></Label>
-            <Label fx:id="apTimeLabel" text="---" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label fx:id="apTimeLabel" text="---" textFill="#010a66" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font></Label>
             <ComboBox fx:id="apTimeField" prefHeight="26.0" prefWidth="235.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
             <Label prefWidth="69.0" text="APPID" textFill="#010a66" GridPane.columnIndex="1">
                <font>
@@ -81,21 +99,21 @@
             </Label>
          </children>
       </GridPane>
-      <Label fx:id="statusLabel" layoutX="19.0" layoutY="388.0" prefHeight="42.0" prefWidth="602.0" text="Status:" textFill="#010a66">
+      <Label fx:id="statusLabel" layoutX="19.0" layoutY="343.0" prefHeight="42.0" prefWidth="602.0" text="Status:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
-      <Button fx:id="cancelButton" layoutX="19.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back" textFill="#010a66">
+      <Button fx:id="cancelButton" layoutX="51.0" layoutY="417.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="submitButton" layoutX="79.0" layoutY="427.0" mnemonicParsing="false" onAction="#ClickSubmitUpdateButton" text="Submit" textFill="#010a66">
+      <Button fx:id="submitButton" layoutX="120.0" layoutY="417.0" mnemonicParsing="false" onAction="#ClickSubmitUpdateButton" text="Submit" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
       <TextField fx:id="PnumField" layoutX="268.0" layoutY="43.0" prefHeight="25.0" prefWidth="238.0" promptText="Patient ID">
          <font>
-            <Font name="Georgia" size="14.0" />
+            <Font name="Georgia" size="15.0" />
          </font></TextField>
       <Button fx:id="goButton" layoutX="524.0" layoutY="43.0" mnemonicParsing="false" onAction="#ClickGoButton" text="Go!" textFill="#010a66">
          <font>

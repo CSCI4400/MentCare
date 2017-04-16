@@ -9,6 +9,7 @@ import java.util.Collection;
 import application.MainFXApp;
 import controller.PatientDAO;
 import controller.PatientRecordsController;
+import controller.mainViewController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,7 +30,7 @@ public class DiagnosisHistoryView {
 	static String deleteExpiredDiagn = "DELETE FROM mentcare2.Diagnosis_History WHERE Diagnosis_is_temp = 1 AND DATEDIFF(CURDATE(), Date_of_diag) > 14";
 	static String mostRecentDiagnQuery = "SELECT Diagnosis FROM mentcare2.Diagnosis_History WHERE PNum = ?";
 	static String mostRecentDiagnosis = "";
-	static String resetCurrentDiagn = "UPDATE mentcare2.Patient_Info SET mentcare2.Patient_Info.Diagnosis = ? WHERE mentcare2.Patient_Info.PNumber = ? ";
+	static String resetCurrentDiagn = "UPDATE mentcare2.Personal_Info SET mentcare2.Personal_Info.Diagnosis = ? WHERE mentcare2.Personal_Info.PNumber = ? ";
 
 	public static void DiagnosisHistory(Patient a, Stage window){
 
@@ -227,6 +228,8 @@ public class DiagnosisHistoryView {
 	    DiagHistLayout.getChildren().addAll(Diagnosis, DocWhoDiagnosed, DateOfDiagnosis, DiagnIsTemp);
 
 		Scene diaghistview = new Scene(DiagHistLayout, 900, 520);
+		
+		diaghistview.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
 		window.setScene(diaghistview);
 	}

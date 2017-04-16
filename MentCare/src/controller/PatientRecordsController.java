@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Patient;
+import model.currentUser;
 import view.DiagnosisHistoryView;
 
 public class PatientRecordsController {
@@ -114,6 +115,10 @@ public class PatientRecordsController {
 		//Adds the labels to the view
 		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, updatebutton, backbutton);
 		Scene Docpatientrecords = new Scene(layout2, 700, 700);
+		
+		Docpatientrecords.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
+
+		
 		window.setScene(Docpatientrecords);
 	}
 
@@ -193,8 +198,37 @@ public class PatientRecordsController {
 		//Adds all the labels to the window
 		layout3.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, lastvisitl, lastapt, updatebutton, backbutton);
 		Scene Receppatientrecords = new Scene(layout3, 700, 700);
+		
+		Receppatientrecords.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
+
+		
 		window.setScene(Receppatientrecords);
 
+	}
+	
+	public static void NoPatientFound(Patient a, Stage window){
+		//This is the scene that appears if a search does not return any results
+		VBox layout4 = new VBox(10);
+		Label noPatientFound = new Label("No patient found");
+		noPatientFound.setFont(Font.font("Georgia", 15));
+		//backbutton currently goes to the Doctor search.
+		//Should be an if statement that calls appropriate search (Doctor or Receptionist)
+		backbutton.setOnAction(e-> {
+		/*if(loginController.loggedOnUser.getRole().equals("Doctor")){
+			SearchPatientController.searchPatientDoc(window);
+		}
+		else if(loginController.loggedOnUser.getRole().equals("Receptionist")){
+			SearchPatientController.searchPatientRecep(window);
+		}
+		else{*/
+			//Fall back for testing, delete once login system is up and running
+			SearchPatientController.searchPatientDoc(window);
+		//}
+		});
+		layout4.getChildren().addAll(noPatientFound, backbutton);
+		Scene noPatientFoundLayout = new Scene(layout4, 500, 500);
+		noPatientFoundLayout.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
+		window.setScene(noPatientFoundLayout);
 	}
 
 }
