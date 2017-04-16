@@ -20,10 +20,10 @@
          </columnConstraints>
          <rowConstraints>
             <RowConstraints />
-            <RowConstraints maxHeight="440.0" minHeight="26.0" prefHeight="40.0" />
-            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="76.0" />
-            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="76.0" />
-            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="76.0" />
+            <RowConstraints maxHeight="440.0" minHeight="68.0" prefHeight="40.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="85.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="85.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="85.0" />
             <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="76.0" />
             <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="19.0" />
             <RowConstraints maxHeight="284.0" minHeight="0.0" prefHeight="0.0" />
@@ -48,17 +48,12 @@
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Update Patient" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button fx:id="bizHistoryButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Buissness History and Prediction" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="bizHistoryButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Buissness History and Prediction" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Georgia" size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="missedAppointReportButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Today's Missed Appointment Report" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Button fx:id="missedAppointReportButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Today's Missed Appointment Report" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
