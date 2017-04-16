@@ -171,6 +171,8 @@ public class MissedAppointmentReportView{
 		mainLayout.setBottom(backbutton);
 
 		Scene MissedReport = new Scene(mainLayout, 900, 600);
+		
+		MissedReport.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
 		window.setScene(MissedReport);
 

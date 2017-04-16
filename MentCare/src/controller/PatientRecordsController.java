@@ -115,6 +115,10 @@ public class PatientRecordsController {
 		//Adds the labels to the view
 		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, updatebutton, backbutton);
 		Scene Docpatientrecords = new Scene(layout2, 700, 700);
+		
+		Docpatientrecords.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
+
+		
 		window.setScene(Docpatientrecords);
 	}
 
@@ -194,6 +198,10 @@ public class PatientRecordsController {
 		//Adds all the labels to the window
 		layout3.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, lastvisitl, lastapt, updatebutton, backbutton);
 		Scene Receppatientrecords = new Scene(layout3, 700, 700);
+		
+		Receppatientrecords.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
+
+		
 		window.setScene(Receppatientrecords);
 
 	}

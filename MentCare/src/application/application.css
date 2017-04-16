@@ -21,6 +21,7 @@
 .root { 
 	-fx-focus-color: transparent;
 	-fx-faint-focus-color: transparent;
+	-fx-background-image:url("gui_bg.jpg");
 }
 
 
