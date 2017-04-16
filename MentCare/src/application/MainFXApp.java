@@ -16,12 +16,12 @@ public class MainFXApp extends Application {
 
 	private static Scene scene;
 	public static Connection con;
-	
+
 	public static Scene getScene(){
 		return scene;
 	}
-	
-	
+
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {

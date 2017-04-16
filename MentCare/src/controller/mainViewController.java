@@ -70,7 +70,7 @@ public class mainViewController {
 
 	public void initialize(){
 
-		
+
 		System.out.println(numTab);
 		switch(numTab){
 		case 0:
@@ -108,6 +108,7 @@ public class mainViewController {
 						  break;
 					  case "tbPatients":
 						  toPane = getClass().getResource("/view/patientView.fxml");
+//						  toPane = getClass().getResource("/view/PatientListView.fxml");
 					      temp = FXMLLoader.load(toPane);
 					      apPatients.getChildren().setAll(temp);
 						  break;

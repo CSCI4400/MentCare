@@ -95,7 +95,7 @@
                   <Label text="Phone Number" GridPane.rowIndex="8" />
                   <TextField fx:id="phoneField" promptText="xxx-xxx-xxxx" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddPatient" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <Button fx:id="updatePatient" mnemonicParsing="false" onAction="#onAddPatient" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
                   <Button fx:id="backButton" mnemonicParsing="false" onAction="#onAddPatient" text="Back" GridPane.rowIndex="10" />
                   <Label text="Diagnosis" GridPane.rowIndex="9" />
