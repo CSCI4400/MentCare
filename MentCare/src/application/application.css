@@ -72,6 +72,7 @@
 	-fx-focus-color: transparent;
 	-fx-faint-focus-color: transparent;
 	-fx-background-image:url("mentcare_bg.jpg");
+	-fx-mid-text-color: #010a66;
 }
 
 
