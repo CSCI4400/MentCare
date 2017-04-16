@@ -29,7 +29,7 @@ public class Patient_List  {
 
 		    // Connect to a database
 		    java.sql.Connection connection = DriverManager.getConnection
-					("jdbc:mysql://164.132.49.5:3306/mentcare2", "mentcare", "mentcare1");
+					("jdbc:mysql://198.71.227.86:3306/mentcare_db", "TeamTigerWoods", "GOATGOAT");
 		    System.out.println("Database connected");
 
 		    // Create a statement
@@ -37,7 +37,7 @@ public class Patient_List  {
 
 		    // Execute a statement
 		    ResultSet resultSet = statement.executeQuery
-		      ("select * from Personal_Info");
+		      ("select * from patients");
 		    //Initialize place holding variables for incoming data
 		    int id = 0;
 		    int patient_history_id;
@@ -47,30 +47,26 @@ public class Patient_List  {
 		    String home_address = null;
 		    String last_visit = null;
 		    String next_visit = null;
-		    String phone_number = null;
+		    String ssn = null;
 		    String photo = null;
-		    String last_changed_by = null;
 
 
 
 		    // Iterate through the result and print the student names
 		    while (resultSet.next()){
 
-		      id = resultSet.getInt("PNumber");
-		      //patient_history_id = resultSet.getInt("");
-		      first_name = resultSet.getString("FName");
-		      last_name = resultSet.getString("LName");
-		      //email_address = resultSet.getString("email_address");
-
-		      home_address = resultSet.getString("Address");
+		      id = resultSet.getInt("id");
+		      patient_history_id = resultSet.getInt("patient_history_id");
+		      first_name = resultSet.getString("first_name");
+		      last_name = resultSet.getString("last_name");
+		      email_address = resultSet.getString("email_address");
+		      home_address = resultSet.getString("home_address");
 		      //last_visit = resultSet.getString("last_visit");
 		      //next_visit = resultSet.getString("next_visit");
+		      ssn = resultSet.getString("ssn");
+		      photo = resultSet.getString("photo");
 
-		      //photo = resultSet.getString("photo");
-		      phone_number = resultSet.getString("Phone_Number");
-		      last_changed_by = resultSet.getString("last_changed_by");
-
-		      ListPatient newPatient = new ListPatient(id, first_name, last_name, home_address, phone_number, last_changed_by);
+		      ListPatient newPatient = new ListPatient(id, patient_history_id, first_name, last_name, email_address, home_address, last_visit, next_visit, ssn, photo);
 		      patient_list.add(newPatient);
 		      patient_observable_list.add(newPatient);
 

@@ -44,14 +44,14 @@ public class UpdatePatientController implements Initializable {
     Stage stage;
     Scene scene;
     Parent root;
-
+    
     private MainFXApp main;
-
+    
     public void setMain(MainFXApp mainIn){
         main = mainIn;
     }
-
-    @FXML private Button updatePatient;
+    
+    @FXML private Button addButton;
     @FXML private Button backButton;
     @FXML private TextField firstField;
     @FXML private TextField lastField;
@@ -63,37 +63,34 @@ public class UpdatePatientController implements Initializable {
     @FXML private TextField diagnosis;
     @FXML private ChoiceBox patients;
     @FXML private Button populate;
-
+    
     List<String[]> peeps = new ArrayList<>();
     List<String> entry = new ArrayList<>();
-
-    @SuppressWarnings("unchecked")
-    //user name will be changed to the active user when login in implemented
-    String user_name = "";
-	@Override
+    
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         try{
             String whoAreYou = ("SELECT LName,FName,BDate FROM Personal_Info");
             Connection connect = DBConfig.getConnection();
             PreparedStatement ps = connect.prepareStatement(whoAreYou);
             ResultSet results = ps.executeQuery();
-
+            
             String lname, fname;
             Date bdate;
-
+            
             while(results.next()){
                 lname = results.getString("LName");
                 fname = results.getString("FName");
                 bdate = results.getDate("BDate");
-
+                
                 LocalDate date = bdate.toLocalDate();
-
+                
                 String[] tempArr = new String[4];
                 tempArr[1]=fname;
                 tempArr[0]=lname;
                 tempArr[2]=date.toString();
                 tempArr[3]=lname+", "+fname+" "+date.toString();
-
+                
                 peeps.add(tempArr);
             }
             peeps.forEach((entr) -> {
@@ -101,19 +98,19 @@ public class UpdatePatientController implements Initializable {
             });
             Collections.sort(entry);
             patients.setItems(FXCollections.observableArrayList(entry));
-
+            
             final List options = patients.getItems();
             patients.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener() {
                 @Override
                 public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-
+                    
                 }
             });
-
+            
         }catch(SQLException e){
         }
     }
-
+    
     @FXML public void populateFromSelection(ActionEvent click) {
         String selection = patients.getValue().toString();
         peeps.forEach((entr) -> {
@@ -123,7 +120,7 @@ public class UpdatePatientController implements Initializable {
                     Connection connect = DBConfig.getConnection();
                     PreparedStatement ps = connect.prepareStatement(whoAreYou);
                     ResultSet results = ps.executeQuery();
-
+                    
                     if(results.first()){
                         firstField.setText(results.getString("FName"));
                         lastField.setText(results.getString("LName"));
@@ -133,64 +130,85 @@ public class UpdatePatientController implements Initializable {
                         soc.setText(results.getString("Ssn"));
                         diagnosis.setText(results.getString("Diagnosis"));
                         sexChoice.setValue(results.getString("Sex"));
-
                     }
-
+                    
                 }catch(Exception e){
                     e.printStackTrace();
                 }
             }
         });
     }
-
+    
     @FXML public void onAddPatient(ActionEvent click) throws Exception {
         try{
             stage = (Stage) ((Button) click.getSource()).getScene().getWindow();
-
+        
             String source = ((Node) click.getSource()).getId();
-
+            
             switch (source) {
-
-
-
-                        case "updatePatient":
-                        	root = FXMLLoader.load(getClass().getResource("/view/UpdatePatient.fxml"));
-                            try{
-                            	root = FXMLLoader.load(getClass().getResource("/view/UpdatePatient.fxml"));
-                                if(!firstField.getText().trim().equals("") &&
-                                        !lastField.getText().trim().equals("") &&
-                                        !birthField.getText().trim().equals("") &&
-                                        !addressField1.getText().trim().equals("") &&
-                                        !sexChoice.getValue().equals("") &&
-                                        !diagnosis.getText().trim().equals("") &&
-                                        soc.getText().length() == 9 &&
-                                        !(phoneField.getText().trim().equals("") ||
-                                        phoneField.getText().trim().length() != 12)){
-                                    String first = firstField.getText().trim();
-                                    String last = lastField.getText().trim();
-                                    String birth = birthField.getText().trim();
-                                    String addr = addressField1.getText().trim();
-                                    String sex = sexChoice.getValue().toString();
-                                    String phNum = phoneField.getText().trim();
-                                    String social = soc.getText().trim();
-                                    String diag = diagnosis.getText().trim();
-                                    String user_name = "Bobby";
-
-                                    String patientQuery = "UPDATE Personal_Info SET FName = '"+first+"', LName = '"+last+"', BDate = '"+birth+"', Address = '"+addr+"', Sex = '"+sex+"', Phone_Number = '"+phNum+"',"
-                                    		+ " Dead = 'no', Ssn = '"+social+ "', Ssn = '"+"', last_changed_by = '"+user_name+"', Diagnosis = '"+diag+"' WHERE Phone_Number = '"+phNum+"'";
-
-                                    Connection conn = DBConfig.getConnection();
-
-
-                                    PreparedStatement updatePatient = conn.prepareStatement(patientQuery,Statement.RETURN_GENERATED_KEYS);
-                                    updatePatient.execute();
-
-
-
-                                }
-                                else{
-                                    break;
-                                }
+		case "addButton":
+                    try{
+                        if(!firstField.getText().trim().equals("") &&
+                                !lastField.getText().trim().equals("") &&
+                                !birthField.getText().trim().equals("") &&
+                                !addressField1.getText().trim().equals("") &&
+                                !sexChoice.getValue().equals("") &&
+                                !diagnosis.getText().trim().equals("") &&
+                                soc.getText().length() == 9 &&
+                                !(phoneField.getText().trim().equals("") ||
+                                phoneField.getText().trim().length() != 12)){
+                            String first = firstField.getText().trim();
+                            String last = lastField.getText().trim();
+                            String birth = birthField.getText().trim();
+                            String addr = addressField1.getText().trim();
+                            String sex = sexChoice.getValue().toString();
+                            String phNum = phoneField.getText().trim();
+                            String social = soc.getText().trim();
+                            String diag = diagnosis.getText().trim();
+                            
+                            String copyQuery = "INSERT INTO Personal_History (Address, BDate, danger_lvl, FName, LName, Phone_Number, PNumber, Sex) SELECT Address, BDate, Danger_lvl, FName, LName, Phone_Number, PNumber, Sex FROM Personal_Info WHERE Phone_Number='"+phNum+"'";
+                            
+                            String patQuery = "UPDATE Personal_Info SET FName = '"+first+"', LName = '"+last+"', BDate = '"+birth+"', Address = '"+addr+"', Sex = '"+sex+"', Phone_Number = '"+phNum+"', Dead = 'no', Ssn = '"+social+"', Diagnosis = '"+diag+"' WHERE Phone_Number = '"+phNum+"'";
+                            
+                            Connection conn = DBConfig.getConnection();
+                            PreparedStatement copyPat = conn.prepareStatement(copyQuery,Statement.RETURN_GENERATED_KEYS);
+                            copyPat.execute();
+                            PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
+                            
+                            /*
+                            addPat.setString(1, first);
+                            addPat.setString(2, last);
+                            addPat.setDate(3, Date.valueOf(birth));
+                            addPat.setString(4, addr);
+                            addPat.setString(5, sex);
+                            addPat.setString(6, phNum);
+                            addPat.setString(7,"no");
+                            addPat.setString(8, social);
+                            addPat.setString(9, diag);
+                            */
+                            
+                            System.out.println("Query Sent" + addPat.toString());
+                            
+                            int accepted  = addPat.executeUpdate();
+                            
+                            if(accepted == 1){
+                                root = FXMLLoader.load(getClass().getResource("/view/AddPatient.fxml"));
+                                AddPatientController act1 = new AddPatientController();
+                                act1.setMain(main);
+                                break;
+                            }
+                            else{
+                                System.out.println("Query failed");
+                                root = FXMLLoader.load(getClass().getResource("/view/AddPatient.fxml"));
+                                AddPatientController act1 = new AddPatientController();
+                                act1.setMain(main);
+                                break;
+                            }
+                            
+                        }
+                        else{
+                            break;
+                        }
                     }catch(Exception e){
                         e.printStackTrace();
                     }

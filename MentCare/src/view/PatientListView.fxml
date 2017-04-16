@@ -57,14 +57,16 @@
                            <children>
                               <Label text="First Name:" />
                               <Label text="Last name:" GridPane.rowIndex="1" />
-                              <Label text="Home Address:" GridPane.rowIndex="2" />
-                              <Label text="Phone Number:" GridPane.rowIndex="3" />
-                              <Label text="Last Changed By:" GridPane.rowIndex="4" />
+                              <Label text="SSN:" GridPane.rowIndex="2" />
+                              <Label text="Last Visit: " GridPane.rowIndex="3" />
+                              <Label text="Next Visit: " GridPane.rowIndex="4" />
+                              <Label text="Home Address: " GridPane.rowIndex="5" />
                               <Label fx:id="firstNameLabel" text="" GridPane.columnIndex="1" />
                               <Label fx:id="lastNameLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="homeAddressLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label fx:id="phoneNumberLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label fx:id="lastChangedByLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="ssnLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="lastVisitLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="nextVisitLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="homeAddressLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                            </children>
                         </GridPane>
                         <Label layoutX="19.0" layoutY="219.0" prefHeight="17.0" prefWidth="141.0" text="Patient History" />
@@ -79,9 +81,7 @@
                         <Button layoutX="357.0" layoutY="361.0" mnemonicParsing="false" text="Submit" />
                         <Pane fx:id="threatPane" layoutX="424.0" layoutY="252.0" prefHeight="134.0" prefWidth="150.0" />
                         <TextField fx:id="changeAddress" layoutX="224.0" layoutY="187.0" prefHeight="25.0" prefWidth="221.0" />
-                        <Button fx:id="backButton" layoutX="43.0" layoutY="510.0" mnemonicParsing="false" onAction="#MenuButtonAction" prefHeight="44.0" prefWidth="123.0" text="Back" />
-                        <Button fx:id="update_patient" layoutX="309.0" layoutY="510.0" mnemonicParsing="false" onAction="#MenuButtonAction" prefHeight="44.0" prefWidth="123.0" text="Update Patient" />
-                        <Button fx:id="add_patient" layoutX="174.0" layoutY="510.0" mnemonicParsing="false" onAction="#MenuButtonAction" prefHeight="44.0" prefWidth="123.0" text="Add Patient" />
+                        <Button fx:id="backButton" onAction="#backButtonAction" layoutX="43.0" layoutY="510.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="123.0" text="Back" />
                      </children>
                   </AnchorPane>
                </children>
