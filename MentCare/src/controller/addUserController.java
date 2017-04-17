@@ -1,4 +1,7 @@
 //up to date with mentcare2
+//modified by Anna 4/17/17
+	//fixed the sql, cause there was an error
+	//made sure dialog box had new css
 //Created by Anna 3/25/2017
 //modified by Anna 3/28/17 at 10:16am, 2 updates 
 
@@ -130,7 +133,7 @@ public class addUserController {
 		String finalID = "";
 		
 		//create query to get the next auto increment 
-        String IDQuery = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'mentcare' AND TABLE_NAME = 'Users'";
+        String IDQuery = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'mentcare2' AND TABLE_NAME = 'Users'";
 		
 		 //try to connect to db
         try (Connection conn = DBConfig.getConnection();
@@ -232,11 +235,12 @@ public class addUserController {
 			    //needed in order to add css to the box
 			    DialogPane dialogPane = idNum.getDialogPane();
 		    	//css for ID number alert box
-		    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"//TODO for UI committee
-		    					  + "-fx-font-size: 15px;"
-		    					  + "-fx-mid-text-color: #010a66;"
-		    					  + "-fx-font-family: georgia;");
-		    	//on the outside top of the box
+			    
+			    //--Anna, made sure it works with the new style sheets
+			    dialogPane.getStylesheets().add(
+		    			   getClass().getResource("/application/application.css").toExternalForm());
+			    //--Anna
+			    
 		    	idNum.setTitle("Auto-Generated ID Number");
 		    	//in box itself
 		    	idNum.setHeaderText("ID Number: " + user.getID() + "\n" + "Password: " + user.getPassword());
