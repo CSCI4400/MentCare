@@ -1,3 +1,6 @@
+/**
+ * Establishes connection to Database. Used in MainFXApp
+ */
 package model;
 
 import java.sql.Connection;
