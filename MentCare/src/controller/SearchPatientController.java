@@ -170,16 +170,30 @@ public class SearchPatientController {
 		});
 		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
-			pid = patientidinput.getText();
-			//validate input and add searching by fields other than id number here
-			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
-			a = new Patient();
-			a.setPatientnum(Integer.parseInt(pid));
-			//Calls the static method for displaying patient record info for a receptionist.
-			//This means that there is no medical or diagnosis info displayed.
-			//Parameters are the patient object and the current stage.
-			PatientRecordsController.ViewPatientRecordsRecep(a, window);
+			//gets the patient id number. Currently there is no error checking.
+			if(comboBox.getSelectionModel().getSelectedItem().equals("Patient ID")){
+				pid = patientidinput.getText();
+				//validate input and add searching by fields other than id number here
+				a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
+				a = new Patient();
+				a.setPatientnum(Integer.parseInt(pid));
+			}
+
+			else if(comboBox.getSelectionModel().getSelectedItem().equals("Name")){
+				String name = patientidinput.getText();
+				a = PatientDAO.getPatientInfo(name, window, false);
+			}
+
+			else if(comboBox.getSelectionModel().getSelectedItem().equals("Address")){
+				String address = patientidinput.getText();
+				a = PatientDAO.getPatientInfo(address, window, true);
+			}
+				//Calls the static method for displaying patient record info for a doctor.
+				//This means that medical info is displayed. Parameters are a patient object and the
+				//current stage
+				PatientRecordsController.ViewPatientRecordsRecep(a, window);
 		});
+
 		window.setTitle(patientsearch);
 		Scene patientsearchRecep = new Scene(layout2, 640, 640);
 

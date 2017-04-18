@@ -14,8 +14,14 @@ import java.util.ArrayList;
 
 import application.MainFXApp;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.DBConnection;
 import model.Patient;
@@ -100,7 +106,6 @@ public class PatientDAO {
 	 * @param patientName Patient's Name or Address
 	 * @param window UI window to be updated
 	 * @param isAddress used to differentiate between searching by address or by name
-	 * @return Patient's info
 	 */
 	public static Patient getPatientInfo(String nameOrAddress, Stage window, Boolean isAddress) {
 		Patient a = new Patient();
@@ -108,6 +113,12 @@ public class PatientDAO {
 
 		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
 		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
+
+		//ToggleGroup to ensure only one patient can be selected at a time
+		final ToggleGroup patients = new ToggleGroup();
+		//Maintans list of patient objects that match the search criteria
+		ArrayList<Patient> searchResults = new ArrayList<Patient>();
+
 			try {
 				PreparedStatement pstmt;
 				//queries the database for the current patient info
@@ -140,6 +151,7 @@ public class PatientDAO {
 						a.setDiagnosis(rs.getString("Diagnosis"));
 						//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
 						a.setSsn(rs.getString("Ssn"));
+						searchResults.add(a);
 						}
 				}
 				pstmt.close();
@@ -148,13 +160,15 @@ public class PatientDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();//
 			}
+
+
 			Platform.runLater(new Runnable() {
 				public void run() {
 					if(noPatientFound){
 						PatientRecordsController.NoPatientFound(a, window);
 					}
 					else{
-						if(loginController.loggedOnUser.equals("Doctor")){
+						/*if(loginController.loggedOnUser.equals("Doctor")){
 							//Goes to the patient records screen for a Doctor
 							PatientRecordsController.ViewPatientRecordsDoc(a, window);
 						}
@@ -165,11 +179,14 @@ public class PatientDAO {
 						else{
 							//fall back case for testing. Remove once login system is implemented
 							PatientRecordsController.ViewPatientRecordsDoc(a, window);
-						}
+						}*/
+
+						SearchPatientListController.displaySearchResults(searchResults, window);
 					}
 
 				}
 			});
+
 			return a;
 	}
 
