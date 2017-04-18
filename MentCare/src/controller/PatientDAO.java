@@ -1,3 +1,7 @@
+/**
+ * Handles Patient Table(Personal_Info) reading and writing operations.
+ */
+
 package controller;
 
 import java.sql.Connection;
@@ -20,7 +24,13 @@ import model.Patient;
 public class PatientDAO {
 	
 	static Boolean noPatientFound = false;
-
+	
+	/** 
+	 * Retrieves Patient info from database
+	 * @param patientnum Patient ID
+	 * @param window UI window to be updated
+	 * @return Patient's info
+	 */
 	public static Patient getPatientInfo(int patientnum, Stage window) {
 		Patient a = new Patient();
 		//Query for getting the current patient info
@@ -82,7 +92,11 @@ public class PatientDAO {
 			});
 			return a;
 	}
-
+	/**
+	 * Updates a patient's information
+	 * @param a Patient object
+	 * @param DiagnosisCode indicates whether a diagnosis is permanent(0) or temporary(1)
+	 */
 	public static void updatePatientInfo(Patient a, int DiagnosisCode) {
 		//DiagnosisCode indicates whether diagnosis is permanent or temporary
 		System.out.println("Record updater starting");
@@ -184,4 +198,3 @@ public class PatientDAO {
 		}
 	}
 }
-

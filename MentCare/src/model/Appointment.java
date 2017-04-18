@@ -1,3 +1,6 @@
+/**
+ * Object that holds appointment info
+ */
 package model;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -17,7 +20,19 @@ public class Appointment {
 	private StringProperty passed;
 	private StringProperty missed;
 	private StringProperty phone;
-
+	
+	/**
+	 * Appointment Constructor
+	 * @param appnum	Unique Appointment ID
+	 * @param pnum		Patient Number
+	 * @param pname		Patient's Name
+	 * @param DocID		Doctor ID
+	 * @param apdate	Appointment Date
+	 * @param aptime	Appointment Time
+	 * @param Passed	
+	 * @param Missed
+	 * @param phoneNum	Patient's Phone number
+	 */
 	public Appointment(String appnum, String pnum, String pname, String DocID, String apdate, String aptime, String Passed, String Missed, String phoneNum) {
 		this.appNum = new SimpleStringProperty(appnum);
 		this.Pnum = new SimpleStringProperty(pnum);

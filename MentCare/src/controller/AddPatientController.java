@@ -79,8 +79,8 @@ public class AddPatientController {
                             String social = soc.getText().trim();
                             String diag = diagnosis.getText().trim();
 
-                            String patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`, `Last_Visit`) "
-                                + "VALUES (?,?,?,?,?,?,no,?,?,?)";
+                            String patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`, `Last_Visit`, `Danger_lvl`, `last_changed_by`) "
+                                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
                             Connection conn = DBConfig.getConnection();
                             PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
@@ -95,6 +95,10 @@ public class AddPatientController {
                             addPat.setString(8, social);
                             addPat.setString(9, diag);
                             addPat.setObject(10, LocalDate.now());
+                            addPat.setObject(11, "0");
+                            addPat.setString(12, "Current doctor"); //fix who logged in user is
+                            //addPat.setString(12, loginController.loggedOnUser.getName());
+
 
                             System.out.println("Query Sent" + addPat.toString());
 

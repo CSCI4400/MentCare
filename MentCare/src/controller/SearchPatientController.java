@@ -5,9 +5,12 @@ import javax.print.DocFlavor.URL;
 import application.MainFXApp;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -21,10 +24,17 @@ public class SearchPatientController {
 
 	static Button backbutton = new Button("Back");
 	static Button searchbutton = new Button("Search");
-	static Label patientidl = new Label("What is the Patient ID Number?");
+	static Label patientidl = new Label("Search for a patient by: ");
 	static Patient a = new Patient();
 	static String pid; //used to store the ID# of the patient whose record is being looked at
 	static String patientsearch = "Search";
+	static final ObservableList<String> options =
+		    FXCollections.observableArrayList(
+		        "Patient ID",
+		        "Name",
+		        "Address"
+		    );
+	static ComboBox comboBox = new ComboBox(options);
 
 	public static void searchPatientDoc(Stage window){//This search method is for a doctor, so it
 		//calls the method for the patient view that has medical info
@@ -32,24 +42,39 @@ public class SearchPatientController {
 		backbutton.setFont(Font.font("Georgia", 15));
 		searchbutton.setFont(Font.font("Georgia", 15));
 		patientidl.setFont(Font.font("Georgia", 15));
-		
-		
-
 
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		
+
+		comboBox.getSelectionModel().selectFirst();
+		comboBox.getSelectionModel().getSelectedItem();
+
 		//Validates input in the search textbox, only accepts numerical input
-		patientidinput.textProperty().addListener(new ChangeListener<String>() {
+		ChangeListener<String> onlyNumbers = new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (!newValue.matches("\\d*")){
 					patientidinput.setText(newValue.replaceAll("[^\\d]", ""));
 				}
-				
+
+			}
+		};
+
+		patientidinput.textProperty().addListener(onlyNumbers);
+
+		comboBox.setOnAction(e ->{
+			if(comboBox.getSelectionModel().getSelectedItem().equals("Patient ID")){
+				patientidinput.textProperty().addListener(onlyNumbers);
+			}
+			else{
+				//Currently doesn't work, going to look at more
+				patientidinput.textProperty().removeListener(onlyNumbers);
 			}
 		});
-		
+
+
+
+
 		backbutton.setOnAction(e-> {
 			//back button returns to the main menu
 			try {
@@ -61,10 +86,10 @@ public class SearchPatientController {
 				e1.printStackTrace();
 			}
 		});
-		layout2.getChildren().addAll(patientidl, patientidinput, searchbutton, backbutton);
+		layout2.getChildren().addAll(patientidl, patientidinput, comboBox, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			//gets the patient id number. Currently there is no error checking.
-			
+
 			pid = patientidinput.getText();
 			//validate input and add searching by fields other than id number here
 			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
@@ -93,7 +118,7 @@ public class SearchPatientController {
 
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		
+
 		//Validates input in the search textbox, only accepts numerical input
 		patientidinput.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -101,10 +126,10 @@ public class SearchPatientController {
 				if (!newValue.matches("\\d*")){
 					patientidinput.setText(newValue.replaceAll("[^\\d]", ""));
 				}
-				
+
 			}
 		});
-		
+
 		backbutton.setOnAction(e-> {
 			//back button returns to the main menu
 			try {
@@ -130,7 +155,7 @@ public class SearchPatientController {
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearchRecep = new Scene(layout2, 640, 640);
-		
+
 		patientsearchRecep.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
 

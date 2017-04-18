@@ -1,6 +1,8 @@
 //Created by Anna 3/25/2017
 //modified by Anna 3/28/17 at 10:16pm, 1 updates 
-
+/**
+ * Currently logged in user info
+ */
 
 
 package model;
