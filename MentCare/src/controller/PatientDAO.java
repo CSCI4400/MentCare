@@ -14,8 +14,14 @@ import java.util.ArrayList;
 
 import application.MainFXApp;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.DBConnection;
 import model.Patient;
@@ -24,6 +30,8 @@ import model.Patient;
 public class PatientDAO {
 
 	static Boolean noPatientFound = false;
+	static ArrayList<Patient> searchResults = new ArrayList<Patient>();
+	static final Patient p = new Patient();
 
 	/**
 	 * Retrieves Patient info from database
@@ -32,8 +40,8 @@ public class PatientDAO {
 	 * @return Patient's info
 	 */
 	public static Patient getPatientInfo(int patientnum, Stage window) {
-		Patient a = new Patient();
 		//Query for getting the current patient info
+		Patient a = new Patient();
 		String selectPinfoStmtPnum = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
 		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
 		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
@@ -72,7 +80,7 @@ public class PatientDAO {
 			Platform.runLater(new Runnable() {
 				public void run() {
 					if(noPatientFound){
-						PatientRecordsController.NoPatientFound(a, window);
+						PatientRecordsController.NoPatientFound(window);
 					}
 					else{
 						if(loginController.loggedOnUser.equals("Doctor")){
@@ -100,44 +108,52 @@ public class PatientDAO {
 	 * @param patientName Patient's Name or Address
 	 * @param window UI window to be updated
 	 * @param isAddress used to differentiate between searching by address or by name
-	 * @return Patient's info
 	 */
 	public static Patient getPatientInfo(String nameOrAddress, Stage window, Boolean isAddress) {
-		Patient a = new Patient();
 		//Query for getting the current patient info
+		Patient p = new Patient();
 
 		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
 		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
+
+		//Maintains list of patient objects that match the search criteria
+
+
 			try {
 				PreparedStatement pstmt;
 				//queries the database for the current patient info
 				if(!isAddress){
+					//Searches by name (currently first name)
 					pstmt = MainFXApp.con.prepareStatement(selectPinfoStmtName);
 					pstmt.setString(1, nameOrAddress);
 				}
 				else{
+					//Searches by address
 					pstmt = MainFXApp.con.prepareStatement(selectPinfoStmtAddress);
 					pstmt.setString(1, nameOrAddress);
 				}
 				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
 				if(!rs.isBeforeFirst()){
-					//This means that there is no patient with the patient ID number entered
+					//This means that there is no patient with the name or address entered
 					System.out.println("No patient found");
 					noPatientFound = true;
 				}
 				else{
 					noPatientFound = false;
 					while(rs.next()){ //Gets the information from the "Personal Info" table
-						a.setPatientnum(rs.getInt("PNumber"));
-						a.setFirstname(rs.getString("Fname"));
-						a.setLastname(rs.getString("Lname"));
-						a.setAddress(rs.getString("Address"));
-						a.setGender(rs.getString("Sex"));
-						a.setPhoneNumber(rs.getString("Phone_Number"));
-						a.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
-						a.setDiagnosis(rs.getString("Diagnosis"));
+						Patient s = new Patient();
+						s.setPatientnum(rs.getInt("PNumber"));
+						s.setFirstname(rs.getString("Fname"));
+						s.setLastname(rs.getString("Lname"));
+						s.setAddress(rs.getString("Address"));
+						s.setGender(rs.getString("Sex"));
+						s.setPhoneNumber(rs.getString("Phone_Number"));
+						s.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
+						s.setDiagnosis(rs.getString("Diagnosis"));
 						//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
-						a.setSsn(rs.getString("Ssn"));
+						s.setSsn(rs.getString("Ssn"));
+						searchResults.add(s);
+						p = s;
 						}
 				}
 				pstmt.close();
@@ -146,13 +162,15 @@ public class PatientDAO {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();//
 			}
+
+
 			Platform.runLater(new Runnable() {
 				public void run() {
 					if(noPatientFound){
-						PatientRecordsController.NoPatientFound(a, window);
+						PatientRecordsController.NoPatientFound(window);
 					}
 					else{
-						if(loginController.loggedOnUser.equals("Doctor")){
+						/*if(loginController.loggedOnUser.equals("Doctor")){
 							//Goes to the patient records screen for a Doctor
 							PatientRecordsController.ViewPatientRecordsDoc(a, window);
 						}
@@ -163,12 +181,15 @@ public class PatientDAO {
 						else{
 							//fall back case for testing. Remove once login system is implemented
 							PatientRecordsController.ViewPatientRecordsDoc(a, window);
-						}
+						}*/
+
+						SearchPatientListController.displaySearchResults(searchResults, window);
 					}
 
 				}
 			});
-			return a;
+
+			return p;
 	}
 
 

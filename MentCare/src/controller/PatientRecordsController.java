@@ -22,6 +22,7 @@ public class PatientRecordsController {
 	static Button backbutton = new Button("Back");
 	static Button updatebutton = new Button("Update Information");
 	//These are the labels for the patient information
+	public static Text pidLabel = new Text("Patient ID Number: ");
 	public static Text firstnamel = new Text("First Name:");
 	public static Text lastnamel = new Text("Last name:");
 	public static Text birthdatel = new Text("Birthdate:");
@@ -38,6 +39,7 @@ public class PatientRecordsController {
 		//This method is the patient record viewer for a doctor.
 		//That means that medical information like diagnosis is included.
 		VBox layout2 = new VBox(10);
+		Label patientid = new Label(Integer.toString(a.getPatientnum()));
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
 		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());
 		Label diagnosis = new Label(a.getDiagnosis()); Label Ssn = new Label(a.getSsn()); Label lastapt = new Label((a.getLastVisit()).toString());
@@ -61,6 +63,8 @@ public class PatientRecordsController {
 		ssnl.setStyle("-fx-font-weight: bold");
 		lastvisitl.setFont(Font.font("Georgia", 15));
 		lastvisitl.setStyle("-fx-font-weight: bold");
+		pidLabel.setFont(Font.font("Georgia", 15));
+		pidLabel.setStyle("-fx-font-eight: bold");
 
 		//Sets font of patient information
 		firstname.setFont(Font.font("Georgia", 15));
@@ -72,6 +76,7 @@ public class PatientRecordsController {
 		diagnosis.setFont(Font.font("Georgia", 15));
 		Ssn.setFont(Font.font("Georgia", 15));
 		lastapt.setFont(Font.font("Georgia", 15));
+		patientid.setFont(Font.font("Georgia", 15));
 
 		diagnosishistorybutton.setFont(Font.font("Georgia", 15));
 		backbutton.setFont(Font.font("Georgia", 15));
@@ -113,12 +118,12 @@ public class PatientRecordsController {
 		//Parameters are the current patient object and the current stage
 		updatebutton.setOnAction(e-> EditPatientRecordsController.DocEditPatientRecords(a, window));
 		//Adds the labels to the view
-		layout2.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, updatebutton, backbutton);
+		layout2.getChildren().addAll(pidLabel, patientid, firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, updatebutton, backbutton);
 		Scene Docpatientrecords = new Scene(layout2, 700, 700);
-		
+
 		Docpatientrecords.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
-		
+
 		window.setScene(Docpatientrecords);
 	}
 
@@ -198,15 +203,15 @@ public class PatientRecordsController {
 		//Adds all the labels to the window
 		layout3.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, lastvisitl, lastapt, updatebutton, backbutton);
 		Scene Receppatientrecords = new Scene(layout3, 700, 700);
-		
+
 		Receppatientrecords.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
-		
+
 		window.setScene(Receppatientrecords);
 
 	}
-	
-	public static void NoPatientFound(Patient a, Stage window){
+
+	public static void NoPatientFound(Stage window){
 		//This is the scene that appears if a search does not return any results
 		VBox layout4 = new VBox(10);
 		Label noPatientFound = new Label("No patient found");
