@@ -112,16 +112,18 @@ public class PatientDAO {
 				PreparedStatement pstmt;
 				//queries the database for the current patient info
 				if(!isAddress){
+					//Searches by name (currently first name)
 					pstmt = MainFXApp.con.prepareStatement(selectPinfoStmtName);
 					pstmt.setString(1, nameOrAddress);
 				}
 				else{
+					//Searches by address
 					pstmt = MainFXApp.con.prepareStatement(selectPinfoStmtAddress);
 					pstmt.setString(1, nameOrAddress);
 				}
 				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
 				if(!rs.isBeforeFirst()){
-					//This means that there is no patient with the patient ID number entered
+					//This means that there is no patient with the name or address entered
 					System.out.println("No patient found");
 					noPatientFound = true;
 				}
