@@ -49,6 +49,7 @@ public class SearchPatientController {
 		comboBox.getSelectionModel().selectFirst();
 		comboBox.getSelectionModel().getSelectedItem();
 
+		//Validates input in the search textbox, only accepts numerical input
 		ChangeListener<String> onlyNumbers = new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -59,14 +60,20 @@ public class SearchPatientController {
 			}
 		};
 
-		//Validates input in the search textbox, only accepts numerical input
-		if(comboBox.getSelectionModel().getSelectedItem().equals("Patient ID")){
-			patientidinput.textProperty().addListener(onlyNumbers);
-		}
-		else{
-			//Currently doesn't work, going to look at more
-			patientidinput.textProperty().removeListener(onlyNumbers);
-		}
+		patientidinput.textProperty().addListener(onlyNumbers);
+
+		comboBox.setOnAction(e ->{
+			if(comboBox.getSelectionModel().getSelectedItem().equals("Patient ID")){
+				patientidinput.textProperty().addListener(onlyNumbers);
+			}
+			else{
+				//Currently doesn't work, going to look at more
+				patientidinput.textProperty().removeListener(onlyNumbers);
+			}
+		});
+
+
+
 
 		backbutton.setOnAction(e-> {
 			//back button returns to the main menu
