@@ -100,12 +100,12 @@ public class SearchPatientController {
 
 			else if(comboBox.getSelectionModel().getSelectedItem().equals("Name")){
 				String name = patientidinput.getText();
-				a = PatientDAO.getPatientInfo(name, window, false);
+				PatientDAO.getPatientInfo(name, window, false);
 			}
 
 			else if(comboBox.getSelectionModel().getSelectedItem().equals("Address")){
 				String address = patientidinput.getText();
-				a = PatientDAO.getPatientInfo(address, window, true);
+				PatientDAO.getPatientInfo(address, window, true);
 			}
 				//Calls the static method for displaying patient record info for a doctor.
 				//This means that medical info is displayed. Parameters are a patient object and the
@@ -183,12 +183,12 @@ public class SearchPatientController {
 
 			else if(comboBox.getSelectionModel().getSelectedItem().equals("Name")){
 				String name = patientidinput.getText();
-				a = PatientDAO.getPatientInfo(name, window, false);
+				PatientDAO.getPatientInfo(name, window, false);
 			}
 
 			else if(comboBox.getSelectionModel().getSelectedItem().equals("Address")){
 				String address = patientidinput.getText();
-				a = PatientDAO.getPatientInfo(address, window, true);
+				PatientDAO.getPatientInfo(address, window, true);
 			}
 				//Calls the static method for displaying patient record info for a doctor.
 				//This means that medical info is displayed. Parameters are a patient object and the
