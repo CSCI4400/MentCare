@@ -96,7 +96,8 @@ public class AddPatientController {
                             addPat.setString(9, diag);
                             addPat.setObject(10, LocalDate.now());
                             addPat.setObject(11, "0");
-				addPat.setObject(12, "Random doctor"); //fix who logged in user is
+                            addPat.setString(12, "Current doctor"); //fix who logged in user is
+                            //addPat.setString(12, loginController.loggedOnUser.getName());
 
 
                             System.out.println("Query Sent" + addPat.toString());
