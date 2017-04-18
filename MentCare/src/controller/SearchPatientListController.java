@@ -11,6 +11,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Patient;
 
@@ -23,11 +24,15 @@ public class SearchPatientListController {
 
 	public static void displaySearchResults(ArrayList<Patient> searchResults, Stage window){
 
+		backbutton.setFont(Font.font("Georgia", 15));
+
+		selectbutton.setFont(Font.font("Georgia", 15));
+
 		final ToggleGroup patients = new ToggleGroup();
 
 		ArrayList<RadioButton> rbList = new ArrayList<RadioButton>();
 
-		VBox searchResultslayout = new VBox();
+		VBox searchResultslayout = new VBox(10);
 		Label searchResulttitle = new Label("Search Results: ");
 
 
@@ -35,6 +40,7 @@ public class SearchPatientListController {
 
 		for(Patient p : searchResults){
 			RadioButton rb = new RadioButton("Patient ID Number: " + p.getPatientnum() + "\t" + "Name: " + p.getFirstname() + " " + p.getLastname());
+			rb.setFont(Font.font("Georgia", 15));
 			rbList.add(rb);
 			rb.setUserData(p.getPatientnum());
 			rb.setToggleGroup(patients);
