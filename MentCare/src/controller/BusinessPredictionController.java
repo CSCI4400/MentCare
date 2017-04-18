@@ -30,6 +30,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+
+
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.chart.*;
+import javafx.scene.Group;
+
 import model.DBConnection;
 /**
  * FXML Controller class
@@ -41,8 +51,12 @@ public class BusinessPredictionController implements Initializable {
     Stage stage;
     Scene scene;
     Parent root;
-    
+    private static final int MYSQL_TABLE_DOES_NOT_EXIST = 1146;
+    private static final int MYSQL_COLUMN_DOES_NOT_EXIST = 1054;
+    private static final int MYSQL_TRUNCATED_INCORRECT_DOUBLE_VALUE = 1292;
+
     private MainFXApp main;
+
     
     public void setMain(MainFXApp mainIn){
         main = mainIn;
@@ -84,7 +98,13 @@ public class BusinessPredictionController implements Initializable {
             }
         }//end try
         catch (SQLException e) {
-            // TODO Auto-generated catch block
+           if (e.getErrorCode() == MYSQL_TABLE_DOES_NOT_EXIST){
+               System.out.print("MySQL Table Does Not Exist.");
+            }
+           else if(e.getErrorCode() == MYSQL_COLUMN_DOES_NOT_EXIST)
+               System.out.println("The column you attempted to insert data into does not exist. You may have formatted your values improperly.");
+           else if(e.getErrorCode() == MYSQL_TRUNCATED_INCORRECT_DOUBLE_VALUE)
+               System.out.println("The value  may not have been formatted correctly");
             e.printStackTrace();
         }//end catch
 
@@ -109,7 +129,14 @@ public class BusinessPredictionController implements Initializable {
         }//end try
 
         catch (SQLException e) {
-            // TODO Auto-generated catch block
+            if (e.getErrorCode() == MYSQL_TABLE_DOES_NOT_EXIST){
+                System.out.print("MySQL Table Does Not Exist.");
+            }
+            else if(e.getErrorCode() == MYSQL_COLUMN_DOES_NOT_EXIST) {
+                System.out.println("The column you attempted to insert data into does not exist. You may have formatted your values improperly.");
+            }
+            else if(e.getErrorCode() == MYSQL_TRUNCATED_INCORRECT_DOUBLE_VALUE)
+                System.out.println("The value  may not have been formatted correctly");
             e.printStackTrace();
         }//end catch
 
@@ -134,17 +161,52 @@ public class BusinessPredictionController implements Initializable {
         }//end try
 
         catch (SQLException e) {
-            // TODO Auto-generated catch block
+
+            if (e.getErrorCode() == MYSQL_TABLE_DOES_NOT_EXIST){
+                System.out.print("MySQL Table Does Not Exist.");
+            }
+            else if(e.getErrorCode() == MYSQL_COLUMN_DOES_NOT_EXIST) {
+                System.out.println("The column you attempted to insert data into does not exist. You may have formatted your values improperly.");
+            }
+            else if(e.getErrorCode() == MYSQL_TRUNCATED_INCORRECT_DOUBLE_VALUE) {
+                System.out.println("The value  may not have been formatted correctly");
+            }
             e.printStackTrace();
         }//end catch
 
         yearLabel.setText(Integer.toString(yearVal));
         yearPredict.setText(Integer.toString(yearVal));
 
+/*  Here I am starting some data visualization stuff... To be expanded on more meaningfully soon.
+
+         public void start(Stage stage) {
+            Scene scene = new Scene(new Group());
+            stage.setTitle("Imported Fruits");
+            stage.setWidth(500);
+            stage.setHeight(500);
+
+            ObservableList<PieChart.Data> pieChartData =
+                    FXCollections.observableArrayList(
+                            new PieChart.Data("Past Month", monthVal),
+                            new PieChart.Data("Past Week", weekVal),
+                            new PieChart.Data("Past Year", yearVal)
+                    );
+            final PieChart chart = new PieChart(pieChartData);
+            chart.setTitle("Appointment Data");
+
+            ((Group) scene.getRoot()).getChildren().add(chart);
+            stage.setScene(scene);
+            stage.show();
+       }
+*/
 
 
-        
-    } 
+
+
+
+
+
+    } //end initialize
     
     @FXML public void buttonClicked(ActionEvent click) throws Exception {
         try{
@@ -172,6 +234,7 @@ public class BusinessPredictionController implements Initializable {
             //loads the scene on top of whatever stage the button is in
             stage.setScene(scene);
         }catch(Exception e){
+
             e.printStackTrace();
         }
     }   
