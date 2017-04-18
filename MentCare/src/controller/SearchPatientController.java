@@ -95,7 +95,6 @@ public class SearchPatientController {
 				a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
 				a = new Patient();
 				a.setPatientnum(Integer.parseInt(pid));
-				PatientRecordsController.ViewPatientRecordsDoc(a, window);
 			}
 
 			else if(comboBox.getSelectionModel().getSelectedItem().equals("Name")){
@@ -178,7 +177,6 @@ public class SearchPatientController {
 				a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
 				a = new Patient();
 				a.setPatientnum(Integer.parseInt(pid));
-				PatientRecordsController.ViewPatientRecordsRecep(a, window);
 			}
 
 			else if(comboBox.getSelectionModel().getSelectedItem().equals("Name")){
