@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 import model.DBConnection;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+/**
+ * Main Entrance point to our application, also contains db connection in variable con.
+ */
+
 import javafx.fxml.FXMLLoader;
 
 
@@ -21,7 +25,9 @@ public class MainFXApp extends Application {
 		return scene;
 	}
 	
-	
+	/**
+	 * Creates the initial main page then calls mainViewController to create tabs.
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -42,7 +48,9 @@ public class MainFXApp extends Application {
 		}
 	}
 
-
+	/**
+	 * Connects to database and then launches this class's start function. Uses Model.DBConnection.
+	 */
 	public static void main(String[] args) {
 		DBConnection idb = new DBConnection();
 		Thread t = new Thread(idb);
