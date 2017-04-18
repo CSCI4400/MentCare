@@ -79,7 +79,7 @@ public class AddPatientController {
                             String social = soc.getText().trim();
                             String diag = diagnosis.getText().trim();
 
-                            SString patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`, `Last_Visit`, `Danger_lvl`, `last_changed_by`) "
+                            String patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`, `Last_Visit`, `Danger_lvl`, `last_changed_by`) "
                                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
                             Connection conn = DBConfig.getConnection();
