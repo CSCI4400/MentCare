@@ -95,6 +95,7 @@ public class SearchPatientController {
 				a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
 				a = new Patient();
 				a.setPatientnum(Integer.parseInt(pid));
+				PatientRecordsController.ViewPatientRecordsDoc(a, window);
 			}
 
 			else if(comboBox.getSelectionModel().getSelectedItem().equals("Name")){
@@ -109,7 +110,7 @@ public class SearchPatientController {
 				//Calls the static method for displaying patient record info for a doctor.
 				//This means that medical info is displayed. Parameters are a patient object and the
 				//current stage
-				PatientRecordsController.ViewPatientRecordsDoc(a, window);
+				//PatientRecordsController.ViewPatientRecordsDoc(a, window);
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearchDoc = new Scene(layout2, 640, 640);
@@ -177,6 +178,7 @@ public class SearchPatientController {
 				a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
 				a = new Patient();
 				a.setPatientnum(Integer.parseInt(pid));
+				PatientRecordsController.ViewPatientRecordsRecep(a, window);
 			}
 
 			else if(comboBox.getSelectionModel().getSelectedItem().equals("Name")){
@@ -191,7 +193,7 @@ public class SearchPatientController {
 				//Calls the static method for displaying patient record info for a doctor.
 				//This means that medical info is displayed. Parameters are a patient object and the
 				//current stage
-				PatientRecordsController.ViewPatientRecordsRecep(a, window);
+				//PatientRecordsController.ViewPatientRecordsRecep(a, window);
 		});
 
 		window.setTitle(patientsearch);

@@ -19,7 +19,7 @@ public class SearchPatientListController {
 	static Button backbutton = new Button("Back");
 	static Button selectbutton = new Button("Select");
 	static Patient c;
-	static String patientInfo;
+	static int pnum;
 
 	public static void displaySearchResults(ArrayList<Patient> searchResults, Stage window){
 
@@ -32,6 +32,7 @@ public class SearchPatientListController {
 		for(Patient p : searchResults){
 			RadioButton rb = new RadioButton("Patient ID Number: " + p.getPatientnum() + "\t" + "Name: " + p.getFirstname() + " " + p.getLastname());
 			rb.setToggleGroup(patients);
+			rb.setUserData(p.getPatientnum());
 			rbList.add(rb);
 			searchResultslayout.getChildren().add(rb);
 
@@ -64,10 +65,25 @@ public class SearchPatientListController {
 		selectbutton.setOnAction( e -> {
 			for(RadioButton r: rbList){
 				if(r.isSelected()){
-					patientInfo = r.getText();
+					pnum = (int) r.getUserData();
 				}
 			}
-			System.out.println(patientInfo);
+
+			for(Patient p: searchResults){
+				if(p.getPatientnum() == pnum){
+					c = p;
+				}
+			}
+
+			/*if(loginController.loggedOnUser.getRole().equals("Doctor")){
+				PatientRecordsController.ViewPatientRecordsDoc(c, window);
+			}
+
+			else if(loginController.loggedOnUser.getRole().equals("Receptionist")){
+				PatientRecordsController.ViewPatientRecordsRecep(c, window);
+			}*/
+
+			PatientRecordsController.ViewPatientRecordsDoc(c, window);
 
 		});
 
