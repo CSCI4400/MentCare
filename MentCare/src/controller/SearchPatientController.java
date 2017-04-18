@@ -24,11 +24,11 @@ public class SearchPatientController {
 
 	static Button backbutton = new Button("Back");
 	static Button searchbutton = new Button("Search");
-	static Label patientidl = new Label("What is the Patient ID Number?");
+	static Label patientidl = new Label("Search for a patient by: ");
 	static Patient a = new Patient();
 	static String pid; //used to store the ID# of the patient whose record is being looked at
 	static String patientsearch = "Search";
-	static final ObservableList<String> options = 
+	static final ObservableList<String> options =
 		    FXCollections.observableArrayList(
 		        "Patient ID",
 		        "Name",
@@ -42,23 +42,32 @@ public class SearchPatientController {
 		backbutton.setFont(Font.font("Georgia", 15));
 		searchbutton.setFont(Font.font("Georgia", 15));
 		patientidl.setFont(Font.font("Georgia", 15));
-		
+
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		
+
 		comboBox.getSelectionModel().selectFirst();
-		
-		//Validates input in the search textbox, only accepts numerical input
-		patientidinput.textProperty().addListener(new ChangeListener<String>() {
+		comboBox.getSelectionModel().getSelectedItem();
+
+		ChangeListener<String> onlyNumbers = new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (!newValue.matches("\\d*")){
 					patientidinput.setText(newValue.replaceAll("[^\\d]", ""));
 				}
-				
+
 			}
-		});
-		
+		};
+
+		//Validates input in the search textbox, only accepts numerical input
+		if(comboBox.getSelectionModel().getSelectedItem().equals("Patient ID")){
+			patientidinput.textProperty().addListener(onlyNumbers);
+		}
+		else{
+			//Currently doesn't work, going to look at more
+			patientidinput.textProperty().removeListener(onlyNumbers);
+		}
+
 		backbutton.setOnAction(e-> {
 			//back button returns to the main menu
 			try {
@@ -73,7 +82,7 @@ public class SearchPatientController {
 		layout2.getChildren().addAll(patientidl, patientidinput, comboBox, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			//gets the patient id number. Currently there is no error checking.
-			
+
 			pid = patientidinput.getText();
 			//validate input and add searching by fields other than id number here
 			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
@@ -102,7 +111,7 @@ public class SearchPatientController {
 
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
-		
+
 		//Validates input in the search textbox, only accepts numerical input
 		patientidinput.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -110,10 +119,10 @@ public class SearchPatientController {
 				if (!newValue.matches("\\d*")){
 					patientidinput.setText(newValue.replaceAll("[^\\d]", ""));
 				}
-				
+
 			}
 		});
-		
+
 		backbutton.setOnAction(e-> {
 			//back button returns to the main menu
 			try {
@@ -139,7 +148,7 @@ public class SearchPatientController {
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearchRecep = new Scene(layout2, 640, 640);
-		
+
 		patientsearchRecep.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
 
