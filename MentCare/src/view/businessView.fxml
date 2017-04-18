@@ -48,7 +48,7 @@
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="bizHistoryButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Buissness History and Prediction" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button fx:id="bizHistoryButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Business History and Prediction" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>

@@ -25,7 +25,7 @@ public class MainFXApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			//CURRENTLY SET TO BIPASS LOGIN
+			//CURRENTLY SET TO BYPASS LOGIN
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
 			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
 
