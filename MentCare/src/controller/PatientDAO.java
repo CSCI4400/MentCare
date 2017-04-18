@@ -30,6 +30,8 @@ import model.Patient;
 public class PatientDAO {
 
 	static Boolean noPatientFound = false;
+	static ArrayList<Patient> searchResults = new ArrayList<Patient>();
+	static final Patient p = new Patient();
 
 	/**
 	 * Retrieves Patient info from database
@@ -38,8 +40,8 @@ public class PatientDAO {
 	 * @return Patient's info
 	 */
 	public static Patient getPatientInfo(int patientnum, Stage window) {
-		Patient a = new Patient();
 		//Query for getting the current patient info
+		Patient a = new Patient();
 		String selectPinfoStmtPnum = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
 		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
 		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
@@ -78,7 +80,7 @@ public class PatientDAO {
 			Platform.runLater(new Runnable() {
 				public void run() {
 					if(noPatientFound){
-						PatientRecordsController.NoPatientFound(a, window);
+						PatientRecordsController.NoPatientFound(window);
 					}
 					else{
 						if(loginController.loggedOnUser.equals("Doctor")){
@@ -108,16 +110,14 @@ public class PatientDAO {
 	 * @param isAddress used to differentiate between searching by address or by name
 	 */
 	public static Patient getPatientInfo(String nameOrAddress, Stage window, Boolean isAddress) {
-		Patient a = new Patient();
 		//Query for getting the current patient info
+		Patient p = new Patient();
 
 		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
 		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
 
-		//ToggleGroup to ensure only one patient can be selected at a time
-		final ToggleGroup patients = new ToggleGroup();
-		//Maintans list of patient objects that match the search criteria
-		ArrayList<Patient> searchResults = new ArrayList<Patient>();
+		//Maintains list of patient objects that match the search criteria
+
 
 			try {
 				PreparedStatement pstmt;
@@ -141,17 +141,19 @@ public class PatientDAO {
 				else{
 					noPatientFound = false;
 					while(rs.next()){ //Gets the information from the "Personal Info" table
-						a.setPatientnum(rs.getInt("PNumber"));
-						a.setFirstname(rs.getString("Fname"));
-						a.setLastname(rs.getString("Lname"));
-						a.setAddress(rs.getString("Address"));
-						a.setGender(rs.getString("Sex"));
-						a.setPhoneNumber(rs.getString("Phone_Number"));
-						a.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
-						a.setDiagnosis(rs.getString("Diagnosis"));
+						Patient s = new Patient();
+						s.setPatientnum(rs.getInt("PNumber"));
+						s.setFirstname(rs.getString("Fname"));
+						s.setLastname(rs.getString("Lname"));
+						s.setAddress(rs.getString("Address"));
+						s.setGender(rs.getString("Sex"));
+						s.setPhoneNumber(rs.getString("Phone_Number"));
+						s.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
+						s.setDiagnosis(rs.getString("Diagnosis"));
 						//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
-						a.setSsn(rs.getString("Ssn"));
-						searchResults.add(a);
+						s.setSsn(rs.getString("Ssn"));
+						searchResults.add(s);
+						p = s;
 						}
 				}
 				pstmt.close();
@@ -165,7 +167,7 @@ public class PatientDAO {
 			Platform.runLater(new Runnable() {
 				public void run() {
 					if(noPatientFound){
-						PatientRecordsController.NoPatientFound(a, window);
+						PatientRecordsController.NoPatientFound(window);
 					}
 					else{
 						/*if(loginController.loggedOnUser.equals("Doctor")){
@@ -187,7 +189,7 @@ public class PatientDAO {
 				}
 			});
 
-			return a;
+			return p;
 	}
 
 

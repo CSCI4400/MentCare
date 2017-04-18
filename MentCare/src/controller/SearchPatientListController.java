@@ -29,19 +29,30 @@ public class SearchPatientListController {
 
 		VBox searchResultslayout = new VBox();
 		Label searchResulttitle = new Label("Search Results: ");
+
+
+		int index = 0;
+
 		for(Patient p : searchResults){
 			RadioButton rb = new RadioButton("Patient ID Number: " + p.getPatientnum() + "\t" + "Name: " + p.getFirstname() + " " + p.getLastname());
-			rb.setToggleGroup(patients);
-			rb.setUserData(p.getPatientnum());
 			rbList.add(rb);
-			searchResultslayout.getChildren().add(rb);
-
+			rb.setUserData(p.getPatientnum());
+			rb.setToggleGroup(patients);
+			System.out.println(p.getLastname());
 		}
+
+		for(RadioButton r: rbList){
+			searchResultslayout.getChildren().add(r);
+		}
+
 
 		RadioButton selected = rbList.get(0);
 		selected.setSelected(true);
 
 		backbutton.setOnAction(e -> {
+
+			rbList.clear();
+			searchResults.clear();
 
 			//Calls appropriate search to return to based on who is logged in.
 			//Currently commented out since login system is disabled
@@ -74,6 +85,9 @@ public class SearchPatientListController {
 					c = p;
 				}
 			}
+
+			rbList.clear();
+			searchResults.clear();
 
 			/*if(loginController.loggedOnUser.getRole().equals("Doctor")){
 				PatientRecordsController.ViewPatientRecordsDoc(c, window);
