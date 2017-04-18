@@ -3,6 +3,7 @@
 .mentStyle
 {
 	-fx-background-image:url("mentcare_bg.jpg");
+	-fx-background-size: cover;
 }
 
 .loginStyle
@@ -10,18 +11,68 @@
 	-fx-background-image:url("gui_bg.jpg");
 }
 
+.text-field
+{
+	-fx-mid-text-color: #010a66;
+}
+
+.choice-box .label
+{
+	-fx-mid-text-color: #010a66;
+	-fx-font-family: georgia;
+	-fx-font-size: 15px;
+}
+
+.combo-box
+{
+	-fx-mid-text-color: #010a66;
+	-fx-font-family: georgia;
+	-fx-font-size: 15px;
+}
+
+.date-picker
+{
+	-fx-mid-text-color: #010a66;
+	-fx-font-family: georgia;
+	-fx-font-size: 15px;
+}
+
+.table-view .column-header .label 
+{
+    -fx-text-fill: #010a66;
+    -fx-font-family: georgia;
+}
+
+.table-view .table-row-cell
+{
+	-fx-mid-text-color: #010a66;
+	-fx-font-family: georgia;
+}
+
+.alert
+{
+	-fx-background-image: url(mentcare_bg.jpg);
+	-fx-font-size: 15px;
+	-fx-mid-text-color: #010a66;
+	-fx-font-family: georgia;
+}
+
 .tab *.tab-label {
     -fx-rotate: 90;
+    -fx-mid-text-color: #010a66;
+    -fx-font-family: georgia;
+    -fx-font-size: 15px;
 }
 
 .tab {
-    -fx-padding: 3em 0.5em 3em 0.5em;
+    -fx-padding: 3.4em 0.0em 3.4em 0.0em;
 }
 
 .root { 
 	-fx-focus-color: transparent;
 	-fx-faint-focus-color: transparent;
 	-fx-background-image:url("mentcare_bg.jpg");
+	-fx-mid-text-color: #010a66;
 }
 
 

@@ -43,7 +43,10 @@
                <font>
                   <Font name="Georgia" size="15.0" />
                </font></Label>
-            <TextField fx:id="PnameField" prefHeight="27.0" prefWidth="217.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <TextField fx:id="PnameField" prefHeight="27.0" prefWidth="217.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font></TextField>
             <Label alignment="CENTER" prefHeight="27.0" prefWidth="176.0" text="Original Info" textFill="#010a66" GridPane.columnIndex="2">
                <font>
                   <Font name="Georgia" size="15.0" />
@@ -60,7 +63,10 @@
                <font>
                   <Font name="Georgia" size="15.0" />
                </font></Label>
-            <TextField fx:id="DocIDField" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <TextField fx:id="DocIDField" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font></TextField>
             <Label text="Appointment Day" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Georgia" size="15.0" />

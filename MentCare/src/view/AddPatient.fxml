@@ -7,74 +7,54 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddPatientController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="515.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddPatientController">
 
    <children>
 
-      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="400.0">
+      <Button fx:id="backButton" layoutX="57.0" layoutY="451.0" mnemonicParsing="false" onAction="#onAddPatient" text="Back" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Button>
 
-         <children>
+      <Button fx:id="addButton" layoutX="131.0" layoutY="451.0" mnemonicParsing="false" onAction="#onAddPatient" text="Add" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="59.0" layoutY="393.0" text="Diagnosis:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
 
-            <Label text="Add Patient" />
+      <TextField fx:id="diagnosis" layoutX="175.0" layoutY="389.0" prefHeight="25.0" prefWidth="178.0">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </TextField>
 
-            <GridPane maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="400.0">
+      <Label layoutX="60.0" layoutY="347.0" text="Phone Number:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
 
-               <columnConstraints>
+      <TextField fx:id="phoneField" layoutX="175.0" layoutY="344.0" prefHeight="25.0" prefWidth="178.0" promptText="xxx-xxx-xxxx">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </TextField>
 
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="129.0" />
+      <Label layoutX="61.0" layoutY="300.0" text="Sex:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
 
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="354.0" minWidth="10.0" prefWidth="340.0" />
-
-               </columnConstraints>
-
-               <rowConstraints>
-
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-
-               </rowConstraints>
-
-               <children>
-
-                  <Label text="First Name" />
-
-                  <TextField fx:id="firstField" GridPane.columnIndex="1" />
-
-                  <Label text="Last Name" GridPane.rowIndex="1" />
-
-                  <TextField fx:id="lastField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                  <Label text="Birthdate" GridPane.rowIndex="2" />
-                  <TextField fx:id="birthField" promptText="YYYY-MM-DD" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                  <Label text="Address" GridPane.rowIndex="4" />
-
-                  <TextField fx:id="addressField1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-
-                  <TextField fx:id="diagnosis" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-
-                  <Label text="Sex" GridPane.rowIndex="5" />
-
-                  <ChoiceBox fx:id="sexChoice" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <ChoiceBox fx:id="sexChoice" layoutX="174.0" layoutY="295.0">
 
 				    <items>
 
@@ -88,26 +68,70 @@
 
 				    </items>
 
-                  </ChoiceBox>
+      </ChoiceBox>
 
-                  <Label text="Phone Number" GridPane.rowIndex="6" />
+      <Label layoutX="62.0" layoutY="250.0" text="Address:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
 
-                  <TextField fx:id="phoneField" promptText="xxx-xxx-xxxx" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <TextField fx:id="addressField1" layoutX="175.0" layoutY="245.0" prefHeight="25.0" prefWidth="178.0">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="64.0" layoutY="204.0" text="SSN:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="soc" layoutX="175.0" layoutY="198.0" prefHeight="25.0" prefWidth="178.0" promptText="xxxxxxxxx">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </TextField>
 
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddPatient" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <Label layoutX="62.0" layoutY="157.0" text="Birthdate:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="birthField" layoutX="175.0" layoutY="150.0" prefHeight="25.0" prefWidth="178.0" promptText="YYYY-MM-DD">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </TextField>
 
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onAddPatient" text="Back" GridPane.rowIndex="8" />
-                  <Label text="SSN" GridPane.rowIndex="3" />
-                  <TextField fx:id="soc" promptText="xxxxxxxxx" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Diagnosis" GridPane.rowIndex="7" />
+      <Label layoutX="63.0" layoutY="111.0" text="Last Name:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
 
-               </children>
+      <TextField fx:id="lastField" layoutX="174.0" layoutY="108.0" prefHeight="25.0" prefWidth="178.0">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </TextField>
 
-            </GridPane>
+      <Label layoutX="63.0" layoutY="66.0" text="First Name:" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Label>
 
-         </children>
+      <TextField fx:id="firstField" layoutX="175.0" layoutY="63.0" prefHeight="25.0" prefWidth="178.0">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </TextField>
 
-      </VBox>
+      <Label layoutX="189.0" layoutY="14.0" text="Add Patient" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="26.0" />
+         </font>
+      </Label>
 
    </children>
 

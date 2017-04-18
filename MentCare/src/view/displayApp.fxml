@@ -30,13 +30,13 @@
          </font></Button>
       <TableView fx:id="patientTable" layoutX="-1.0" layoutY="170.0" onMouseClicked="#mouseClicked" prefHeight="229.0" prefWidth="640.0" style="-fx-background-color: #F6F6F6;" AnchorPane.leftAnchor="-1.0">
         <columns>
-          <TableColumn fx:id="PnumCol" prefWidth="97.0" text="Patient Number" />
-          <TableColumn fx:id="PnameCol" prefWidth="122.3333740234375" text="Patient Name" />
+          <TableColumn fx:id="PnumCol" prefWidth="103.0" text="Patient Number" />
+          <TableColumn fx:id="PnameCol" prefWidth="117.0" text="Patient Name" />
             <TableColumn fx:id="DocIDCol" prefWidth="65.3333740234375" text="Doctor ID" />
             <TableColumn fx:id="DateCol" prefWidth="99.66668701171875" text="Date" />
             <TableColumn fx:id="TimeCol" prefWidth="63.0" text="Time" />
-            <TableColumn fx:id="tPhoneCol" prefWidth="101.6666259765625" text="Contact Number" />
-            <TableColumn fx:id="MissedCol" prefWidth="88.0" text="Missed" />
+            <TableColumn fx:id="tPhoneCol" prefWidth="109.0" text="Contact Number" />
+            <TableColumn fx:id="MissedCol" prefWidth="81.0" text="Missed" />
         </columns>
          <effect>
             <Blend mode="MULTIPLY" />
