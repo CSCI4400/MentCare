@@ -89,16 +89,27 @@ public class SearchPatientController {
 		layout2.getChildren().addAll(patientidl, patientidinput, comboBox, searchbutton, backbutton);
 		searchbutton.setOnAction(e -> {
 			//gets the patient id number. Currently there is no error checking.
+			if(comboBox.getSelectionModel().getSelectedItem().equals("Patient ID")){
+				pid = patientidinput.getText();
+				//validate input and add searching by fields other than id number here
+				a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
+				a = new Patient();
+				a.setPatientnum(Integer.parseInt(pid));
+			}
 
-			pid = patientidinput.getText();
-			//validate input and add searching by fields other than id number here
-			a = PatientDAO.getPatientInfo(Integer.parseInt(pid), window);
-			a = new Patient();
-			a.setPatientnum(Integer.parseInt(pid));
-			//Calls the static method for displaying patient record info for a doctor.
-			//This means that medical info is displayed. Parameters are a patient object and the
-			//current stage
-			PatientRecordsController.ViewPatientRecordsDoc(a, window);
+			else if(comboBox.getSelectionModel().getSelectedItem().equals("Name")){
+				String name = patientidinput.getText();
+				a = PatientDAO.getPatientInfo(name, window, false);
+			}
+
+			else if(comboBox.getSelectionModel().getSelectedItem().equals("Address")){
+				String address = patientidinput.getText();
+				a = PatientDAO.getPatientInfo(address, window, true);
+			}
+				//Calls the static method for displaying patient record info for a doctor.
+				//This means that medical info is displayed. Parameters are a patient object and the
+				//current stage
+				PatientRecordsController.ViewPatientRecordsDoc(a, window);
 		});
 		window.setTitle(patientsearch);
 		Scene patientsearchDoc = new Scene(layout2, 640, 640);
@@ -119,16 +130,32 @@ public class SearchPatientController {
 		VBox layout2 = new VBox(20);
 		TextField patientidinput = new TextField();
 
+		comboBox.getSelectionModel().selectFirst();
+		comboBox.getSelectionModel().getSelectedItem();
+
 		//Validates input in the search textbox, only accepts numerical input
-		patientidinput.textProperty().addListener(new ChangeListener<String>() {
+		ChangeListener<String> onlyNumbers = new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (!newValue.matches("\\d*")){
-					patientidinput.setText(newValue.replaceAll("[^\\d]", ""));
-				}
+					if (!newValue.matches("\\d*")){
+						patientidinput.setText(newValue.replaceAll("[^\\d]", ""));
+					}
 
-			}
-		});
+				}
+			};
+
+			patientidinput.textProperty().addListener(onlyNumbers);
+
+			comboBox.setOnAction(e ->{
+				if(comboBox.getSelectionModel().getSelectedItem().equals("Patient ID")){
+					patientidinput.textProperty().addListener(onlyNumbers);
+				}
+				else{
+					//Currently doesn't work, going to look at more
+					patientidinput.textProperty().removeListener(onlyNumbers);
+				}
+			});
+
 
 		backbutton.setOnAction(e-> {
 			//back button returns to the main menu

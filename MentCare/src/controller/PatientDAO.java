@@ -22,10 +22,10 @@ import model.Patient;
 
 
 public class PatientDAO {
-	
+
 	static Boolean noPatientFound = false;
-	
-	/** 
+
+	/**
 	 * Retrieves Patient info from database
 	 * @param patientnum Patient ID
 	 * @param window UI window to be updated
@@ -35,7 +35,8 @@ public class PatientDAO {
 		Patient a = new Patient();
 		//Query for getting the current patient info
 		String selectPinfoStmtPnum = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
-
+		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
+		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
 
 			try {
 				//queries the database for the current patient info
@@ -92,6 +93,87 @@ public class PatientDAO {
 			});
 			return a;
 	}
+
+
+	/**
+	 * Retrieves Patient info from database
+	 * @param patientName Patient's Name or Address
+	 * @param window UI window to be updated
+	 * @param isAddress used to differentiate between searching by address or by name
+	 * @return Patient's info
+	 */
+	public static Patient getPatientInfo(String nameOrAddress, Stage window, Boolean isAddress) {
+		Patient a = new Patient();
+		//Query for getting the current patient info
+
+		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
+		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
+			try {
+				PreparedStatement pstmt;
+				//queries the database for the current patient info
+				if(!isAddress){
+					pstmt = MainFXApp.con.prepareStatement(selectPinfoStmtName);
+					pstmt.setString(1, nameOrAddress);
+				}
+				else{
+					pstmt = MainFXApp.con.prepareStatement(selectPinfoStmtAddress);
+					pstmt.setString(1, nameOrAddress);
+				}
+				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
+				if(!rs.isBeforeFirst()){
+					//This means that there is no patient with the patient ID number entered
+					System.out.println("No patient found");
+					noPatientFound = true;
+				}
+				else{
+					noPatientFound = false;
+					while(rs.next()){ //Gets the information from the "Personal Info" table
+						a.setPatientnum(rs.getInt("PNumber"));
+						a.setFirstname(rs.getString("Fname"));
+						a.setLastname(rs.getString("Lname"));
+						a.setAddress(rs.getString("Address"));
+						a.setGender(rs.getString("Sex"));
+						a.setPhoneNumber(rs.getString("Phone_Number"));
+						a.setBirthdate(LocalDate.parse((rs.getDate("BDate")).toString()));
+						a.setDiagnosis(rs.getString("Diagnosis"));
+						//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
+						a.setSsn(rs.getString("Ssn"));
+						}
+				}
+				pstmt.close();
+				rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();//
+			}
+			Platform.runLater(new Runnable() {
+				public void run() {
+					if(noPatientFound){
+						PatientRecordsController.NoPatientFound(a, window);
+					}
+					else{
+						if(loginController.loggedOnUser.equals("Doctor")){
+							//Goes to the patient records screen for a Doctor
+							PatientRecordsController.ViewPatientRecordsDoc(a, window);
+						}
+						if(loginController.loggedOnUser.equals("Receptionist")){
+							//Goes to the patient records screen for a receptionist
+							PatientRecordsController.ViewPatientRecordsRecep(a, window);
+						}
+						else{
+							//fall back case for testing. Remove once login system is implemented
+							PatientRecordsController.ViewPatientRecordsDoc(a, window);
+						}
+					}
+
+				}
+			});
+			return a;
+	}
+
+
+
+
 	/**
 	 * Updates a patient's information
 	 * @param a Patient object
@@ -174,7 +256,7 @@ public class PatientDAO {
 				pstmt.setString(7, a.getGender());
 				pstmt.setString(8, loginController.loggedOnUser.getName());
 				pstmt.executeUpdate();
-				
+
 
 				rs.close();
 			    pstmt.close();
