@@ -42,9 +42,9 @@ public class PatientDAO {
 	public static Patient getPatientInfo(int patientnum, Stage window) {
 		//Query for getting the current patient info
 		Patient a = new Patient();
-		String selectPinfoStmtPnum = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
-		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
-		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
+		String selectPinfoStmtPnum = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit, patient_issue FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
+		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit, patient_issue FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
+		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit, patient_issue FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
 
 			try {
 				//queries the database for the current patient info
@@ -69,6 +69,8 @@ public class PatientDAO {
 						a.setDiagnosis(rs.getString("Diagnosis"));
 						//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
 						a.setSsn(rs.getString("Ssn"));
+						a.setPatient_issue(rs.getString("patient_issue"));
+						a.setThreat_level(rs.getString("threat_level"));
 						}
 				}
 				pstmt.close();
@@ -113,8 +115,8 @@ public class PatientDAO {
 		//Query for getting the current patient info
 		Patient p = new Patient();
 
-		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
-		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
+		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit, patient_issue FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
+		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit, patient_issue FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
 
 		//Maintains list of patient objects that match the search criteria
 
@@ -152,6 +154,8 @@ public class PatientDAO {
 						s.setDiagnosis(rs.getString("Diagnosis"));
 						//a.setLastVisit(LocalDate.parse((rs.getDate("Last_Visit")).toString()));
 						s.setSsn(rs.getString("Ssn"));
+						s.setPatient_issue(rs.getString("patient_issue"));
+						s.setThreat_level("threat_level");
 						searchResults.add(s);
 						p = s;
 						}
@@ -203,18 +207,27 @@ public class PatientDAO {
 	public static void updatePatientInfo(Patient a, int DiagnosisCode) {
 		//DiagnosisCode indicates whether diagnosis is permanent or temporary
 		System.out.println("Record updater starting");
+
 		//Query for updating patient info in the database
-		String updatePersonalInfo = "UPDATE mentcare2.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Ssn = ?, Last_Visit = ? WHERE PNumber = ? ";
+
+
+		String updatePersonalInfo = "UPDATE mentcare2.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Ssn = ?, Last_Visit = ?, patient_issue = ?, threat_level = ? WHERE PNumber = ? ";
+
 		//Query for updating diagnosis in the database. Needs to be a separate query to handle diagnosis history
 		String updateDiagnosis= "UPDATE mentcare2.Personal_Info SET Diagnosis = ? WHERE PNumber = ?";
+
 		//Query for adding a new entry to the diagnosis history
-		String insertIntoDiagHistory = "INSERT INTO mentcare2.Diagnosis_History VALUES ( ?, ?, ?, ?, ? )";
+		String insertIntoDiagHistory = "INSERT INTO mentcare2.Diagnosis_History VALUES ( ?, ?, ?, ?, ?, ? )";
+
 		//Query for getting the current diagnosis for a patient
 		String selectCurrentDiag = "SELECT mentcare2.Personal_Info.Diagnosis FROM mentcare2.Personal_Info WHERE ? = PNumber";
+
 		//Query for checking if a patient is dead
 		String checkDeath = "SELECT Dead FROM mentcare2.Personal_Info WHERE ? = PNumber";
+
 		//Query for keeping a record of changes in the Patient History table
-		String updatePersonalHistory = "INSERT INTO mentcare2.Personal_History (Address, BDate, Fname, Lname, Phone_Number, PNumber, Sex, Modified_By)  VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+		String updatePersonalHistory = "INSERT INTO mentcare2.Personal_History (Address, BDate, Fname, Lname, Phone_Number, PNumber, Sex, Modified_By, patient_issue )  VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 
 		try {
 			Connection Con;
@@ -232,17 +245,19 @@ public class PatientDAO {
 
 			if("no".equals(Dead.get(0))){
 				//Only updates if a patient is dead
-
-				pstmt = Con.prepareStatement(updatePersonalInfo);//Updates the patient info table
+				//Updates the patient info table
+				pstmt = Con.prepareStatement(updatePersonalHistory);
 				pstmt.setString(1, a.getFirstname());
 				pstmt.setString(2,  a.getLastname());
 				pstmt.setObject(3, a.getBirthdate());
 				pstmt.setString(4, a.getAddress());
 				pstmt.setString(5,  a.getGender());
 				pstmt.setString(6, a.getPhoneNumber());
-				pstmt.setString(7, a.getSsn());
-				pstmt.setObject(8, a.getLastVisit());
-				pstmt.setInt(9, a.getPatientnum());
+//				pstmt.setString(7, a.getSsn());
+			//pstmt.setObject(8, a.getLastVisit());
+				pstmt.setInt(7, a.getPatientnum());
+				pstmt.setString(8, a.getPatient_issue());
+				pstmt.setString(9, a.getThreat_level());
 				pstmt.executeUpdate();
 
 				pstmt = Con.prepareStatement(selectCurrentDiag);
@@ -267,15 +282,20 @@ public class PatientDAO {
 					pstmt.executeUpdate();
 					}
 				//Add updated info to patient history
-				pstmt = Con.prepareStatement(updatePersonalHistory);
-				pstmt.setString(1, a.getAddress());
-				pstmt.setObject(2, a.getBirthdate());
+				pstmt = Con.prepareStatement(updatePersonalInfo);
+				
 				pstmt.setString(3, a.getFirstname());
 				pstmt.setString(4, a.getLastname());
-				pstmt.setString(5, a.getPhoneNumber());
-				pstmt.setInt(6, a.getPatientnum());
+				pstmt.setObject(2, a.getBirthdate());
+				pstmt.setString(1, a.getAddress());
 				pstmt.setString(7, a.getGender());
+				pstmt.setString(5, a.getPhoneNumber());
+				pstmt.setString(7, a.getSsn());
+				pstmt.setObject(8, a.getLastVisit());
+				pstmt.setString(9, a.getPatient_issue());
+				pstmt.setString(10, a.getThreat_level());
 				pstmt.setString(8, loginController.loggedOnUser.getName());
+				
 				pstmt.executeUpdate();
 
 

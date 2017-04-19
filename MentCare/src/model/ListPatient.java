@@ -31,12 +31,15 @@ public class ListPatient {
     String photo = null;
     String phone_number = null;
     String last_changed_by = null;
+    String patient_issue = null;
 
 
 
-    // Constructor with all of the patient information
+
+
+	// Constructor with all of the patient information
     public ListPatient(int id, int patient_history_id, String first_name, String last_name, String email_address, String home_address, String last_visit,
-			String next_visit, String ssn, String photo, int PatientHistoyId) {
+			String next_visit, String ssn, String photo, int PatientHistoyId, String patient_issue) {
 		super();
 		this.history_id = patient_history_id;
 		this.id = id;
@@ -49,9 +52,11 @@ public class ListPatient {
 		this.ssn = ssn;
 		this.photo = photo;
 		this.history_id = PatientHistoyId;
+		this.patient_issue = patient_issue;
+
 	}
 
-    public ListPatient(int id, String first_name, String last_name, String home_address, String phone_number, String last_changed_by, int patient_history_id, String photo) {
+    public ListPatient(int id, String first_name, String last_name, String home_address, String phone_number, String last_changed_by, int patient_history_id, String photo, String patientIssue) {
 
 		super();
 		this.first_name = first_name;
@@ -61,6 +66,7 @@ public class ListPatient {
 		this.last_changed_by = last_changed_by;
 		this.history_id = patient_history_id;
 		this.photo = photo;
+		this.patient_issue = patientIssue;
 	}
 
 
@@ -194,7 +200,13 @@ public class ListPatient {
 
 
 
+	public String getPatient_issue() {
+		return patient_issue;
+	}
 
+	public void setPatient_issue(String patient_issue) {
+		this.patient_issue = patient_issue;
+	}
 
 
 

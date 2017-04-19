@@ -50,6 +50,7 @@ public class Patient_List  {
 		    String phone_number = null;
 		    String photo = null;
 		    String last_changed_by = null;
+		    String patientIssue = null;
 
 
 
@@ -70,8 +71,9 @@ public class Patient_List  {
 		      photo = resultSet.getString("photo");
 		      phone_number = resultSet.getString("Phone_Number");
 		      last_changed_by = resultSet.getString("last_changed_by");
+		      patientIssue = resultSet.getString("patient_issue");
 
-		      ListPatient newPatient = new ListPatient(id, first_name, last_name, home_address, phone_number, last_changed_by, patient_history_id, photo);
+		      ListPatient newPatient = new ListPatient(id, first_name, last_name, home_address, phone_number, last_changed_by, patient_history_id, photo, patientIssue);
 		      patient_list.add(newPatient);
 		      patient_observable_list.add(newPatient);
 

@@ -24,16 +24,35 @@ public class Patient{
 	private String ssn = "";
 	private LocalDate lastvisit = LocalDate.now();
 	private int PatientHistoryId = 0;
+	private String patient_issue = "";
+	private String threat_level = "";
 
 	public Patient() {
 
 	}
 
 
-	public void updateRecord(String fname, String lname, LocalDate birthday, String addr, String gendr, String phonenum, String social, LocalDate lastappt, String diag, int patientid) {
+	public void updateRecord(String fname, String lname, LocalDate birthday, String addr, String gendr, String phonenum, String social, LocalDate lastappt, String diag, int patientid, String patient_iss, String danger_level) {
 
-		firstname = fname; lastname = lname; birthdate=birthday;  address=addr; gender=gendr; phonenumber=phonenum; ssn=social; lastvisit=lastappt; diagnosis=diag; patientnum = patientid;
+		firstname = fname; lastname = lname; birthdate=birthday;  address=addr; gender=gendr; phonenumber=phonenum; ssn=social; lastvisit=lastappt; diagnosis=diag; patientnum = patientid; patient_issue = patient_iss; threat_level = danger_level;
 	}
+
+	public String getThreat_level() {
+		return threat_level;
+	}
+
+	public void setThreat_level(String threat_level) {
+		this.threat_level = threat_level;
+	}
+
+	public String getPatient_issue() {
+		return patient_issue;
+	}
+
+	public void setPatient_issue(String patient_issue) {
+		this.patient_issue = patient_issue;
+	}
+
 	public boolean isUpdate() {
 		return update;
 	}

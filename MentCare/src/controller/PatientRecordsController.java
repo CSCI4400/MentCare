@@ -32,6 +32,9 @@ public class PatientRecordsController {
 	public static Text diagnosisl = new Text("Diagnosis:");
 	public static Text ssnl = new Text("SSN: ");
 	public static Text lastvisitl = new Text("Last Visit Was: ");
+	public static Text patient_iss = new Text ("Patient Issue Reported: ");
+	public static Text threat_level = new Text ("Threat Issue: ");
+
 	//This is the database query to check if a patient is dead
 	static String deathCheck = "SELECT mentcare2.Personal_Info.Dead FROM mentcare2.Personal_Info WHERE mentcare2.Personal_Info.PNumber = ?";
 
@@ -43,44 +46,50 @@ public class PatientRecordsController {
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
 		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());
 		Label diagnosis = new Label(a.getDiagnosis()); Label Ssn = new Label(a.getSsn()); Label lastapt = new Label((a.getLastVisit()).toString());
-
+		Label patient_issue = new Label(a.getPatient_issue()); Label threat_lvl = new Label(a.getThreat_level());
 		//Sets font of labels
-		firstnamel.setFont(Font.font("Georgia", 15));
+		firstnamel.setFont(Font.font("Georgia", 12));
 		firstnamel.setStyle("-fx-font-weight: bold");
-		lastnamel.setFont(Font.font("Georgia", 15));
+		lastnamel.setFont(Font.font("Georgia", 12));
 		lastnamel.setStyle("-fx-font-weight: bold");
-		birthdatel.setFont(Font.font("Georgia", 15));
+		birthdatel.setFont(Font.font("Georgia", 12));
 		birthdatel.setStyle("-fx-font-weight: bold");
-		homeaddressl.setFont(Font.font("Georgia", 15));
+		homeaddressl.setFont(Font.font("Georgia", 12));
 		homeaddressl.setStyle("-fx-font-weight: bold");
-		genderl.setFont(Font.font("Georgia", 15));
+		genderl.setFont(Font.font("Georgia", 12));
 		genderl.setStyle("-fx-font-weight: bold");
-		phonenumberl.setFont(Font.font("Georgia", 15));
+		phonenumberl.setFont(Font.font("Georgia", 12));
 		phonenumberl.setStyle("-fx-font-weight: bold");
-		diagnosisl.setFont(Font.font("Georgia", 15));
+		diagnosisl.setFont(Font.font("Georgia", 12));
 		diagnosisl.setStyle("-fx-font-weight: bold");
-		ssnl.setFont(Font.font("Georgia", 15));
+		ssnl.setFont(Font.font("Georgia", 12));
 		ssnl.setStyle("-fx-font-weight: bold");
-		lastvisitl.setFont(Font.font("Georgia", 15));
+		lastvisitl.setFont(Font.font("Georgia", 12));
 		lastvisitl.setStyle("-fx-font-weight: bold");
-		pidLabel.setFont(Font.font("Georgia", 15));
+		pidLabel.setFont(Font.font("Georgia", 12));
 		pidLabel.setStyle("-fx-font-weight: bold");
+		patient_iss.setFont(Font.font("Georgia", 12));
+		patient_iss.setStyle("-fx-font-weight: bold");
+		threat_level.setFont(Font.font("Georgia", 12));
+		threat_level.setStyle("-fx-font-weight: bold");
 
 		//Sets font of patient information
-		firstname.setFont(Font.font("Georgia", 15));
-		lastname.setFont(Font.font("Georgia", 15));
-		birthdate.setFont(Font.font("Georgia", 15));
-		homeaddress.setFont(Font.font("Georgia", 15));
-		gender.setFont(Font.font("Georgia", 15));
-		phonenumber.setFont(Font.font("Georgia", 15));
-		diagnosis.setFont(Font.font("Georgia", 15));
-		Ssn.setFont(Font.font("Georgia", 15));
-		lastapt.setFont(Font.font("Georgia", 15));
-		patientid.setFont(Font.font("Georgia", 15));
+		firstname.setFont(Font.font("Georgia", 12));
+		lastname.setFont(Font.font("Georgia", 12));
+		birthdate.setFont(Font.font("Georgia", 12));
+		homeaddress.setFont(Font.font("Georgia", 12));
+		gender.setFont(Font.font("Georgia", 12));
+		phonenumber.setFont(Font.font("Georgia", 12));
+		diagnosis.setFont(Font.font("Georgia", 12));
+		Ssn.setFont(Font.font("Georgia", 12));
+		lastapt.setFont(Font.font("Georgia", 12));
+		patientid.setFont(Font.font("Georgia", 12));
+		patient_issue.setFont(Font.font("Georgia", 12));
+		threat_lvl.setFont(Font.font("Georgia", 12));
 
-		diagnosishistorybutton.setFont(Font.font("Georgia", 15));
-		backbutton.setFont(Font.font("Georgia", 15));
-		updatebutton.setFont(Font.font("Georgia", 15));
+		diagnosishistorybutton.setFont(Font.font("Georgia", 12));
+		backbutton.setFont(Font.font("Georgia", 12));
+		updatebutton.setFont(Font.font("Georgia", 12));
 
 		try {
 			//Prepares a query and checks the database to see if the patient is dead
@@ -118,7 +127,7 @@ public class PatientRecordsController {
 		//Parameters are the current patient object and the current stage
 		updatebutton.setOnAction(e-> EditPatientRecordsController.DocEditPatientRecords(a, window));
 		//Adds the labels to the view
-		layout2.getChildren().addAll(pidLabel, patientid, firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, diagnosishistorybutton, updatebutton, backbutton);
+		layout2.getChildren().addAll(pidLabel, patientid, firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, diagnosisl, diagnosis, ssnl, Ssn, lastvisitl, lastapt, patient_iss, patient_issue, threat_level, threat_lvl, diagnosishistorybutton, updatebutton, backbutton);
 		Scene Docpatientrecords = new Scene(layout2, 700, 700);
 
 		Docpatientrecords.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
@@ -134,39 +143,46 @@ public class PatientRecordsController {
 		Label firstname = new Label(a.getFirstname()); Label lastname = new Label(a.getLastname()); Label birthdate = new Label((a.getBirthdate()).toString());
 		Label homeaddress = new Label(a.getAddress()); Label gender = new Label(a.getGender()); Label phonenumber = new Label(a.getPhoneNumber());
 		Label lastapt = new Label((a.getLastVisit()).toString());
+		Label patient_issue = new Label(a.getPatient_issue()); Label threat_lvl = new Label(a.getThreat_level());
 
 		//Sets font of labels
-		firstnamel.setFont(Font.font("Georgia", 15));
+		firstnamel.setFont(Font.font("Georgia", 12));
 		firstnamel.setStyle("-fx-font-weight: bold");
-		lastnamel.setFont(Font.font("Georgia", 15));
+		lastnamel.setFont(Font.font("Georgia", 12));
 		lastnamel.setStyle("-fx-font-weight: bold");
-		birthdatel.setFont(Font.font("Georgia", 15));
+		birthdatel.setFont(Font.font("Georgia", 12));
 		birthdatel.setStyle("-fx-font-weight: bold");
-		homeaddressl.setFont(Font.font("Georgia", 15));
+		homeaddressl.setFont(Font.font("Georgia", 12));
 		homeaddressl.setStyle("-fx-font-weight: bold");
-		genderl.setFont(Font.font("Georgia", 15));
+		genderl.setFont(Font.font("Georgia", 12));
 		genderl.setStyle("-fx-font-weight: bold");
-		phonenumberl.setFont(Font.font("Georgia", 15));
+		phonenumberl.setFont(Font.font("Georgia", 12));
 		phonenumberl.setStyle("-fx-font-weight: bold");
-		diagnosisl.setFont(Font.font("Georgia", 15));
+		diagnosisl.setFont(Font.font("Georgia", 12));
 		diagnosisl.setStyle("-fx-font-weight: bold");
-		ssnl.setFont(Font.font("Georgia", 15));
+		ssnl.setFont(Font.font("Georgia", 12));
 		ssnl.setStyle("-fx-font-weight: bold");
-		lastvisitl.setFont(Font.font("Georgia", 15));
+		lastvisitl.setFont(Font.font("Georgia", 12));
 		lastvisitl.setStyle("-fx-font-weight: bold");
+		patient_iss.setFont(Font.font("Georgia", 12));
+		patient_iss.setStyle("-fx-font-weight: bold");
+		threat_level.setFont(Font.font("Georgia", 12));
+		threat_level.setStyle("-fx-font-weight: bold");
 
 		//Sets font of patient information
-		firstname.setFont(Font.font("Georgia", 15));
-		lastname.setFont(Font.font("Georgia", 15));
-		birthdate.setFont(Font.font("Georgia", 15));
-		homeaddress.setFont(Font.font("Georgia", 15));
-		gender.setFont(Font.font("Georgia", 15));
-		phonenumber.setFont(Font.font("Georgia", 15));
-		lastapt.setFont(Font.font("Georgia", 15));
+		firstname.setFont(Font.font("Georgia", 12));
+		lastname.setFont(Font.font("Georgia", 12));
+		birthdate.setFont(Font.font("Georgia", 12));
+		homeaddress.setFont(Font.font("Georgia", 12));
+		gender.setFont(Font.font("Georgia", 12));
+		phonenumber.setFont(Font.font("Georgia", 12));
+		lastapt.setFont(Font.font("Georgia", 12));
+		patient_issue.setFont(Font.font("Georgia", 12));
+		threat_lvl.setFont(Font.font("Georgia", 12));
 
-		diagnosishistorybutton.setFont(Font.font("Georgia", 15));
-		backbutton.setFont(Font.font("Georgia", 15));
-		updatebutton.setFont(Font.font("Georgia", 15));
+		diagnosishistorybutton.setFont(Font.font("Georgia", 12));
+		backbutton.setFont(Font.font("Georgia", 12));
+		updatebutton.setFont(Font.font("Georgia", 12));
 
 
 		try {
@@ -201,8 +217,8 @@ public class PatientRecordsController {
 		//Parameters are the current patient object and the current stage.
 		updatebutton.setOnAction(e-> EditPatientRecordsController.RecepEditPatientRecords(a, window));
 		//Adds all the labels to the window
-		layout3.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, lastvisitl, lastapt, updatebutton, backbutton);
-		Scene Receppatientrecords = new Scene(layout3, 700, 700);
+		layout3.getChildren().addAll(firstnamel, firstname, lastnamel, lastname, birthdatel, birthdate, homeaddressl, homeaddress, genderl, gender, phonenumberl, phonenumber, lastvisitl, lastapt, patient_iss, patient_issue, threat_level, threat_lvl, updatebutton, backbutton);
+		Scene Receppatientrecords = new Scene(layout3, 700, 850);
 
 		Receppatientrecords.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
@@ -215,7 +231,7 @@ public class PatientRecordsController {
 		//This is the scene that appears if a search does not return any results
 		VBox layout4 = new VBox(10);
 		Label noPatientFound = new Label("No patient found");
-		noPatientFound.setFont(Font.font("Georgia", 15));
+		noPatientFound.setFont(Font.font("Georgia", 12));
 		//backbutton currently goes to the Doctor search.
 		//Should be an if statement that calls appropriate search (Doctor or Receptionist)
 		backbutton.setOnAction(e-> {
@@ -231,7 +247,7 @@ public class PatientRecordsController {
 		//}
 		});
 		layout4.getChildren().addAll(noPatientFound, backbutton);
-		Scene noPatientFoundLayout = new Scene(layout4, 500, 500);
+		Scene noPatientFoundLayout = new Scene(layout4, 500, 650);
 		noPatientFoundLayout.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 		window.setScene(noPatientFoundLayout);
 	}

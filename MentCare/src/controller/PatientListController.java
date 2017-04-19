@@ -71,6 +71,9 @@ public class PatientListController  {
     protected Label phoneNumberLabel;
     @FXML
     protected Label lastChangedByLabel;
+    @FXML
+    protected Label patientIssueLabel;
+    
     //Text Areas
     @FXML
     protected TextArea patientHistory;
@@ -249,6 +252,8 @@ public class PatientListController  {
 	         phoneNumberLabel.setText(patient.getPhone_Number());
 
 	         lastChangedByLabel.setText(patient.getLast_Changed_By());
+
+	         patientIssueLabel.setText(patient.getPatient_issue());
 
 	         //Patient History
 	         Patient_History hist = new Patient_History(patient);

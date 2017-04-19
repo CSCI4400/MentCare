@@ -57,11 +57,11 @@ public class patientViewController {
 				AddPatientController con1 = new AddPatientController();
 				con1.setMain(main);
 				break;
-			case "updateButton":
-				root = FXMLLoader.load(getClass().getResource("/view/UpdatePatient.fxml"));
-				UpdatePatientController con2 = new UpdatePatientController();
-				con2.setMain(main);
-				break;
+//			case "updateButton":
+//				root = FXMLLoader.load(getClass().getResource("/view/UpdatePatient.fxml"));
+//				UpdatePatientController con2 = new UpdatePatientController();
+//				con2.setMain(main);
+//				break;
 			case "historyButton":
 				root = FXMLLoader.load(getClass().getResource("/view/InformationHistory.fxml"));
 				InformationHistoryController con3 = new InformationHistoryController();
