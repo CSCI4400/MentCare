@@ -12,17 +12,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdatePatientController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="492.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdatePatientController">
 
    <children>
 
-      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="400.0">
+      <VBox alignment="TOP_CENTER" layoutX="49.0" layoutY="31.0" prefHeight="428.0" prefWidth="395.0">
 
          <children>
 
             <Label text="Update Patient" />
 
-            <GridPane maxWidth="1.7976931348623157E308" prefHeight="380.0" prefWidth="400.0">
+            <GridPane maxWidth="1.7976931348623157E308" prefHeight="389.0" prefWidth="395.0">
 
                <columnConstraints>
 
@@ -51,6 +51,8 @@
 
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 
                </rowConstraints>
@@ -82,9 +84,9 @@
 
 				        <FXCollections fx:factory="observableArrayList">
 
-				            <String fx:value="Male" />
+				            <String fx:value="M" />
 
-				            <String fx:value="Female" />
+				            <String fx:value="F" />
 
 				        </FXCollections>
 
@@ -95,15 +97,36 @@
                   <Label text="Phone Number" GridPane.rowIndex="8" />
                   <TextField fx:id="phoneField" promptText="xxx-xxx-xxxx" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddPatient" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#onAddPatient" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="12" />
 
-                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onAddPatient" text="Back" GridPane.rowIndex="10" />
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#onAddPatient" text="Back" GridPane.rowIndex="12" />
                   <Label text="Diagnosis" GridPane.rowIndex="9" />
                   <Label text="SSN" GridPane.rowIndex="5" />
                   <TextField fx:id="soc" promptText="xxxxxxxxx" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="Select Patient" />
                   <ChoiceBox fx:id="patients" prefWidth="300.0" GridPane.columnIndex="1" />
                   <Button fx:id="populate" mnemonicParsing="false" onAction="#populateFromSelection" text="Fill from Selection" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label text="Danger Level" GridPane.rowIndex="10" />
+                  <Label text="Patient Issue"  GridPane.rowIndex="11" />
+                  <TextField fx:id="patient_issue" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+
+                  <ChoiceBox fx:id="danger_level" GridPane.columnIndex="1" GridPane.rowIndex="10">
+
+				    <items>
+
+				        <FXCollections fx:factory="observableArrayList">
+
+				            <String fx:value="none" />
+
+				            <String fx:value="low" />
+				            <String fx:value="medium" />
+				            <String fx:value="high" />
+
+				        </FXCollections>
+
+				    </items>
+
+                  </ChoiceBox>
 
                </children>
 

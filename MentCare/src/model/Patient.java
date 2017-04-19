@@ -23,13 +23,15 @@ public class Patient{
 	private String diagnosis = "";
 	private String ssn = "";
 	private LocalDate lastvisit = LocalDate.now();
-	
+	private int PatientHistoryId = 0;
+
 	public Patient() {
-		
+
 	}
-	
-	
+
+
 	public void updateRecord(String fname, String lname, LocalDate birthday, String addr, String gendr, String phonenum, String social, LocalDate lastappt, String diag, int patientid) {
+
 		firstname = fname; lastname = lname; birthdate=birthday;  address=addr; gender=gendr; phonenumber=phonenum; ssn=social; lastvisit=lastappt; diagnosis=diag; patientnum = patientid;
 	}
 	public boolean isUpdate() {
@@ -95,5 +97,14 @@ public class Patient{
 	public String getSsn() {
 		return ssn;
 	}
-	
+
+	public void setPatientHistoryId(int PatientHistoryId) {
+		this.PatientHistoryId = PatientHistoryId;
+	}
+	public int getPatientHistoryId() {
+		return PatientHistoryId;
+	}
+
+
+
 }
