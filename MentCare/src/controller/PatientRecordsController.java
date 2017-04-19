@@ -64,7 +64,7 @@ public class PatientRecordsController {
 		lastvisitl.setFont(Font.font("Georgia", 15));
 		lastvisitl.setStyle("-fx-font-weight: bold");
 		pidLabel.setFont(Font.font("Georgia", 15));
-		pidLabel.setStyle("-fx-font-eight: bold");
+		pidLabel.setStyle("-fx-font-weight: bold");
 
 		//Sets font of patient information
 		firstname.setFont(Font.font("Georgia", 15));
