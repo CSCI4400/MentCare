@@ -42,9 +42,9 @@ public class PatientDAO {
 	public static Patient getPatientInfo(int patientnum, Stage window) {
 		//Query for getting the current patient info
 		Patient a = new Patient();
-		String selectPinfoStmtPnum = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
-		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
-		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
+		String selectPinfoStmtPnum = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.PNumber";
+		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
+		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
 
 			try {
 				//queries the database for the current patient info
@@ -113,8 +113,8 @@ public class PatientDAO {
 		//Query for getting the current patient info
 		Patient p = new Patient();
 
-		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
-		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, Danger_lvl, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
+		String selectPinfoStmtName = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.FName";
+		String selectPinfoStmtAddress = "SELECT PNumber, LName, FName, BDate, Address, Sex, Phone_Number, threat_level, Diagnosis, Ssn, Last_Visit FROM mentcare2.Personal_Info WHERE ? = mentcare2.Personal_Info.Address";
 
 		//Maintains list of patient objects that match the search criteria
 

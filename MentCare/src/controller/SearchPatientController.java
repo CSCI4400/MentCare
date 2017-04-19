@@ -27,7 +27,6 @@ public class SearchPatientController {
 	static Label patientidl = new Label("Search for a patient by: ");
 	static Patient a = new Patient();
 	static String pid; //used to store the ID# of the patient whose record is being looked at
-	static String patientsearch = "Search";
 	static final ObservableList<String> options =
 		    FXCollections.observableArrayList(
 		        "Patient ID",
@@ -112,7 +111,7 @@ public class SearchPatientController {
 				//current stage
 				//PatientRecordsController.ViewPatientRecordsDoc(a, window);
 		});
-		window.setTitle(patientsearch);
+		
 		Scene patientsearchDoc = new Scene(layout2, 640, 640);
 
 		patientsearchDoc.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
@@ -196,7 +195,7 @@ public class SearchPatientController {
 				//PatientRecordsController.ViewPatientRecordsRecep(a, window);
 		});
 
-		window.setTitle(patientsearch);
+		
 		Scene patientsearchRecep = new Scene(layout2, 640, 640);
 
 		patientsearchRecep.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
