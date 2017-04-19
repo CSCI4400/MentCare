@@ -88,6 +88,17 @@ public class mainViewController {
 			break;
 		}
 		numTab = 0;
+		
+		
+		try { //Make appointment view open at application launch
+			URL toPane;
+			AnchorPane temp;
+			toPane = getClass().getResource("/view/appointmentView.fxml");
+		    temp = FXMLLoader.load(toPane);
+		    apAppointments.getChildren().setAll(temp);
+		} catch (Exception e) {
+			
+		}
 
 
 		//tpMenu.getTabs().remove(0); //This line can remove a tab at any given index (top index is 0)
