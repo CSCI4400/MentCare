@@ -31,7 +31,7 @@ public class SearchPatientController {
 	static final ObservableList<String> options =
 		    FXCollections.observableArrayList(
 		        "Patient ID",
-		        "Name",
+		        "First Name",
 		        "Address"
 		    );
 	static ComboBox comboBox = new ComboBox(options);
@@ -98,7 +98,7 @@ public class SearchPatientController {
 				PatientRecordsController.ViewPatientRecordsDoc(a, window);
 			}
 
-			else if(comboBox.getSelectionModel().getSelectedItem().equals("Name")){
+			else if(comboBox.getSelectionModel().getSelectedItem().equals("First Name")){
 				String name = patientidinput.getText();
 				PatientDAO.getPatientInfo(name, window, false);
 			}
@@ -181,7 +181,7 @@ public class SearchPatientController {
 				PatientRecordsController.ViewPatientRecordsRecep(a, window);
 			}
 
-			else if(comboBox.getSelectionModel().getSelectedItem().equals("Name")){
+			else if(comboBox.getSelectionModel().getSelectedItem().equals("First Name")){
 				String name = patientidinput.getText();
 				PatientDAO.getPatientInfo(name, window, false);
 			}

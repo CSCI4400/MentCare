@@ -44,7 +44,6 @@ public class SearchPatientListController {
 			rbList.add(rb);
 			rb.setUserData(p.getPatientnum());
 			rb.setToggleGroup(patients);
-			System.out.println(p.getLastname());
 		}
 
 		for(RadioButton r: rbList){

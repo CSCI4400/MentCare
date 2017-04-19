@@ -135,7 +135,7 @@ public class PatientDAO {
 				ResultSet rs = pstmt.executeQuery(); //ResultSet contains the results of the query
 				if(!rs.isBeforeFirst()){
 					//This means that there is no patient with the name or address entered
-					System.out.println("No patient found");
+					//System.out.println("No patient found");
 					noPatientFound = true;
 				}
 				else{
