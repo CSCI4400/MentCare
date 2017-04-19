@@ -87,7 +87,7 @@ public class patientViewController {
 				//CKS button loads patient list created by TigerWoods
 			case "patientListButton":
 				root = FXMLLoader.load(getClass().getResource("/view/PatientListView.fxml"));
-				InformationHistoryController con4 = new InformationHistoryController();
+				PatientListController con4 = new PatientListController();
 				con4.setMain(main);
 				break;
 			case "psychButton":

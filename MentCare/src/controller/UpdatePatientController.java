@@ -44,13 +44,13 @@ public class UpdatePatientController implements Initializable {
     Stage stage;
     Scene scene;
     Parent root;
-    
+
     private MainFXApp main;
-    
+
     public void setMain(MainFXApp mainIn){
         main = mainIn;
     }
-    
+
     @FXML private Button addButton;
     @FXML private Button backButton;
     @FXML private TextField firstField;
@@ -61,36 +61,39 @@ public class UpdatePatientController implements Initializable {
     @FXML private TextField phoneField;
     @FXML private TextField soc;
     @FXML private TextField diagnosis;
+    @FXML private TextField patient_issue;
     @FXML private ChoiceBox patients;
     @FXML private Button populate;
-    
+    @FXML private ChoiceBox danger_level;
+
     List<String[]> peeps = new ArrayList<>();
     List<String> entry = new ArrayList<>();
-    
-    @Override
+
+    @SuppressWarnings("unchecked")
+	@Override
     public void initialize(URL url, ResourceBundle rb) {
         try{
             String whoAreYou = ("SELECT LName,FName,BDate FROM Personal_Info");
             Connection connect = DBConfig.getConnection();
             PreparedStatement ps = connect.prepareStatement(whoAreYou);
             ResultSet results = ps.executeQuery();
-            
+
             String lname, fname;
             Date bdate;
-            
+
             while(results.next()){
                 lname = results.getString("LName");
                 fname = results.getString("FName");
                 bdate = results.getDate("BDate");
-                
+
                 LocalDate date = bdate.toLocalDate();
-                
+
                 String[] tempArr = new String[4];
                 tempArr[1]=fname;
                 tempArr[0]=lname;
                 tempArr[2]=date.toString();
                 tempArr[3]=lname+", "+fname+" "+date.toString();
-                
+
                 peeps.add(tempArr);
             }
             peeps.forEach((entr) -> {
@@ -98,29 +101,29 @@ public class UpdatePatientController implements Initializable {
             });
             Collections.sort(entry);
             patients.setItems(FXCollections.observableArrayList(entry));
-            
+
             final List options = patients.getItems();
             patients.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener() {
                 @Override
                 public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                    
+
                 }
             });
-            
+
         }catch(SQLException e){
         }
     }
-    
+
     @FXML public void populateFromSelection(ActionEvent click) {
         String selection = patients.getValue().toString();
         peeps.forEach((entr) -> {
             if(selection.equals(entr[3])){
                 try{
-                    String whoAreYou = ("SELECT FName,LName,BDate,Ssn,Address,Sex,Phone_Number,Diagnosis FROM Personal_Info WHERE FName='"+entr[1]+"' AND LName='"+entr[0]+"' AND BDate='"+entr[2]+"'");
+                    String whoAreYou = ("SELECT FName,LName,BDate,Ssn,Address,Sex,Phone_Number,threat_level,Diagnosis,patient_issue FROM Personal_Info WHERE FName='"+entr[1]+"' AND LName='"+entr[0]+"' AND BDate='"+entr[2]+"'");
                     Connection connect = DBConfig.getConnection();
                     PreparedStatement ps = connect.prepareStatement(whoAreYou);
                     ResultSet results = ps.executeQuery();
-                    
+
                     if(results.first()){
                         firstField.setText(results.getString("FName"));
                         lastField.setText(results.getString("LName"));
@@ -130,21 +133,23 @@ public class UpdatePatientController implements Initializable {
                         soc.setText(results.getString("Ssn"));
                         diagnosis.setText(results.getString("Diagnosis"));
                         sexChoice.setValue(results.getString("Sex"));
+                        danger_level.setValue(results.getString("threat_level"));
+                        patient_issue.setText(results.getString("patient_issue"));
                     }
-                    
+
                 }catch(Exception e){
                     e.printStackTrace();
                 }
             }
         });
     }
-    
+
     @FXML public void onAddPatient(ActionEvent click) throws Exception {
         try{
             stage = (Stage) ((Button) click.getSource()).getScene().getWindow();
-        
+
             String source = ((Node) click.getSource()).getId();
-            
+
             switch (source) {
 		case "addButton":
                     try{
@@ -153,6 +158,7 @@ public class UpdatePatientController implements Initializable {
                                 !birthField.getText().trim().equals("") &&
                                 !addressField1.getText().trim().equals("") &&
                                 !sexChoice.getValue().equals("") &&
+                                !danger_level.getValue().equals("") &&
                                 !diagnosis.getText().trim().equals("") &&
                                 soc.getText().length() == 9 &&
                                 !(phoneField.getText().trim().equals("") ||
@@ -165,16 +171,18 @@ public class UpdatePatientController implements Initializable {
                             String phNum = phoneField.getText().trim();
                             String social = soc.getText().trim();
                             String diag = diagnosis.getText().trim();
-                            
-                            String copyQuery = "INSERT INTO Personal_History (Address, BDate, danger_lvl, FName, LName, Phone_Number, PNumber, Sex) SELECT Address, BDate, Danger_lvl, FName, LName, Phone_Number, PNumber, Sex FROM Personal_Info WHERE Phone_Number='"+phNum+"'";
-                            
-                            String patQuery = "UPDATE Personal_Info SET FName = '"+first+"', LName = '"+last+"', BDate = '"+birth+"', Address = '"+addr+"', Sex = '"+sex+"', Phone_Number = '"+phNum+"', Dead = 'no', Ssn = '"+social+"', Diagnosis = '"+diag+"' WHERE Phone_Number = '"+phNum+"'";
-                            
+                            String threat_level = danger_level.getValue().toString();
+                            String patient_iss = patient_issue.getText().trim();
+
+                            String copyQuery = "INSERT INTO Personal_History (Address, BDate, threat_level, FName, LName, Phone_Number, PNumber, Sex) SELECT Address, BDate, threat_level, FName, LName, Phone_Number, PNumber, Sex FROM Personal_Info WHERE Phone_Number='"+phNum+"'";
+
+                            String patQuery = "UPDATE Personal_Info SET FName = '"+first+"', LName = '"+last+"', BDate = '"+birth+"', Address = '"+addr+"', Sex = '"+sex+"', threat_level = '"+threat_level+"', patient_issue = '"+patient_iss+"', Phone_Number = '"+phNum+"', Dead = 'no', Ssn = '"+social+"', Diagnosis = '"+diag+"' WHERE Phone_Number = '"+phNum+"'";
+
                             Connection conn = DBConfig.getConnection();
                             PreparedStatement copyPat = conn.prepareStatement(copyQuery,Statement.RETURN_GENERATED_KEYS);
                             copyPat.execute();
                             PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
-                            
+
                             /*
                             addPat.setString(1, first);
                             addPat.setString(2, last);
@@ -186,11 +194,11 @@ public class UpdatePatientController implements Initializable {
                             addPat.setString(8, social);
                             addPat.setString(9, diag);
                             */
-                            
+
                             System.out.println("Query Sent" + addPat.toString());
-                            
+
                             int accepted  = addPat.executeUpdate();
-                            
+
                             if(accepted == 1){
                                 root = FXMLLoader.load(getClass().getResource("/view/AddPatient.fxml"));
                                 AddPatientController act1 = new AddPatientController();
@@ -204,7 +212,7 @@ public class UpdatePatientController implements Initializable {
                                 act1.setMain(main);
                                 break;
                             }
-                            
+
                         }
                         else{
                             break;
