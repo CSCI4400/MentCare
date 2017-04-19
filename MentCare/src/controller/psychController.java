@@ -1,4 +1,5 @@
 //fixed the back button- Anna 4/15/17
+//changed SQL query to match mentcare2 db - Amber 4/18/17
 
 package controller;
 
@@ -47,7 +48,7 @@ public class psychController {
 	{
 		main = mainIn;
 	}
-	//retrives and displays doctor notes
+	//retrieves and displays doctor notes
 	@FXML
 	void ClickSearchButton(ActionEvent event) throws Exception{
 		System.out.println("Search Button pressed.");
@@ -56,7 +57,7 @@ public class psychController {
     		String enterPnum = PnumTF.getText();
     		//need to set common column names for database.
     		//PNumber may be subject to change
-    		String query = ("select * from mentcare.Psych_Notes where Pnum='" + enterPnum + "'"); //Grabs all columns based on Pnum textfield.
+    		String query = ("select * from mentcare2.Psych_Notes where Pnum='" + enterPnum + "'"); //Grabs all columns based on Pnum textfield.
     		Connection conn = DBConfig.getConnection();
     		Statement statement = conn.createStatement();
         	ResultSet RS = null;
