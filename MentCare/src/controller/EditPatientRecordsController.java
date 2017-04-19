@@ -142,7 +142,11 @@ public class EditPatientRecordsController {
 				//Performs a regular update indicating that the patient is still alive
 
 				//Updates the patient object first
-				a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
+				//Validates the forms to ensure that proper formatting has been used
+				if (validateForms(fname.getText(), lname.getText(), birthdate.getText(), sex.getText(), phonenum.getText(), lastapt.getText()))
+					a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), social.getText(), LocalDate.parse(lastapt.getText()), diago.getText(), a.getPatientnum());
+				else
+					System.out.println("Invalid form input!");
 				if(tempDiagnosis.isSelected()){
 					//Updates the patient record in the database with a temporary diagnosis.
 					//The second parameter is an int that controls this ( 1 = temp)
@@ -251,8 +255,11 @@ public class EditPatientRecordsController {
 
 		updatebutton.setOnAction( e -> {
 			//Updates the patient object first
-			a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), a.getSsn(), LocalDate.parse(lastapt.getText()), a.getDiagnosis(), a.getPatientnum());
-
+			if (validateForms(fname.getText(), lname.getText(), birthdate.getText(), sex.getText(), phonenum.getText(), lastapt.getText()))
+				a.updateRecord(fname.getText(), lname.getText(), LocalDate.parse(birthdate.getText()), addr.getText(), sex.getText(), phonenum.getText(), a.getSsn(), LocalDate.parse(lastapt.getText()), a.getDiagnosis(), a.getPatientnum());
+			else
+				System.out.println("Invalid form input!");
+			
 			//Calls the method to update a patient record in the database as a receptionist
 			PatientDAO.updatePatientInfo(a, 0);
 			//Returns to the view patient records screen for a receptionist
@@ -275,6 +282,13 @@ public class EditPatientRecordsController {
 		
 		window.setScene(recordeditor);
 
+	}
+	//This method checks each form to determine whether the information is valid or not (Ex. putting a number in a person's name)
+	static boolean validateForms(String fname, String lname, String bdate, String sex, String pnum, String lastAppt) {
+		if (fname.matches("[a-zA-Z]+") && lname.matches("[a-zA-Z]+") && bdate.matches("[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-9][0-9]") && sex.matches("[M,F]") && pnum.matches("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]") && lastAppt.matches("[1-2][0-9][0-9][0-9]-[0-1][0-9]-[0-9][0-9]"))
+			return true;
+		else
+			return false;
 	}
 
 }
