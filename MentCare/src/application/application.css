@@ -3,7 +3,6 @@
 .mentStyle
 {
 	-fx-background-image:url("mentcare_bg.jpg");
-	-fx-background-size: cover;
 }
 
 .loginStyle
