@@ -110,8 +110,8 @@ public class SearchPatientController {
 				//current stage
 				//PatientRecordsController.ViewPatientRecordsDoc(a, window);
 		});
-		
-		Scene patientsearchDoc = new Scene(layout2, 640, 640);
+
+		Scene patientsearchDoc = new Scene(layout2, 400, 400);
 
 		patientsearchDoc.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
@@ -193,8 +193,8 @@ public class SearchPatientController {
 				//PatientRecordsController.ViewPatientRecordsRecep(a, window);
 		});
 
-		
-		Scene patientsearchRecep = new Scene(layout2, 640, 640);
+
+		Scene patientsearchRecep = new Scene(layout2, 400, 400);
 
 		patientsearchRecep.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 

@@ -219,7 +219,7 @@ public class PatientDAO {
 			//Sets up a connection to the database
 			Connection Con = DBConfig.getConnection();
 			PreparedStatement pstmt;
-			
+
 			pstmt = Con.prepareStatement(checkDeath);
 			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rt = pstmt.executeQuery();

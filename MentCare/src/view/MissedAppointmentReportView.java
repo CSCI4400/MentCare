@@ -28,7 +28,7 @@ public class MissedAppointmentReportView{
 
 	static private String countmissedquery = "SELECT COUNT(*) FROM mentcare2.Missed_Appointment WHERE missed = 1 AND mentcare2.Missed_Appointment.apdate = CURDATE()";
 	static private String getabsenteeinfo = "SELECT Fname, LNAME, Phone_Number FROM mentcare2.Personal_Info, mentcare2.Missed_Appointment WHERE mentcare2.Missed_Appointment.PNum = mentcare2.Personal_Info.PNumber AND mentcare2.Missed_Appointment.missed = 1 AND mentcare2.Missed_Appointment.apDate = CURDATE();";
-	static Label tMissed = new Label("Total Missed Appointments: ");
+	static Label tMissed = new Label("Total Missed Apppintments: ");
 	static Label fnames = new Label("Absentee First Name: ");
 	static Label lnames = new Label("Absentee Last Name: ");
 	static Label phones = new Label("Absentee Phone Number: ");
@@ -38,12 +38,12 @@ public class MissedAppointmentReportView{
 		//This is a report that counts the missed appointments for the day
 		//It also lists the first name, last name, and phone number for the patients that missed
 
-		backbutton.setFont(Font.font("Georgia", 15));
-		tMissed.setFont(Font.font("Georgia", 15));
-		fnames.setFont(Font.font("Georgia", 15));
-		lnames.setFont(Font.font("Georgia", 15));
-		phones.setFont(Font.font("Georgia", 15));
-		report.setFont(Font.font("Georgia", 15));
+		backbutton.setFont(Font.font("Georgia", 13));
+		tMissed.setFont(Font.font("Georgia", 13));
+		fnames.setFont(Font.font("Georgia", 13));
+		lnames.setFont(Font.font("Georgia", 13));
+		phones.setFont(Font.font("Georgia", 13));
+		report.setFont(Font.font("Georgia", 13));
 
 		backbutton.setOnAction(e -> {
 			try {
@@ -59,18 +59,23 @@ public class MissedAppointmentReportView{
 		//Setting up style for the column headers
 		report.setStyle("-fx-font-weight: bold");
 		report.setPadding(new Insets(0, 0, 0, 220));
+		report.setFont(Font.font("Georgia", 11));
 
 		tMissed.setStyle("-fx-font-weight: bold");
 		tMissed.setPadding(new Insets(0, 10, 10, 10));
+		tMissed.setFont(Font.font("Georgia", 11));
 
 		fnames.setStyle("-fx-font-weight: bold");
 		fnames.setPadding(new Insets(0, 10, 10, 10));
+		fnames.setFont(Font.font("Georgia", 11));
 
 		lnames.setStyle("-fx-font-weight: bold");
 		lnames.setPadding(new Insets(0, 10, 10, 10));
+		lnames.setFont(Font.font("Georgia", 11));
 
 		phones.setStyle("-fx-font-weight: bold");
 		phones.setPadding(new Insets(0, 10, 10, 10));
+		phones.setFont(Font.font("Georgia", 11));
 
 		BorderPane mainLayout = new BorderPane();
 		GridPane MissedAppointmentLayout = new GridPane();
@@ -131,7 +136,7 @@ public class MissedAppointmentReportView{
 		//adds labels for the first name values
 		for(String s : FirstNames){
 			Label l = new Label(s);
-			l.setFont(Font.font("Georgia", 15));
+			l.setFont(Font.font("Georgia", 11));
 			l.setPadding(new Insets(0, 0, 0, 60));
 			Fnames.getChildren().add(l);
 		}
@@ -139,7 +144,7 @@ public class MissedAppointmentReportView{
 		//adds labels for the last name values
 		for(String s : LastNames){
 			Label l = new Label(s);
-			l.setFont(Font.font("Georgia", 15));
+			l.setFont(Font.font("Georgia", 11));
 			l.setPadding(new Insets(0, 0, 0, 60));
 			Lnames.getChildren().add(l);
 		}
@@ -147,7 +152,7 @@ public class MissedAppointmentReportView{
 		//adds labels for the phone number values
 		for(String s : PhoneNumbers){
 			Label l = new Label(s);
-			l.setFont(Font.font("Georgia", 15));
+			l.setFont(Font.font("Georgia", 11));
 			l.setPadding(new Insets(0, 0, 0, 30));
 			PhoneNums.getChildren().add(l);
 		}
@@ -156,7 +161,7 @@ public class MissedAppointmentReportView{
 
 		//Adds a label with the total number of absences
 		Label absentcount = new Label(Integer.toString(totalabsent));
-		absentcount.setFont(Font.font("Georgia", 15));
+		absentcount.setFont(Font.font("Georgia", 11));
 		absentcount.setPadding(new Insets(0, 0, 0, 70));
 
 		totalMissed.getChildren().add(absentcount);
@@ -170,8 +175,8 @@ public class MissedAppointmentReportView{
 		mainLayout.setCenter(MissedAppointmentLayout);
 		mainLayout.setBottom(backbutton);
 
-		Scene MissedReport = new Scene(mainLayout, 900, 600);
-		
+		Scene MissedReport = new Scene(mainLayout, 700, 400);
+
 		MissedReport.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
 		window.setScene(MissedReport);
