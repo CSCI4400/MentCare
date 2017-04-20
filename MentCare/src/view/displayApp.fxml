@@ -55,9 +55,9 @@
             <Font name="Georgia Bold" size="16.0" />
          </font>
       </CheckBox>
-      <Label layoutX="180.0" layoutY="34.0" text="Current Appointments" textFill="#010a66">
+      <Label layoutX="168.0" layoutY="34.0" text="Current Appointments" textFill="#010a66">
          <font>
-            <Font name="Georgia Bold" size="24.0" />
+            <Font name="Georgia Bold" size="26.0" />
          </font>
       </Label>
       <Label fx:id="dateFeedback" alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="71.0" prefHeight="17.0" prefWidth="167.0" textAlignment="CENTER" textFill="#ff5619" visible="false">

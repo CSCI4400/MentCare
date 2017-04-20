@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="mentStyle" prefHeight="570.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addAppController">
+<AnchorPane id="mentStyle" minWidth="-Infinity" prefHeight="570.0" prefWidth="550.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addAppController">
    <children>
       <RadioButton fx:id="rb9" layoutX="66.0" layoutY="360.0" mnemonicParsing="false" onAction="#timeSelect" text="9:00am" textFill="#010a66">
          <font>
@@ -23,11 +23,11 @@
             <Font name="Georgia" size="15.0" />
          </font></TextField>
       <DatePicker fx:id="datePick" editable="false" layoutX="190.0" layoutY="244.0" onAction="#checkDate" prefHeight="31.0" prefWidth="218.0" />
-      <Button fx:id="submit" layoutX="199.0" layoutY="505.0" mnemonicParsing="false" onAction="#submitAppt" text="Submit" textFill="#010a66">
+      <Button fx:id="submit" layoutX="241.0" layoutY="505.0" mnemonicParsing="false" onAction="#submitAppt" text="Submit" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="cancel" layoutX="71.0" layoutY="505.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel" textFill="#010a66">
+      <Button fx:id="cancel" layoutX="50.0" layoutY="505.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
@@ -63,9 +63,9 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></RadioButton>
-      <Label layoutX="93.0" layoutY="32.0" text="Add New Appointment" textFill="#010a66">
+      <Label layoutX="123.0" layoutY="36.0" text="Add New Appointment" textFill="#010a66">
          <font>
-            <Font name="Georgia Bold" size="24.0" />
+            <Font name="Georgia Bold" size="26.0" />
          </font>
       </Label>
       <Label layoutX="50.0" layoutY="250.0" text="Select a Date:" textFill="#010a66">
@@ -108,7 +108,7 @@
             <Font name="Georgia" size="15.0" />
          </font>
       </Button>
-      <Label fx:id="lblErrPatient" layoutX="438.0" layoutY="133.0" prefHeight="19.0" prefWidth="191.0" textFill="#ff5619" wrapText="true">
+      <Label fx:id="lblErrPatient" layoutX="421.0" layoutY="133.0" prefHeight="66.0" prefWidth="118.0" textAlignment="CENTER" textFill="#ff5619" wrapText="true">
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font>

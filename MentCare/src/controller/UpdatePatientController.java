@@ -45,6 +45,9 @@ public class UpdatePatientController implements Initializable {
     Scene scene;
     Parent root;
     
+    //Connection to DB
+    Connection connect = MainFXApp.con;
+    
     private MainFXApp main;
     
     public void setMain(MainFXApp mainIn){
@@ -71,7 +74,6 @@ public class UpdatePatientController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try{
             String whoAreYou = ("SELECT LName,FName,BDate FROM Personal_Info");
-            Connection connect = DBConfig.getConnection();
             PreparedStatement ps = connect.prepareStatement(whoAreYou);
             ResultSet results = ps.executeQuery();
             
@@ -117,7 +119,6 @@ public class UpdatePatientController implements Initializable {
             if(selection.equals(entr[3])){
                 try{
                     String whoAreYou = ("SELECT FName,LName,BDate,Ssn,Address,Sex,Phone_Number,Diagnosis FROM Personal_Info WHERE FName='"+entr[1]+"' AND LName='"+entr[0]+"' AND BDate='"+entr[2]+"'");
-                    Connection connect = DBConfig.getConnection();
                     PreparedStatement ps = connect.prepareStatement(whoAreYou);
                     ResultSet results = ps.executeQuery();
                     
@@ -170,10 +171,9 @@ public class UpdatePatientController implements Initializable {
                             
                             String patQuery = "UPDATE Personal_Info SET FName = '"+first+"', LName = '"+last+"', BDate = '"+birth+"', Address = '"+addr+"', Sex = '"+sex+"', Phone_Number = '"+phNum+"', Dead = 'no', Ssn = '"+social+"', Diagnosis = '"+diag+"' WHERE Phone_Number = '"+phNum+"'";
                             
-                            Connection conn = DBConfig.getConnection();
-                            PreparedStatement copyPat = conn.prepareStatement(copyQuery,Statement.RETURN_GENERATED_KEYS);
+                            PreparedStatement copyPat = connect.prepareStatement(copyQuery,Statement.RETURN_GENERATED_KEYS);
                             copyPat.execute();
-                            PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
+                            PreparedStatement addPat = connect.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
                             
                             /*
                             addPat.setString(1, first);
