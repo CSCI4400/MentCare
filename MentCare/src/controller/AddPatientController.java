@@ -93,14 +93,13 @@ public class AddPatientController {
                             addPat.setString(4, addr);
                             addPat.setString(5, sex);
                             addPat.setString(6, phNum);
-                            addPat.setString(7,"no");
+                            addPat.setString(7, "no");
                             addPat.setString(8, social);
-                            addPat.setString(9, "none");
+                            addPat.setString(9, diag);
                             addPat.setObject(10, LocalDate.now());
                             addPat.setObject(11, "0");
                             addPat.setString(12, "Current doctor"); //fix who logged in user is
                             //addPat.setString(12, loginController.loggedOnUser.getName());
-                            //addPat.setString(13, "placehold.png");
 
 
                             System.out.println("Query Sent" + addPat.toString());
