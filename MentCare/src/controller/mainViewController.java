@@ -4,32 +4,18 @@
 package controller;
 
 import application.MainFXApp;
-
-
 import java.io.IOException;
-
 import java.net.URL;
-
-import application.MainFXApp;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-
 import javafx.stage.Stage;
-
-
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.stage.Stage;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
 
 public class mainViewController {
@@ -40,12 +26,11 @@ public class mainViewController {
 
 	private static int numTab = 0;
 
-
 	//always reference main method, and build constructor
 	private MainFXApp main;
 	public void setMain(MainFXApp mainIn)
 	{
-	main=mainIn;
+		main = mainIn;
 	}
 
 	public static void setTab(int t){
@@ -67,9 +52,9 @@ public class mainViewController {
 	@FXML Tab tbBusiness = new Tab();
 	@FXML SingleSelectionModel<Tab> selectionModel = tpMenu.getSelectionModel();
 
-
 	public void initialize(){
-
+		//gets which role the user is
+		String type = loginController.loggedOnUser.getID().substring(0, 3);
 		
 		System.out.println(numTab);
 		switch(numTab){
@@ -88,7 +73,6 @@ public class mainViewController {
 			break;
 		}
 		numTab = 0;
-		
 		
 		try { //Make appointment view open at application launch
 			URL toPane;
@@ -134,6 +118,22 @@ public class mainViewController {
 				    }
 			  }
 			});
+		
+		  switch(type){
+		  case "111":
+			  tbBusiness.setStyle("visibility: hidden");
+			  tbPatients.setStyle("visibility: hidden");
+			  break;
+		  case "333":
+		  case "555":
+			  tbBusiness.setStyle("visibility: hidden");
+			  break;
+		  case "777":
+			  tbPatients.setStyle("visibility: hidden");
+			  tbAppointments.setStyle("visibility: hidden");
+			  break;
+		  
+		  }
 	}
 
 }

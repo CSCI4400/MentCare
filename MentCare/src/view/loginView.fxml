@@ -41,7 +41,7 @@
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font></Label>
-      <Label fx:id="lblErrLogIn" alignment="CENTER" layoutX="165.0" layoutY="288.0" prefHeight="19.0" prefWidth="269.0" textFill="#ff5016">
+      <Label fx:id="lblErrLogIn" alignment="CENTER" layoutX="91.0" layoutY="291.0" prefHeight="19.0" prefWidth="427.0" textFill="#ff5016">
          <font>
             <Font name="Georgia Bold Italic" size="15.0" />
          </font></Label>

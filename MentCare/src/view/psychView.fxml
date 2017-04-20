@@ -8,25 +8,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="628.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.psychController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="628.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.psychController">
 
    <children>
-      <Button fx:id="searchBtn" layoutX="443.0" layoutY="105.0" mnemonicParsing="false" onAction="#ClickSearchButton" text="Search" textFill="#010a66">
+      <Button fx:id="searchBtn" layoutX="448.0" layoutY="95.0" mnemonicParsing="false" onAction="#ClickSearchButton" text="Search" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Label layoutX="76.0" layoutY="110.0" prefHeight="17.0" prefWidth="135.0" text="Patient Number:" textFill="#010a66">
+      <Label layoutX="113.0" layoutY="100.0" prefHeight="19.0" prefWidth="100.0" text="Patient ID:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
-      <TextField fx:id="PnumTF" layoutX="211.0" layoutY="105.0" prefHeight="25.0" prefWidth="209.0">
+      <TextField fx:id="PnumTF" layoutX="211.0" layoutY="95.0" prefHeight="25.0" prefWidth="209.0">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></TextField>
 
 
-      <TableView fx:id="psychTable" layoutX="-1.0" layoutY="171.0" onMouseClicked="#mouseClicked" prefHeight="272.0" prefWidth="634.0">
+      <TableView fx:id="psychTable" layoutX="-1.0" layoutY="162.0" onMouseClicked="#mouseClicked" prefHeight="272.0" prefWidth="634.0">
 
         <columns>
           <TableColumn fx:id="PNumCol" prefWidth="117.0" text="Patient Number" />
@@ -34,25 +33,30 @@
             <TableColumn fx:id="PsychNoteCol" prefWidth="408.0" text="Psychologist Notes" />
         </columns>
       </TableView>
-      <Button fx:id="backBtn" alignment="CENTER_RIGHT" layoutX="289.0" layoutY="465.0" mnemonicParsing="false" onAction="#ClickBackBtn" text="Back" textFill="#010a66">
+      <Button fx:id="backBtn" alignment="CENTER_RIGHT" layoutX="60.0" layoutY="457.0" mnemonicParsing="false" onAction="#ClickBackBtn" text="Back" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
 
 
-      <Label fx:id="lblErrInvalidInput" alignment="CENTER" layoutX="91.0" layoutY="73.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5619" wrapText="true">
+      <Label fx:id="lblErrInvalidInput" alignment="CENTER" layoutX="91.0" layoutY="62.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5619" wrapText="true">
          <font>
             <Font name="Georgia Bold Italic" size="14.0" />
          </font></Label>
-      <Label fx:id="lblErrUserNotFound" alignment="CENTER" layoutX="91.0" layoutY="136.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5619" wrapText="true">
+      <Label fx:id="lblErrUserNotFound" alignment="CENTER" layoutX="91.0" layoutY="128.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5619" wrapText="true">
          <font>
             <Font name="Georgia Bold Italic" size="14.0" />
          </font></Label>
-      <Label layoutX="184.0" layoutY="35.0" text="Search for Psych Notes">
+      <Label layoutX="184.0" layoutY="30.0" text="Search for Psych Notes">
          <font>
             <Font name="Georgia" size="26.0" />
          </font>
       </Label>
+      <Button fx:id="btnCreate" layoutX="261.0" layoutY="457.0" mnemonicParsing="false" text="Create Notes" textFill="#010a66">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font>
+      </Button>
 
    </children>
 </AnchorPane>

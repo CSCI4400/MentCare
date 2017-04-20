@@ -1,7 +1,6 @@
 package controller;
 /*
  * @author Danni
- * //modified by Anna 3/28/17 at 10:11am, 3 edits 
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,15 +32,11 @@ public class loginController {
 	@FXML private PasswordField pfPassword;
 	@FXML private Label lblErrUserID, lblErrPassword, lblErrLogIn;
 	
-	
-	
-	//---Begin Anna 1-----------------------------------------------------------------------------------------------
-	//create a current user object to store info in, make it static so other classes can access it
-	public static final currentUser loggedOnUser = new currentUser();
-	//---End Anna 1-----------------------------------------------------------------------------------------------
-
+	//---Begin Anna 1------------------------------------------------------------------------------------------
+		//create a current user object to store info in, make it static so other classes can access it
+		public static final currentUser loggedOnUser = new currentUser();
+	//---End Anna 1--------------------------------------------------------------------------------------------
 		
-	
 	//sets main in Main.java 
 	public void setMain(MainFXApp mainIn)
 	{
@@ -65,34 +60,24 @@ public class loginController {
 			String idNum = tfUserID.getText(), password = pfPassword.getText();
 			//checks to see if the user is in the db
 			if(checkLogIn(idNum, password)){
-				//stores identifying number for a specific type in a variable
-				String type = idNum.substring(0, 3);
-				//determines which GUI to take the user to depending on their identification number
-				if(type.equals("111")){//for receptionists
-					stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-					root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
-					scene = new Scene(root);
-					stage.setScene(scene);
-				}else if(type.equals("333") || type.equals("555")){//for nurses (333) and doctors (555)
-					stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-					root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
-					scene = new Scene(root);
-					stage.setScene(scene);
-				}else if(type.equals("777")){//for administrators
-					stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-					root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
-					scene = new Scene(root);
-					stage.setScene(scene);
-				}else{
-					//wrong login type - does not exist
-					lblErrLogIn.setText("Identification type not recognized.");
+				System.out.println("..redirecting to mainView page..");
+				stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+				System.out.println("..connected stage..");
+				try{
+				root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
+				System.out.println(root.toString());
+				scene = new Scene(root);
+				System.out.println("..set view..");
+				stage.setScene(scene);		
+				}catch(Exception e){
+					e.printStackTrace();
 				}
 			}else{
 				//checks to see if an error has been thrown somewhere else already. If not, throws this error.
 				if(lblErrUserID.getText().equals("") && lblErrPassword.getText().equals("") && 
 						lblErrLogIn.getText().equals("")){
 					//failed to log user into system - wrong credentials
-					lblErrLogIn.setText("Invalid login.");
+					lblErrLogIn.setText("Invalid login. Check internet connection.");
 				}
 				System.out.println("Failed user login.");
 			}
@@ -128,14 +113,12 @@ public class loginController {
 			System.out.println("..passed!");//passed error checking
 			//connects to db
 			Connection conn = DBConfig.getConnection();
-			
-			
+
 			//query to pull data from idNum and password columns
-			//---Begin Anna 2-----------------------------------------------------------------------------------------------
+			//---Begin Anna 2----------------------------------------------------------------------------------
 			//changed the query to select more information from the database- Anna
 			String check = "SELECT idNum, password, FullName, role FROM Users WHERE idNum = ? AND password = ?";
-			//---End Anna 2-----------------------------------------------------------------------------------------------
-			
+			//---End Anna 2------------------------------------------------------------------------------------
 			
 			//sends request
 			PreparedStatement ps = conn.prepareStatement(check);
@@ -149,21 +132,17 @@ public class loginController {
 				//sets db data into variables
 				String user = rs.getString("idNum");
 				String pass = rs.getString("password");
+				System.out.println("User: " + user);
+				System.out.println("Password: " + pass);
 				
-				
-				
-				//---Begin Anna 3-----------------------------------------------------------------------------------------------
+				//---Begin Anna 3------------------------------------------------------------------------------
 				//used the selected information the result set to add the info for the current logged on user
 				loggedOnUser.setID(user);
 				loggedOnUser.setName(rs.getString("FullName"));
 				loggedOnUser.setRole(rs.getString("role"));
 				System.out.println("Current logged on user: " + loggedOnUser);
-				//---End Anna 3-----------------------------------------------------------------------------------------------
+				//---End Anna 3--------------------------------------------------------------------------------
 				
-				
-				
-				System.out.println("User: " + user);
-				System.out.println("Password: " + pass);
 				//makes sure the variables are not empty before checking them against db content -> avoids NullPointerException
 				if(!user.isEmpty() && !pass.isEmpty()){
 					//checks identification number and password from db against local variables
@@ -182,7 +161,8 @@ public class loginController {
 				lblErrLogIn.setText("Invalid user ID or password.");
 				logIn = false;
 			}
-		}catch(SQLException ex){
+		}
+		catch(SQLException ex){
 			DBConfig.displayException(ex);
 			ex.printStackTrace();
 		}
