@@ -34,7 +34,7 @@ public class AddPatientController {
     Stage stage;
     Scene scene;
     Parent root;
-    
+
     //Connection to DB
     Connection conn = MainFXApp.con;
 
@@ -82,7 +82,7 @@ public class AddPatientController {
                             String social = soc.getText().trim();
                             String diag = diagnosis.getText().trim();
 
-                            String patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`, `Last_Visit`, `Danger_lvl`, `last_changed_by`) "
+                            String patQuery = "INSERT INTO mentcare2.Personal_Info(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`, `Last_Visit`, `threat_level`, `last_changed_by`) "
                                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
                             PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
@@ -95,11 +95,12 @@ public class AddPatientController {
                             addPat.setString(6, phNum);
                             addPat.setString(7,"no");
                             addPat.setString(8, social);
-                            addPat.setString(9, diag);
+                            addPat.setString(9, "none");
                             addPat.setObject(10, LocalDate.now());
                             addPat.setObject(11, "0");
                             addPat.setString(12, "Current doctor"); //fix who logged in user is
                             //addPat.setString(12, loginController.loggedOnUser.getName());
+                            //addPat.setString(13, "placehold.png");
 
 
                             System.out.println("Query Sent" + addPat.toString());

@@ -203,7 +203,7 @@ public class PatientDAO {
 		//DiagnosisCode indicates whether diagnosis is permanent or temporary
 		System.out.println("Record updater starting");
 		//Query for updating patient info in the database
-		String updatePersonalInfo = "UPDATE mentcare2.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Ssn = ?, Last_Visit = ? WHERE PNumber = ? ";
+		String updatePersonalInfo = "UPDATE mentcare2.Personal_Info SET Fname = ? , Lname = ?, BDate = ?, Address = ?, Sex = ?, Phone_Number = ?, Ssn = ?, Last_Visit = ?, patient_issue = ? WHERE PNumber = ? ";
 		//Query for updating diagnosis in the database. Needs to be a separate query to handle diagnosis history
 		String updateDiagnosis= "UPDATE mentcare2.Personal_Info SET Diagnosis = ? WHERE PNumber = ?";
 		//Query for adding a new entry to the diagnosis history
@@ -219,7 +219,7 @@ public class PatientDAO {
 			//Sets up a connection to the database
 			Connection Con = DBConfig.getConnection();
 			PreparedStatement pstmt;
-			
+
 			pstmt = Con.prepareStatement(checkDeath);
 			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rt = pstmt.executeQuery();
@@ -241,6 +241,7 @@ public class PatientDAO {
 				pstmt.setString(7, a.getSsn());
 				pstmt.setObject(8, a.getLastVisit());
 				pstmt.setInt(9, a.getPatientnum());
+				pstmt.setString(10, "none");
 				pstmt.executeUpdate();
 
 				pstmt = Con.prepareStatement(selectCurrentDiag);
