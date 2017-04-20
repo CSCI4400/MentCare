@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="628.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.psychController">
+
    <children>
       <Button fx:id="searchBtn" layoutX="443.0" layoutY="105.0" mnemonicParsing="false" onAction="#ClickSearchButton" text="Search" textFill="#010a66">
          <font>
@@ -23,8 +25,8 @@
             <Font name="Georgia" size="15.0" />
          </font></TextField>
 
-   
-      <TableView fx:id="psychTable" layoutX="-1.0" layoutY="171.0" prefHeight="272.0" prefWidth="634.0">
+
+      <TableView fx:id="psychTable" layoutX="-1.0" layoutY="171.0" onMouseClicked="#mouseClicked" prefHeight="272.0" prefWidth="634.0">
 
         <columns>
           <TableColumn fx:id="PNumCol" prefWidth="117.0" text="Patient Number" />
@@ -36,6 +38,7 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
+
 
       <Label fx:id="lblErrInvalidInput" alignment="CENTER" layoutX="91.0" layoutY="73.0" prefHeight="29.0" prefWidth="447.0" textAlignment="CENTER" textFill="#ff5619" wrapText="true">
          <font>

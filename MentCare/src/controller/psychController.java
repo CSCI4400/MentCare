@@ -1,13 +1,16 @@
 //fixed the back button- Anna 4/15/17
-//changed SQL query to match mentcare2 db - Amber 4/18/17
+
 
 package controller;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import application.DBConfig;
 import application.MainFXApp;
 import javafx.collections.FXCollections;
@@ -17,10 +20,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import model.Psychologist;
 
@@ -55,8 +66,7 @@ public class psychController {
 		try{
 			tempList.clear();
     		String enterPnum = PnumTF.getText();
-    		//need to set common column names for database.
-    		//PNumber may be subject to change
+
     		String query = ("select * from mentcare2.Psych_Notes where Pnum='" + enterPnum + "'"); //Grabs all columns based on Pnum textfield.
     		Connection conn = DBConfig.getConnection();
     		Statement statement = conn.createStatement();
@@ -99,5 +109,75 @@ public class psychController {
 		scene = new Scene(root);
 		stage.setScene(scene);
 	}
-}
+	@FXML
+    public void mouseClicked(MouseEvent event) {
+    	int selectedIndex = psychTable.getSelectionModel().getSelectedIndex();
+    	if(selectedIndex >= 0){
+    		Alert alert = new Alert(AlertType.INFORMATION);
+	    	DialogPane dialogPane = alert.getDialogPane();
+	    	//css for missed alert box
+	    	dialogPane.setStyle("-fx-background-image: url(application/mentcare_bg.jpg);"//TODO for UI committee
+	    					  + "-fx-font-size: 15px;"
+	    					  + "-fx-mid-text-color: #010a66;"
+	    					  + "-fx-font-family: georgia;");
+	    	alert.setTitle("Detailed Patient Information");
+	    	
+	    	//gets the currently selected row patient name and contact number from the GUI table then displays it
+	    	alert.setHeaderText(psychTable.getSelectionModel().getSelectedItem().getPNumber().getValue()); 
+	    					
+	    	alert.setContentText(psychTable.getSelectionModel().getSelectedItem().getDocID().getValue());;
+	    	
+	    	ButtonType UpdateBtn = new ButtonType("Update");
+	    	ButtonType OKBtn = new ButtonType("OK");
+	    	//creates text area
+	    	TextArea notes = new TextArea();
+	    	notes.setText(psychTable.getSelectionModel().getSelectedItem().getPsychNotes().getValue());
+	    	//makes text area editable for the user to type in input
+	    	notes.setEditable(true);
+	    	notes.setWrapText(true);
+	    	//sets grid dimensions
+	    	notes.setMaxWidth(Double.MAX_VALUE);
+	    	notes.setMaxHeight(Double.MAX_VALUE);
+	    	GridPane.setVgrow(notes, Priority.ALWAYS);
+	    	GridPane.setHgrow(notes, Priority.ALWAYS);
+	    	//places objects on grid
+	    	GridPane expContent = new GridPane();
+	    	expContent.setMaxWidth(Double.MAX_VALUE);
+	    	expContent.add(notes, 0, 0);	
+	    	//makes dialog box expandable -> default is not
+	    	alert.getDialogPane().setExpandableContent(expContent);
+	    	//expands window to view full text area -> hides automatically if this is not set
+	    	alert.getDialogPane().setExpanded(true);
+	    	//waits for button to be clicked to perform an action -> stores in variable
+	    	alert.getButtonTypes().setAll(OKBtn,UpdateBtn);
+	    	
+	    	Optional<ButtonType> result = alert.showAndWait();
+	    	if(result.get() == OKBtn)
+	    	{
+    		alert.hide();
+	    	}
+	    	//updates psychnotes based on patient number and doctor ID
+	    	else if (result.get()==UpdateBtn){
+	    		System.out.println("insert");
+	    		String pnum=alert.getHeaderText();
+	    		String docid=alert.getContentText();
+	    		String notesUpdateQuery = "UPDATE mentcare2.Psych_Notes SET NOTES = ? WHERE Pnum='"+pnum+"' and DocID='"+docid+"'";
+	    		try{ 
+	    			
+	    			Connection conn = DBConfig.getConnection();
+                     
+                   
+                     PreparedStatement PreparedStatement = conn.prepareStatement(notesUpdateQuery);
+                     PreparedStatement.setString(1, notes.getText());
+         
+                     PreparedStatement.execute();
+                     PreparedStatement.close();
+	    		}catch(Exception e){
+	    			e.printStackTrace();
+	    		}
+	    	}
+	    		
+	    	}
+    	}
+	}
 
