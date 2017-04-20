@@ -14,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import application.DBConfig;
 import application.MainFXApp;
 import javafx.event.ActionEvent;
@@ -36,6 +35,9 @@ public class addAppController {
         Stage stage;
         Scene scene;
         Parent root;
+        
+        //Connection to DB
+        Connection conn = MainFXApp.con;
         
         //labels 
         @FXML private Label lblErrPatient;
@@ -183,7 +185,6 @@ public class addAppController {
 
               //connect to database
               try(
-                              Connection conn = DBConfig.getConnection();
                               PreparedStatement findPatient = conn.prepareStatement(searchQuery);
                       ){
 
@@ -281,7 +282,6 @@ public class addAppController {
 
             //connect to database
             try(
-                            Connection conn = DBConfig.getConnection();
                             PreparedStatement checkDates = conn.prepareStatement(dateChecking);
                     ){
 
@@ -381,7 +381,7 @@ public class addAppController {
 
 
         //try to connect to db
-        try (Connection conn = DBConfig.getConnection();
+        try (
                                PreparedStatement createAppt = conn.prepareStatement(apptQuery,Statement.RETURN_GENERATED_KEYS);)
                 {
 

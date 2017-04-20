@@ -35,6 +35,9 @@ public class updateAppController {
 	Scene scene;
 	Parent root;
 	
+    //Connection to DB
+    Connection conn = MainFXApp.con;
+	
 	private MainFXApp main;
     public void setMain(MainFXApp mainIn)
     {
@@ -104,7 +107,6 @@ public class updateAppController {
     	}
     	else{
 	    	try (
-					Connection conn = DBConfig.getConnection();
 					Statement statement = conn.createStatement();
 					ResultSet RS = statement.executeQuery("select * from mentcare2.Current_Appointment where PNum=" + PnumField.getText() + ";");
 					) // End try-with-res
@@ -148,7 +150,7 @@ public class updateAppController {
 		String query = ("UPDATE mentcare2.Current_Appointment SET Pname = ?, DocID = ?, apDate = ?, apTime = ? WHERE AppID = ?");
 		
 		
-    	try (Connection conn = DBConfig.getConnection();
+    	try (
     			PreparedStatement statement = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);)
     	{
     		statement.setString(1, Pname);

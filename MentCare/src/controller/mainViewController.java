@@ -70,8 +70,6 @@ public class mainViewController {
 
 	public void initialize(){
 
-		
-		System.out.println(numTab);
 		switch(numTab){
 		case 0:
 			selectionModel.select(0);

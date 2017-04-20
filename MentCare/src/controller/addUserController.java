@@ -71,6 +71,10 @@ public class addUserController {
     @FXML
     private RadioButton radBusiness;
     
+    
+    //Connection to DB
+    Connection conn = MainFXApp.con;
+    
     //for the current day
     String today;
     
@@ -136,7 +140,7 @@ public class addUserController {
         String IDQuery = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'mentcare2' AND TABLE_NAME = 'Users'";
 		
 		 //try to connect to db
-        try (Connection conn = DBConfig.getConnection();
+        try (
              PreparedStatement getID = conn.prepareStatement(IDQuery, Statement.RETURN_GENERATED_KEYS);)
         {
         	//print query
@@ -205,7 +209,7 @@ public class addUserController {
 		   	//create query to send appt in db
 		    String newUserQuery = "INSERT INTO `Users`(`idNum`, `password`, `role`, `FullName`, `CreatedBy`, `CreatedDate`) VALUES (?,?,?,?,?,?)";
 		    //try to connect to db
-		    try (Connection conn = DBConfig.getConnection();
+		    try (
 		         PreparedStatement createUser = conn.prepareStatement(newUserQuery,Statement.RETURN_GENERATED_KEYS);)
 		    {
 		    	//set info into the query

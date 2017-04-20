@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+import application.DBConfig;
 import application.MainFXApp;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -23,7 +23,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.DBConnection;
 import model.Patient;
 
 
@@ -217,11 +216,10 @@ public class PatientDAO {
 		String updatePersonalHistory = "INSERT INTO mentcare2.Personal_History (Address, BDate, Fname, Lname, Phone_Number, PNumber, Sex, Modified_By)  VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
-			Connection Con;
-			PreparedStatement pstmt;
-
 			//Sets up a connection to the database
-			Con = DriverManager.getConnection("jdbc:mysql://164.132.49.5:3306", "mentcare", DBConnection.DBPASSWORD);
+			Connection Con = DBConfig.getConnection();
+			PreparedStatement pstmt;
+			
 			pstmt = Con.prepareStatement(checkDeath);
 			pstmt.setInt(1, a.getPatientnum());
 			ResultSet rt = pstmt.executeQuery();

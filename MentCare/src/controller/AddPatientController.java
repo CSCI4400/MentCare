@@ -34,6 +34,9 @@ public class AddPatientController {
     Stage stage;
     Scene scene;
     Parent root;
+    
+    //Connection to DB
+    Connection conn = MainFXApp.con;
 
     private MainFXApp main;
 
@@ -82,7 +85,6 @@ public class AddPatientController {
                             String patQuery = "INSERT INTO `Personal_Info`(`FName`, `LName`, `BDate`, `Address`, `Sex`,`Phone_Number`,`Dead`,`Ssn`,`Diagnosis`, `Last_Visit`, `Danger_lvl`, `last_changed_by`) "
                                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
-                            Connection conn = DBConfig.getConnection();
                             PreparedStatement addPat = conn.prepareStatement(patQuery,Statement.RETURN_GENERATED_KEYS);
 
                             addPat.setString(1, first);

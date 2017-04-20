@@ -45,6 +45,9 @@ public class InformationHistoryController implements Initializable {
     Scene scene;
     Parent root;
     
+    //Connection to DB
+    Connection connect = MainFXApp.con;
+    
     private MainFXApp main;
     
     public void setMain(MainFXApp mainIn){
@@ -75,7 +78,6 @@ public class InformationHistoryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try{
             String whoAreYou = ("SELECT LName,FName,BDate FROM Personal_Info");
-            Connection connect = DBConfig.getConnection();
             PreparedStatement ps = connect.prepareStatement(whoAreYou);
             ResultSet results = ps.executeQuery();
             
@@ -121,7 +123,6 @@ public class InformationHistoryController implements Initializable {
             if(selection.equals(entr[3])){
                 try{
                     String whoAreYou = "SELECT FName,LName,BDate,Ssn,Address,Sex,Phone_Number,Diagnosis,time_update,PNumber FROM Personal_Info WHERE FName='"+entr[1]+"' AND LName='"+entr[0]+"' AND BDate='"+entr[2]+"'";
-                    Connection connect = DBConfig.getConnection();
                     PreparedStatement ps = connect.prepareStatement(whoAreYou);
                     ResultSet results = ps.executeQuery();
                     
@@ -170,7 +171,6 @@ public class InformationHistoryController implements Initializable {
         String selection = dateModified.getValue().toString();
         String whenAreYouNot = "SELECT FName,LName,BDate,Address,Sex,Phone_Number FROM Personal_History WHERE PNumber = '"+pNum+"' AND Date_Modified = '"+dateModified.getValue().toString()+"'";
         try {
-            Connection connect = DBConfig.getConnection();
             PreparedStatement ps = connect.prepareStatement(whenAreYouNot);
             ResultSet results = ps.executeQuery();
             if(results.first()){

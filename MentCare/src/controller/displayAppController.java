@@ -52,6 +52,9 @@ public class displayAppController{
 	Stage stage;
 	Scene scene;
 	Parent root;
+	
+    //Connection to DB
+    Connection conn = MainFXApp.con;
 
 	//always reference main method, and build constructor
 	private MainFXApp main;
@@ -108,9 +111,7 @@ public class displayAppController{
 	    	String AppNum, Pnum, Pname, DocID, apDate, apTime, missed, passed, phoneNum;
 	    	//pulls all data from Current_Appointment db table
 			String getData = ("SELECT * FROM `mentcare2`.`Current_Appointment`");
-			//connects to db
-			Connection conn = DBConfig.getConnection();
-
+			
 			PreparedStatement ps = conn.prepareStatement(getData);
 			ResultSet rs = ps.executeQuery();
 			//retrieves data from the db table so long as there is data then sets in model
@@ -218,8 +219,7 @@ public class displayAppController{
 	    	//gets item from list for a row in table
 			String dateTemp = tempList.get(selectedIndex).getApDateString();
 			String timeTemp = tempList.get(selectedIndex).getApTimeString();
-			//connection to db
-			Connection conn = DBConfig.getConnection();
+
 	    	if(btnAttend.isArmed() == true){
 		 		//passes from current to past appointment db tables
 		 		String currToPass = ("INSERT INTO `mentcare2`.`Previous_Appointment`(AppID, Pnum, Pname, DocID, apDate, apTime) "
@@ -372,7 +372,6 @@ public class displayAppController{
 		    	//gets data from the row at that date and time -> always unique
 	    		String getData = ("SELECT * FROM `mentcare2`.`Current_Appointment` WHERE `apDate`='" + dateTemp +
 	   				 "' AND `apTime`='" + timeTemp + "';");
-	    		Connection conn = DBConfig.getConnection();
 
 	    		PreparedStatement ps10 = conn.prepareStatement(getData);
 	    		ps10.execute();
@@ -561,7 +560,6 @@ public class displayAppController{
 			tempList.clear();
 			appList.clear();
 		    String query = ("select * from mentcare2.Current_Appointment where apDate='" + enterDate + "'"); //that is for the date in textfield!
-		    Connection conn = DBConfig.getConnection();
 			Statement statement = conn.createStatement();
 	    	ResultSet RS = null;
 	    	String AppNum = null, Pnum = null, Pname = null, phoneNum = null,
@@ -704,7 +702,6 @@ public class displayAppController{
     	try{
     		tempList.clear();
     		String query = ("select * from mentcare2.Current_Appointment");
-    		Connection conn = DBConfig.getConnection();
     		Statement statement = conn.createStatement();
         	ResultSet RS = null;
         	String AppNum = null, Pnum = null, Pname = null, phoneNum = null,
