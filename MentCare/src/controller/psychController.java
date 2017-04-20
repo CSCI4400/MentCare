@@ -116,7 +116,7 @@ public class psychController {
     		Alert alert = new Alert(AlertType.INFORMATION);
 	    	DialogPane dialogPane = alert.getDialogPane();
 	    	//css for missed alert box
-	    	dialogPane.setStyle("-fx-background-image: url(application/gui_bg.jpg);"//TODO for UI committee
+	    	dialogPane.setStyle("-fx-background-image: url(application/mentcare_bg.jpg);"//TODO for UI committee
 	    					  + "-fx-font-size: 15px;"
 	    					  + "-fx-mid-text-color: #010a66;"
 	    					  + "-fx-font-family: georgia;");
