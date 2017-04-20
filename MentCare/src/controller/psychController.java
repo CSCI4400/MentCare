@@ -52,7 +52,6 @@ public class psychController {
 	//creates lists for psychologist
 	static List<Psychologist> list = new ArrayList<Psychologist>();
 	@FXML static ObservableList<Psychologist> appList = FXCollections.observableList(list);
-	static ArrayList<Psychologist> tempList = new ArrayList<Psychologist>();
 	
 	//sets main in Main.java 
 	public void setMain(MainFXApp mainIn)
@@ -64,7 +63,7 @@ public class psychController {
 	void ClickSearchButton(ActionEvent event) throws Exception{
 		System.out.println("Search Button pressed.");
 		try{
-			tempList.clear();
+			appList.clear();
     		String enterPnum = PnumTF.getText();
 
     		String query = ("select * from mentcare2.Psych_Notes where Pnum='" + enterPnum + "'"); //Grabs all columns based on Pnum textfield.
@@ -88,13 +87,11 @@ public class psychController {
         			System.out.println("Pnum : " + Pnum + "\nDocID: " + DocID + "\nPsychNotes: " + PsychNotes);
         			Psychologist psych = new Psychologist(Pnum, DocID, PsychNotes);
   		      		appList.add(psych);
-  		      		tempList.add(psych);
       		    }
         		//Updates table in psychView
         		PNumCol.setCellValueFactory(cellData -> cellData.getValue().getPNumber());
                 DocNumCol.setCellValueFactory(cellData -> cellData.getValue().getDocID());
                 PsychNoteCol.setCellValueFactory(cellData -> cellData.getValue().getPsychNotes());
-                System.out.println(tempList);
                 System.out.println(appList);
                 psychTable.setItems(appList);
 		}catch(Exception e){
@@ -115,17 +112,16 @@ public class psychController {
     	if(selectedIndex >= 0){
     		Alert alert = new Alert(AlertType.INFORMATION);
 	    	DialogPane dialogPane = alert.getDialogPane();
-	    	//css for missed alert box
-	    	dialogPane.setStyle("-fx-background-image: url(application/mentcare_bg.jpg);"//TODO for UI committee
-	    					  + "-fx-font-size: 15px;"
-	    					  + "-fx-mid-text-color: #010a66;"
-	    					  + "-fx-font-family: georgia;");
+	    	//css for info alert box
+	    	dialogPane.getStylesheets().add(
+	    			   getClass().getResource("/application/application.css").toExternalForm());
+	    	dialogPane.getStyleClass().add("alert");
 	    	alert.setTitle("Detailed Patient Information");
 	    	
 	    	//gets the currently selected row patient name and contact number from the GUI table then displays it
-	    	alert.setHeaderText(psychTable.getSelectionModel().getSelectedItem().getPNumber().getValue()); 
+	    	alert.setHeaderText("Patient ID: " + psychTable.getSelectionModel().getSelectedItem().getPNumber().getValue()); 
 	    					
-	    	alert.setContentText(psychTable.getSelectionModel().getSelectedItem().getDocID().getValue());;
+	    	alert.setContentText("Doctor: " + psychTable.getSelectionModel().getSelectedItem().getDocID().getValue());;
 	    	
 	    	ButtonType UpdateBtn = new ButtonType("Update");
 	    	ButtonType OKBtn = new ButtonType("OK");
@@ -154,24 +150,22 @@ public class psychController {
 	    	Optional<ButtonType> result = alert.showAndWait();
 	    	if(result.get() == OKBtn)
 	    	{
-    		alert.hide();
+	    		alert.hide();
 	    	}
 	    	//updates psychnotes based on patient number and doctor ID
-	    	else if (result.get()==UpdateBtn){
+	    	else if (result.get() == UpdateBtn){
 	    		System.out.println("insert");
-	    		String pnum=alert.getHeaderText();
-	    		String docid=alert.getContentText();
+	    		String pnum = alert.getHeaderText();
+	    		String docid = alert.getContentText();
 	    		String notesUpdateQuery = "UPDATE mentcare2.Psych_Notes SET NOTES = ? WHERE Pnum='"+pnum+"' and DocID='"+docid+"'";
 	    		try{ 
-	    			
 	    			Connection conn = DBConfig.getConnection();
-                     
-                   
-                     PreparedStatement PreparedStatement = conn.prepareStatement(notesUpdateQuery);
-                     PreparedStatement.setString(1, notes.getText());
-         
-                     PreparedStatement.execute();
-                     PreparedStatement.close();
+               
+                    PreparedStatement PreparedStatement = conn.prepareStatement(notesUpdateQuery);
+                    PreparedStatement.setString(1, notes.getText());
+        
+                    PreparedStatement.execute();
+                    PreparedStatement.close();
 	    		}catch(Exception e){
 	    			e.printStackTrace();
 	    		}
