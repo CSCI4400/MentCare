@@ -1,3 +1,6 @@
+//changes on 4/19/17
+	//changed so it can't search without patient number
+	//created a label clearer for the appointment search
 //Changes on 4/15/17
 	//changed the way it checks to see if there is a patient appointment
 	//updated to mentcare2
@@ -88,33 +91,46 @@ public class updateAppController {
     
     @FXML
 	void ClickGoButton(ActionEvent event) {
-		try (
-				Connection conn = DBConfig.getConnection();
-				Statement statement = conn.createStatement();
-				ResultSet RS = statement.executeQuery("select * from mentcare2.Current_Appointment where PNum=" + PnumField.getText() + ";");
-				) // End try-with-res
-		{
-			//------ANNA
-			//changed the way it checks for appointment so the labels update correctly
-			//System.out.print(RS.getRow());
-			if(!RS.isBeforeFirst())//change
-				{
-	    		statusLabel.setText("Status: Appointment Not Found");
-				}
-			else{//changed
-	    		while (RS.next()) {
-	    		 PnameLabel.setText(RS.getString("Pname"));
-	  		     DocIDLabel.setText(RS.getString("DocID"));
-	  		     apDateLabel.setText(RS.getString("apDate"));
-	  		     apTimeLabel.setText(RS.getString("apTime"));
-	  		     AppIDLabel.setText(Integer.toString((RS.getInt("AppID"))));
-	    		}
-	    		statusLabel.setText("Status: Appointment Found");
-	    	} // End if
-	    	
-		} catch (SQLException e) {
-				DBConfig.displayException(e);
-		}// End Catch
+		//-----ANNA
+    	//reset all the labels except the Pnum and clears the status label
+    	resetforGO();
+    	
+    	//------ANNA
+    	//stops patient from searching if field is empty
+    	if (PnumField.getText().equals(""))
+    	{
+    		System.out.println("No number");
+    		statusLabel.setText("Status: Must have patient number");
+    	}
+    	else{
+	    	try (
+					Connection conn = DBConfig.getConnection();
+					Statement statement = conn.createStatement();
+					ResultSet RS = statement.executeQuery("select * from mentcare2.Current_Appointment where PNum=" + PnumField.getText() + ";");
+					) // End try-with-res
+			{
+				//------ANNA
+				//changed the way it checks for appointment so the labels update correctly
+				//System.out.print(RS.getRow());
+				if(!RS.isBeforeFirst())//change
+					{
+		    		statusLabel.setText("Status: Appointment Not Found");
+					}
+				else{//changed
+		    		while (RS.next()) {
+		    		 PnameLabel.setText(RS.getString("Pname"));
+		  		     DocIDLabel.setText(RS.getString("DocID"));
+		  		     apDateLabel.setText(RS.getString("apDate"));
+		  		     apTimeLabel.setText(RS.getString("apTime"));
+		  		     AppIDLabel.setText(Integer.toString((RS.getInt("AppID"))));
+		    		}
+		    		statusLabel.setText("Status: Appointment Found");
+		    	} // End if
+		    	
+			} catch (SQLException e) {
+					DBConfig.displayException(e);
+			}// End Catch
+    	}
 		
     } // End Method
 
@@ -162,8 +178,25 @@ public class updateAppController {
 		apDateField.setValue(null);
 		apTimeField.setValue(null);
 		DocIDField.setText("");
+		AppIDLabel.setText("");
 		
     } // End resetLabels method
+    
+    
+    //-----ANNA 
+    void resetforGO() {
+    	// Helper method, clears fields and labels
+    	PnameLabel.setText("");
+    	PnameField.setText("");
+		DocIDLabel.setText("");
+		apDateLabel.setText("");
+		apTimeLabel.setText("");
+		apDateField.setValue(null);
+		apTimeField.setValue(null);
+		DocIDField.setText("");
+		AppIDLabel.setText("");
+		statusLabel.setText("");
+    }
     
     boolean checkFields() {
     	// Helper method, returns true if all fields have some value (DOES NOT YET CHECK THE VALUE, DAMN USERS!)
