@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="472.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Delete">
+   <children>
+      <TableView fx:id="table_delete" layoutX="97.0" layoutY="107.0" prefHeight="292.0" prefWidth="378.0">
+        <columns>
+          <TableColumn fx:id="Column_UserId" prefWidth="139.0" text="UserId" />
+          <TableColumn fx:id="Column_Name" prefWidth="238.0" text="Name" />
+        </columns>
+      </TableView>
+      <Label layoutX="238.0" layoutY="27.0" text="Delete a User">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Button fx:id="Button_search" layoutX="362.0" layoutY="75.0" mnemonicParsing="false" onAction="#ClickDeleteSearch" text="Search" />
+      <TextField fx:id="delete_searchField" layoutX="200.0" layoutY="75.0" prefHeight="25.0" prefWidth="160.0" promptText="Enter Id, Name or Keyword" />
+      <Label layoutX="396.0" layoutY="441.0" text="Double Click to Delete a User." textFill="#07f222" />
+      <Button fx:id="Button_back" layoutX="505.0" layoutY="15.0" mnemonicParsing="false" onAction="#ClickBack" text="Back" />
+   </children>
+</AnchorPane>

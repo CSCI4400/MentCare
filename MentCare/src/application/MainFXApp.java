@@ -4,6 +4,10 @@ import java.sql.Connection;
 import controller.mainViewController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import javafx.stage.Window;
+import model.DBConnection;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 /**
@@ -17,7 +21,12 @@ public class MainFXApp extends Application {
 
 
 	private static Scene scene;
+
+	public static Connection con;
+	public static Window primaryStage;
+
 	public static Connection con = null;
+
 	
 	public static Scene getScene(){
 		return scene;
@@ -29,8 +38,12 @@ public class MainFXApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+
+			this.primaryStage = primaryStage;
+
 			con = DBConfig.getConnection();
 			
+
 			//CURRENTLY SET TO BYPASS LOGIN
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
 			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
