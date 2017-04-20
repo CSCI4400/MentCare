@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import application.DBConfig;
 import application.MainFXApp;
 import javafx.collections.FXCollections;
@@ -34,6 +33,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import model.Psychologist;
+import model.currentUser;
 
 public class psychController {
 	MainFXApp main = new MainFXApp();
@@ -52,19 +52,34 @@ public class psychController {
 	//creates lists for psychologist
 	static List<Psychologist> list = new ArrayList<Psychologist>();
 	@FXML static ObservableList<Psychologist> appList = FXCollections.observableList(list);
-	static ArrayList<Psychologist> tempList = new ArrayList<Psychologist>();
+	@FXML private Button btnCreate;
+	//gets which role the user is
+	private String type = loginController.loggedOnUser.getID().substring(0, 3);
 	
 	//sets main in Main.java 
 	public void setMain(MainFXApp mainIn)
 	{
 		main = mainIn;
 	}
+
+	//sets permissions for users
+	public void initialize() throws Exception{
+		//permissions set by type
+		if(type.equals("333")){
+			btnCreate.setVisible(false);
+		}else if(type.equals("555")){
+			btnCreate.setVisible(true);
+		}else{
+			System.out.println("Invalid identification number for button function.");
+		}
+	}
+	
 	//retrieves and displays doctor notes
 	@FXML
 	void ClickSearchButton(ActionEvent event) throws Exception{
 		System.out.println("Search Button pressed.");
 		try{
-			tempList.clear();
+			appList.clear();
     		String enterPnum = PnumTF.getText();
 
     		String query = ("select * from mentcare2.Psych_Notes where Pnum='" + enterPnum + "'"); //Grabs all columns based on Pnum textfield.
@@ -88,13 +103,11 @@ public class psychController {
         			System.out.println("Pnum : " + Pnum + "\nDocID: " + DocID + "\nPsychNotes: " + PsychNotes);
         			Psychologist psych = new Psychologist(Pnum, DocID, PsychNotes);
   		      		appList.add(psych);
-  		      		tempList.add(psych);
       		    }
         		//Updates table in psychView
         		PNumCol.setCellValueFactory(cellData -> cellData.getValue().getPNumber());
                 DocNumCol.setCellValueFactory(cellData -> cellData.getValue().getDocID());
                 PsychNoteCol.setCellValueFactory(cellData -> cellData.getValue().getPsychNotes());
-                System.out.println(tempList);
                 System.out.println(appList);
                 psychTable.setItems(appList);
 		}catch(Exception e){
@@ -115,25 +128,29 @@ public class psychController {
     	if(selectedIndex >= 0){
     		Alert alert = new Alert(AlertType.INFORMATION);
 	    	DialogPane dialogPane = alert.getDialogPane();
-	    	//css for missed alert box
-	    	dialogPane.setStyle("-fx-background-image: url(application/mentcare_bg.jpg);"//TODO for UI committee
-	    					  + "-fx-font-size: 15px;"
-	    					  + "-fx-mid-text-color: #010a66;"
-	    					  + "-fx-font-family: georgia;");
+	    	//css for info alert box
+	    	dialogPane.getStylesheets().add(
+	    			   getClass().getResource("/application/application.css").toExternalForm());
+	    	dialogPane.getStyleClass().add("alert");
 	    	alert.setTitle("Detailed Patient Information");
 	    	
 	    	//gets the currently selected row patient name and contact number from the GUI table then displays it
-	    	alert.setHeaderText(psychTable.getSelectionModel().getSelectedItem().getPNumber().getValue()); 
+	    	alert.setHeaderText("Patient ID: " + psychTable.getSelectionModel().getSelectedItem().getPNumber().getValue()); 
 	    					
-	    	alert.setContentText(psychTable.getSelectionModel().getSelectedItem().getDocID().getValue());;
+	    	alert.setContentText("Doctor: " + psychTable.getSelectionModel().getSelectedItem().getDocID().getValue());;
 	    	
 	    	ButtonType UpdateBtn = new ButtonType("Update");
-	    	ButtonType OKBtn = new ButtonType("OK");
+
 	    	//creates text area
 	    	TextArea notes = new TextArea();
 	    	notes.setText(psychTable.getSelectionModel().getSelectedItem().getPsychNotes().getValue());
-	    	//makes text area editable for the user to type in input
-	    	notes.setEditable(true);
+	    	//makes text area editable for the user to type in input based on permissions
+	    	if(type.equals("555")){
+	    		notes.setEditable(true);
+	    	}else{
+	    		notes.setEditable(false);
+	    	}
+	
 	    	notes.setWrapText(true);
 	    	//sets grid dimensions
 	    	notes.setMaxWidth(Double.MAX_VALUE);
@@ -148,36 +165,50 @@ public class psychController {
 	    	alert.getDialogPane().setExpandableContent(expContent);
 	    	//expands window to view full text area -> hides automatically if this is not set
 	    	alert.getDialogPane().setExpanded(true);
-	    	//waits for button to be clicked to perform an action -> stores in variable
-	    	alert.getButtonTypes().setAll(OKBtn,UpdateBtn);
 	    	
-	    	Optional<ButtonType> result = alert.showAndWait();
-	    	if(result.get() == OKBtn)
-	    	{
-    		alert.hide();
+	    	if(type.equals("333")){//nurses
+		    	Optional<ButtonType> result = alert.showAndWait();
+	    		if(result.get() == ButtonType.OK)
+		    	{
+		    		alert.hide();
+		    	}else{
+		    		System.out.println("Invalid identification number for nurse function.");
+		    	}
+	    	}else if(type.equals("555")){//doctors
+	    		//waits for button to be clicked to perform an action -> stores in variable
+		    	alert.getButtonTypes().setAll(ButtonType.OK, UpdateBtn);
+		    	
+		    	Optional<ButtonType> result = alert.showAndWait();
+	    		if(result.get() == ButtonType.OK)
+		    	{
+		    		alert.hide();
+		    	}else if (result.get() == UpdateBtn){//updates psychnotes based on patient number and doctor ID
+		    		System.out.println("insert");
+		    		String pnum = alert.getHeaderText();
+		    		String docid = alert.getContentText();
+		    		String notesUpdateQuery = "UPDATE mentcare2.Psych_Notes SET NOTES = ? WHERE Pnum='"+pnum+"' and DocID='"+docid+"'";
+		    		try{ 
+		    			Connection conn = DBConfig.getConnection();
+	               
+	                    PreparedStatement PreparedStatement = conn.prepareStatement(notesUpdateQuery);
+	                    PreparedStatement.setString(1, notes.getText());
+	        
+	                    PreparedStatement.execute();
+	                    PreparedStatement.close();
+		    		}catch(Exception e){
+		    			e.printStackTrace();
+		    		}
+		    	}else{
+		    		System.out.println("Invalid identification number for doctor function.");
+		    	}
 	    	}
-	    	//updates psychnotes based on patient number and doctor ID
-	    	else if (result.get()==UpdateBtn){
-	    		System.out.println("insert");
-	    		String pnum=alert.getHeaderText();
-	    		String docid=alert.getContentText();
-	    		String notesUpdateQuery = "UPDATE mentcare2.Psych_Notes SET NOTES = ? WHERE Pnum='"+pnum+"' and DocID='"+docid+"'";
-	    		try{ 
-	    			
-	    			Connection conn = DBConfig.getConnection();
-                     
-                   
-                     PreparedStatement PreparedStatement = conn.prepareStatement(notesUpdateQuery);
-                     PreparedStatement.setString(1, notes.getText());
-         
-                     PreparedStatement.execute();
-                     PreparedStatement.close();
-	    		}catch(Exception e){
-	    			e.printStackTrace();
-	    		}
-	    	}
-	    		
-	    	}
-    	}
-	}
+	    }
+    }
+	//allows doctors to create new notes about their patients
+	@FXML
+	void newNotes(ActionEvent event) throws Exception{
+		//for Robert - pop up space
+		System.out.println("Notes go HERE, Robert!");
+	}//end method
+}//end class
 
