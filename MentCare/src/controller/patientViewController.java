@@ -25,8 +25,6 @@ public class patientViewController {
 	@FXML
 	private Button addButton;
 	@FXML
-	private Button updateButton;
-	@FXML
 	private Button historyButton;
 	@FXML
 	private Button searchPatientButton;
@@ -56,11 +54,6 @@ public class patientViewController {
 				root = FXMLLoader.load(getClass().getResource("/view/AddPatient.fxml"));
 				AddPatientController con1 = new AddPatientController();
 				con1.setMain(main);
-				break;
-			case "updateButton":
-				root = FXMLLoader.load(getClass().getResource("/view/UpdatePatient.fxml"));
-				UpdatePatientController con2 = new UpdatePatientController();
-				con2.setMain(main);
 				break;
 			case "historyButton":
 				root = FXMLLoader.load(getClass().getResource("/view/InformationHistory.fxml"));

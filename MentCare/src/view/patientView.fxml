@@ -49,11 +49,6 @@
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Update Patient" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Georgia" size="15.0" />
-               </font>
-            </Button>
             <Button fx:id="historyButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="25.0" prefWidth="264.0" text="Patient Information History" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="Georgia" size="15.0" />
