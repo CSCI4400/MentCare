@@ -23,10 +23,7 @@ public class MainFXApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			//CURRENTLY SET TO BYPASS LOGIN
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
-			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
-
 			Scene scene = new Scene(root,610,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

@@ -20,6 +20,22 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.currentUser;
 
+/*
+ * Sample login info for testing purposes.
+ * Receptionist:
+ * 		ID: 1119000008
+ * 		Password: 666666
+ * Nurse:
+ * 		ID: 3339056567
+ * 		Password: 000000
+ * Doctor:
+ * 		ID: 5559000010
+ * 		Password: 888888
+ * Administrator:
+ * 		ID: 7779000009
+ * 		Password: 777777
+ */
+
 public class loginController {
 	MainFXApp main = new MainFXApp();
 	//needed for changing secne views
