@@ -199,6 +199,12 @@ public class psychController {
 		    	}
 	    	}
 	    }
-    }//end method
+    }
+	//allows doctors to create new notes about their patients
+	@FXML
+	void newNotes(ActionEvent event) throws Exception{
+		//for Robert - pop up space
+		System.out.println("Notes go HERE, Robert!");
+	}//end method
 }//end class
 

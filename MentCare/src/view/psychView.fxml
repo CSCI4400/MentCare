@@ -52,7 +52,7 @@
             <Font name="Georgia" size="26.0" />
          </font>
       </Label>
-      <Button fx:id="btnCreate" layoutX="261.0" layoutY="457.0" mnemonicParsing="false" text="Create Notes" textFill="#010a66">
+      <Button fx:id="btnCreate" layoutX="261.0" layoutY="457.0" mnemonicParsing="false" onAction="#newNotes" text="Create Notes" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font>
