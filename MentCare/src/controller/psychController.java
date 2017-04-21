@@ -33,7 +33,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import model.Psychologist;
-import model.currentUser;
 
 public class psychController {
 	MainFXApp main = new MainFXApp();
@@ -135,12 +134,9 @@ public class psychController {
 	    	alert.setTitle("Detailed Patient Information");
 	    	
 	    	//gets the currently selected row patient name and contact number from the GUI table then displays it
-	    	alert.setHeaderText("Patient ID: " + psychTable.getSelectionModel().getSelectedItem().getPNumber().getValue()); 
-	    					
+	    	alert.setHeaderText("Patient ID: " + psychTable.getSelectionModel().getSelectedItem().getPNumber().getValue()); 	
 	    	alert.setContentText("Doctor: " + psychTable.getSelectionModel().getSelectedItem().getDocID().getValue());;
 	    	
-	    	ButtonType UpdateBtn = new ButtonType("Update");
-
 	    	//creates text area
 	    	TextArea notes = new TextArea();
 	    	notes.setText(psychTable.getSelectionModel().getSelectedItem().getPsychNotes().getValue());
@@ -175,9 +171,9 @@ public class psychController {
 		    		System.out.println("Invalid identification number for nurse function.");
 		    	}
 	    	}else if(type.equals("555")){//doctors
+	    		ButtonType UpdateBtn = new ButtonType("Update");
 	    		//waits for button to be clicked to perform an action -> stores in variable
-		    	alert.getButtonTypes().setAll(ButtonType.OK, UpdateBtn);
-		    	
+		    	alert.getButtonTypes().add(UpdateBtn);
 		    	Optional<ButtonType> result = alert.showAndWait();
 	    		if(result.get() == ButtonType.OK)
 		    	{
