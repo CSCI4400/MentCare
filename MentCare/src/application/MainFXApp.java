@@ -1,9 +1,12 @@
 package application;
 
 import java.sql.Connection;
+
+
 import controller.mainViewController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 /**
@@ -19,6 +22,7 @@ public class MainFXApp extends Application {
 	private static Scene scene;
 	public static Connection con = null;
 	
+	public static Window primaryStage;
 	public static Scene getScene(){
 		return scene;
 	}
@@ -29,6 +33,9 @@ public class MainFXApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			//Leo= this is need to make second window primary and not the first window. 
+			//it is needed to prevent the user from running the first windows when second is open
+			this.primaryStage= primaryStage;
 			con = DBConfig.getConnection();
 			
 			//CURRENTLY SET TO BYPASS LOGIN

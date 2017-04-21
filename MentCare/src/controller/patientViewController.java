@@ -89,6 +89,12 @@ public class patientViewController {
 				psychController con6 = new psychController();
 				con6.setMain(main);
 				break;
+			case "Pprescription":
+				//added by Team5
+				root = FXMLLoader.load(getClass().getResource("/view/Doctor.fxml"));
+				psychController con7 = new psychController();
+				con7.setMain(main);
+				break;
 			default:
 				root = FXMLLoader.load(getClass().getResource("/view/mainView.fxml"));
 				mainViewController con5 = new mainViewController();
