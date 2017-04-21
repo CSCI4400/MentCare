@@ -66,6 +66,12 @@ public class businessViewController {
                                 BusinessPredictionController con3 = new BusinessPredictionController();
                                 con3.setMain(main);
                                 break;
+                        case "deleteuser":
+                            root = FXMLLoader.load(getClass().getResource("/view/DeleteUser.fxml"));
+                            BusinessPredictionController con4 = new BusinessPredictionController();
+                            con4.setMain(main);
+                            break;
+                                
 
 			}
 			//added by butterscotch*********************************
