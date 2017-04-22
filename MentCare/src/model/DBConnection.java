@@ -1,6 +1,3 @@
-/**
- * Establishes connection to Database. Used in MainFXApp
- */
 package model;
 
 import java.sql.Connection;
@@ -29,10 +26,10 @@ public class DBConnection implements Runnable {
 
 			MainFXApp.con = Con1;
 
-	    } catch(Exception e){
-	    	e.printStackTrace();
-			}
-
+		} catch(Exception e){
+			e.printStackTrace();
 		}
+
+	}
 
 }

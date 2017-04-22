@@ -24,19 +24,22 @@ public class businessViewController {
 		main = mainIn;
 	}
 
-    @FXML
-    private Button bizHistoryButton;
+	@FXML
+	private Button bizHistoryButton;
 
-    @FXML
-    private Button missedAppointReportButton;
+	@FXML
+	private Button missedAppointReportButton;
 
-    //added by butterscotch
-    @FXML
-    private Button userButton;
+	//added by butterscotch
+	@FXML
+	private Button userButton;
 
+	//added by Team5
     @FXML
-    void ClickButton(ActionEvent event) {
-    	try {
+    private Button reportDataButton;
+	@FXML
+	void ClickButton(ActionEvent event) {
+		try {
 			// finds what stage the button is in
 			stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 			// this gets the name of button
@@ -61,12 +64,19 @@ public class businessViewController {
 				addUserController con2=new addUserController();
 				con2.setMain(main);
 				break;
-                        case "bizHistoryButton":
-                                root = FXMLLoader.load(getClass().getResource("/view/BusinessPrediction.fxml"));
-                                BusinessPredictionController con3 = new BusinessPredictionController();
-                                con3.setMain(main);
-                                break;
-
+			case "bizHistoryButton":
+				root = FXMLLoader.load(getClass().getResource("/view/BusinessPrediction.fxml"));
+				BusinessPredictionController con3 = new BusinessPredictionController();
+				con3.setMain(main);
+				break;
+			case "deleteuser":
+				root = FXMLLoader.load(getClass().getResource("/view/DeleteUser.fxml"));
+				BusinessPredictionController con4 = new BusinessPredictionController();
+				con4.setMain(main);
+				break;
+			case "reportDataButton":
+				root = FXMLLoader.load(getClass().getResource("/view/Reports.fxml"));
+				break;
 			}
 			//added by butterscotch*********************************
 			// sets fxml file as a scene
@@ -74,9 +84,9 @@ public class businessViewController {
 			// loads the scene on top of whatever stage the button is in
 			stage.setScene(scene);
 			//******************************************************
-    	}catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 
-    }
+	}
 }

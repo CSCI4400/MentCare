@@ -10,10 +10,11 @@ import java.sql.SQLException;
 
 public class DBConfig {//
 
+	Connection connection = null;
 	private static final String USERNAME = "mentcare";
 	private static final String PASSWORD = "mentcare1";
 	private static final String CONN = ("jdbc:mysql://164.132.49.5/");
-	private static final String DB = "mentcare2?useSSL=false";
+	private static final String DB = "mentcare2?autoReconnect=true&useSSL=false";
 	/**
 	 * Method that connects us to the SQL database
 	 * @return the database connection if connection is successful
@@ -25,7 +26,10 @@ public class DBConfig {//
 		// identify DB 'iVoterDB' then use a username 'root' and for this user
 		// it
 		// has no password
-		return DriverManager.getConnection((CONN + DB), USERNAME, PASSWORD);
+		System.out.println("Establishing connection to database");
+		Connection conn = DriverManager.getConnection((CONN + DB), USERNAME, PASSWORD);
+		System.out.println("Connection success");
+		return conn;
 	}
 	/**
 	 * Method that displays errors if the connection fails, like if you use the wrong username/password

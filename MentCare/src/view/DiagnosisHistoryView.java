@@ -34,9 +34,9 @@ public class DiagnosisHistoryView {
 
 	public static void DiagnosisHistory(Patient a, Stage window){
 
-		backbutton.setFont(Font.font("Georgia", 15));
-		deleteTemp.setFont(Font.font("Georgia", 15));
-		deleteExpired.setFont(Font.font("Georgia", 15));
+		backbutton.setFont(Font.font("Georgia", 13));
+		deleteTemp.setFont(Font.font("Georgia", 13));
+		deleteExpired.setFont(Font.font("Georgia", 13));
 
 
 		//This method controls the view for the Diagnosis History view.
@@ -53,14 +53,14 @@ public class DiagnosisHistoryView {
 		Diagnosis.setPadding(new Insets(15, 12, 15, 12));
 		Diagnosis.setSpacing(10);
 		Text t1 = new Text("Diagnosis: ");
-		t1.setFont(Font.font("Georgia", 15));
+		t1.setFont(Font.font("Georgia", 13));
 		t1.setStyle("-fx-font-weight: bold");
 		Diagnosis.getChildren().add(t1);
 
 		//label for Doctor Who Diagnosed column
 		DocWhoDiagnosed.setPadding(new Insets(15, 12, 15, 12));
 		DocWhoDiagnosed.setSpacing(10);
-		Text t2 = new Text("Doctor Who Diagnosed: ");
+		Text t2 = new Text("Doctor:");
 		t2.setFont(Font.font("Georgia", 15));
 		t2.setStyle("-fx-font-weight: bold");
 		DocWhoDiagnosed.getChildren().add(t2);
@@ -69,15 +69,15 @@ public class DiagnosisHistoryView {
 		//Label for Date of Diagnosis column
 		DateOfDiagnosis.setPadding(new Insets(15, 12, 15, 12));
 		DateOfDiagnosis.setSpacing(10);
-		Text t3 = new Text("Date of Diagnosis: ");
-		t3.setFont(Font.font("Georgia", 15));
+		Text t3 = new Text("Date:");
+		t3.setFont(Font.font("Georgia", 13));
 		t3.setStyle("-fx-font-weight: bold");
 		DateOfDiagnosis.getChildren().add(t3);
 
 		DiagnIsTemp.setPadding(new Insets(15, 12, 15, 12));
 		DiagnIsTemp.setSpacing(10);;
-		Text t4 = new Text("Diagnosis is Temporary: ");
-		t4.setFont(Font.font("Georgia", 15));
+		Text t4 = new Text("Temporary:");
+		t4.setFont(Font.font("Georgia", 13));
 		t4.setStyle("-fx-font-weight: bold");
 		DiagnIsTemp.getChildren().add(t4);
 
@@ -122,21 +122,21 @@ public class DiagnosisHistoryView {
 		for(String s : Diagnoses){
 			//adds labels for each diagnosis entry in the database
 			Label l = new Label(s);
-			l.setFont(Font.font("Georgia", 15));
+			l.setFont(Font.font("Georgia", 13));
 			Diagnosis.getChildren().add(l);
 		}
 
 		for(String s: DoctorNames){
 			//adds labels for each doctor who diagnosed entry in the database
 			Label l = new Label(s);
-			l.setFont(Font.font("Georgia", 15));
+			l.setFont(Font.font("Georgia", 13));
 			DocWhoDiagnosed.getChildren().add(l);
 		}
 
 		for(String s: DatesofD){
 			//adds labels for each date of diagnosis entry in the database
 			Label l = new Label(s);
-			l.setFont(Font.font("Georgia", 15));
+			l.setFont(Font.font("Georgia", 13));
 			DateOfDiagnosis.getChildren().add(l);
 		}
 
@@ -144,12 +144,12 @@ public class DiagnosisHistoryView {
 			//adds labels to indicate if a diagnosis is temporary
 			if(i == 0){
 				Label l = new Label("No");
-				l.setFont(Font.font("Georgia", 15));
+				l.setFont(Font.font("Georgia", 13));
 				DiagnIsTemp.getChildren().add(l);
 			}
 			else if(i == 1){
 				Label l = new Label("Yes");
-				l.setFont(Font.font("Georgia", 15));
+				l.setFont(Font.font("Georgia", 13));
 				DiagnIsTemp.getChildren().add(l);
 			}
 		}
@@ -227,8 +227,8 @@ public class DiagnosisHistoryView {
 
 	    DiagHistLayout.getChildren().addAll(Diagnosis, DocWhoDiagnosed, DateOfDiagnosis, DiagnIsTemp);
 
-		Scene diaghistview = new Scene(DiagHistLayout, 900, 520);
-		
+		Scene diaghistview = new Scene(DiagHistLayout, 600, 400);
+
 		diaghistview.getStylesheets().add(mainViewController.class.getResource("/application/application.css").toExternalForm());
 
 		window.setScene(diaghistview);

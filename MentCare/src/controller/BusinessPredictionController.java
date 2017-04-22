@@ -39,8 +39,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.chart.*;
 import javafx.scene.Group;
-
-import model.DBConnection;
 /**
  * FXML Controller class
  *
@@ -57,6 +55,8 @@ public class BusinessPredictionController implements Initializable {
 
     private MainFXApp main;
 
+    //Connection to DB
+    Connection conn = MainFXApp.con;
     
     public void setMain(MainFXApp mainIn){
         main = mainIn;
@@ -81,20 +81,18 @@ public class BusinessPredictionController implements Initializable {
     	int monthVal = 0;
     	int yearVal = 0;
 
-
         ResultSet rs = null;
 
         String IDQuery = "SELECT COUNT(*) FROM Previous_Appointment WHERE DATE(apDate) > (NOW() - INTERVAL 7 DAY)";
 
-        try (Connection conn = DBConfig.getConnection();
+        try (
              PreparedStatement getID = conn.prepareStatement(IDQuery, Statement.RETURN_GENERATED_KEYS))
         {
-            System.out.println("Query Sent" + getID.toString());
             rs = getID.executeQuery();
             if (rs.next())
             {
                 weekVal =  ((Number) rs.getObject(1)).intValue();
-                System.out.print(weekVal);
+                System.out.println("Week Value: " + weekVal);
             }
         }//end try
         catch (SQLException e) {
@@ -116,15 +114,14 @@ public class BusinessPredictionController implements Initializable {
 
         String IDQuery2 = "SELECT COUNT(*) FROM Previous_Appointment WHERE DATE(apDate) > (NOW() - INTERVAL 30 DAY)";
 
-        try (Connection conn = DBConfig.getConnection();
+        try (
              PreparedStatement getID = conn.prepareStatement(IDQuery2, Statement.RETURN_GENERATED_KEYS))
         {
-            System.out.println("Query Sent" + getID.toString());
             rs = getID.executeQuery();
             if (rs.next())
             {
                 monthVal =  ((Number) rs.getObject(1)).intValue();
-                System.out.print("\n" + monthVal);
+                System.out.println("Month Value: " + monthVal);
             }
         }//end try
 
@@ -148,15 +145,14 @@ public class BusinessPredictionController implements Initializable {
 
         String IDQuery3 = "SELECT COUNT(*) FROM Previous_Appointment WHERE DATE(apDate) > (NOW() - INTERVAL 365 DAY)";
 
-        try (Connection conn = DBConfig.getConnection();
+        try (
              PreparedStatement getID = conn.prepareStatement(IDQuery3, Statement.RETURN_GENERATED_KEYS))
         {
-            System.out.println("Query Sent " + getID.toString());
             rs = getID.executeQuery();
             if (rs.next())
             {
                 yearVal =  ((Number) rs.getObject(1)).intValue();
-                System.out.print(yearVal);
+                System.out.println("Year Value: " + yearVal);
             }
         }//end try
 

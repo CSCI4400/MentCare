@@ -57,6 +57,7 @@ public class mainViewController {
 		String type = loginController.loggedOnUser.getID().substring(0, 3);
 		
 		System.out.println(numTab);
+
 		switch(numTab){
 		case 0:
 			selectionModel.select(0);
