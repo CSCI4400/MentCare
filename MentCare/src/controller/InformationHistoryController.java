@@ -147,7 +147,8 @@ public class InformationHistoryController implements Initializable {
                         while(dateResults.next()){
                             //"SELECT FName,LName,BDate,Address,Sex,Phone_Number,Diagnosis,Date_Modified FROM Personal_History WHERE PNumber = '"+pNum+"'";
                             String tempDate = dateResults.getString("Date_Modified");
-                            dates.add(tempDate);
+                            if(!dates.contains(tempDate))
+                                dates.add(tempDate);
                         }
                         Collections.sort(dates,Collections.reverseOrder());
                         dateModified.setItems(FXCollections.observableArrayList(dates));
