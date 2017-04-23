@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="246.0" prefWidth="389.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="10.0" layoutY="39.0" text="Are you sure you want to delete:">
+         <font>
+            <Font name="Georgia" size="26.0" />
+         </font></Label>
+      <Label fx:id="ds_label_name" alignment="CENTER" layoutX="30.0" layoutY="101.0" prefHeight="30.0" prefWidth="330.0" text="Error" textAlignment="CENTER" textFill="#ff5619" underline="true">
+         <font>
+            <Font name="Georgia" size="20.0" />
+         </font></Label>
+      <Button fx:id="ds_ClickYes" layoutX="109.0" layoutY="172.0" mnemonicParsing="false" onAction="#ClickYes" text="Yes">
+         <font>
+            <Font name="Georgia" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="ds_ClickNo" layoutX="223.0" layoutY="172.0" mnemonicParsing="false" onAction="#ClickNo" text="No">
+         <font>
+            <Font name="Georgia" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

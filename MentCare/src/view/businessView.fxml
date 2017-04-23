@@ -21,11 +21,10 @@
          <rowConstraints>
             <RowConstraints />
             <RowConstraints maxHeight="440.0" minHeight="68.0" prefHeight="40.0" />
-            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="85.0" />
-            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="85.0" />
-            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="85.0" />
-            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="76.0" />
-            <RowConstraints maxHeight="440.0" minHeight="10.0" prefHeight="19.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="90.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="90.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="90.0" />
+            <RowConstraints maxHeight="440.0" minHeight="25.0" prefHeight="50.0" />
             <RowConstraints maxHeight="284.0" minHeight="0.0" prefHeight="0.0" />
             <RowConstraints maxHeight="142.0" minHeight="0.0" prefHeight="0.0" />
             <RowConstraints maxHeight="58.0" minHeight="0.0" prefHeight="0.0" />
@@ -43,7 +42,7 @@
             <RowConstraints maxHeight="39.0" minHeight="0.0" prefHeight="0.0" />
          </rowConstraints>
          <children>
-            <Button fx:id="userButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Add User" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button fx:id="userButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Add User" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>
@@ -53,7 +52,17 @@
                   <Font name="Georgia" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="missedAppointReportButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Today's Missed Appointment Report" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Button fx:id="missedAppointReportButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Today's Missed Appointment Report" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="deleteuser" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Delete Users" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="reportDataButton" mnemonicParsing="false" onAction="#ClickButton" prefHeight="29.0" prefWidth="281.0" text="Report Data" textFill="#010a66" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <font>
                   <Font name="Georgia" size="15.0" />
                </font>

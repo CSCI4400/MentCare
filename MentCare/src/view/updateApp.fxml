@@ -101,11 +101,11 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
-      <Button fx:id="cancelButton" layoutX="51.0" layoutY="429.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back" textFill="#010a66">
+      <Button fx:id="cancelButton" layoutX="32.0" layoutY="429.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="submitButton" layoutX="120.0" layoutY="429.0" mnemonicParsing="false" onAction="#ClickSubmitUpdateButton" text="Submit" textFill="#010a66">
+      <Button fx:id="submitButton" layoutX="283.0" layoutY="429.0" mnemonicParsing="false" onAction="#ClickSubmitUpdateButton" text="Submit" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
