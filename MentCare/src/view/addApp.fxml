@@ -27,7 +27,7 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="cancel" layoutX="50.0" layoutY="505.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Cancel" textFill="#010a66">
+      <Button fx:id="cancel" layoutX="50.0" layoutY="505.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>

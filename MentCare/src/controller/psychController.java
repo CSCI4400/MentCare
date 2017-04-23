@@ -1,7 +1,12 @@
 //fixed the back button- Anna 4/15/17
 //Added ability to create Patients Robert 4/21/17
+
 //Needs CSS styling
 //alert for failed entry now enabled. 
+
+//Still needs error checking.
+//Program will fail if user attempts to create a note with a patient that is not present in the DB.
+
 
 package controller;
 
@@ -227,7 +232,9 @@ public class psychController {
 	@FXML
 	void newNotes(ActionEvent event) throws Exception{
 		//for Robert - pop up space
+
 		//System.out.println("Notes go HERE, Robert!");
+
 		// Create the custom dialog.
 		Dialog dialog = new Dialog();
 		dialog.setTitle("Create Patient Notes");
@@ -296,8 +303,10 @@ public class psychController {
     			System.out.println("Connection error");
     			//TODO need to add some error checking/handling.
     			Alert failure = new Alert(AlertType.ERROR);
+
     			failure.setContentText("Patient name doesn't exist. Please try again.");
     			Optional<ButtonType> error = failure.showAndWait();
+
     		}
 			
 			
