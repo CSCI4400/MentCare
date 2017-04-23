@@ -25,7 +25,7 @@ public class mainViewController {
 	Parent root;
 
 	private static int numTab = 0;
-
+	
 	//always reference main method, and build constructor
 	private MainFXApp main;
 	public void setMain(MainFXApp mainIn)
@@ -33,19 +33,11 @@ public class mainViewController {
 		main = mainIn;
 	}
 
-	public static void setTab(int t){
-		numTab = t;
-		System.out.println("SET: "+numTab);
-	}
-
-	public static int getTab(){
-		return numTab;
-	}
 	@FXML private TabPane tpMenu = new TabPane();
 
 	@FXML AnchorPane apAppointments = new AnchorPane();
 	@FXML AnchorPane apPatients = new AnchorPane();
-	@FXML AnchorPane toBuisnessPane = new AnchorPane();
+	@FXML AnchorPane toBusinessPane = new AnchorPane();
 
 	@FXML Tab tbAppointments = new Tab();
 	@FXML Tab tbPatients = new Tab();
@@ -57,7 +49,6 @@ public class mainViewController {
 		String type = loginController.loggedOnUser.getID().substring(0, 3);
 		
 		System.out.println(numTab);
-
 		switch(numTab){
 		case 0:
 			selectionModel.select(0);
@@ -73,11 +64,13 @@ public class mainViewController {
 			selectionModel.select(3);
 			break;
 		}
+		
 		numTab = 0;
 		
 		try { //Make appointment view open at application launch
 			URL toPane;
 			AnchorPane temp;
+			
 			toPane = getClass().getResource("/view/appointmentView.fxml");
 		    temp = FXMLLoader.load(toPane);
 		    apAppointments.getChildren().setAll(temp);
@@ -94,9 +87,8 @@ public class mainViewController {
 					  String call = newTab.getId().toString();
 					  URL toPane;
 					  AnchorPane temp;
-					  switch(call)
-					  {
 
+					  switch(call){
 					  case "tbAppointments":
 						  toPane = getClass().getResource("/view/appointmentView.fxml");
 					      temp = FXMLLoader.load(toPane);
@@ -110,7 +102,7 @@ public class mainViewController {
 					  case "tbBusiness":
 						  toPane = getClass().getResource("/view/businessView.fxml");
 					      temp = FXMLLoader.load(toPane);
-					      toBuisnessPane.getChildren().setAll(temp);
+					      toBusinessPane.getChildren().setAll(temp);
 						  break;
 					  }
 
@@ -122,19 +114,18 @@ public class mainViewController {
 		
 		  switch(type){
 		  case "111":
-			  tbBusiness.setStyle("visibility: hidden");
-			  tbPatients.setStyle("visibility: hidden");
+			  tpMenu.getTabs().remove(1);
+			  tpMenu.getTabs().remove(1);//this is really 2 -> reordered after removing 1
 			  break;
 		  case "333":
 		  case "555":
-			  tbBusiness.setStyle("visibility: hidden");
+			  tpMenu.getTabs().remove(2);
 			  break;
 		  case "777":
-			  tbPatients.setStyle("visibility: hidden");
-			  tbAppointments.setStyle("visibility: hidden");
+			  tpMenu.getTabs().remove(0);
+			  tpMenu.getTabs().remove(0);//this is really 1
 			  break;
 		  
 		  }
-	}
-
-}
+	}//end method
+}//end class
