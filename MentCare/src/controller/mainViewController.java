@@ -52,20 +52,16 @@ public class mainViewController {
 		switch(numTab){
 		case 0:
 			selectionModel.select(0);
-			System.out.println("used");
 			break;
 		case 1:
 			selectionModel.select(1);
-			System.out.println("used2");
 			//tpMenu.getSelectionModel().select(tbAppointments);
 			break;
 		case 2:
 			selectionModel.select(2);
-			System.out.println("used3");
 			break;
 		case 3:
 			selectionModel.select(3);
-			System.out.println("used4");
 			break;
 		}
 		
