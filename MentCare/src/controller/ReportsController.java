@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,9 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
-
 import application.DBConfig;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +25,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.DBConnection;
 
 public class ReportsController
 {
@@ -49,8 +45,6 @@ public class ReportsController
 	private Button monthlyButton;
 	@FXML
 	private Button yearlyButton;
-	@FXML
-	private TextField tf;
 	@FXML
 	private Button btn;
 
@@ -222,6 +216,10 @@ public class ReportsController
 			final NumberAxis yAxis = new NumberAxis();
 			final BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
 			bc.setTitle("Mentcare Generated Report");
+			//css styling
+			bc.getStylesheets().add(
+	    			   getClass().getResource("/application/application.css").toExternalForm());
+			bc.getStyleClass().add("alert");
 			xAxis.setLabel("Patient Danger level");
 			yAxis.setLabel("Number of Patients Seen");
 
@@ -258,6 +256,10 @@ public class ReportsController
 			final NumberAxis yAxis = new NumberAxis();
 			final BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
 			bc.setTitle("Mentcare Generated Report");
+			//css styling
+			bc.getStylesheets().add(
+	    			   getClass().getResource("/application/application.css").toExternalForm());
+			bc.getStyleClass().add("alert");
 			xAxis.setLabel("Patient Danger level");
 			yAxis.setLabel("Number of Patients Seen");
 
@@ -283,6 +285,10 @@ public class ReportsController
 			final NumberAxis yAxis = new NumberAxis();
 			final BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
 			bc.setTitle("Mentcare Generated Report");
+			//css styling
+			bc.getStylesheets().add(
+	    			   getClass().getResource("/application/application.css").toExternalForm());
+			bc.getStyleClass().add("alert");
 			xAxis.setLabel("Patient Danger level");
 			yAxis.setLabel("Number of Patients Seen");
 
@@ -308,6 +314,10 @@ public class ReportsController
 			final NumberAxis yAxis = new NumberAxis();
 			final BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
 			bc.setTitle("Mentcare Generated Report");
+			//css styling
+			bc.getStylesheets().add(
+	    			   getClass().getResource("/application/application.css").toExternalForm());
+			bc.getStyleClass().add("alert");
 			xAxis.setLabel("Patient Danger level");
 			yAxis.setLabel("Number of Patients Seen");
 

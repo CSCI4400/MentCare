@@ -251,7 +251,7 @@ ResultSet rs = conn.createStatement().executeQuery("SELECT Fname, Lname, Bdate, 
 				sm.close();
 				
 				dc_lb_cu.setText("Successfully Updated!");
-				dc_lb_cu.setTextFill(Color.GREEN);
+				dc_lb_cu.setTextFill(Color.NAVY);
 				
 				time();
 				readtime();
