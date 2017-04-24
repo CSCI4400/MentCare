@@ -28,15 +28,15 @@ public class EditPatientRecordsController {
 	static RadioButton yesdead = new RadioButton("Yes");
 	static RadioButton nodead = new RadioButton("No");
 
-	public static Text firstnamel = new Text("First Name:");
-	public static Text lastnamel = new Text("Last name:");
-	public static Text birthdatel = new Text("Birthdate:");
-	public static Text homeaddressl = new Text("Home Address");
-	public static Text genderl = new Text("Gender:");
-	public static Text phonenumberl = new Text("Phone Number:");
-	public static Text diagnosisl = new Text("Diagnosis:");
-	public static Text ssnl = new Text("SSN: ");
-	public static Text lastvisitl = new Text("Last Visit Was: ");
+	public static Label firstnamel = new Label("First Name:");
+	public static Label lastnamel = new Label("Last name:");
+	public static Label birthdatel = new Label("Birthdate:");
+	public static Label homeaddressl = new Label("Home Address");
+	public static Label genderl = new Label("Gender:");
+	public static Label phonenumberl = new Label("Phone Number:");
+	public static Label diagnosisl = new Label("Diagnosis:");
+	public static Label ssnl = new Label("SSN: ");
+	public static Label lastvisitl = new Label("Last Visit Was: ");
 	static CheckBox tempDiagnosis = new CheckBox("Diagnosis is temporary");
 	//Query to check if the patient is dead
 	static String deathCheck = "SELECT mentcare2.Personal_Info.Dead FROM mentcare2.Personal_Info WHERE mentcare2.Personal_Info.PNumber = ?";

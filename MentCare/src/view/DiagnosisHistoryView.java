@@ -52,7 +52,7 @@ public class DiagnosisHistoryView {
 		//label for Diagnosis column
 		Diagnosis.setPadding(new Insets(15, 12, 15, 12));
 		Diagnosis.setSpacing(10);
-		Text t1 = new Text("Diagnosis: ");
+		Label t1 = new Label("Diagnosis: ");
 		t1.setFont(Font.font("Georgia", 13));
 		t1.setStyle("-fx-font-weight: bold");
 		Diagnosis.getChildren().add(t1);
@@ -60,7 +60,7 @@ public class DiagnosisHistoryView {
 		//label for Doctor Who Diagnosed column
 		DocWhoDiagnosed.setPadding(new Insets(15, 12, 15, 12));
 		DocWhoDiagnosed.setSpacing(10);
-		Text t2 = new Text("Doctor:");
+		Label t2 = new Label("Doctor:");
 		t2.setFont(Font.font("Georgia", 15));
 		t2.setStyle("-fx-font-weight: bold");
 		DocWhoDiagnosed.getChildren().add(t2);
@@ -69,14 +69,14 @@ public class DiagnosisHistoryView {
 		//Label for Date of Diagnosis column
 		DateOfDiagnosis.setPadding(new Insets(15, 12, 15, 12));
 		DateOfDiagnosis.setSpacing(10);
-		Text t3 = new Text("Date:");
+		Label t3 = new Label("Date:");
 		t3.setFont(Font.font("Georgia", 13));
 		t3.setStyle("-fx-font-weight: bold");
 		DateOfDiagnosis.getChildren().add(t3);
 
 		DiagnIsTemp.setPadding(new Insets(15, 12, 15, 12));
 		DiagnIsTemp.setSpacing(10);;
-		Text t4 = new Text("Temporary:");
+		Label t4 = new Label("Temporary:");
 		t4.setFont(Font.font("Georgia", 13));
 		t4.setStyle("-fx-font-weight: bold");
 		DiagnIsTemp.getChildren().add(t4);
