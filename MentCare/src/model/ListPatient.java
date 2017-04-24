@@ -29,12 +29,17 @@ public class ListPatient {
     String next_visit = null;
     String ssn = null;
     String photo = null;
+    String phone_number = null;
+    String last_changed_by = null;
+    String patient_issue = null;
 
 
 
-    // Constructor with all of the patient information
+
+
+	// Constructor with all of the patient information
     public ListPatient(int id, int patient_history_id, String first_name, String last_name, String email_address, String home_address, String last_visit,
-			String next_visit, String ssn, String photo) {
+			String next_visit, String ssn, String photo, int PatientHistoyId, String patient_issue) {
 		super();
 		this.history_id = patient_history_id;
 		this.id = id;
@@ -46,7 +51,26 @@ public class ListPatient {
 		this.next_visit = next_visit;
 		this.ssn = ssn;
 		this.photo = photo;
+		this.history_id = PatientHistoyId;
+		this.patient_issue = patient_issue;
+
 	}
+
+    public ListPatient(int id, String first_name, String last_name, String home_address, String phone_number, String last_changed_by, int patient_history_id, String photo, String patientIssue) {
+
+		super();
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.home_address = home_address;
+		this.phone_number = phone_number;
+		this.last_changed_by = last_changed_by;
+		this.history_id = patient_history_id;
+		this.photo = photo;
+		this.patient_issue = patientIssue;
+	}
+
+
+
 	//Patient constructor with little information for testing
     public ListPatient(String first_name, String last_name, String home_address) {
 		super();
@@ -75,6 +99,16 @@ public class ListPatient {
 	}
 	public void setFirst_name(String first_name) {
 		this.first_name = first_name;
+	}
+	public String getPhone_Number() {
+		return phone_number;
+	}
+
+	public String getLast_Changed_By() {
+		return last_changed_by;
+	}
+	public void setLast_Changed_By(String last_changed_by) {
+		this.last_changed_by = last_changed_by;
 	}
 	public String getLast_name() {
 		return last_name;
@@ -166,7 +200,13 @@ public class ListPatient {
 
 
 
+	public String getPatient_issue() {
+		return patient_issue;
+	}
 
+	public void setPatient_issue(String patient_issue) {
+		this.patient_issue = patient_issue;
+	}
 
 
 
@@ -202,7 +242,7 @@ public class ListPatient {
 
 	    // Connect to a database
 	    java.sql.Connection connection = DriverManager.getConnection
-				("jdbc:mysql://198.71.227.86:3306/mentcare_db", "TeamTigerWoods", "GOATGOAT");
+				("jdbc:mysql://164.132.49.5:3306/mentcare2", "mentcare", "mentcare1");
 	    System.out.println("Database connected");
 
 	    // Create a statement
@@ -230,7 +270,7 @@ public class ListPatient {
 
 	    // Connect to a database
 	    java.sql.Connection connection = DriverManager.getConnection
-				("jdbc:mysql://198.71.227.86:3306/mentcare_db", "TeamTigerWoods", "GOATGOAT");
+				("jdbc:mysql://164.132.49.5:3306/mentcare2", "mentcare", "mentcare1");
 	    System.out.println("Database connected");
 
 	    // Create a statement
