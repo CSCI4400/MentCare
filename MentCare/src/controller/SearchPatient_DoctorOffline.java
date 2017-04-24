@@ -251,7 +251,7 @@ ResultSet rs = conn.createStatement().executeQuery("SELECT Fname, Lname, Bdate, 
 				sm.close();
 				
 				dc_lb_cu.setText("Successfully Updated!");
-				dc_lb_cu.setTextFill(Color.NAVY);
+				dc_lb_cu.setTextFill(Color.web("#010a66"));
 				
 				time();
 				readtime();
@@ -259,7 +259,7 @@ ResultSet rs = conn.createStatement().executeQuery("SELECT Fname, Lname, Bdate, 
 			} catch (SQLException ex) {
 				System.out.println(ex);
 				dc_lb_cu.setText("Failed To Update! Check Connection");
-				dc_lb_cu.setTextFill(Color.RED);
+				dc_lb_cu.setTextFill(Color.web("#ff5619"));
 				readtime();
 			}
 			
@@ -334,11 +334,11 @@ dc_columnDid.setCellFactory(column -> {
             if (!isEmpty()) {
 
                 if(item.equals("high")||item.equals("High"))
-                    currentRow.setStyle("-fx-background-color:lightcoral");
+                    currentRow.setStyle("-fx-background-color: lightcoral");
                 else if (item.equals("medium")|| item.equals("Medium"))
-                    currentRow.setStyle("-fx-background-color:#dee727");
+                    currentRow.setStyle("-fx-background-color: #dee727");
                 else if (item.equals("low") ||item.equals("Low"))
-                    currentRow.setStyle("-fx-background-color:lightgreen");
+                    currentRow.setStyle("-fx-background-color: lightgreen");
                 else 
                 	currentRow.setStyle("-fx-background-color:blue");
 
