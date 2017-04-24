@@ -4,8 +4,10 @@
 //Needs CSS styling
 //alert for failed entry now enabled. 
 
-//Still needs error checking.
-//Program will fail if user attempts to create a note with a patient that is not present in the DB.
+//Robert 4/23/17
+//catch block still prints stack trace, but pop-up displays error message/reprompts users.
+//Added prepared statement to searchButton
+//ReAdded labels to searchButton. They should now show when users input invalid/nonexistent users
 
 
 package controller;
@@ -65,6 +67,8 @@ public class psychController {
 	@FXML private TableColumn<Psychologist, String> DocNumCol;
 	@FXML private TextField PnumTF;
 	@FXML private Button backBtn;
+	@FXML private Label lblErrInvalidInput;
+	@FXML private Label lblErrUserNotFound;
 	//creates lists for psychologist
 	static List<Psychologist> list = new ArrayList<Psychologist>();
 	@FXML static ObservableList<Psychologist> appList = FXCollections.observableList(list);
@@ -97,13 +101,21 @@ public class psychController {
 	@FXML
 	void ClickSearchButton(ActionEvent event) throws Exception{
 		System.out.println("Search Button pressed.");
+		System.out.println("Search Button pressed.");
+		lblErrInvalidInput.setText("");
+		lblErrUserNotFound.setText("");
+		
 		try{
 			appList.clear();
     		String enterPnum = PnumTF.getText();
-
-    		String query = ("select * from mentcare2.Psych_Notes where Pnum='" + enterPnum + "'"); //Grabs all columns based on Pnum textfield.
+    		if(PnumTF.getText().matches("[0-9]+"))
+    		{
+    		String query = ("select * from mentcare2.Psych_Notes, where Pnum=?"); //Grabs all columns based on Pnum textfield.
+    		
     		Connection conn = DBConfig.getConnection();
-    		Statement statement = conn.createStatement();
+    		PreparedStatement statement = conn.prepareStatement(query);
+    		statement.setString(1,enterPnum);
+    		
         	ResultSet RS = null;
         	String Pnum = null, DocID = null, PsychNotes = null;
 
@@ -123,12 +135,24 @@ public class psychController {
         			Psychologist psych = new Psychologist(Pnum, DocID, PsychNotes);
   		      		appList.add(psych);
       		    }
+        		if(Pnum==null)
+            	{	lblErrUserNotFound.setText("No User Exists.");
+            		System.out.println("No such user.");
+            		
+            	}
         		//Updates table in psychView
         		PNumCol.setCellValueFactory(cellData -> cellData.getValue().getPNumber());
                 DocNumCol.setCellValueFactory(cellData -> cellData.getValue().getDocID());
                 PsychNoteCol.setCellValueFactory(cellData -> cellData.getValue().getPsychNotes());
                 System.out.println(appList);
                 psychTable.setItems(appList);
+    		}
+    		//whitelisted numeric input, if any other character is found then error label appears.
+    		else
+    		{
+    			lblErrInvalidInput.setText("Invalid Input. Please Enter Patient number.");
+    			System.out.println("Invalid Input.");
+    		}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -299,11 +323,12 @@ public class psychController {
                 //ClickSearchButton(null);
                 
     		}catch(Exception e){
+    			//print stack trace for developers
     			e.printStackTrace();
-    			System.out.println("Connection error");
-    			//TODO need to add some error checking/handling.
+    		
+    			
     			Alert failure = new Alert(AlertType.ERROR);
-
+    			//safely catches error by pop-up alert.
     			failure.setContentText("Patient name doesn't exist. Please try again.");
     			Optional<ButtonType> error = failure.showAndWait();
 
