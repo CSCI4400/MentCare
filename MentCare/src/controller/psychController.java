@@ -1,6 +1,5 @@
 //fixed the back button- Anna 4/15/17
 //Added ability to create Patients Robert 4/21/17
-
 //Needs CSS styling
 //alert for failed entry now enabled. 
 
@@ -21,14 +20,12 @@ import java.util.List;
 import java.util.Optional;
 import application.DBConfig;
 import application.MainFXApp;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -38,20 +35,16 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import model.Psychologist;
-import model.currentUser;
 
 public class psychController {
 	MainFXApp main = new MainFXApp();
@@ -256,11 +249,16 @@ public class psychController {
 	@FXML
 	void newNotes(ActionEvent event) throws Exception{
 		//for Robert - pop up space
-
-		//System.out.println("Notes go HERE, Robert!");
-
+		System.out.println("Notes go HERE, Robert!");
 		// Create the custom dialog.
 		Dialog dialog = new Dialog();
+		
+		DialogPane dialogPane = dialog.getDialogPane();
+		//css for info alert box
+    	dialogPane.getStylesheets().add(
+    			   getClass().getResource("/application/application.css").toExternalForm());
+    	dialogPane.getStyleClass().add("alert");
+    	
 		dialog.setTitle("Create Patient Notes");
 		dialog.setHeaderText("Enter Patient Info Below");
 
@@ -275,14 +273,14 @@ public class psychController {
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
-		grid.setPadding(new Insets(20, 150, 10, 10));
+		grid.setPadding(new Insets(20, 90, 10, 10));
 
 		TextField pnum = new TextField();
-		pnum.setPromptText("Patient ID");
+		pnum.setPromptText("Patient Number");
 		TextArea notes = new TextArea();
 		notes.setPromptText("Enter Patient Notes Here");
 
-		grid.add(new Label("Patient Number:"), 0, 0);
+		grid.add(new Label("Patient ID:"), 0, 0);
 		grid.add(pnum, 1, 0);
 		grid.add(new Label("Notes:"), 0, 1);
 		grid.add(notes, 1, 1);
@@ -306,7 +304,7 @@ public class psychController {
 		    System.out.println(doc);
 		//expands window to view full text area -> hides automatically if this is not set
 		dialog.getDialogPane().setExpanded(true);
-		if (result.get()==createBtn){
+		if (result.get() == createBtn){
 			System.out.println("inserted");
 			try{ 
     			Connection conn = DBConfig.getConnection();
@@ -316,7 +314,7 @@ public class psychController {
                 PreparedStatement.setString(2, doc);
                 PreparedStatement.setString(3, notes.getText());
                
-                 PreparedStatement.execute();
+                PreparedStatement.execute();
                 PreparedStatement.close();
                 dialog.close();
                 //used to reset search results. It is slow though.
@@ -331,13 +329,12 @@ public class psychController {
     			//safely catches error by pop-up alert.
     			failure.setContentText("Patient name doesn't exist. Please try again.");
     			Optional<ButtonType> error = failure.showAndWait();
-
     		}
 			
 			
 			
 		}
-		else if(result.get()==ButtonType.OK){
+		else if(result.get() == ButtonType.OK){
 			dialog.close();
 		}
 
@@ -345,4 +342,3 @@ public class psychController {
 		
 	}//end method
 }//end class
-
