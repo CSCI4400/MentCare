@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="492.0" prefWidth="640.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.updateAppController">
    <children>
-      <Label layoutX="31.0" layoutY="82.0" prefHeight="42.0" prefWidth="140.0" text="Patient ID:" textFill="#010a66">
+      <Label layoutX="96.0" layoutY="82.0" prefHeight="42.0" prefWidth="91.0" text="Patient ID:" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
@@ -101,11 +101,11 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
-      <Button fx:id="cancelButton" layoutX="51.0" layoutY="429.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back" textFill="#010a66">
+      <Button fx:id="cancelButton" layoutX="32.0" layoutY="429.0" mnemonicParsing="false" onAction="#ClickCancelButton" text="Back" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
-      <Button fx:id="submitButton" layoutX="120.0" layoutY="429.0" mnemonicParsing="false" onAction="#ClickSubmitUpdateButton" text="Submit" textFill="#010a66">
+      <Button fx:id="submitButton" layoutX="283.0" layoutY="429.0" mnemonicParsing="false" onAction="#ClickSubmitUpdateButton" text="Submit" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
