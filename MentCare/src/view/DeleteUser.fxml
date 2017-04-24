@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="472.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Delete">
+<AnchorPane prefHeight="472.0" prefWidth="571.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Delete">
    <children>
-      <TableView fx:id="table_delete" layoutX="97.0" layoutY="107.0" prefHeight="292.0" prefWidth="378.0">
+      <TableView fx:id="table_delete" layoutX="56.0" layoutY="116.0" prefHeight="292.0" prefWidth="459.0">
         <columns>
           <TableColumn fx:id="Column_UserId" prefWidth="139.0" text="UserId" />
           <TableColumn fx:id="Column_Name" prefWidth="238.0" text="Name" />
         </columns>
       </TableView>
-      <Label layoutX="238.0" layoutY="27.0" text="Delete a User">
+      <Label layoutX="203.0" layoutY="30.0" text="Delete a User">
          <font>
-            <Font size="20.0" />
+            <Font name="Georgia" size="26.0" />
          </font></Label>
-      <Button fx:id="Button_search" layoutX="362.0" layoutY="75.0" mnemonicParsing="false" onAction="#ClickDeleteSearch" text="Search" />
-      <TextField fx:id="delete_searchField" layoutX="200.0" layoutY="75.0" prefHeight="25.0" prefWidth="160.0" promptText="Enter Id, Name or Keyword" />
-      <Label layoutX="396.0" layoutY="441.0" text="Double Click to Delete a User." textFill="#07f222" />
-      <Button fx:id="Button_back" layoutX="505.0" layoutY="15.0" mnemonicParsing="false" onAction="#ClickBack" text="Back" />
+      <Button fx:id="Button_search" layoutX="340.0" layoutY="75.0" mnemonicParsing="false" onAction="#ClickDeleteSearch" text="Search">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Button>
+      <TextField fx:id="delete_searchField" layoutX="155.0" layoutY="75.0" prefHeight="29.0" prefWidth="168.0" promptText="Enter Id, Name or Keyword">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></TextField>
+      <Label layoutX="317.0" layoutY="436.0" text="Double Click to Delete a User." textFill="#ff5619">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Label>
+      <Button fx:id="Button_back" layoutX="56.0" layoutY="425.0" mnemonicParsing="false" onAction="#ClickBack" text="Back">
+         <font>
+            <Font name="Georgia" size="15.0" />
+         </font></Button>
    </children>
 </AnchorPane>
