@@ -103,7 +103,7 @@ public class psychController {
     		String enterPnum = PnumTF.getText();
     		if(PnumTF.getText().matches("[0-9]+"))
     		{
-    			String query = ("select * from mentcare.Psych_Notes where Pnum='" + enterPnum + "'"); //Grabs all columns based on Pnum textfield.
+    			String query = ("select * from mentcare2.Psych_Notes where Pnum='" + enterPnum + "'"); //Grabs all columns based on Pnum textfield.
      		   
         		Connection conn = DBConfig.getConnection();
         		PreparedStatement statement = conn.prepareStatement(query);
@@ -182,7 +182,11 @@ public class psychController {
 	    	notes.setText(psychTable.getSelectionModel().getSelectedItem().getPsychNotes().getValue());
 	    	
 	    	//makes text area editable for the doctor to make changes
-	    	notes.setEditable(true);
+	    	if(type.equals("555")){
+	    		notes.setEditable(true);
+	    	}else{
+	    		notes.setEditable(false);
+	    	}
 	    	notes.setWrapText(true);
 	    	//sets grid dimensions
 	    	notes.setMaxWidth(Double.MAX_VALUE);
@@ -208,7 +212,7 @@ public class psychController {
 		    	}
 	    	}else if(type.equals("555")){//doctors
 	    		//waits for button to be clicked to perform an action -> stores in variable
-		    	alert.getButtonTypes().setAll(UpdateBtn);
+		    	alert.getButtonTypes().setAll(UpdateBtn, ButtonType.OK);
 		    	
 		    	Optional<ButtonType> result = alert.showAndWait();
 	    		if(result.get() == ButtonType.OK)
