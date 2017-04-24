@@ -13,14 +13,14 @@
       <TableView fx:id="table_delete" layoutX="56.0" layoutY="116.0" prefHeight="292.0" prefWidth="459.0">
         <columns>
           <TableColumn fx:id="Column_UserId" prefWidth="139.0" text="UserId" />
-          <TableColumn fx:id="Column_Name" prefWidth="238.0" text="Name" />
+          <TableColumn fx:id="Column_Name" prefWidth="319.0" text="Name" />
         </columns>
       </TableView>
-      <Label layoutX="203.0" layoutY="30.0" text="Delete a User">
+      <Label layoutX="203.0" layoutY="30.0" text="Delete a User" textFill="#010a66">
          <font>
             <Font name="Georgia" size="26.0" />
          </font></Label>
-      <Button fx:id="Button_search" layoutX="340.0" layoutY="75.0" mnemonicParsing="false" onAction="#ClickDeleteSearch" text="Search">
+      <Button fx:id="Button_search" layoutX="340.0" layoutY="75.0" mnemonicParsing="false" onAction="#ClickDeleteSearch" text="Search" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
@@ -32,7 +32,7 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
-      <Button fx:id="Button_back" layoutX="56.0" layoutY="425.0" mnemonicParsing="false" onAction="#ClickBack" text="Back">
+      <Button fx:id="Button_back" layoutX="56.0" layoutY="425.0" mnemonicParsing="false" onAction="#ClickBack" text="Back" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
