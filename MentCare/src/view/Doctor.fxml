@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="506.0" prefWidth="666.0" styleClass="mentStyle" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchPatient_DoctorOffline">
    <children>
-      <Button fx:id="dc_b_cu" layoutX="265.0" layoutY="454.0" mnemonicParsing="false" onAction="#ClickUpdate" text="Check for Update">
+      <Button fx:id="dc_b_cu" layoutX="265.0" layoutY="454.0" mnemonicParsing="false" onAction="#ClickUpdate" text="Check for Update" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
@@ -17,7 +17,7 @@
          <font>
             <Font name="Georgia" size="26.0" />
          </font></Label>
-      <Button fx:id="dc_b_refresh" layoutX="541.0" layoutY="454.0" mnemonicParsing="false" onAction="#ClickRefresh" text="Refresh">
+      <Button fx:id="dc_b_refresh" layoutX="541.0" layoutY="454.0" mnemonicParsing="false" onAction="#ClickRefresh" text="Refresh" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
@@ -34,7 +34,7 @@
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Label>
-      <Button fx:id="buttongoback" layoutX="55.0" layoutY="455.0" mnemonicParsing="false" onAction="#GobackClick" text="Back">
+      <Button fx:id="buttongoback" layoutX="55.0" layoutY="455.0" mnemonicParsing="false" onAction="#GobackClick" text="Back" textFill="#010a66">
          <font>
             <Font name="Georgia" size="15.0" />
          </font></Button>
