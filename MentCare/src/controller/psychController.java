@@ -103,11 +103,11 @@ public class psychController {
     		String enterPnum = PnumTF.getText();
     		if(PnumTF.getText().matches("[0-9]+"))
     		{
-    		String query = ("select * from mentcare2.Psych_Notes, where Pnum=?"); //Grabs all columns based on Pnum textfield.
+    			String query = ("select * from mentcare.Psych_Notes where Pnum='" + enterPnum + "'"); //Grabs all columns based on Pnum textfield.
+     		   
+        		Connection conn = DBConfig.getConnection();
+        		PreparedStatement statement = conn.prepareStatement(query);
     		
-    		Connection conn = DBConfig.getConnection();
-    		PreparedStatement statement = conn.prepareStatement(query);
-    		statement.setString(1,enterPnum);
     		
         	ResultSet RS = null;
         	String Pnum = null, DocID = null, PsychNotes = null;
@@ -262,8 +262,6 @@ public class psychController {
 		dialog.setTitle("Create Patient Notes");
 		dialog.setHeaderText("Enter Patient Info Below");
 
-		// Set the icon (must be included in the project).
-		//dialog.setGraphic(new ImageView(this.getClass().getResource("login.png").toString()));
 
 		// Set the button types.
 		ButtonType createBtn = new ButtonType("Create", ButtonData.OK_DONE);
