@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.net.URL;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -44,6 +46,25 @@ public class mainViewController {
 	@FXML Tab tbBusiness = new Tab();
 	@FXML SingleSelectionModel<Tab> selectionModel = tpMenu.getSelectionModel();
 
+	
+	@FXML private Button btnLogout;
+	@FXML
+	void ClickLogout(ActionEvent event) throws Exception {
+		try{
+			System.out.println("Logging out");
+			stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+			root = FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
+			loginController logCon = new loginController();
+			logCon.setMain(logCon.main);
+			scene = new Scene(root);
+			stage.setScene(scene);
+			
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	public void initialize(){
 		//gets which role the user is
 		String type = loginController.loggedOnUser.getID().substring(0, 3);
