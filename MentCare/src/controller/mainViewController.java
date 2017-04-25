@@ -44,6 +44,25 @@ public class mainViewController {
 	@FXML Tab tbBusiness = new Tab();
 	@FXML SingleSelectionModel<Tab> selectionModel = tpMenu.getSelectionModel();
 
+	
+	@FXML private Button btnLogout;
+	@FXML
+	void ClickLogout(ActionEvent event) throws Exception {
+		try{
+			System.out.println("Logging out");
+			stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+			root = FXMLLoader.load(getClass().getResource("/view/loginView.fxml"));
+			loginController logCon = new loginController();
+			logCon.setMain(logCon.main);
+			scene = new Scene(root);
+			stage.setScene(scene);
+			
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	public void initialize(){
 		//gets which role the user is
 		String type = loginController.loggedOnUser.getID().substring(0, 3);
