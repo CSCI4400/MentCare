@@ -109,7 +109,7 @@ public class addAppController {
                 rb5.setToggleGroup(rg);
 
                  //disable the submit button and all select buttons 
-                //until all dates are checked and a time is selected to prevent dumb users from fucking shit up
+                //until all dates are checked and a time is selected 
                 submit.setDisable(true);
                 
                 rb8.setDisable(true);
